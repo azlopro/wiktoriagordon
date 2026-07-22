@@ -1,0 +1,48 @@
+{{ $p := .Site.Params -}}
+{{ $title := printf "%s · %s · %s" $p.businessName $p.tagline $p.city -}}
+{{ $desc := $p.description -}}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ $title }}</title>
+<meta name="description" content="{{ $desc }}">
+<meta name="author" content="{{ $p.ownerName }}">
+<meta name="theme-color" content="#FAF5F0">
+<script>document.documentElement.classList.add('js');</script>
+<link rel="canonical" href="{{ .Permalink }}">
+<meta name="robots" content="index, follow, max-image-preview:large">
+
+<!-- Sprog-alternativer (hreflang) -->
+{{ range .AllTranslations -}}
+<link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}">
+{{ end -}}
+<link rel="alternate" hreflang="x-default" href="{{ .Site.Home.Permalink }}">
+
+<!-- Open Graph / social -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{ $p.businessName }}">
+<meta property="og:title" content="{{ $title }}">
+<meta property="og:description" content="{{ $desc }}">
+<meta property="og:locale" content="{{ $p.ogLocale }}">
+{{ range .Translations }}<meta property="og:locale:alternate" content="{{ .Site.Params.ogLocale }}">
+{{ end -}}
+<meta property="og:url" content="{{ .Permalink }}">
+{{ with $p.ogImage }}<meta property="og:image" content="{{ . | absURL }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">{{ end }}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ $title }}">
+<meta name="twitter:description" content="{{ $desc }}">
+{{ with $p.ogImage }}<meta name="twitter:image" content="{{ . | absURL }}">{{ end }}
+
+<!-- Ikoner -->
+<link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
+<link rel="apple-touch-icon" href="{{ "apple-touch-icon.png" | relURL }}">
+<link rel="manifest" href="{{ "site.webmanifest" | relURL }}">
+
+<!-- Fonte (self-hostet) -->
+<link rel="preload" href="{{ "fonts/cormorant-garamond-500-normal-latin.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ "fonts/jost-400-normal-latin.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{{ "css/fonts.css" | relURL }}">
+<link rel="stylesheet" href="{{ "css/style.css" | relURL }}">
+
+{{ partial "schema.html" . }}

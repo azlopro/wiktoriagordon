@@ -1,0 +1,70 @@
+baseURL = "https://www.wiktoriagordon.dk/"
+enableRobotsTXT = true
+disableKinds = ["taxonomy", "term"]
+
+defaultContentLanguage = "da"
+defaultContentLanguageInSubdir = false   # dansk på /, engelsk på /en/
+
+# =====================================================================
+#  Sprog
+# =====================================================================
+[languages]
+  [languages.da]
+    locale = "da-DK"
+    label = "Dansk"
+    weight = 1
+    title = "Wiktoria Gordon Beauty"
+    [languages.da.params]
+      tagline = "Koreansk lash lift & bryn der passer til dig"
+      description = "Koreansk lash lift og brynstyling i Horsens. Naturligt løft, bryn der klæder dit ansigt, og en rolig, personlig oplevelse. Betroet af 180+ kvinder. Book din tid hos Wiktoria Gordon Beauty."
+      ogLocale = "da_DK"
+      country = "Danmark"
+
+  [languages.en]
+    locale = "en-GB"
+    label = "English"
+    weight = 2
+    title = "Wiktoria Gordon Beauty"
+    [languages.en.params]
+      tagline = "Korean lash lift & brows that suit you"
+      description = "Korean lash lift and brow styling in Horsens, Denmark. A natural lift, brows shaped to suit your face, and a calm, personal experience. Trusted by 180+ women. Book with Wiktoria Gordon Beauty."
+      ogLocale = "en_DK"
+      country = "Denmark"
+
+# =====================================================================
+#  Fælles oplysninger (samme på begge sprog)
+# =====================================================================
+[params]
+  businessName = "Wiktoria Gordon Beauty"
+  ownerName = "Wiktoria Gordon"
+  city = "Horsens"
+  region = "Midtjylland"
+  postalCode = "8700"
+  cvr = "45930238"
+  trustCount = "180+"
+  trustNumber = "180"
+  priceRange = "300–650 kr."
+
+  instagram = "https://www.instagram.com/wiktoriagordon.beauty/"
+  instagramHandle = "wiktoriagordon.beauty"
+  instagramDM = "https://ig.me/m/wiktoriagordon.beauty"
+  facebook = "https://www.facebook.com/p/Wiktoria-Lash-Studio-61580409810902/"
+  # Direkte link til anmeldelses-fanen på Facebook-siden
+  facebookReviews = "https://www.facebook.com/profile.php?id=61580409810902&sk=reviews"
+  # m.me-link til Messenger-chat med siden (side-ID, da siden ikke har brugernavn)
+  messenger = "https://m.me/61580409810902"
+  email = ""                       # valgfri – udfyld hvis kunder må skrive på mail
+  phone = ""                       # valgfri – udfyld hvis telefon-booking ønskes
+
+  ogImage = "img/og-card.png"
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[outputs]
+  home = ["HTML"]
+
+[minify]
+  disableXML = true
+  [minify.tdewolff.html]
+    keepWhitespace = false

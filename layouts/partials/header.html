@@ -1,0 +1,26 @@
+<header class="header" id="header">
+  <div class="container nav">
+    <a href="#top" class="brand" aria-label="Wiktoria Gordon Beauty – {{ i18n "to_top" }}">
+      Wiktoria <span>Gordon</span>
+      <small>Beauty · Horsens</small>
+    </a>
+
+    <nav class="nav-menu" id="navMenu" aria-label="{{ i18n "footer_menu" }}">
+      <ul class="nav-links">
+        <li><a href="#ydelser">{{ i18n "nav_services" }}</a></li>
+        <li><a href="#galleri">{{ i18n "nav_gallery" }}</a></li>
+        <li><a href="#priser">{{ i18n "nav_prices" }}</a></li>
+        <li><a href="#om">{{ i18n "nav_about" }}</a></li>
+        <li><a href="#faq">{{ i18n "nav_faq" }}</a></li>
+      </ul>
+      {{ partial "langswitch.html" . }}
+      <a href="#booking" class="btn btn--primary nav-book">{{ i18n "book" }}</a>
+    </nav>
+
+    <button class="nav-toggle" id="navToggle" aria-label="{{ i18n "menu_open" }}"
+            data-open="{{ i18n "menu_open" }}" data-close="{{ i18n "menu_close" }}"
+            aria-expanded="false" aria-controls="navMenu">
+      <span></span>
+    </button>
+  </div>
+</header>

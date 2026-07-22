@@ -1,0 +1,63 @@
+# =====================================================================
+#  Ofte stillede spørgsmål — pr. sprog. Bruges også til FAQ-schema.
+# =====================================================================
+
+# ---------------------------------------------------------------- DANSK
+da:
+  eyebrow: "Godt at vide"
+  heading: "Ofte stillede spørgsmål"
+  items:
+    - q: "Hvor længe holder en koreansk lash lift?"
+      a: >-
+        Typisk 6–8 uger – lige så længe som vippernes naturlige vækstcyklus. Så
+        falder løftet blødt ud igen, uden en skarp kant.
+    - q: "Gør det ondt?"
+      a: >-
+        Nej. Behandlingen er helt smertefri, og dine øjne er lukkede hele vejen.
+        De fleste slapper så meget af, at de falder i søvn.
+    - q: "Hvordan forbereder jeg mig?"
+      a: >-
+        Mød op med rene vipper og bryn – uden makeup, mascara eller olieholdig
+        creme omkring øjnene. Så får du det bedste og mest holdbare resultat.
+    - q: "Må jeg bruge mascara bagefter?"
+      a: >-
+        Undgå vand, damp og makeup på vipperne de første 24 timer. Derefter kan du
+        bruge mascara som normalt – de fleste synes slet ikke, de har brug for den.
+    - q: "Hvor foregår behandlingerne?"
+      a: >-
+        I mit private studie i Horsens. Du får den præcise adresse, når din tid er
+        bekræftet.
+    - q: "Hvordan booker jeg tid?"
+      a: >-
+        Skriv til mig på Instagram (@wiktoriagordon.beauty), så finder vi sammen en
+        tid der passer. Online-booking åbner snart.
+
+# -------------------------------------------------------------- ENGELSK
+en:
+  eyebrow: "Good to know"
+  heading: "Frequently asked questions"
+  items:
+    - q: "How long does a Korean lash lift last?"
+      a: >-
+        Typically 6–8 weeks – as long as your lashes' natural growth cycle. Then
+        the lift softly grows out again, with no harsh line.
+    - q: "Does it hurt?"
+      a: >-
+        No. The treatment is completely painless and your eyes stay closed the
+        whole time. Most people relax so much they fall asleep.
+    - q: "How do I prepare?"
+      a: >-
+        Arrive with clean lashes and brows – no makeup, mascara or oily cream
+        around the eyes. That gives the best and longest-lasting result.
+    - q: "Can I wear mascara afterwards?"
+      a: >-
+        Avoid water, steam and makeup on the lashes for the first 24 hours. After
+        that you can wear mascara as usual – though most find they don't need it.
+    - q: "Where do the treatments take place?"
+      a: >-
+        In my private studio in Horsens. You'll get the exact address once your
+        appointment is confirmed.
+    - q: "How do I book?"
+      a: >-
+        Message me on Instagram (@wiktoriagordon.beauty) and we'll find a time
+        together. Online booking opens soon.

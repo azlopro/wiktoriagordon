@@ -1,0 +1,63 @@
+# UI-mikrotekst (dansk). Længere prosa ligger i data/-filerne.
+
+[nav_services]
+other = "Ydelser"
+[nav_gallery]
+other = "Galleri"
+[nav_prices]
+other = "Priser"
+[nav_about]
+other = "Om"
+[nav_faq]
+other = "FAQ"
+
+[book]
+other = "Book tid"
+[popular]
+other = "Populær"
+[follow]
+other = "Følg"
+
+[hero_trusted]
+other = "Betroet af {{ .Count }} kvinder i Horsens"
+[book_dm_badge]
+other = "Book via DM · svar < 24t"
+[reviews_happy]
+other = "Baseret på {{ .Count }} anmeldelser på Facebook"
+[reviews_recommend]
+other = "anbefaler"
+[reviews_badge]
+other = "Anbefaler på Facebook"
+[reviews_link]
+other = "Se alle anmeldelser på Facebook"
+
+[footer_about]
+other = "Koreansk lash lift & brynstyling i Horsens. Naturlig skønhed, ro og præcision — betroet af {{ .Count }} kvinder."
+[footer_menu]
+other = "Menu"
+[footer_contact]
+other = "Kontakt"
+[footer_rights]
+other = "Alle rettigheder forbeholdes."
+[footer_tagline]
+other = "Booking via Instagram · Horsens, Danmark"
+
+[menu_open]
+other = "Åbn menu"
+[menu_close]
+other = "Luk menu"
+[lang_label]
+other = "Skift sprog"
+[to_top]
+other = "til toppen"
+
+[err_eyebrow]
+other = "Fejl 404"
+[err_heading]
+other = "Denne side blev vist bort"
+[err_text]
+other = "Siden findes ikke længere — men dine vipper og bryn venter stadig."
+[err_home]
+other = "Til forsiden"
+[err_book]
+other = "Book en tid"

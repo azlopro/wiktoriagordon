@@ -1,0 +1,26 @@
+{{ $L := .Site.Language.Lang }}
+{{ $s := index hugo.Data.services $L }}
+<section class="section" id="ydelser">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">{{ $s.intro.eyebrow }}</p>
+      <h2>{{ $s.intro.heading }}</h2>
+      <p>{{ $s.intro.text }}</p>
+    </div>
+
+    <div class="services-grid">
+      {{ range $i, $svc := $s.main }}
+      <article class="service{{ if $svc.featured }} service--featured{{ end }} reveal{{ if lt $i 3 }} d{{ add $i 1 }}{{ end }}">
+        {{ if $svc.featured }}<span class="tag-popular">{{ i18n "popular" }}</span>{{ end }}
+        <span class="service-icon">{{ partial "icon.html" $svc.icon }}</span>
+        <h3>{{ $svc.title }}</h3>
+        <p class="desc">{{ $svc.desc }}</p>
+        <div class="service-meta">
+          <span class="service-price">{{ $svc.price }}</span>
+          <span class="service-dur">{{ $svc.duration }}</span>
+        </div>
+      </article>
+      {{ end }}
+    </div>
+  </div>
+</section>

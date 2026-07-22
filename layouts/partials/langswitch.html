@@ -1,0 +1,8 @@
+{{- /* Sprogskifter. Kald med sidekonteksten: {{ partial "langswitch.html" . }} */ -}}
+{{ $page := . }}
+<div class="lang-switch" role="group" aria-label="{{ i18n "lang_label" }}">
+  {{- range $page.AllTranslations }}
+  <a href="{{ .RelPermalink }}" lang="{{ .Language.Lang }}" hreflang="{{ .Language.Lang }}"
+     {{ if eq .Language.Lang $page.Language.Lang }}class="active" aria-current="true"{{ end }}>{{ .Language.Lang | upper }}</a>
+  {{- end }}
+</div>

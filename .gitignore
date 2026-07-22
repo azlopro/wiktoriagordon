@@ -1,0 +1,11 @@
+# Hugo – genererede filer
+/public/
+/resources/_gen/
+.hugo_build.lock
+
+# Rå IG-materiale (klientfotos – skal ikke i et offentligt repo)
+/ig-posts/
+
+# OS/editor
+.DS_Store
+*.swp

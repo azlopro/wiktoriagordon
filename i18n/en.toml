@@ -1,0 +1,63 @@
+# UI microcopy (English). Longer prose lives in the data/ files.
+
+[nav_services]
+other = "Services"
+[nav_gallery]
+other = "Gallery"
+[nav_prices]
+other = "Prices"
+[nav_about]
+other = "About"
+[nav_faq]
+other = "FAQ"
+
+[book]
+other = "Book now"
+[popular]
+other = "Popular"
+[follow]
+other = "Follow"
+
+[hero_trusted]
+other = "Trusted by {{ .Count }} women in Horsens"
+[book_dm_badge]
+other = "Book via DM · reply < 24h"
+[reviews_happy]
+other = "Based on {{ .Count }} Facebook reviews"
+[reviews_recommend]
+other = "recommend"
+[reviews_badge]
+other = "Recommends on Facebook"
+[reviews_link]
+other = "See all reviews on Facebook"
+
+[footer_about]
+other = "Korean lash lift & brow styling in Horsens. Natural beauty, calm and precision — trusted by {{ .Count }} women."
+[footer_menu]
+other = "Menu"
+[footer_contact]
+other = "Contact"
+[footer_rights]
+other = "All rights reserved."
+[footer_tagline]
+other = "Booking via Instagram · Horsens, Denmark"
+
+[menu_open]
+other = "Open menu"
+[menu_close]
+other = "Close menu"
+[lang_label]
+other = "Change language"
+[to_top]
+other = "to top"
+
+[err_eyebrow]
+other = "Error 404"
+[err_heading]
+other = "This page was whisked away"
+[err_text]
+other = "The page no longer exists — but your lashes and brows are still waiting."
+[err_home]
+other = "Back to home"
+[err_book]
+other = "Book a time"

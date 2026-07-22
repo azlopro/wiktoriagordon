@@ -1,0 +1,46 @@
+{{ $L := .Site.Language.Lang }}
+{{ $s := index hugo.Data.services $L }}
+{{ $pr := (index hugo.Data.site $L).pricing }}
+<section class="section" id="priser">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">{{ $pr.eyebrow }}</p>
+      <h2>{{ $pr.heading }}</h2>
+      <p>{{ $pr.intro }}</p>
+    </div>
+
+    <div class="pricing-wrap">
+      <div class="reveal">
+        <ul class="price-list">
+          {{ range $s.main }}
+          <li class="price-row">
+            <span class="name">{{ .title }}<span class="dur">{{ .duration }}</span></span>
+            <span class="lead" aria-hidden="true"></span>
+            <span class="amt">{{ .price }}</span>
+          </li>
+          {{ end }}
+        </ul>
+
+        {{ with $s.addons }}
+        <p class="price-group-title">{{ $pr.addonsTitle }}</p>
+        <ul class="price-list">
+          {{ range . }}
+          <li class="price-row">
+            <span class="name">{{ .title }}</span>
+            <span class="lead" aria-hidden="true"></span>
+            <span class="amt">{{ .price }}</span>
+          </li>
+          {{ end }}
+        </ul>
+        {{ end }}
+      </div>
+
+      <aside class="price-aside reveal d1">
+        <h3>{{ $pr.asideTitle }}</h3>
+        <p>{{ $pr.asideText }}</p>
+        <a href="#booking" class="btn btn--primary">{{ $pr.cta }} {{ partial "icon.html" "arrow" }}</a>
+        <p class="price-note">{{ $pr.note }}</p>
+      </aside>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,38 @@
+{{ $L := .Site.Language.Lang }}
+{{ $d := index hugo.Data.site $L }}
+{{ $b := $d.booking }}
+{{ $c := $d.contact }}
+{{ $p := .Site.Params }}
+<section class="section booking" id="booking">
+  <div class="container">
+    <div class="booking-card reveal">
+      <p class="eyebrow eyebrow--center">{{ $b.eyebrow }}</p>
+      <h2>{{ $b.heading }}</h2>
+
+      {{ if and $b.online $b.onlineEmbed }}
+        {{/* Online-booking er aktiveret – vis embed */}}
+        <div class="booking-embed">
+          <iframe src="{{ $b.onlineEmbed }}" title="{{ $b.heading }}" loading="lazy"></iframe>
+        </div>
+      {{ else }}
+        {{/* Placeholder indtil online-booking åbner */}}
+        <p>{{ $b.text }}</p>
+        <div class="booking-actions">
+          <a href="{{ $p.instagramDM }}" target="_blank" rel="noopener" class="btn btn--primary">
+            {{ partial "icon.html" "instagram" }} {{ $b.dmButton }}
+          </a>
+          {{ with $p.messenger }}
+          <a href="{{ . }}" target="_blank" rel="noopener" class="btn btn--ghost">
+            {{ partial "icon.html" "messenger" }} {{ $b.messengerButton }}
+          </a>
+          {{ end }}
+        </div>
+      {{ end }}
+
+      <p class="booking-note">
+        {{ partial "icon.html" "pin" }} {{ $c.area }} &nbsp;·&nbsp;
+        {{ partial "icon.html" "clock" }} {{ $b.note }}
+      </p>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,29 @@
+// Cloudflare Pages — konfiguration for wiktoriagordon.dk
+//
+// VIGTIGT: dette Cloudflare-projekt skal oprettes som et PAGES-projekt (ikke Workers).
+// Wrangler advarer selv om det, hvis man kører "wrangler deploy" på et Pages-projekt
+// ("It seems that you have run wrangler deploy on a Pages project"). Deploy-kommandoen
+// SKAL derfor være "wrangler pages deploy", ikke "wrangler deploy" — ellers fejler
+// buildet med "Missing entry-point to Worker script or to assets directory".
+//
+// OBS: "name" herunder SKAL matche det faktiske projektnavn i Cloudflare-dashboardet —
+// Cloudflare navngiver som udgangspunkt et nyt Pages-projekt efter GitHub-repoet
+// (her: wiktoriagordon). Tjek under Workers & Pages efter oprettelse, og ret linjen
+// nedenfor til at matche, hvis det ikke allerede er "wiktoriagordon".
+//
+// I Cloudflare-dashboardet (Workers & Pages → wiktoriagordon → Settings → Build):
+//   Build command:   hugo --gc --minify
+//   Deploy command:  npx wrangler pages deploy public
+//   Env-variabel:    HUGO_VERSION = 0.163.2
+//
+// Lokal deploy (uden git-flowet):
+//   hugo --gc --minify && npx wrangler pages deploy public
+//
+// Preview bør beskyttes med X-Robots-Tag: noindex i static/_headers indtil go-live
+// (samme mønster som Riishoej/Revisionskontoret) — tilføj hvis siden går i preview
+// før aftale med Wiktoria er på plads.
+{
+  "name": "wiktoriagordon",
+  "compatibility_date": "2026-07-22",
+  "pages_build_output_dir": "public"
+}

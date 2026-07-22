@@ -1,0 +1,48 @@
+# =====================================================================
+#  Galleri — pr. sprog (billederne er de samme, kun teksterne skifter).
+#  Fotos ligger i /static/img/ (beskåret fra Wiktorias IG-opslag).
+# =====================================================================
+
+# ---------------------------------------------------------------- DANSK
+da:
+  eyebrow: "Galleri"
+  heading: "Arbejde jeg er stolt af"
+  text: "Et lille udpluk. Følg med i det hele på Instagram."
+  items:
+    - image: "img/gal-lash-close.jpg"
+      caption: "Koreansk lash lift – naturligt løft"
+      span: "tall"
+    - image: "img/gal-lash-wide.jpg"
+      caption: "Løftede vipper – helt uden extensions"
+      span: "wide"
+    - image: "img/gal-after-eyes.jpg"
+      caption: "Bryn & vipper i harmoni"
+      span: "normal"
+    - image: "img/gal-after-face.jpg"
+      caption: "Lash lift + brynlaminering"
+      span: "normal"
+    - image: "img/gal-diptych.jpg"
+      caption: "Før / efter"
+      span: "wide"
+
+# -------------------------------------------------------------- ENGELSK
+en:
+  eyebrow: "Gallery"
+  heading: "Work I'm proud of"
+  text: "A little selection. Follow it all on Instagram."
+  items:
+    - image: "img/gal-lash-close.jpg"
+      caption: "Korean lash lift – natural lift"
+      span: "tall"
+    - image: "img/gal-lash-wide.jpg"
+      caption: "Lifted lashes – no extensions"
+      span: "wide"
+    - image: "img/gal-after-eyes.jpg"
+      caption: "Brows & lashes in harmony"
+      span: "normal"
+    - image: "img/gal-after-face.jpg"
+      caption: "Lash lift + brow lamination"
+      span: "normal"
+    - image: "img/gal-diptych.jpg"
+      caption: "Before / after"
+      span: "wide"

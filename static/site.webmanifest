@@ -1,0 +1,14 @@
+{
+  "name": "Wiktoria Gordon Beauty",
+  "short_name": "WG Beauty",
+  "description": "Koreansk lash lift og brynstyling i Horsens.",
+  "lang": "da",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAF5F0",
+  "theme_color": "#FAF5F0",
+  "icons": [
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

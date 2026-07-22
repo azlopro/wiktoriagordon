@@ -1,0 +1,48 @@
+{{ $p := .Site.Params }}
+{{ $L := .Site.Language.Lang }}
+{{ $c := (index hugo.Data.site $L).contact }}
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <a href="#top" class="brand">Wiktoria <span>Gordon</span><small>Beauty · Horsens</small></a>
+        <p>{{ i18n "footer_about" (dict "Count" $p.trustCount) }}</p>
+        <div class="socials">
+          <a href="{{ $p.instagram }}" target="_blank" rel="noopener" aria-label="Instagram">{{ partial "icon.html" "instagram" }}</a>
+          {{ with $p.facebook }}<a href="{{ . }}" target="_blank" rel="noopener" aria-label="Facebook">{{ partial "icon.html" "facebook" }}</a>{{ end }}
+          {{ with $p.messenger }}<a href="{{ . }}" target="_blank" rel="noopener" aria-label="Messenger">{{ partial "icon.html" "messenger" }}</a>{{ end }}
+          {{ with $p.email }}<a href="mailto:{{ . }}" aria-label="Email">{{ partial "icon.html" "arrow" }}</a>{{ end }}
+        </div>
+      </div>
+
+      <div class="footer-nav">
+        <h4>{{ i18n "footer_menu" }}</h4>
+        <ul>
+          <li><a href="#ydelser">{{ i18n "nav_services" }}</a></li>
+          <li><a href="#galleri">{{ i18n "nav_gallery" }}</a></li>
+          <li><a href="#priser">{{ i18n "nav_prices" }}</a></li>
+          <li><a href="#om">{{ i18n "nav_about" }}</a></li>
+          <li><a href="#faq">{{ i18n "nav_faq" }}</a></li>
+          <li><a href="#booking">{{ i18n "book" }}</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-contact">
+        <h4>{{ i18n "footer_contact" }}</h4>
+        <ul>
+          <li>{{ $c.area }}</li>
+          <li><a href="{{ $p.instagram }}" target="_blank" rel="noopener">@{{ $p.instagramHandle }}</a></li>
+          {{ with $p.facebook }}<li><a href="{{ . }}" target="_blank" rel="noopener">Wiktoria Lash Studio</a></li>{{ end }}
+          {{ with $p.email }}<li><a href="mailto:{{ . }}">{{ . }}</a></li>{{ end }}
+          {{ with $p.phone }}<li><a href="tel:{{ . | replaceRE `[^0-9+]` `` }}">{{ . }}</a></li>{{ end }}
+          <li>CVR {{ $p.cvr }}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© {{ now.Year }} {{ $p.businessName }}. {{ i18n "footer_rights" }}</span>
+      <span>{{ i18n "footer_tagline" }}</span>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,131 @@
+# =====================================================================
+#  Ydelser & priser — pr. sprog. Bruges i "Ydelser" OG i prislisten.
+#  ⚠️  PRISER ER PLACEHOLDERE – ret dem før sitet går live.
+#  Hold 'da' og 'en' i SAMME rækkefølge (ikon + pris + varighed matcher).
+# =====================================================================
+
+# ---------------------------------------------------------------- DANSK
+da:
+  intro:
+    eyebrow: "Ydelser"
+    heading: "Behandlinger"
+    text: "Alt tager udgangspunkt i dine egne vipper og bryn – forstærket, aldrig overdrevet."
+  main:
+    - title: "Koreansk Lash Lift"
+      icon: "lash"
+      duration: "45–60 min"
+      price: "450 kr."
+      featured: true
+      desc: >-
+        Et blødt, naturligt løft der får dine egne vipper til at se længere og
+        mere åbne ud – helt uden extensions. Holder typisk 6–8 uger.
+    - title: "Lash Lift + farve"
+      icon: "lash-tint"
+      duration: "60 min"
+      price: "500 kr."
+      featured: false
+      desc: >-
+        Løft og farve i én behandling, så vipperne fremstår mørkere, fyldigere og
+        pigger smukt opad. Perfekt til lyse vippespidser.
+    - title: "Brynlaminering"
+      icon: "brow"
+      duration: "45 min"
+      price: "400 kr."
+      featured: true
+      desc: >-
+        Ustyrlige bryn børstes op og sættes i en fyldig, velplejet form der holder
+        hele dagen – det eftertragtede fluffy, feathered look.
+    - title: "Brynlaminering + farve"
+      icon: "brow-tint"
+      duration: "60 min"
+      price: "450 kr."
+      featured: false
+      desc: >-
+        Laminering kombineret med farve, så brynene får dybde, form og en fyldig
+        finish på én gang.
+    - title: "Brynstyling – form & farve"
+      icon: "shape"
+      duration: "30 min"
+      price: "300 kr."
+      featured: false
+      desc: >-
+        Dine bryn kortlægges efter dit ansigt (brow mapping), formes med pincet og
+        voks og farves, så de rammer præcis din stil.
+    - title: "Signatur-combo: Lash Lift + Bryn"
+      icon: "combo"
+      duration: "90 min"
+      price: "650 kr."
+      featured: true
+      desc: >-
+        Vipper og bryn i én tid – den komplette “vågnet-sådan”-finish, hvor det
+        hele er afstemt. Den mest populære oplevelse.
+  addons:
+    - title: "Vippefarve (separat)"
+      price: "+50 kr."
+    - title: "Brynfarve (separat)"
+      price: "+50 kr."
+    - title: "Bryn-vedligehold (form uden farve)"
+      price: "200 kr."
+
+# -------------------------------------------------------------- ENGELSK
+en:
+  intro:
+    eyebrow: "Services"
+    heading: "Treatments"
+    text: "Everything starts with your own lashes and brows – enhanced, never overdone."
+  main:
+    - title: "Korean Lash Lift"
+      icon: "lash"
+      duration: "45–60 min"
+      price: "450 kr."
+      featured: true
+      desc: >-
+        A soft, natural lift that makes your own lashes look longer and more open
+        – with no extensions. Typically lasts 6–8 weeks.
+    - title: "Lash Lift + tint"
+      icon: "lash-tint"
+      duration: "60 min"
+      price: "500 kr."
+      featured: false
+      desc: >-
+        Lift and tint in one treatment, so your lashes look darker, fuller and
+        beautifully curled upward. Perfect for light lash tips.
+    - title: "Brow Lamination"
+      icon: "brow"
+      duration: "45 min"
+      price: "400 kr."
+      featured: true
+      desc: >-
+        Unruly brows are brushed up and set into a full, groomed shape that lasts
+        all day – the coveted fluffy, feathered look.
+    - title: "Brow Lamination + tint"
+      icon: "brow-tint"
+      duration: "60 min"
+      price: "450 kr."
+      featured: false
+      desc: >-
+        Lamination combined with tint, giving your brows depth, shape and a full
+        finish all at once.
+    - title: "Brow styling – shape & tint"
+      icon: "shape"
+      duration: "30 min"
+      price: "300 kr."
+      featured: false
+      desc: >-
+        Your brows are mapped to your face (brow mapping), shaped with tweezers
+        and wax, and tinted to match your style exactly.
+    - title: "Signature combo: Lash Lift + Brows"
+      icon: "combo"
+      duration: "90 min"
+      price: "650 kr."
+      featured: true
+      desc: >-
+        Lashes and brows in one visit – the complete “woke-up-like-this” finish,
+        all in harmony. The most popular experience.
+  addons:
+    - title: "Lash tint (separate)"
+      price: "+50 kr."
+    - title: "Brow tint (separate)"
+      price: "+50 kr."
+    - title: "Brow upkeep (shape, no tint)"
+      price: "200 kr."

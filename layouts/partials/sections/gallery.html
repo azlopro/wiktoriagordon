@@ -1,0 +1,27 @@
+{{ $p := .Site.Params }}
+{{ $L := .Site.Language.Lang }}
+{{ $g := index hugo.Data.gallery $L }}
+<section class="section bg-cream2" id="galleri">
+  <div class="container">
+    <div class="section-head section-head--center reveal">
+      <p class="eyebrow eyebrow--center">{{ $g.eyebrow }}</p>
+      <h2>{{ $g.heading }}</h2>
+      <p>{{ $g.text }}</p>
+    </div>
+
+    <div class="gallery">
+      {{ range $i, $item := $g.items }}
+      <figure class="gallery-item {{ $item.span }} reveal{{ if lt $i 4 }} d{{ add (mod $i 3) 1 }}{{ end }}">
+        <img src="{{ $item.image | relURL }}" alt="{{ $item.caption }}" loading="lazy">
+        <figcaption class="gallery-cap">{{ $item.caption }}</figcaption>
+      </figure>
+      {{ end }}
+    </div>
+
+    <div class="gallery-follow reveal">
+      <a href="{{ $p.instagram }}" target="_blank" rel="noopener" class="btn btn--ghost">
+        {{ partial "icon.html" "instagram" }} {{ i18n "follow" }} @{{ $p.instagramHandle }}
+      </a>
+    </div>
+  </div>
+</section>

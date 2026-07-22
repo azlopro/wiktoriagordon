@@ -1,0 +1,8 @@
+{{ $L := .Site.Language.Lang }}
+{{ $words := (index hugo.Data.site $L).strip }}
+<div class="strip" aria-hidden="true">
+  <div class="strip-track">
+    {{ range $words }}<span>{{ . }}</span>{{ end }}
+    {{ range $words }}<span>{{ . }}</span>{{ end }}
+  </div>
+</div>

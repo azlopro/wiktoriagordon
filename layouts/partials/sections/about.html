@@ -1,0 +1,24 @@
+{{ $L := .Site.Language.Lang }}
+{{ $a := (index hugo.Data.site $L).about }}
+{{ $p := .Site.Params }}
+<section class="section bg-blush" id="om">
+  <div class="container about-grid">
+    <div class="about-figure reveal">
+      <img src="{{ "img/about-portrait.jpg" | relURL }}" alt="{{ $p.ownerName }} — {{ $p.city }}" loading="lazy" width="600" height="800">
+    </div>
+
+    <div class="about-copy reveal d1">
+      <p class="eyebrow">{{ $a.eyebrow }}</p>
+      <h2>{{ $a.heading }}</h2>
+      {{ range $a.paragraphs }}<p>{{ . }}</p>{{ end }}
+
+      <ul class="about-highlights">
+        {{ range $a.highlights }}
+        <li>{{ partial "icon.html" "check" }}<span>{{ . }}</span></li>
+        {{ end }}
+      </ul>
+
+      <p class="signature">{{ $a.signature }}</p>
+    </div>
+  </div>
+</section>

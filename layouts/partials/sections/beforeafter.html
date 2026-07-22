@@ -1,0 +1,31 @@
+{{ $L := .Site.Language.Lang }}
+{{ $ba := (index hugo.Data.site $L).beforeafter }}
+<section class="section ba" id="foer-efter">
+  <div class="container">
+    <div class="section-head section-head--center reveal">
+      <p class="eyebrow eyebrow--center">{{ $ba.eyebrow }}</p>
+      <h2>{{ $ba.heading }}</h2>
+      <p>{{ $ba.text }}</p>
+    </div>
+
+    <div class="ba-wrap reveal d1">
+      <div class="ba-slider" id="baSlider">
+        <img class="ba-img ba-img--before" src="{{ "img/ba-before.jpg" | relURL }}"
+             alt="{{ $ba.beforeLabel }}" width="1000" height="1333" loading="lazy" draggable="false">
+        <div class="ba-top" id="baTop">
+          <img class="ba-img" src="{{ "img/ba-after.jpg" | relURL }}"
+               alt="{{ $ba.afterLabel }}" width="1000" height="1333" loading="lazy" draggable="false">
+        </div>
+        <span class="ba-label ba-label--before" aria-hidden="true">{{ $ba.beforeLabel }}</span>
+        <span class="ba-label ba-label--after" aria-hidden="true">{{ $ba.afterLabel }}</span>
+        <div class="ba-handle" id="baHandle" aria-hidden="true">
+          <span class="ba-line"></span>
+          <span class="ba-knob">{{ partial "icon.html" "arrow" }}</span>
+        </div>
+        {{/* Tilgængelig styring: range-input ovenpå (skjult visuelt, virker med tastatur) */}}
+        <input type="range" class="ba-range" id="baRange" min="0" max="100" value="50"
+               aria-label="{{ $ba.beforeLabel }} / {{ $ba.afterLabel }}">
+      </div>
+    </div>
+  </div>
+</section>

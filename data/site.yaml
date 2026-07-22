@@ -1,0 +1,160 @@
+# =====================================================================
+#  Redigerbar forsidetekst — pr. sprog (da = dansk, en = engelsk).
+#  Ret under det rigtige sprog. Ingen kode at røre ved.
+# =====================================================================
+
+# ---------------------------------------------------------------- DANSK
+da:
+  hero:
+    eyebrow: "Koreansk lash lift · Brynstyling · Horsens"
+    heading: "Dit smukkeste {jeg} – helt naturligt"   # ordet i {kursiv} vises kursivt
+    subheading: >-
+      Blødt, naturligt vippeløft og bryn der klæder netop dit ansigt.
+      En rolig, personlig oplevelse i hjertet af Horsens.
+    primaryCta: "Book din tid"
+    secondaryCta: "Se ydelser"
+
+  strip:
+    - "Koreansk lash lift"
+    - "Brynlaminering"
+    - "Brow mapping"
+    - "Lash lift & farve"
+    - "Naturligt løft"
+    - "Horsens"
+
+  about:
+    eyebrow: "Om Wiktoria"
+    heading: "Skønhed der ligner dig – bare på en god dag"
+    paragraphs:
+      - >-
+        Jeg hedder Wiktoria, og jeg er specialiseret i koreansk lash lift og
+        brynstyling. Min filosofi er enkel: du skal ikke se ud som en anden – du
+        skal ligne dig selv, veludhvilet og velplejet.
+      - >-
+        Hver behandling starter med en samtale om, hvad der passer til dit ansigt,
+        din hverdag og dine ønsker. Jeg arbejder med præcision, gode produkter og
+        god tid, så du kan læne dig tilbage og slappe helt af.
+      - >-
+        Mit studie i Horsens er blevet et lille frirum for 180+ kvinder – og jeg
+        glæder mig til at byde dig velkommen.
+    signature: "Kærligst, Wiktoria 🌹"
+    highlights:
+      - "Specialist i koreansk lash lift"
+      - "Bryn tilpasset dit ansigt (brow mapping)"
+      - "Skånsomme, premium-produkter"
+      - "Rolig, personlig 1-til-1 oplevelse"
+
+  pricing:
+    eyebrow: "Priser"
+    heading: "Prisliste"
+    intro: "Klar og enkel. Alt inkluderer en kort konsultation, så resultatet passer til netop dig."
+    addonsTitle: "Tilvalg"
+    asideTitle: "Book din tid"
+    asideText: "Ikke sikker på hvad du skal vælge? Skriv til mig på Instagram, så finder vi den rette behandling sammen."
+    cta: "Book tid"
+    note: "Priser er vejledende og kan variere efter behandlingens omfang. Betaling med kort eller MobilePay."
+
+  booking:
+    eyebrow: "Book tid"
+    heading: "Klar til et løft?"
+    text: >-
+      Online-booking er lige på trapperne. Indtil da booker du nemmest ved at
+      skrive til mig på Instagram – så finder vi en tid der passer dig.
+    online: false
+    onlineEmbed: ""
+    dmButton: "Skriv til mig på Instagram"
+    messengerButton: "Skriv på Messenger"
+    note: "Svar inden for 24 timer · Aflysning senest 24 timer før"
+
+  contact:
+    area: "Horsens, Danmark"
+    hours:
+      - "Man – tors: 09.00 – 18.00"
+      - "Fredag: 09.00 – 15.00"
+      - "Weekend: efter aftale"
+    address: ""
+
+  beforeafter:
+    eyebrow: "Før / efter"
+    heading: "Se forskellen"
+    text: "Samme øjne, samme bryn – bare løftet, defineret og fuldt afstemt. Træk i håndtaget."
+    beforeLabel: "Før"
+    afterLabel: "Efter"
+
+# -------------------------------------------------------------- ENGELSK
+en:
+  hero:
+    eyebrow: "Korean lash lift · Brow styling · Horsens"
+    heading: "Your most beautiful {you} — naturally"
+    subheading: >-
+      Soft, natural lash lifts and brows shaped to suit your face.
+      A calm, personal experience in the heart of Horsens.
+    primaryCta: "Book your time"
+    secondaryCta: "See services"
+
+  strip:
+    - "Korean lash lift"
+    - "Brow lamination"
+    - "Brow mapping"
+    - "Lash lift & tint"
+    - "Natural lift"
+    - "Horsens"
+
+  about:
+    eyebrow: "About Wiktoria"
+    heading: "Beauty that looks like you — just on a good day"
+    paragraphs:
+      - >-
+        I'm Wiktoria, and I specialise in Korean lash lifts and brow styling. My
+        philosophy is simple: you shouldn't look like someone else – you should
+        look like you, well-rested and well-groomed.
+      - >-
+        Every treatment begins with a conversation about what suits your face,
+        your everyday life and your wishes. I work with precision, quality
+        products and no rush, so you can lean back and truly relax.
+      - >-
+        My studio in Horsens has become a little sanctuary for 180+ women – and I
+        can't wait to welcome you.
+    signature: "With love, Wiktoria 🌹"
+    highlights:
+      - "Korean lash lift specialist"
+      - "Brows mapped to your face"
+      - "Gentle, premium products"
+      - "Calm, personal 1-to-1 experience"
+
+  pricing:
+    eyebrow: "Prices"
+    heading: "Price list"
+    intro: "Clear and simple. Every treatment includes a short consultation so the result suits you perfectly."
+    addonsTitle: "Add-ons"
+    asideTitle: "Book your time"
+    asideText: "Not sure what to choose? Message me on Instagram and we'll find the right treatment together."
+    cta: "Book now"
+    note: "Prices are guiding and may vary with the scope of the treatment. Payment by card or MobilePay."
+
+  booking:
+    eyebrow: "Book"
+    heading: "Ready for a lift?"
+    text: >-
+      Online booking is just around the corner. Until then, the easiest way to
+      book is to message me on Instagram – and we'll find a time that suits you.
+    online: false
+    onlineEmbed: ""
+    dmButton: "Message me on Instagram"
+    messengerButton: "Chat on Messenger"
+    note: "Reply within 24 hours · Cancellation at least 24 hours ahead"
+
+  contact:
+    area: "Horsens, Denmark"
+    hours:
+      - "Mon – Thu: 09:00 – 18:00"
+      - "Friday: 09:00 – 15:00"
+      - "Weekend: by appointment"
+    address: ""
+
+  beforeafter:
+    eyebrow: "Before / after"
+    heading: "See the difference"
+    text: "Same eyes, same brows – just lifted, defined and perfectly in tune. Drag the handle."
+    beforeLabel: "Before"
+    afterLabel: "After"

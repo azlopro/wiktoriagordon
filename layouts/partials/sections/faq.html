@@ -1,0 +1,19 @@
+{{ $L := .Site.Language.Lang }}
+{{ $f := index hugo.Data.faq $L }}
+<section class="section bg-cream2" id="faq">
+  <div class="container">
+    <div class="section-head section-head--center reveal">
+      <p class="eyebrow eyebrow--center">{{ $f.eyebrow }}</p>
+      <h2>{{ $f.heading }}</h2>
+    </div>
+
+    <div class="faq-list reveal d1">
+      {{ range $i, $item := $f.items }}
+      <details class="faq-item"{{ if eq $i 0 }} open{{ end }}>
+        <summary>{{ $item.q }}</summary>
+        <div class="faq-answer"><p>{{ $item.a }}</p></div>
+      </details>
+      {{ end }}
+    </div>
+  </div>
+</section>

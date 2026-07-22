@@ -1,0 +1,40 @@
+{{ $L := .Site.Language.Lang }}
+{{ $r := index hugo.Data.reviews $L }}
+{{ $p := .Site.Params }}
+<section class="section" id="anmeldelser">
+  <div class="container">
+    <div class="reviews-head reveal">
+      <div class="section-head">
+        <p class="eyebrow">{{ $r.eyebrow }}</p>
+        <h2>{{ $r.heading }}</h2>
+      </div>
+      <div class="rating-badge">
+        <div class="val">{{ $r.ratingValue }}</div>
+        <div class="rec-word">{{ i18n "reviews_recommend" }}</div>
+        <small>{{ i18n "reviews_happy" (dict "Count" $r.ratingCount) }}</small>
+      </div>
+    </div>
+
+    <div class="reviews-grid">
+      {{ range $i, $rev := $r.items }}
+      <article class="review reveal{{ if lt $i 2 }} d{{ add $i 1 }}{{ end }}">
+        <div class="rec">{{ partial "icon.html" "check" }} {{ i18n "reviews_badge" }}</div>
+        <p class="quote">“{{ $rev.text }}”</p>
+        <div class="who">
+          <span class="avatar" aria-hidden="true">{{ substr $rev.name 0 1 }}</span>
+          <span class="who-meta">
+            <b>{{ $rev.name }}</b>
+            <span>{{ $rev.service }}</span>
+          </span>
+        </div>
+      </article>
+      {{ end }}
+    </div>
+
+    <div class="reviews-more reveal">
+      <a href="{{ $p.facebookReviews | default $p.facebook }}" target="_blank" rel="noopener" class="btn btn--ghost">
+        {{ partial "icon.html" "facebook" }} {{ i18n "reviews_link" }}
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,61 @@
+{{- $p := .Site.Params -}}
+{{- $L := .Site.Language.Lang -}}
+{{- $r := index hugo.Data.reviews $L -}}
+{{- $s := index hugo.Data.services $L -}}
+{{- $f := index hugo.Data.faq $L -}}
+{{- $base := .Site.Home.Permalink -}}
+
+{{- /* Behandlinger som Offer-liste */ -}}
+{{- $offers := slice -}}
+{{- range $s.main -}}
+  {{- $price := replaceRE `[^0-9]` "" .price -}}
+  {{- $offers = $offers | append (dict
+      "@type" "Offer"
+      "priceCurrency" "DKK"
+      "price" $price
+      "itemOffered" (dict "@type" "Service" "name" .title "description" .desc)) -}}
+{{- end -}}
+
+{{- /* Ægte Facebook-anmeldelser som Review-objekter */ -}}
+{{- $reviewEntities := slice -}}
+{{- range $r.items -}}
+  {{- $reviewEntities = $reviewEntities | append (dict
+      "@type" "Review"
+      "author" (dict "@type" "Person" "name" .name)
+      "reviewBody" .text
+      "reviewRating" (dict "@type" "Rating" "ratingValue" "5" "bestRating" "5")) -}}
+{{- end -}}
+
+{{- $business := dict
+    "@type" "BeautySalon"
+    "@id" (printf "%s#business" $base)
+    "name" $p.businessName
+    "description" $p.description
+    "url" $base
+    "inLanguage" $L
+    "image" ($p.ogImage | absURL)
+    "priceRange" $p.priceRange
+    "currenciesAccepted" "DKK"
+    "paymentAccepted" "Kort, MobilePay"
+    "areaServed" (dict "@type" "City" "name" $p.city)
+    "address" (dict "@type" "PostalAddress" "addressLocality" $p.city "postalCode" $p.postalCode "addressRegion" $p.region "addressCountry" "DK")
+    "identifier" (dict "@type" "PropertyValue" "name" "CVR" "value" $p.cvr)
+    "sameAs" (slice $p.instagram $p.facebook)
+    "founder" (dict "@type" "Person" "name" $p.ownerName)
+    "aggregateRating" (dict "@type" "AggregateRating" "ratingValue" $r.schemaValue "reviewCount" $r.ratingCount "bestRating" "5" "worstRating" "1")
+    "review" $reviewEntities
+    "makesOffer" $offers -}}
+{{- with $p.phone }}{{ $business = merge $business (dict "telephone" (printf "%s" .)) }}{{ end -}}
+{{- with $p.email }}{{ $business = merge $business (dict "email" .) }}{{ end -}}
+
+{{- $faqEntities := slice -}}
+{{- range $f.items -}}
+  {{- $faqEntities = $faqEntities | append (dict
+      "@type" "Question"
+      "name" .q
+      "acceptedAnswer" (dict "@type" "Answer" "text" .a)) -}}
+{{- end -}}
+{{- $faq := dict "@type" "FAQPage" "@id" (printf "%s#faq" $base) "inLanguage" $L "mainEntity" $faqEntities -}}
+
+{{- $graph := dict "@context" "https://schema.org" "@graph" (slice $business $faq) -}}
+<script type="application/ld+json">{{ $graph | jsonify (dict "indent" "  ") | safeJS }}</script>

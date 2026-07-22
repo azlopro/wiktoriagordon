@@ -1,0 +1,31 @@
+{{ $p := .Site.Params }}
+{{ $L := .Site.Language.Lang }}
+{{ $h := (index hugo.Data.site $L).hero }}
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow reveal">{{ $h.eyebrow }}</p>
+      <h1 class="reveal d1">{{ replaceRE `\{([^}]+)\}` `<span class="accent">$1</span>` $h.heading | safeHTML }}</h1>
+      <p class="hero-sub reveal d2">{{ $h.subheading }}</p>
+      <div class="hero-actions reveal d3">
+        <a href="#booking" class="btn btn--primary">{{ $h.primaryCta }}</a>
+        <a href="#ydelser" class="btn btn--ghost">{{ $h.secondaryCta }}</a>
+      </div>
+      <div class="hero-trust reveal d3">
+        <span class="stars" aria-hidden="true">★★★★★</span>
+        <span>{{ i18n "hero_trusted" (dict "Count" $p.trustCount) }}</span>
+      </div>
+    </div>
+
+    <div class="hero-figure reveal d2">
+      <div class="hero-frame">
+        <img src="{{ "img/hero-portrait.jpg" | relURL }}" alt="{{ $p.ownerName }} — {{ $p.tagline }}"
+             width="800" height="1000" fetchpriority="high">
+      </div>
+      <div class="hero-badge">
+        <span class="dot" aria-hidden="true"></span>
+        <span>{{ i18n "book_dm_badge" }}</span>
+      </div>
+    </div>
+  </div>
+</section>

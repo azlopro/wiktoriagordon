@@ -1,0 +1,81 @@
+# =====================================================================
+#  Anmeldelser — ÆGTE citater fra Facebook (Wiktoria Lash Studio,
+#  100% anbefaler, 48 anmeldelser). Oversatte citater er markeret.
+#  ratingValue/ratingCount vises på siden; schemaValue bruges til Google.
+# =====================================================================
+
+# ---------------------------------------------------------------- DANSK
+da:
+  eyebrow: "Anmeldelser"
+  heading: "Ord fra stolen"
+  ratingValue: "100%"
+  ratingCount: "48"
+  schemaValue: "5"
+  items:
+    - name: "Ane Buch Hald"
+      service: "Koreansk Lash Lift"
+      text: >-
+        Jeg havde en super god oplevelse med Korean Lash Lift hos Wiktoria. Hun
+        var virkelig sød, der var god stemning og fin musik. Wiktoria har en
+        proff. uddannelse i lashes og fortalte alt hvad hun gjorde. Resultatet
+        blev eminent godt, og jeg havde absolut ingen gener under behandlingen.
+
+    - name: "Marcelina Jurkowska"
+      service: "Korean Lash Lift"
+      text: >-
+        I'm absolutely thrilled with my Korean lash lift by Wiktoria! My lashes
+        look amazing – perfectly curled, long, and naturally defined. The
+        procedure was painless, and Wiktoria made me feel so comfortable and
+        welcome. 🥰
+
+    - name: "Sylwia Kuna"
+      service: "Lash lift · oversat fra polsk"
+      text: >-
+        Besøget hos Wiktoria overgik mine forventninger – vipperne ser
+        fantastiske ud! Øjnene står tydelige og åbne helt uden mascara.
+        Kunstige vipper holdt aldrig ret længe på mig, men det er ikke et
+        problem længere. Jeg kommer helt sikkert tilbage 😄
+
+    - name: "Ana-Maria Scutaru"
+      service: "Lash lift"
+      text: >-
+        The lashes are so gorgeous, I was not expecting the result that I have
+        right now. I recommend Wiktoria Lash Studio! ❤️
+
+# -------------------------------------------------------------- ENGELSK
+en:
+  eyebrow: "Reviews"
+  heading: "Words from the chair"
+  ratingValue: "100%"
+  ratingCount: "48"
+  schemaValue: "5"
+  items:
+    - name: "Marcelina Jurkowska"
+      service: "Korean Lash Lift"
+      text: >-
+        I'm absolutely thrilled with my Korean lash lift by Wiktoria! My lashes
+        look amazing – perfectly curled, long, and naturally defined. The
+        procedure was painless, and Wiktoria made me feel so comfortable and
+        welcome. 🥰
+
+    - name: "Ane Buch Hald"
+      service: "Korean Lash Lift · translated from Danish"
+      text: >-
+        I had a really great experience with the Korean Lash Lift at Wiktoria's.
+        She was so sweet, and there was a lovely atmosphere. She explained
+        everything she did, the result was outstanding, and I had absolutely no
+        discomfort during the treatment.
+
+    - name: "Ana-Maria Scutaru"
+      service: "Lash lift"
+      text: >-
+        The lashes are so gorgeous, I was not expecting the result that I have
+        right now. I recommend Wiktoria Lash Studio! ❤️
+
+    - name: "Sylwia Kuna"
+      service: "Lash lift · translated from Polish"
+      text: >-
+        My visit to Wiktoria exceeded my expectations – the lashes look
+        incredible! My eyes look defined and open without any mascara. Glued-on
+        lashes never lasted long on me, but that's no longer a problem. I'll
+        definitely be back 😄
