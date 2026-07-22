@@ -1,9 +1,9 @@
-# ⚠ MIDLERTIDIG: peger på Cloudflare Pages-preview'en, fordi wiktoriagordon.dk endnu
+# ⚠ MIDLERTIDIG: peger på Christians demo-subdomæne, fordi wiktoriagordon.dk endnu
 # ikke er sat op. Uden dette virker OG-billede/canonical/schema-URL'er ikke, fordi de
 # bruger absURL (= baseURL) — og pegede før på et domæne der ikke findes endnu, så
 # Facebook/Instagrams link-preview-crawler fik "server not found".
 # RET TIL "https://www.wiktoriagordon.dk/" NÅR DOMÆNET ER LIVE PÅ CLOUDFLARE.
-baseURL = "https://wiktoriagordon.pages.dev/"
+baseURL = "https://wiktoria.christiansdemo.dk/"
 enableRobotsTXT = true
 disableKinds = ["taxonomy", "term"]
 
