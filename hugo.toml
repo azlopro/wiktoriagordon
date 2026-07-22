@@ -24,6 +24,7 @@ defaultContentLanguageInSubdir = false   # dansk på /, engelsk på /en/
       description = "Koreansk lash lift og brynstyling i Horsens. Naturligt løft, bryn der klæder dit ansigt, og en rolig, personlig oplevelse. Betroet af 180+ kvinder. Book din tid hos Wiktoria Gordon Beauty."
       ogLocale = "da_DK"
       country = "Danmark"
+      ogImage = "img/og-card.png"
 
   [languages.en]
     locale = "en-GB"
@@ -35,6 +36,7 @@ defaultContentLanguageInSubdir = false   # dansk på /, engelsk på /en/
       description = "Korean lash lift and brow styling in Horsens, Denmark. A natural lift, brows shaped to suit your face, and a calm, personal experience. Trusted by 180+ women. Book with Wiktoria Gordon Beauty."
       ogLocale = "en_DK"
       country = "Denmark"
+      ogImage = "img/og-card-en.png"
 
 # =====================================================================
 #  Fælles oplysninger (samme på begge sprog)
@@ -61,7 +63,8 @@ defaultContentLanguageInSubdir = false   # dansk på /, engelsk på /en/
   email = ""                       # valgfri – udfyld hvis kunder må skrive på mail
   phone = ""                       # valgfri – udfyld hvis telefon-booking ønskes
 
-  ogImage = "img/og-card.png"
+  # ogImage sat pr. sprog ovenfor ([languages.da.params] / [languages.en.params]),
+  # så /en/ ikke deler et link med dansk tekst i preview-billedet.
 
 [markup.goldmark.renderer]
   unsafe = true
