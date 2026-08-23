@@ -114,8 +114,15 @@ if __name__ == '__main__':
     tmp = [ROOT / '.ba-tmp-a.jpg', ROOT / '.ba-tmp-b.jpg']
     dip.crop((0, 0, half, dip.height)).save(tmp[0], quality=96)
     dip.crop((half, 0, dip.width, dip.height)).save(tmp[1], quality=96)
-    EYES = ((770, 2540), (1340, 1290))          # de to pupiller, ens i begge halvdele
-    build('lashes-brows', [(tmp[0], *EYES, EYES[0]), (tmp[1], *EYES, EYES[0])], zoom=0.95)
+    # Aksen (de to pupiller) sætter rotation og målestok. Centrum måles
+    # derimod i HVER halvdel for sig: hovedet har flyttet sig 130 px til
+    # siden og 220 px ned mellem de to optagelser, og med ét fælles centrum
+    # kom efter-billedets øje til at ligge for langt til venstre i rammen.
+    AXIS = ((770, 2540), (1340, 1290))
+    build('lashes-brows', [
+        (tmp[0], *AXIS, (730, 2510)),      # pupillen i FØR
+        (tmp[1], *AXIS, (860, 2730)),      # pupillen i EFTER
+    ], zoom=0.95)
     for t in tmp:
         t.unlink()
 
