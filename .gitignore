@@ -1,6 +1,7 @@
 # Hugo – genererede filer
 /public/
 /resources/_gen/
+/.cache/
 .hugo_build.lock
 
 # Rå IG-materiale (klientfotos – skal ikke i et offentligt repo)

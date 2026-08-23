@@ -1,27 +1,38 @@
-// Cloudflare Pages — konfiguration for wiktoriagordon.dk
+// Cloudflare — konfiguration for wiktoriagordon.dk
 //
-// VIGTIGT: dette Cloudflare-projekt skal oprettes som et PAGES-projekt (ikke Workers).
-// Wrangler advarer selv om det, hvis man kører "wrangler deploy" på et Pages-projekt
-// ("It seems that you have run wrangler deploy on a Pages project"). Deploy-kommandoen
-// SKAL derfor være "wrangler pages deploy", ikke "wrangler deploy" — ellers fejler
-// buildet med "Missing entry-point to Worker script or to assets directory".
+// HELE BYGGERIET STÅR HER, IKKE I DASHBOARDET.
+// "build.command" køres af wrangler selv, før den deployer. Derfor virker det,
+// uanset om dashboardets byggeindstillinger er sat, tomme eller er blevet ryddet
+// — og de var tomme: buildet gik direkte fra "Cloning repository" til deploy,
+// uden at nogen havde bygget public/. Deployet fejlede så med "Missing
+// entry-point to Worker script or to assets directory", hvilket lyder som om
+// der mangler kode, men i virkeligheden betød, at der intet var at deploye.
 //
-// OBS: "name" herunder SKAL matche det faktiske projektnavn i Cloudflare-dashboardet —
-// Cloudflare navngiver som udgangspunkt et nyt Pages-projekt efter GitHub-repoet
-// (her: wiktoriagordon). Tjek under Workers & Pages efter oprettelse, og ret linjen
-// nedenfor til at matche, hvis det ikke allerede er "wiktoriagordon".
+// "assets.directory" gør, at "npx wrangler deploy" er den rigtige kommando her.
+// Det er Cloudflares static-assets-opsætning; _headers virker præcis som på Pages,
+// og det er vigtigt: både CSP, HSTS og noindex på demo-domænet ligger i den fil.
 //
-// I Cloudflare-dashboardet (Workers & Pages → wiktoriagordon → Settings → Build):
-//   Build command:   bash scripts/security-check.sh
-//   Deploy command:  npx wrangler pages deploy public
-//   Env-variabel:    HUGO_VERSION = 0.163.2
+// "name" SKAL matche projektnavnet i Cloudflare-dashboardet. Cloudflare navngiver
+// efter GitHub-repoet, her wiktoriagordon. Hedder projektet noget andet, skal
+// linjen nedenfor rettes — ellers deployes der til et projekt ved siden af.
 //
-// Lokal deploy (uden git-flowet):
-//   bash scripts/security-check.sh && npx wrangler pages deploy public
+// Dashboardet behøver herefter kun:
+//   Deploy command:  npx wrangler deploy      (står der allerede)
+//   Build command:   (må gerne være tom)
+//   Env-variabler:   ingen — Hugo-versionen står i build.sh
 //
-// Sikkerhedsheadere og noindex for demo-/admin-sider ligger i static/_headers.
+// Lokal deploy uden git-flowet:
+//   npx wrangler deploy
+//
+// Samme mønster som ithjælpnu.dk.
 {
   "name": "wiktoriagordon",
   "compatibility_date": "2026-07-22",
-  "pages_build_output_dir": "public"
+  "build": {
+    "command": "chmod a+x build.sh && ./build.sh"
+  },
+  "assets": {
+    "directory": "./public",
+    "not_found_handling": "404-page"
+  }
 }
