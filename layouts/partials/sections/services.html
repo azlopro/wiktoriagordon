@@ -28,9 +28,15 @@
         </ul>
         {{ end }}
         {{ with $svc.tagline }}<p class="service-tagline">{{ . }}</p>{{ end }}
+        {{/* Book-knappen står modsat prisen. Den vises kun på smalle skærme:
+             der ligger headerens booking-knap gemt bag burgermenuen, og
+             booking-sektionen er en meget lang rulletur væk. På desktop er
+             knappen synlig i toppen hele tiden, og så ville en pr. kort
+             bare være støj. */}}
         <div class="service-meta">
           <span class="service-price">{{ $svc.price }}</span>
           {{ with $svc.duration }}<span class="service-dur">{{ . }}</span>{{ end }}
+          <a class="service-book" href="#booking">{{ $u.nav.book }}</a>
         </div>
       </article>
       {{ end }}
