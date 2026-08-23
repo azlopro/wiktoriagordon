@@ -1258,6 +1258,9 @@ body.no-scroll { overflow: hidden; }
 .lightbox-btn:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 .lightbox-close { position: absolute; top: 1.2rem; right: 1.2rem; font-size: 1.6rem; }
 @media (max-width: 620px) {
+  /* Behandlingsnavnene er lange og brækker til to linjer på en telefon.
+     Mindre sporing og lidt mindre skrift holder blokken fra at dominere. */
+  .ba-tab { font-size: .9375rem; letter-spacing: .06em; padding: .55rem 1rem; }
   .lightbox { gap: .4rem; padding: 1rem .5rem 2rem; }
   .lightbox-btn { width: 40px; height: 40px; }
   .lightbox-figure img { max-height: 66dvh; }

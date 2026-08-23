@@ -4,22 +4,32 @@
 #  Billederne skæres af scripts/beforeafter/make.py, som retter ansigtet
 #  op og giver før og efter nøjagtig samme udsnit. Udskiftes de i hånden,
 #  skal parret være rammet ens, ellers ligner wipe-linjen en fejl.
+#
+#  ⚠️  Etiketten skal være et RIGTIGT behandlingsnavn fra prislisten, ikke
+#      en beskrivelse. Navnene står med pris i services.yaml lige nedenfor
+#      på siden, så et opfundet navn er også en forkert pris.
+#
+#  ⚠️  UBEKRÆFTET: par 1's bryn er tydeligt lamineret, men om der også er
+#      farvet kan ikke ses på billedet — laminering alene gør bryn mørkere,
+#      fordi hårene rejser sig. Står som "+ brynlaminering" (850 kr.).
+#      Er der farvet, skal der stå "+ brynlaminering + farve" (900 kr.).
+#      Spørg Wiktoria.
 # =====================================================================
 
 da:
   items:
     - before: "img/ba-lashes-brows-before.jpg"
       after: "img/ba-lashes-brows-after.jpg"
-      label: "Vipper & bryn"
+      label: "Koreansk lash lift + brynlaminering"
     - before: "img/ba-lashes-before.jpg"
       after: "img/ba-lashes-after.jpg"
-      label: "Kun vipper"
+      label: "Koreansk lash lift"
 
 en:
   items:
     - before: "img/ba-lashes-brows-before.jpg"
       after: "img/ba-lashes-brows-after.jpg"
-      label: "Lashes & brows"
+      label: "Korean lash lift + brow lamination"
     - before: "img/ba-lashes-before.jpg"
       after: "img/ba-lashes-after.jpg"
-      label: "Lashes only"
+      label: "Korean lash lift"
