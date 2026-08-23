@@ -1,7 +1,7 @@
 # UI microcopy (English). Longer prose lives in the data/ files.
 
 [nav_services]
-other = "Services"
+other = "Treatments"
 [nav_gallery]
 other = "Gallery"
 [nav_prices]
@@ -18,12 +18,8 @@ other = "Popular"
 [follow]
 other = "Follow"
 
-[hero_trusted]
-other = "Trusted by {{ .Count }} women in Horsens"
 [book_dm_badge]
-other = "Book via DM · reply < 24h"
-[reviews_happy]
-other = "Based on {{ .Count }} Facebook reviews"
+other = "Personal booking · reply < 24h"
 [reviews_recommend]
 other = "recommend"
 [reviews_badge]
@@ -32,7 +28,7 @@ other = "Recommends on Facebook"
 other = "See all reviews on Facebook"
 
 [footer_about]
-other = "Korean lash lift & brow styling in Horsens. Natural beauty, calm and precision — trusted by {{ .Count }} women."
+other = "Korean lash lift & brow styling in Horsens. Natural results, calm surroundings and thoughtful precision."
 [footer_menu]
 other = "Menu"
 [footer_contact]
@@ -56,8 +52,43 @@ other = "Error 404"
 [err_heading]
 other = "This page was whisked away"
 [err_text]
-other = "The page no longer exists — but your lashes and brows are still waiting."
+other = "The page no longer exists, but your lashes and brows are still waiting."
 [err_home]
 other = "Back to home"
 [err_book]
 other = "Book a time"
+[nav_policy]
+other = "Policy"
+[cal_invite_heading]
+other = "See available times"
+[cal_invite_text]
+other = "The calendar only loads when you press the button. So the page doesn't fetch anything about you that you haven't asked for."
+[cal_invite_button]
+other = "Show available times"
+[cal_invite_loading]
+other = "Loading the calendar…"
+[book_this]
+other = "Book"
+[sets_heading]
+other = "Sets"
+[sets_text]
+other = "Lashes and brows in one appointment. The treatments above, combined."
+[sets_link]
+other = "See the price list"
+
+[nav_results]
+other = "Results"
+
+[expect_heading]
+other = "What you can expect"
+
+[skip_content]
+other = "Skip to main content"
+[service_group_lashes]
+other = "Lashes"
+
+[service_group_brows]
+other = "Brows"
+
+[service_group_sets]
+other = "Sets"

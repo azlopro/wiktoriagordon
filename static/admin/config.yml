@@ -1,0 +1,379 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+# Client-facing editor. Keep technical booking values hidden.
+
+app_title: Wiktoria Gordon Beauty
+site_url: https://wiktoria.christiansdemo.dk
+display_url: https://wiktoria.christiansdemo.dk
+logo:
+  src: /favicon.svg
+  show_in_header: true
+
+backend:
+  name: github
+  repo: azlopro/wiktoriagordon
+  branch: master
+  base_url: https://REPLACE-ME.workers.dev
+  auth_methods: [oauth]
+  skip_ci: false
+  commit_messages:
+    update: 'Website editor: update {{slug}}'
+    uploadMedia: 'Website editor: upload {{path}}'
+    deleteMedia: 'Website editor: delete {{path}}'
+
+media_folder: /static/img
+public_folder: /img
+media_libraries:
+  default:
+    config:
+      transformations:
+        raster_image:
+          format: webp
+          quality: 85
+          width: 2048
+          height: 2048
+      max_file_size: 5000000
+      slugify_filename: true
+  stock_assets:
+    providers: []
+
+i18n:
+  structure: single_file
+  locales: [da, en]
+  default_locale: da
+
+collections:
+  - name: website
+    label: Manage website
+    icon: edit
+    i18n: true
+    files:
+      - name: services
+        label: Treatments & prices
+        file: data/services.yaml
+        icon: local_offer
+        i18n: true
+        fields:
+          - name: intro
+            label: Section introduction
+            widget: object
+            i18n: true
+            collapsed: true
+            summary: Treatment section heading
+            fields:
+              - {name: eyebrow, label: Small label above, widget: string, i18n: true}
+              - {name: heading, label: Heading, widget: string, i18n: true}
+              - {name: text, label: Intro text, widget: text, i18n: true}
+          - name: main
+            label: Treatments
+            widget: list
+            i18n: duplicate
+            label_singular: treatment
+            summary: '{{fields.title}} — {{fields.price}}'
+            hint: >-
+              Drag to reorder. Adding, removing or moving a treatment updates both
+              languages together. Translate the wording in the DA and EN tabs.
+            fields:
+              - {name: title, label: Name, widget: string, i18n: true}
+              - name: group
+                label: Price-list group
+                widget: select
+                i18n: duplicate
+                options:
+                  - {label: Lashes, value: lashes}
+                  - {label: Brows, value: brows}
+                  - {label: Sets / combinations, value: sets}
+              - {name: calSlug, widget: hidden, i18n: duplicate, required: false, default: ''}
+              - name: icon
+                label: Illustration
+                widget: select
+                i18n: duplicate
+                options:
+                  - {label: Lash, value: lash}
+                  - {label: Lash with tint, value: lash-tint}
+                  - {label: Brow, value: brow}
+                  - {label: Brow with tint, value: brow-tint}
+                  - {label: Mapping and shaping, value: shape}
+                  - {label: Treatment set, value: combo}
+                  - {label: Sparkle, value: sparkle}
+              - {name: duration, label: Duration, widget: string, i18n: duplicate, required: false, hint: 'Optional until confirmed. Example: 45–60 min'}
+              - {name: price, label: Price, widget: string, i18n: duplicate, hint: 'Write it exactly as it should appear, for example 450 kr.'}
+              - {name: featured, label: Highlight this treatment, widget: boolean, i18n: duplicate, default: false, hint: Highlighted treatments receive a marked card on the page.}
+              - {name: desc, label: Description, widget: text, i18n: true, required: false}
+              - name: expect
+                label: What clients can expect
+                widget: list
+                i18n: true
+                required: false
+                field: {name: point, label: Point, widget: string, i18n: true}
+              - {name: tagline, label: Closing line, widget: string, i18n: true, required: false}
+          - name: addons
+            label: Add-ons
+            widget: list
+            i18n: duplicate
+            required: false
+            label_singular: add-on
+            summary: '{{fields.title}} — {{fields.price}}'
+            fields:
+              - {name: title, label: Name, widget: string, i18n: true}
+              - {name: price, label: Price, widget: string, i18n: duplicate, hint: 'For example +50 kr.'}
+
+      - name: images
+        label: Main photos
+        file: data/images.yaml
+        icon: image
+        i18n: false
+        fields:
+          - {name: hero, label: Large photo at the top, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, hint: A high-quality portrait image works best here.}
+          - {name: portrait, label: Photo in the About section, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false}
+          - {name: before, label: Before photo, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, hint: Use the same angle and light as the After photo.}
+          - {name: after, label: After photo, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, hint: Use the same angle and light as the Before photo.}
+
+      - name: gallery
+        label: Result photos
+        file: data/gallery.yaml
+        icon: photo_library
+        i18n: true
+        fields:
+          - name: items
+            label: Photos
+            widget: list
+            i18n: duplicate
+            label_singular: photo
+            summary: '{{fields.caption}}'
+            hint: The photo is shared; translate only its caption in the DA and EN tabs.
+            fields:
+              - {name: image, label: Photo, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, i18n: duplicate}
+              - {name: caption, label: Caption, widget: string, i18n: true}
+
+      - name: seo
+        label: SEO & link previews
+        file: data/seo.yaml
+        icon: search
+        i18n: true
+        fields:
+          - name: title
+            label: Google title
+            widget: string
+            i18n: true
+            minlength: 30
+            maxlength: 60
+            hint: Describe the service and city; keep the business name at the end.
+          - name: description
+            label: Google description
+            widget: string
+            i18n: true
+            minlength: 120
+            maxlength: 160
+            hint: Write for a person, mention Horsens naturally and avoid unsupported claims.
+          - {name: socialTitle, label: Social sharing title, widget: string, i18n: true, required: false, maxlength: 65, hint: Optional; Google title is the fallback.}
+          - {name: socialDescription, label: Social sharing description, widget: string, i18n: true, required: false, maxlength: 200}
+          - {name: socialImage, label: Social sharing image, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, i18n: true, hint: 'Use a 1200 × 630 image. Avoid important text near the edges.'}
+
+      - name: business
+        label: Business details & links
+        file: data/business.yaml
+        icon: storefront
+        i18n: false
+        fields:
+          - {name: businessName, label: Business name, widget: string}
+          - {name: ownerName, label: Owner name, widget: string}
+          - {name: city, label: City, widget: string}
+          - {name: region, label: Region, widget: string}
+          - {name: postalCode, label: Postcode, widget: string}
+          - {name: cvr, label: CVR number, widget: string, hint: Changes here affect the footer and Google business information.}
+          - {name: priceRange, label: Price range, widget: string, hint: 'Example: 200–900 kr.'}
+          - {name: instagram, label: Instagram page, widget: string, type: url}
+          - {name: instagramHandle, label: Instagram username, widget: string, hint: Enter without the @ sign.}
+          - {name: instagramDM, label: Instagram message link, widget: string, type: url}
+          - {name: facebook, label: Facebook page, widget: string, type: url, required: false}
+          - {name: facebookReviews, label: Facebook reviews page, widget: string, type: url, required: false}
+          - {name: messenger, label: Messenger link, widget: string, type: url, required: false}
+          - {name: email, label: Public email, widget: string, type: email, required: false, hint: Leave blank to hide it.}
+          - {name: phone, label: Public phone number, widget: string, required: false, hint: Leave blank to hide it.}
+          - {name: streetAddress, label: Street address, widget: string, required: false, hint: 'Only fill this in if the studio address should be public. Leave blank and Google is told the city only.'}
+          - {name: latitude, label: Map latitude, widget: string, required: false, hint: 'From Google Maps, for example 55.8607. Both latitude and longitude must be filled in before either is used.'}
+          - {name: longitude, label: Map longitude, widget: string, required: false, hint: 'From Google Maps, for example 9.8503.'}
+          - name: openingHours
+            label: Opening hours
+            widget: list
+            required: false
+            label_singular: opening time
+            summary: '{{fields.days}} {{fields.opens}}-{{fields.closes}}'
+            hint: 'Leave the list empty until the hours are certain. Wrong hours in Google cost more than no hours at all.'
+            fields:
+              - name: days
+                label: Days
+                widget: select
+                multiple: true
+                options: [Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday]
+              - {name: opens, label: Opens, widget: string, hint: '24-hour clock, for example 10:00.'}
+              - {name: closes, label: Closes, widget: string, hint: '24-hour clock, for example 18:00.'}
+
+      - name: reviews
+        label: Reviews
+        file: data/reviews.yaml
+        icon: reviews
+        i18n: true
+        fields:
+          - {name: eyebrow, label: Small label above, widget: string, i18n: true}
+          - {name: heading, label: Heading, widget: string, i18n: true}
+          - name: items
+            label: Quotes
+            widget: list
+            i18n: duplicate
+            label_singular: review
+            summary: '{{fields.name}}'
+            hint: Copy genuine reviews word for word. Do not translate or improve a quote.
+            fields:
+              - {name: name, label: Customer name, widget: string, i18n: duplicate}
+              - {name: service, label: Treatment mentioned, widget: string, i18n: duplicate, required: false}
+              - {name: text, label: Exact review, widget: text, i18n: duplicate}
+
+      - name: faq
+        label: Questions & answers
+        file: data/faq.yaml
+        icon: help
+        i18n: true
+        fields:
+          - {name: eyebrow, label: Small label above, widget: string, i18n: true}
+          - {name: heading, label: Heading, widget: string, i18n: true}
+          - name: items
+            label: Questions
+            widget: list
+            i18n: duplicate
+            label_singular: question
+            summary: '{{fields.q}}'
+            fields:
+              - {name: q, label: Question, widget: string, i18n: true}
+              - {name: a, label: Answer, widget: text, i18n: true}
+
+      - name: site
+        label: Page wording
+        file: data/site.yaml
+        icon: edit_note
+        i18n: true
+        fields:
+          - name: hero
+            label: Top of the page
+            widget: object
+            i18n: true
+            collapsed: true
+            summary: Top of the page
+            fields:
+              - {name: eyebrow, label: Small label above, widget: string, i18n: true}
+              - {name: heading, label: Main heading, widget: string, i18n: true, hint: 'A word in {curly brackets} is shown in italics.'}
+              - {name: subheading, label: Text underneath, widget: text, i18n: true}
+              - {name: primaryCta, label: Main button, widget: string, i18n: true}
+              - {name: secondaryCta, label: Second button, widget: string, i18n: true}
+          - name: strip
+            label: Scrolling words
+            widget: list
+            i18n: duplicate
+            field: {name: word, label: Word, widget: string, i18n: true}
+          - name: intro
+            label: Opening words
+            widget: object
+            i18n: true
+            collapsed: true
+            summary: Opening words
+            fields:
+              - {name: heading, label: Heading, widget: string, i18n: true}
+              - {name: paragraphs, label: Paragraphs, widget: list, i18n: duplicate, field: {name: paragraph, label: Paragraph, widget: text, i18n: true}}
+              - {name: closing, label: Closing line, widget: string, i18n: true}
+          - name: about
+            label: About Wiktoria
+            widget: object
+            i18n: true
+            collapsed: true
+            summary: About Wiktoria
+            fields:
+              - {name: eyebrow, label: Small label above, widget: string, i18n: true}
+              - {name: heading, label: Heading, widget: text, i18n: true}
+              - {name: paragraphs, label: Paragraphs shown immediately, widget: list, i18n: duplicate, field: {name: paragraph, label: Paragraph, widget: text, i18n: true}}
+              - {name: pullquote, label: Highlighted line, widget: string, i18n: true, required: false}
+              - {name: moreButton, label: Read-more button, widget: string, i18n: true}
+              - {name: moreIntro, label: Paragraphs behind Read more, widget: list, i18n: duplicate, required: false, field: {name: paragraph, label: Paragraph, widget: text, i18n: true}}
+              - {name: moreHeading, label: Heading inside Read more, widget: string, i18n: true, required: false}
+              - {name: moreParagraphs, label: Paragraphs after that heading, widget: list, i18n: duplicate, required: false, field: {name: paragraph, label: Paragraph, widget: text, i18n: true}}
+              - {name: closing, label: Closing line, widget: text, i18n: true, required: false}
+          - name: pricing
+            label: Price-list section
+            widget: object
+            i18n: true
+            collapsed: true
+            summary: Price-list section
+            fields:
+              - {name: eyebrow, label: Small label above, widget: string, i18n: true}
+              - {name: heading, label: Heading, widget: string, i18n: true}
+              - {name: intro, label: Intro text, widget: text, i18n: true}
+              - {name: addonsTitle, label: Add-ons heading, widget: string, i18n: true}
+              - {name: asideTitle, label: Side-box heading, widget: string, i18n: true}
+              - {name: asideText, label: Side-box text, widget: text, i18n: true}
+              - {name: cta, label: Button, widget: string, i18n: true}
+              - {name: note, label: Deposit note, widget: text, i18n: true}
+          - name: booking
+            label: Booking section
+            widget: object
+            i18n: true
+            collapsed: true
+            summary: Booking section
+            fields:
+              - {name: eyebrow, label: Small label above, widget: string, i18n: true}
+              - {name: heading, label: Heading, widget: string, i18n: true}
+              - {name: text, label: Intro text, widget: text, i18n: true}
+              - {name: online, widget: hidden, i18n: duplicate, default: false}
+              - {name: onlineEmbed, widget: hidden, i18n: duplicate, required: false, default: ''}
+              - {name: treatmentButton, label: Find-treatment button, widget: string, i18n: true}
+              - {name: bookButton, label: Book-appointment button, widget: string, i18n: true}
+              - {name: note, label: Small note underneath, widget: string, i18n: true}
+          - name: contact
+            label: Location line
+            widget: object
+            i18n: true
+            collapsed: true
+            summary: Location line
+            fields:
+              - {name: area, label: Area, widget: string, i18n: true, hint: 'Example: Horsens, Denmark'}
+          - name: beforeafter
+            label: Results section
+            widget: object
+            i18n: true
+            collapsed: true
+            summary: Results section
+            fields:
+              - {name: eyebrow, label: Small label above, widget: string, i18n: true}
+              - {name: heading, label: Heading, widget: string, i18n: true}
+              - {name: text, label: Text, widget: text, i18n: true}
+              - {name: beforeLabel, label: Before label, widget: string, i18n: true}
+              - {name: afterLabel, label: After label, widget: string, i18n: true}
+          - name: finalcta
+            label: Closing invitation
+            widget: object
+            i18n: true
+            collapsed: true
+            summary: Closing invitation
+            fields:
+              - {name: heading, label: Heading, widget: string, i18n: true}
+              - {name: text, label: Text, widget: text, i18n: true}
+
+      - name: policy
+        label: Salon policy
+        file: data/policy.yaml
+        icon: gavel
+        i18n: true
+        fields:
+          - {name: eyebrow, label: Small label above, widget: string, i18n: true}
+          - {name: heading, label: Heading, widget: string, i18n: true}
+          - {name: intro, label: Intro line, widget: text, i18n: true}
+          - name: items
+            label: Policy sections
+            widget: list
+            i18n: duplicate
+            label_singular: section
+            summary: '{{fields.title}}'
+            hint: Check both languages before publishing any changed amount or deadline.
+            fields:
+              - {name: title, label: Heading, widget: string, i18n: true}
+              - {name: text, label: Text, widget: text, i18n: true}
+          - {name: note, label: Closing note, widget: text, i18n: true}
+          - {name: accept, label: Acceptance line, widget: string, i18n: true, hint: The sentence saying booking counts as accepting the policy.}

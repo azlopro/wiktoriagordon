@@ -1,4 +1,4 @@
-{{ $p := .Site.Params }}
+{{ $p := hugo.Data.business }}
 {{ $L := .Site.Language.Lang }}
 {{ $c := (index hugo.Data.site $L).contact }}
 <footer class="footer">
@@ -6,7 +6,7 @@
     <div class="footer-grid">
       <div class="footer-about">
         <a href="#top" class="brand">Wiktoria <span>Gordon</span><small>Beauty · Horsens</small></a>
-        <p>{{ i18n "footer_about" (dict "Count" $p.trustCount) }}</p>
+        <p>{{ i18n "footer_about" }}</p>
         <div class="socials">
           <a href="{{ $p.instagram }}" target="_blank" rel="noopener" aria-label="Instagram">{{ partial "icon.html" "instagram" }}</a>
           {{ with $p.facebook }}<a href="{{ . }}" target="_blank" rel="noopener" aria-label="Facebook">{{ partial "icon.html" "facebook" }}</a>{{ end }}
@@ -19,10 +19,11 @@
         <h4>{{ i18n "footer_menu" }}</h4>
         <ul>
           <li><a href="#ydelser">{{ i18n "nav_services" }}</a></li>
-          <li><a href="#galleri">{{ i18n "nav_gallery" }}</a></li>
+          <li><a href="#resultater">{{ i18n "nav_results" }}</a></li>
           <li><a href="#priser">{{ i18n "nav_prices" }}</a></li>
           <li><a href="#om">{{ i18n "nav_about" }}</a></li>
           <li><a href="#faq">{{ i18n "nav_faq" }}</a></li>
+          <li><a href="#politik">{{ i18n "nav_policy" }}</a></li>
           <li><a href="#booking">{{ i18n "book" }}</a></li>
         </ul>
       </div>

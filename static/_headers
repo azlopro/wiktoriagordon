@@ -1,0 +1,30 @@
+# Baseline for every static response. HSTS starts at one day; increase it only
+# after the final domain and every required subdomain are confirmed HTTPS-only.
+/*
+  Strict-Transport-Security: max-age=86400
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  X-Frame-Options: DENY
+
+# The public site is self-hosted. Cal.eu is allowed only for the click-to-load
+# booking integration; re-test this policy before online booking is enabled.
+/
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; script-src 'self' https://app.cal.eu; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://app.cal.eu; font-src 'self'; connect-src 'self' https://app.cal.eu; frame-src https://app.cal.eu; worker-src 'self' blob:; form-action 'self' https://app.cal.eu; upgrade-insecure-requests
+
+/en/*
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; script-src 'self' https://app.cal.eu; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://app.cal.eu; font-src 'self'; connect-src 'self' https://app.cal.eu; frame-src https://app.cal.eu; worker-src 'self' blob:; form-action 'self' https://app.cal.eu; upgrade-insecure-requests
+
+/404.html
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; form-action 'self'; upgrade-insecure-requests
+
+# Sveltia is self-hosted, but its exact-version image processors are loaded
+# lazily from UNPKG. GitHub and the client-owned OAuth Worker are the only APIs.
+/admin/*
+  Cache-Control: no-store
+  X-Robots-Tag: noindex, nofollow
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; script-src 'self' https://unpkg.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data: https://cdn.jsdelivr.net; connect-src 'self' https://api.github.com https://github.com https://unpkg.com https://cdn.jsdelivr.net https://*.workers.dev; frame-src 'self' blob:; worker-src 'self' blob:; manifest-src 'self'; form-action 'self' https://github.com https://*.workers.dev; upgrade-insecure-requests
+
+# The temporary client-review hostname must never compete with the final domain.
+https://wiktoria.christiansdemo.dk/*
+  X-Robots-Tag: noindex

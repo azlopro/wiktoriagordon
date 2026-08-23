@@ -1,0 +1,13 @@
+{{ $L := .Site.Language.Lang }}
+{{ $c := (index hugo.Data.site $L).finalcta }}
+{{/* Bevidst UDEN knap: den pegede på booking-sektionen umiddelbart
+     ovenfor. Wiktorias §19 er en afsluttende sætning, ikke en
+     opfordring — "cta"-feltet bruges ikke længere. */}}
+<section class="section finalcta">
+  <div class="container">
+    <div class="finalcta-inner reveal">
+      <h2>{{ $c.heading }}</h2>
+      <p>{{ $c.text }}</p>
+    </div>
+  </div>
+</section>

@@ -1,18 +1,15 @@
 {{ $L := .Site.Language.Lang }}
 {{ $r := index hugo.Data.reviews $L }}
-{{ $p := .Site.Params }}
+{{ $p := hugo.Data.business }}
 <section class="section" id="anmeldelser">
   <div class="container">
-    <div class="reviews-head reveal">
-      <div class="section-head">
-        <p class="eyebrow">{{ $r.eyebrow }}</p>
-        <h2>{{ $r.heading }}</h2>
-      </div>
-      <div class="rating-badge">
-        <div class="val">{{ $r.ratingValue }}</div>
-        <div class="rec-word">{{ i18n "reviews_recommend" }}</div>
-        <small>{{ i18n "reviews_happy" (dict "Count" $r.ratingCount) }}</small>
-      </div>
+    {{/* Antallet af anmeldelser er fjernet efter Wiktorias udtrykkelige
+         ønske ("Delete: Based on 48 Facebook reviews", 22/8-2026).
+         AggregateRating er samtidig taget ud af schema.html — en
+         vurdering i strukturerede data skal kunne ses på siden. */}}
+    <div class="section-head section-head--center reveal">
+      <p class="eyebrow eyebrow--center">{{ $r.eyebrow }}</p>
+      <h2>{{ $r.heading }}</h2>
     </div>
 
     <div class="reviews-grid">
@@ -24,7 +21,7 @@
           <span class="avatar" aria-hidden="true">{{ substr $rev.name 0 1 }}</span>
           <span class="who-meta">
             <b>{{ $rev.name }}</b>
-            <span>{{ $rev.service }}</span>
+            {{ with $rev.service }}<span>{{ . }}</span>{{ end }}
           </span>
         </div>
       </article>

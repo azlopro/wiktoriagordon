@@ -6,6 +6,20 @@
 # Rå IG-materiale (klientfotos – skal ikke i et offentligt repo)
 /ig-posts/
 
+# Local credentials and Cloudflare development state
+.env
+.env.*
+.dev.vars
+.dev.vars.*
+.wrangler/
+*.pem
+*.key
+*.p12
+*.pfx
+
 # OS/editor
 .DS_Store
 *.swp
+
+# Security audit reports contain vulnerability details; do not publish them.
+/SECURITY-AUDIT-REPORT-*.md

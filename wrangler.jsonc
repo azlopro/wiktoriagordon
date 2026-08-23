@@ -12,16 +12,14 @@
 // nedenfor til at matche, hvis det ikke allerede er "wiktoriagordon".
 //
 // I Cloudflare-dashboardet (Workers & Pages → wiktoriagordon → Settings → Build):
-//   Build command:   hugo --gc --minify
+//   Build command:   bash scripts/security-check.sh
 //   Deploy command:  npx wrangler pages deploy public
 //   Env-variabel:    HUGO_VERSION = 0.163.2
 //
 // Lokal deploy (uden git-flowet):
-//   hugo --gc --minify && npx wrangler pages deploy public
+//   bash scripts/security-check.sh && npx wrangler pages deploy public
 //
-// Preview bør beskyttes med X-Robots-Tag: noindex i static/_headers indtil go-live
-// (samme mønster som Riishoej/Revisionskontoret) — tilføj hvis siden går i preview
-// før aftale med Wiktoria er på plads.
+// Sikkerhedsheadere og noindex for demo-/admin-sider ligger i static/_headers.
 {
   "name": "wiktoriagordon",
   "compatibility_date": "2026-07-22",

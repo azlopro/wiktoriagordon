@@ -1,53 +1,193 @@
-{{- $p := .Site.Params -}}
+{{- /* =====================================================================
+     JSON-LD (schema.org)
+
+     Én sammenhængende @graph i stedet for løsrevne blokke: hver node har
+     et @id, og de peger på hinanden. Det er forskellen på at fortælle
+     Google ni ting og at fortælle den ÉN ting med ni sider — sidstnævnte
+     er det, der bliver til en entitet i Knowledge Graph.
+
+     Regler for filen:
+     · Intet gættes. Tomme felter i data/business.yaml udelades helt.
+     · aggregateRating er BEVIDST udeladt. Antallet af anmeldelser er
+       fjernet fra siden efter Wiktorias ønske (22/8-2026), og en
+       vurdering i strukturerede data skal kunne ses af mennesker.
+     · Anmeldelserne er ordrette og rigtige. De må ikke redigeres her.
+     ===================================================================== */ -}}
+{{- /* Kaldes kun for rigtige sider — head.html holder fejlsiden ude. */ -}}
+{{- $p := hugo.Data.business -}}
 {{- $L := .Site.Language.Lang -}}
+{{- $seo := index hugo.Data.seo $L -}}
 {{- $r := index hugo.Data.reviews $L -}}
 {{- $s := index hugo.Data.services $L -}}
 {{- $f := index hugo.Data.faq $L -}}
+{{- $d := index hugo.Data.site $L -}}
 {{- $base := .Site.Home.Permalink -}}
 
-{{- /* Behandlinger som Offer-liste */ -}}
+{{- /* Virksomheden, Wiktoria selv og sitet er ÉN entitet på tværs af de to
+       sprog og skal derfor have samme @id begge steder — ellers tror Google,
+       at der findes to saloner med samme navn i Horsens. Kun siden selv og
+       de enkelte behandlinger får et @id pr. sprog, fordi de faktisk er
+       forskellige sider med forskellige navne. */ -}}
+{{- $canonical := (index hugo.Sites 0).Home.Permalink -}}
+{{- $bizID := printf "%s#business" $canonical -}}
+{{- $ownerID := printf "%s#owner" $canonical -}}
+{{- $siteID := printf "%s#website" $canonical -}}
+{{- $pageID := printf "%s#webpage" $base -}}
+
+{{- /* ---------- Behandlinger: én Service + ét Offer pr. stk. ---------- */ -}}
+{{- $services := slice -}}
 {{- $offers := slice -}}
 {{- range $s.main -}}
-  {{- $price := replaceRE `[^0-9]` "" .price -}}
+  {{- $sid := printf "%s#service-%s" $base (.title | urlize) -}}
+  {{- $svc := dict
+      "@type" "Service"
+      "@id" $sid
+      "name" .title
+      "serviceType" .title
+      "provider" (dict "@id" $bizID)
+      "areaServed" (dict "@type" "City" "name" $p.city)
+      "availableLanguage" $L -}}
+  {{- with .desc }}{{ $svc = merge $svc (dict "description" .) }}{{ end -}}
+  {{- /* Service har ingen varigheds-property i schema.org, så varigheden
+         lægges i additionalProperty i stedet for at opfinde et felt. */ -}}
+  {{- with .duration }}{{ $svc = merge $svc (dict "additionalProperty" (dict "@type" "PropertyValue" "name" "Duration" "value" .)) }}{{ end -}}
+  {{- $services = $services | append $svc -}}
   {{- $offers = $offers | append (dict
       "@type" "Offer"
       "priceCurrency" "DKK"
-      "price" $price
-      "itemOffered" (dict "@type" "Service" "name" .title "description" .desc)) -}}
+      "price" (replaceRE `[^0-9]` "" .price)
+      "availability" "https://schema.org/InStock"
+      "itemOffered" (dict "@id" $sid)) -}}
 {{- end -}}
 
-{{- /* Ægte Facebook-anmeldelser som Review-objekter */ -}}
+{{- /* Sorteret i katalog efter samme grupper som prislisten. */ -}}
+{{- $catalogs := slice -}}
+{{- range $g := (slice "lashes" "brows" "sets") -}}
+  {{- $items := where $s.main "group" $g -}}
+  {{- with $items -}}
+    {{- $listed := slice -}}
+    {{- range . -}}
+      {{- $listed = $listed | append (dict
+          "@type" "Offer"
+          "priceCurrency" "DKK"
+          "price" (replaceRE `[^0-9]` "" .price)
+          "itemOffered" (dict "@id" (printf "%s#service-%s" $base (.title | urlize)))) -}}
+    {{- end -}}
+    {{- $catalogs = $catalogs | append (dict
+        "@type" "OfferCatalog"
+        "name" (index (dict
+            "lashes" (cond (eq $L "da") "Vipper" "Lashes")
+            "brows"  (cond (eq $L "da") "Bryn" "Brows")
+            "sets"   (cond (eq $L "da") "Sæt" "Packages")) $g)
+        "itemListElement" $listed) -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* ---------- Ægte Facebook-anmeldelser ---------- */ -}}
 {{- $reviewEntities := slice -}}
 {{- range $r.items -}}
   {{- $reviewEntities = $reviewEntities | append (dict
       "@type" "Review"
       "author" (dict "@type" "Person" "name" .name)
       "reviewBody" .text
-      "reviewRating" (dict "@type" "Rating" "ratingValue" "5" "bestRating" "5")) -}}
+      "itemReviewed" (dict "@id" $bizID)) -}}
 {{- end -}}
+
+{{- /* ---------- Billeder ---------- */ -}}
+{{- $images := slice ($seo.socialImage | absURL) -}}
+{{- range (slice hugo.Data.images.hero hugo.Data.images.portrait hugo.Data.images.after) -}}
+  {{- with . }}{{ $images = $images | append (. | absURL) }}{{ end -}}
+{{- end -}}
+
+{{- /* ---------- Virksomheden ---------- */ -}}
+{{- $address := dict "@type" "PostalAddress" "addressLocality" $p.city "postalCode" $p.postalCode "addressRegion" $p.region "addressCountry" "DK" -}}
+{{- with $p.streetAddress }}{{ $address = merge $address (dict "streetAddress" .) }}{{ end -}}
 
 {{- $business := dict
     "@type" "BeautySalon"
-    "@id" (printf "%s#business" $base)
+    "@id" $bizID
     "name" $p.businessName
-    "description" $p.description
-    "url" $base
-    "inLanguage" $L
-    "image" ($p.ogImage | absURL)
+    "description" $seo.description
+    "slogan" $d.finalcta.heading
+    "url" $canonical
+    "mainEntityOfPage" (dict "@id" $pageID)
+    "image" $images
+    "logo" ("apple-touch-icon.png" | absURL)
     "priceRange" $p.priceRange
     "currenciesAccepted" "DKK"
-    "paymentAccepted" "Kort, MobilePay"
+    "paymentAccepted" "MobilePay"
+    "knowsLanguage" (slice
+        (dict "@type" "Language" "name" "Danish" "alternateName" "da")
+        (dict "@type" "Language" "name" "English" "alternateName" "en"))
     "areaServed" (dict "@type" "City" "name" $p.city)
-    "address" (dict "@type" "PostalAddress" "addressLocality" $p.city "postalCode" $p.postalCode "addressRegion" $p.region "addressCountry" "DK")
+    "address" $address
     "identifier" (dict "@type" "PropertyValue" "name" "CVR" "value" $p.cvr)
     "sameAs" (slice $p.instagram $p.facebook)
-    "founder" (dict "@type" "Person" "name" $p.ownerName)
-    "aggregateRating" (dict "@type" "AggregateRating" "ratingValue" $r.schemaValue "reviewCount" $r.ratingCount "bestRating" "5" "worstRating" "1")
+    "founder" (dict "@id" $ownerID)
+    "employee" (dict "@id" $ownerID)
     "review" $reviewEntities
     "makesOffer" $offers -}}
-{{- with $p.phone }}{{ $business = merge $business (dict "telephone" (printf "%s" .)) }}{{ end -}}
+{{- with $catalogs }}{{ $business = merge $business (dict "hasOfferCatalog" (dict "@type" "OfferCatalog" "name" (index $s.intro "heading") "itemListElement" .)) }}{{ end -}}
+{{- with $p.phone }}{{ $business = merge $business (dict "telephone" .) }}{{ end -}}
 {{- with $p.email }}{{ $business = merge $business (dict "email" .) }}{{ end -}}
 
+{{- /* Koordinater kun hvis BEGGE er udfyldt — en halv position er værre end ingen. */ -}}
+{{- if and $p.latitude $p.longitude -}}
+  {{- $business = merge $business (dict "geo" (dict "@type" "GeoCoordinates" "latitude" $p.latitude "longitude" $p.longitude)) -}}
+{{- end -}}
+
+{{- with $p.openingHours -}}
+  {{- $hours := slice -}}
+  {{- range . -}}
+    {{- $hours = $hours | append (dict
+        "@type" "OpeningHoursSpecification"
+        "dayOfWeek" .days
+        "opens" .opens
+        "closes" .closes) -}}
+  {{- end -}}
+  {{- $business = merge $business (dict "openingHoursSpecification" $hours) -}}
+{{- end -}}
+
+{{- /* ---------- Wiktoria som person (E-E-A-T) ---------- */ -}}
+{{- $owner := dict
+    "@type" "Person"
+    "@id" $ownerID
+    "name" $p.ownerName
+    "jobTitle" (cond (eq $L "da") "Lash- og brynspecialist" "Lash and brow specialist")
+    "image" (hugo.Data.images.portrait | absURL)
+    "worksFor" (dict "@id" $bizID)
+    "url" $canonical
+    "sameAs" (slice $p.instagram $p.facebook)
+    "knowsAbout" (slice
+        (cond (eq $L "da") "Koreansk lash lift" "Korean lash lift")
+        (cond (eq $L "da") "Brynlaminering" "Brow lamination")
+        (cond (eq $L "da") "Brynfarvning" "Brow tinting")
+        (cond (eq $L "da") "Brynformning" "Brow shaping")) -}}
+
+{{- /* ---------- Sitet og selve siden ---------- */ -}}
+{{- $website := dict
+    "@type" "WebSite"
+    "@id" $siteID
+    "name" $p.businessName
+    "url" $canonical
+    "inLanguage" (slice "da" "en")
+    "publisher" (dict "@id" $bizID) -}}
+
+{{- $webpage := dict
+    "@type" "WebPage"
+    "@id" $pageID
+    "url" .Permalink
+    "name" $seo.title
+    "description" $seo.description
+    "inLanguage" $L
+    "isPartOf" (dict "@id" $siteID)
+    "about" (dict "@id" $bizID)
+    "mainEntity" (dict "@id" $bizID)
+    "primaryImageOfPage" (dict "@type" "ImageObject" "url" (hugo.Data.images.hero | absURL))
+    "significantLink" (slice $p.instagramDM) -}}
+{{- with .Lastmod }}{{ if not .IsZero }}{{ $webpage = merge $webpage (dict "dateModified" (.Format "2006-01-02")) }}{{ end }}{{ end -}}
+
+{{- /* ---------- FAQ ---------- */ -}}
 {{- $faqEntities := slice -}}
 {{- range $f.items -}}
   {{- $faqEntities = $faqEntities | append (dict
@@ -55,7 +195,12 @@
       "name" .q
       "acceptedAnswer" (dict "@type" "Answer" "text" .a)) -}}
 {{- end -}}
-{{- $faq := dict "@type" "FAQPage" "@id" (printf "%s#faq" $base) "inLanguage" $L "mainEntity" $faqEntities -}}
+{{- $faq := dict
+    "@type" "FAQPage"
+    "@id" (printf "%s#faq" $base)
+    "inLanguage" $L
+    "isPartOf" (dict "@id" $pageID)
+    "mainEntity" $faqEntities -}}
 
-{{- $graph := dict "@context" "https://schema.org" "@graph" (slice $business $faq) -}}
+{{- $graph := dict "@context" "https://schema.org" "@graph" (slice $website $webpage $business $owner $faq | append $services) -}}
 <script type="application/ld+json">{{ $graph | jsonify (dict "indent" "  ") | safeJS }}</script>

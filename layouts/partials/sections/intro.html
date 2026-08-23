@@ -1,0 +1,11 @@
+{{ $L := .Site.Language.Lang }}
+{{ $i := (index hugo.Data.site $L).intro }}
+<section class="section section--intro">
+  <div class="container">
+    <div class="intro-block reveal">
+      <h2>{{ $i.heading }}</h2>
+      {{ range $i.paragraphs }}<p>{{ . }}</p>{{ end }}
+      <p class="intro-closing">{{ $i.closing }}</p>
+    </div>
+  </div>
+</section>

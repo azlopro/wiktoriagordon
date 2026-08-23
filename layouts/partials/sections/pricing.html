@@ -1,6 +1,7 @@
 {{ $L := .Site.Language.Lang }}
 {{ $s := index hugo.Data.services $L }}
 {{ $pr := (index hugo.Data.site $L).pricing }}
+{{ $bk := (index hugo.Data.site $L).booking }}
 <section class="section" id="priser">
   <div class="container">
     <div class="section-head reveal">
@@ -11,15 +12,34 @@
 
     <div class="pricing-wrap">
       <div class="reveal">
-        <ul class="price-list">
-          {{ range $s.main }}
-          <li class="price-row">
-            <span class="name">{{ .title }}<span class="dur">{{ .duration }}</span></span>
-            <span class="lead" aria-hidden="true"></span>
-            <span class="amt">{{ .price }}</span>
-          </li>
-          {{ end }}
-        </ul>
+        {{/* Stabile gruppenøgler holder dansk og engelsk synkroniseret.
+             Det synlige gruppenavn kommer fra i18n-filerne. */}}
+        {{ $groups := slice }}
+        {{ range $s.main }}
+          {{ $g := .group | default "" }}
+          {{ if not (in $groups $g) }}{{ $groups = $groups | append $g }}{{ end }}
+        {{ end }}
+        {{ range $g := $groups }}
+          {{ with $g }}<p class="price-group-title">{{ i18n (printf "service_group_%s" .) }}</p>{{ end }}
+          <ul class="price-list">
+            {{ range $s.main }}
+              {{ if eq (.group | default "") $g }}
+              <li class="price-row">
+                <span class="name">{{ .title }}{{ with .duration }}<span class="dur">{{ . }}</span>{{ end }}</span>
+                <span class="lead" aria-hidden="true"></span>
+                <span class="amt">{{ .price }}</span>
+                {{/* Direkte link til netop denne behandlings tid i Cal.
+                     Vises kun når online-booking er slået til OG behandlingen
+                     har fået sin egen event — ellers ingen død knap. */}}
+                {{ if and $bk.online .calSlug }}
+                <a class="price-book" href="https://app.cal.eu/{{ $bk.onlineEmbed }}/{{ .calSlug }}"
+                   target="_blank" rel="noopener">{{ i18n "book_this" }}</a>
+                {{ end }}
+              </li>
+              {{ end }}
+            {{ end }}
+          </ul>
+        {{ end }}
 
         {{ with $s.addons }}
         <p class="price-group-title">{{ $pr.addonsTitle }}</p>

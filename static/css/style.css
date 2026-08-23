@@ -5,17 +5,21 @@
 
 /* ---------- Design-tokens ---------- */
 :root {
-  /* Farver */
-  --cream:      #FAF5F0;
-  --cream-2:    #F4EBE3;
-  --blush:      #EFDCD8;
+  /* Farver — Wiktorias egen palet, fra hendes moodboard 22/8-2026:
+     CREME #EEE4DA · SAND #D8C4AC · DUSTY PINK #C8A49F · BURGUNDY #4D0E13.
+     Variabelnavnene er beholdt (--rose, --rose-deep osv.), så resten af
+     stilarket ikke skal skrives om — men værdierne er hendes. */
+  --cream:      #EEE4DA;   /* hovedfarve, sidens baggrund */
+  --cream-2:    #F5EEE6;   /* lysere cremenuance til skift mellem sektioner */
+  --blush:      #E6D6CF;   /* dusty pink, lysnet — ikoncirkler og flader */
   --white:      #FFFFFF;
   --ink:        #2E2523;   /* varm næsten-sort tekst */
   --ink-soft:   #6F615C;   /* dæmpet tekst */
-  --rose:       #B07A82;   /* primær mauve-rosa */
-  --rose-deep:  #8C5560;   /* mørk rosa til hover/mørke flader */
-  --rose-soft:  #E3C9C7;
-  --gold:       #C3A063;   /* tynde accentlinjer */
+  --sand:       #D8C4AC;   /* neutral sandtone */
+  --rose:       #C8A49F;   /* DUSTY PINK */
+  --rose-deep:  #4D0E13;   /* BURGUNDY — knapper og accenter */
+  --rose-soft:  #E6D6CF;
+  --gold:       #C4AA85;   /* sand, en anelse dybere — tynde linjer */
   --line:       rgba(46, 37, 35, 0.12);
   --line-soft:  rgba(46, 37, 35, 0.07);
 
@@ -49,15 +53,44 @@ body {
   color: var(--ink);
   background: var(--cream);
   line-height: 1.7;
-  font-size: clamp(1rem, 0.96rem + 0.2vw, 1.075rem);
+  font-size: clamp(1.125rem, 1.05rem + 0.3vw, 1.2rem);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
 }
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: .055;
+  background-image: radial-gradient(rgba(77, 14, 19, .42) .45px, transparent .55px);
+  background-size: 3px 3px;
+}
+body.nav-open { overflow: hidden; }
 img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; text-decoration: none; }
 button { font-family: inherit; cursor: pointer; }
 ::selection { background: var(--rose-soft); color: var(--ink); }
+:focus-visible {
+  outline: 2px solid var(--rose-deep);
+  outline-offset: 4px;
+}
+.skip-link {
+  position: fixed;
+  top: .75rem;
+  left: .75rem;
+  z-index: 200;
+  padding: .75rem 1rem;
+  border-radius: var(--radius-sm);
+  background: var(--rose-deep);
+  color: var(--white);
+  font-weight: 500;
+  transform: translateY(-150%);
+  transition: transform .2s ease;
+}
+.skip-link:focus { transform: translateY(0); }
 
 /* ---------- Typografi ---------- */
 h1, h2, h3, h4 {
@@ -67,11 +100,12 @@ h1, h2, h3, h4 {
   letter-spacing: 0.005em;
   margin: 0 0 .4em;
   color: var(--ink);
+  text-wrap: balance;
 }
 h1 { font-size: clamp(2.75rem, 1.6rem + 5vw, 5rem); font-weight: 500; }
 h2 { font-size: clamp(2.1rem, 1.4rem + 3vw, 3.4rem); }
 h3 { font-size: clamp(1.4rem, 1.1rem + 1.2vw, 1.9rem); }
-p  { margin: 0 0 1.1rem; }
+p  { margin: 0 0 1.1rem; text-wrap: pretty; }
 p:last-child { margin-bottom: 0; }
 em, .italic { font-style: italic; }
 strong { font-weight: 500; }
@@ -87,6 +121,7 @@ strong { font-weight: 500; }
   padding-inline: var(--gutter);
 }
 .section { padding-block: var(--section-y); }
+.section[id] { scroll-margin-top: 88px; }
 .section--tight { padding-block: clamp(3rem, 6vw, 5rem); }
 .bg-cream2 { background: var(--cream-2); }
 .bg-blush  { background: linear-gradient(180deg, var(--cream) 0%, var(--blush) 100%); }
@@ -98,7 +133,7 @@ strong { font-weight: 500; }
   gap: .7rem;
   font-family: var(--sans);
   font-weight: 500;
-  font-size: .74rem;
+  font-size: .875rem;
   letter-spacing: .28em;
   text-transform: uppercase;
   color: var(--rose-deep);
@@ -120,7 +155,7 @@ strong { font-weight: 500; }
 
 .section-head { max-width: 640px; }
 .section-head--center { max-width: 660px; margin-inline: auto; text-align: center; }
-.section-head p { color: var(--ink-soft); font-size: 1.1rem; }
+.section-head p { color: var(--ink-soft); font-size: 1.125rem; }
 
 /* ---------- Knapper ---------- */
 .btn {
@@ -130,7 +165,7 @@ strong { font-weight: 500; }
   gap: .6rem;
   font-family: var(--sans);
   font-weight: 500;
-  font-size: .82rem;
+  font-size: 1rem;
   letter-spacing: .12em;
   text-transform: uppercase;
   padding: 1.02rem 2rem;
@@ -152,6 +187,15 @@ strong { font-weight: 500; }
   border-color: var(--line);
 }
 .btn--ghost:hover { border-color: var(--rose-deep); color: var(--rose-deep); }
+.btn--text {
+  /* Stregen er knappens bundkant. Uden dette ville den arve .btn's
+     lodrette padding og svæve langt under teksten. */
+  padding: .25rem .35rem;
+  color: var(--rose-deep);
+  border-radius: 0;
+  border-bottom-color: var(--rose-soft);
+}
+.btn--text:hover { color: var(--ink); border-bottom-color: var(--ink); transform: translateY(-2px); }
 .btn--light {
   background: #fff; color: var(--ink);
 }
@@ -191,7 +235,7 @@ strong { font-weight: 500; }
   display: block;
   font-family: var(--sans);
   font-weight: 400;
-  font-size: .58rem;
+  font-size: .875rem;
   letter-spacing: .34em;
   text-transform: uppercase;
   color: var(--ink-soft);
@@ -210,7 +254,7 @@ strong { font-weight: 500; }
   margin: 0; padding: 0;
 }
 .nav-links a {
-  font-size: .8rem;
+  font-size: 1rem;
   letter-spacing: .1em;
   text-transform: uppercase;
   font-weight: 400;
@@ -227,10 +271,12 @@ strong { font-weight: 500; }
   transition: width .3s ease;
 }
 .nav-links a:hover::after { width: 100%; }
+.nav-links a.active { color: var(--rose-deep); }
+.nav-links a.active::after { width: 100%; }
 .nav-book { padding: .72rem 1.5rem; }
 
 /* Sprogskifter */
-.lang-switch { display: flex; align-items: center; gap: .55rem; font-size: .72rem; letter-spacing: .14em; }
+.lang-switch { display: flex; align-items: center; gap: .55rem; font-size: .95rem; letter-spacing: .14em; }
 .lang-switch a { color: var(--ink-soft); position: relative; padding: .2rem 0; transition: color .3s ease; }
 .lang-switch a:hover { color: var(--ink); }
 .lang-switch a.active { color: var(--rose-deep); font-weight: 500; }
@@ -294,16 +340,6 @@ strong { font-weight: 500; }
   margin-bottom: 2.2rem;
 }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; }
-.hero-trust {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 2.6rem;
-  color: var(--ink-soft);
-  font-size: .92rem;
-}
-.hero-trust .stars { color: var(--gold); letter-spacing: .15em; font-size: 1rem; }
-.hero-trust strong { color: var(--ink); font-weight: 500; }
 
 /* Hero-billede i buet ramme */
 .hero-figure {
@@ -340,11 +376,11 @@ strong { font-weight: 500; }
   padding: .7rem 1.15rem;
   display: flex; align-items: center; gap: .6rem;
   box-shadow: var(--shadow-sm);
-  font-size: .82rem;
+  font-size: 1rem;
   font-weight: 400;
 }
 .hero-badge b { font-weight: 500; }
-.hero-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: #6fb07a; box-shadow: 0 0 0 4px rgba(111,176,122,.2); }
+.hero-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 4px rgba(196,170,133,.2); }
 
 /* ---------- Marquee-strip ---------- */
 .strip {
@@ -374,13 +410,13 @@ strong { font-weight: 500; }
 /* ---------- Ydelser ---------- */
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: clamp(1rem, 2vw, 1.6rem);
   margin-top: 3.2rem;
 }
 .service {
   position: relative;
-  background: var(--white);
+  background: rgba(255,255,255,.7);
   border: 1px solid var(--line-soft);
   border-radius: var(--radius);
   padding: 2.1rem 1.9rem;
@@ -388,19 +424,31 @@ strong { font-weight: 500; }
   flex-direction: column;
   transition: transform .4s ease, box-shadow .4s ease, border-color .4s ease;
 }
+.service--wide { grid-column: span 7; padding: clamp(2.1rem, 4vw, 3rem); }
+.service--narrow { grid-column: span 5; }
+.service:nth-child(4n + 1) { border-radius: 38px var(--radius) var(--radius) var(--radius); }
+.service:nth-child(4n + 2) { border-radius: var(--radius) 38px var(--radius) var(--radius); }
 .service:hover { transform: translateY(-6px); box-shadow: var(--shadow); border-color: transparent; }
 .service--featured { background: linear-gradient(170deg, #fff, #fbeeeb); }
 .service-icon {
   width: 54px; height: 54px;
   display: grid; place-items: center;
-  border-radius: 50%;
+  border-radius: 18px 18px 18px 5px;
   background: var(--blush);
   color: var(--rose-deep);
   margin-bottom: 1.3rem;
 }
 .service-icon svg { width: 26px; height: 26px; }
 .service h3 { margin-bottom: .5rem; }
-.service .desc { color: var(--ink-soft); font-size: .97rem; margin-bottom: 1.5rem; }
+.service .desc { color: var(--ink-soft); font-size: 1.125rem; margin-bottom: 1.5rem; }
+.service-expect-title {
+  margin: 0 0 .65rem;
+  font-size: .82rem;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--rose-deep);
+}
 .service-meta {
   margin-top: auto;
   display: flex; align-items: baseline; justify-content: space-between;
@@ -408,10 +456,10 @@ strong { font-weight: 500; }
   border-top: 1px solid var(--line-soft);
 }
 .service-price { font-family: var(--serif); font-size: 1.5rem; color: var(--ink); }
-.service-dur { font-size: .8rem; letter-spacing: .06em; color: var(--ink-soft); text-transform: uppercase; }
+.service-dur { font-size: 1rem; letter-spacing: .06em; color: var(--ink-soft); text-transform: uppercase; }
 .tag-popular {
   position: absolute; top: 1.2rem; right: 1.2rem;
-  font-size: .62rem; letter-spacing: .16em; text-transform: uppercase;
+  font-size: .875rem; letter-spacing: .16em; text-transform: uppercase;
   color: var(--rose-deep); background: rgba(176,122,130,.12);
   padding: .32rem .7rem; border-radius: 100px;
 }
@@ -442,7 +490,7 @@ strong { font-weight: 500; }
   padding: 1.4rem 1.1rem .9rem;
   background: linear-gradient(0deg, rgba(46,37,35,.62), transparent);
   color: #fff;
-  font-size: .82rem;
+  font-size: 1.125rem;
   letter-spacing: .04em;
   opacity: 0; transform: translateY(8px);
   transition: opacity .4s ease, transform .4s ease;
@@ -465,12 +513,16 @@ strong { font-weight: 500; }
   border-bottom: 1px solid var(--line-soft);
 }
 .price-row:last-child { border-bottom: none; }
-.price-row .name { font-family: var(--serif); font-size: 1.35rem; color: var(--ink); white-space: nowrap; }
-.price-row .lead { flex: 1; border-bottom: 1px dotted var(--line); transform: translateY(-4px); }
-.price-row .amt { font-weight: 500; font-size: 1.02rem; color: var(--rose-deep); white-space: nowrap; }
-.price-row .dur { display: block; font-size: .78rem; color: var(--ink-soft); letter-spacing: .04em; margin-top: .15rem; }
+/* Navnet SKAL kunne ombrydes. Med nowrap skubbede "Koreansk lash lift +
+   brynlaminering + farve" hele siden ud over skærmkanten på små telefoner,
+   så prisen forsvandt. min-width:0 er nødvendig, fordi flex-elementer
+   ellers nægter at blive smallere end deres indhold. */
+.price-row .name { font-family: var(--serif); font-size: 1.35rem; color: var(--ink); flex: 0 1 auto; min-width: 0; }
+.price-row .lead { flex: 1 1 16px; min-width: 16px; border-bottom: 1px dotted var(--line); transform: translateY(-4px); }
+.price-row .amt { flex: none; font-weight: 500; font-size: 1.125rem; color: var(--rose-deep); white-space: nowrap; }
+.price-row .dur { display: block; font-size: 1rem; color: var(--ink-soft); letter-spacing: .04em; margin-top: .15rem; }
 .price-group-title {
-  font-family: var(--sans); font-weight: 500; font-size: .74rem;
+  font-family: var(--sans); font-weight: 500; font-size: .875rem;
   letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft);
   margin: 2rem 0 .3rem;
 }
@@ -483,9 +535,9 @@ strong { font-weight: 500; }
   position: sticky; top: 100px;
 }
 .price-aside h3 { margin-bottom: .6rem; }
-.price-aside p { color: var(--ink-soft); font-size: .96rem; }
+.price-aside p { color: var(--ink-soft); font-size: 1.125rem; }
 .price-aside .btn { width: 100%; margin-top: 1.2rem; }
-.price-note { font-size: .8rem; color: var(--ink-soft); margin-top: 1.4rem; padding-top: 1.2rem; border-top: 1px solid var(--line-soft); }
+.price-note { font-size: 1.125rem; color: var(--ink-soft); margin-top: 1.4rem; padding-top: 1.2rem; border-top: 1px solid var(--line-soft); }
 
 /* ---------- Om ---------- */
 .about-grid {
@@ -521,14 +573,13 @@ strong { font-weight: 500; }
 
 /* ---------- Anmeldelser ---------- */
 .reviews-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1.5rem; }
-.rating-badge { text-align: right; }
-.rating-badge .val { font-family: var(--serif); font-size: 2.6rem; color: var(--ink); line-height: 1; }
-.rating-badge .rec-word { font-family: var(--serif); font-style: italic; font-size: 1.15rem; color: var(--rose-deep); margin-top: .1rem; }
-.rating-badge small { display: block; color: var(--ink-soft); font-size: .82rem; margin-top: .2rem; }
+
+
+
+
 .reviews-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: clamp(1rem, 2vw, 1.6rem);
+  columns: 2;
+  column-gap: clamp(1rem, 2vw, 1.6rem);
   margin-top: 2.8rem;
 }
 .review {
@@ -537,10 +588,13 @@ strong { font-weight: 500; }
   border-radius: var(--radius);
   padding: 2rem 1.9rem;
   position: relative;
+  break-inside: avoid;
+  margin: 0 0 clamp(1rem, 2vw, 1.6rem);
 }
+.review:nth-child(4n + 1) { background: rgba(230,214,207,.55); }
 .review .rec {
   display: flex; align-items: center; gap: .5rem;
-  font-size: .68rem; font-weight: 500;
+  font-size: .875rem; font-weight: 500;
   letter-spacing: .16em; text-transform: uppercase;
   color: var(--rose-deep);
   margin-bottom: 1rem;
@@ -550,17 +604,24 @@ strong { font-weight: 500; }
 .review .quote { font-family: var(--serif); font-size: 1.28rem; line-height: 1.5; color: var(--ink); margin-bottom: 1.3rem; }
 .review .who { display: flex; align-items: center; gap: .8rem; }
 .review .avatar {
-  width: 40px; height: 40px; border-radius: 50%;
+  width: 40px; height: 40px; border-radius: 14px 14px 14px 4px;
   background: var(--blush); color: var(--rose-deep);
   display: grid; place-items: center;
   font-family: var(--serif); font-size: 1.05rem;
 }
-.review .who-meta b { display: block; font-weight: 500; font-size: .95rem; }
-.review .who-meta span { display: block; font-size: .78rem; color: var(--ink-soft); letter-spacing: .02em; }
+.review .who-meta b { display: block; font-weight: 500; font-size: 1.125rem; }
+.review .who-meta span { display: block; font-size: 1rem; color: var(--ink-soft); letter-spacing: .02em; }
 .review .avatar { line-height: 1; }
 
 /* ---------- FAQ ---------- */
-.faq-list { max-width: 760px; margin: 2.8rem auto 0; }
+#faq .container {
+  display: grid;
+  grid-template-columns: minmax(240px, .7fr) minmax(0, 1.3fr);
+  align-items: start;
+  gap: clamp(2.5rem, 7vw, 7rem);
+}
+#faq .section-head { position: sticky; top: 110px; }
+.faq-list { margin: 0; }
 .faq-item { border-bottom: 1px solid var(--line); }
 .faq-item summary {
   list-style: none;
@@ -584,6 +645,7 @@ strong { font-weight: 500; }
 }
 .faq-item[open] summary::after { transform: translateY(-20%) rotate(-135deg); }
 .faq-item summary:hover { color: var(--rose-deep); }
+.faq-item summary:focus-visible { outline-offset: 2px; }
 .faq-answer { padding: 0 3rem 1.5rem 0; color: var(--ink-soft); }
 .faq-answer p { margin: 0; }
 
@@ -616,7 +678,7 @@ strong { font-weight: 500; }
 .ba-label {
   position: absolute; top: 14px;
   font-family: var(--sans);
-  font-size: .68rem; font-weight: 500;
+  font-size: .875rem; font-weight: 500;
   letter-spacing: .18em; text-transform: uppercase;
   color: #fff;
   background: rgba(46,37,35,.55);
@@ -681,20 +743,30 @@ strong { font-weight: 500; }
 /* ---------- Booking ---------- */
 .booking { position: relative; }
 .booking-card {
-  background: linear-gradient(160deg, #fff, #fbeeea);
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(200,164,159,.28), transparent 38%),
+    rgba(255,255,255,.72);
   border: 1px solid var(--line-soft);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   padding: clamp(2.4rem, 5vw, 4rem);
   text-align: center;
-  max-width: 720px;
+  max-width: 920px;
   margin-inline: auto;
 }
 .booking-card h2 { margin-bottom: .4em; }
-.booking-card p { color: var(--ink-soft); max-width: 42ch; margin-inline: auto; }
+.booking-card p { color: var(--ink-soft); max-width: 42ch; margin-inline: auto; text-wrap: pretty; }
 .booking-actions { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 2rem; }
-.booking-note { font-size: .82rem; color: var(--ink-soft); margin-top: 1.6rem; letter-spacing: .02em; }
-.booking-note svg { width: 15px; height: 15px; color: var(--rose-deep); vertical-align: -3px; margin-right: .15rem; }
+.booking-note {
+  display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline;
+  gap: .35rem .7rem;
+  font-size: 1.125rem; color: var(--ink-soft); margin-top: 1.6rem; letter-spacing: .02em;
+}
+.booking-note span { display: inline-flex; align-items: baseline; gap: .3rem; }
+.booking-note span + span::before { content: "·"; margin-right: .7rem; opacity: .55; }
+.booking-note svg { width: 15px; height: 15px; color: var(--rose-deep); align-self: center; }
 .booking-embed { margin-top: 2rem; }
 .booking-embed iframe { width: 100%; min-height: 640px; border: 0; border-radius: var(--radius-sm); }
 
@@ -717,12 +789,12 @@ strong { font-weight: 500; }
 .footer .brand span { color: var(--rose-soft); }
 .footer-about p { color: rgba(233,222,217,.72); max-width: 34ch; margin-top: 1.1rem; }
 .footer h4 {
-  font-family: var(--sans); font-weight: 500; font-size: .74rem;
+  font-family: var(--sans); font-weight: 500; font-size: .875rem;
   letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.6);
   margin-bottom: 1.1rem;
 }
 .footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .7rem; }
-.footer ul a { font-size: .95rem; }
+.footer ul a { font-size: 1.125rem; }
 .footer .socials { display: flex; gap: .8rem; margin-top: 1.4rem; }
 .footer .socials a {
   width: 42px; height: 42px; border-radius: 50%;
@@ -735,7 +807,7 @@ strong { font-weight: 500; }
 .footer-bottom {
   display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem;
   padding-top: 2rem;
-  font-size: .8rem;
+  font-size: 1.125rem;
   color: rgba(233,222,217,.6);
 }
 
@@ -749,14 +821,19 @@ strong { font-weight: 500; }
 
 /* ---------- Responsivt ---------- */
 @media (max-width: 960px) {
-  .services-grid { grid-template-columns: repeat(2, 1fr); }
-  .reviews-grid { grid-template-columns: 1fr; }
+  .service--wide, .service--narrow { grid-column: span 6; }
+  .reviews-grid { columns: 1; }
   .pricing-wrap { grid-template-columns: 1fr; }
   .price-aside { position: static; }
-  .hero-grid { grid-template-columns: 1fr; }
-  .hero-figure { grid-row: 1; margin-bottom: 1rem; width: min(360px, 82%); }
+  .hero-grid { grid-template-columns: 1fr; justify-items: center; }
+  .hero-copy { grid-row: 1; margin-inline: auto; text-align: center; }
+  .hero-sub { margin-inline: auto; }
+  .hero-actions { justify-content: center; }
+  .hero-figure { grid-row: 2; margin-top: 1rem; width: min(420px, 88%); }
   .about-grid { grid-template-columns: 1fr; }
   .about-figure { width: min(360px, 80%); margin-inline: auto; }
+  #faq .container { grid-template-columns: 1fr; gap: 2rem; }
+  #faq .section-head { position: static; max-width: 620px; }
 }
 @media (max-width: 720px) {
   .nav-toggle { display: block; }
@@ -781,12 +858,337 @@ strong { font-weight: 500; }
   .nav-book { width: 100%; }
   .gallery { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 160px; }
   .gallery-item.wide { grid-column: span 2; }
-  .services-grid { grid-template-columns: 1fr; }
+  .service--wide, .service--narrow { grid-column: 1 / -1; }
   .footer-grid { grid-template-columns: 1fr; gap: 2.2rem; }
   .reviews-head { flex-direction: column; align-items: flex-start; }
-  .rating-badge { text-align: left; }
+  .hero { padding-top: 7rem; }
+  .hero-actions .btn { flex: 1 1 100%; }
+  .booking-actions { align-items: stretch; flex-direction: column; }
+  .booking-actions .btn { width: 100%; }
+  .booking-actions .btn--text { width: auto; align-self: center; }
 }
 @media (max-width: 400px) {
   .gallery { grid-template-columns: 1fr; }
   .gallery-item.wide, .gallery-item.tall { grid-column: auto; grid-row: auto; }
 }
+
+/* Store tablets i portræt (fx iPad Pro, 1024px) — samme stablede, centrerede hero */
+@media (max-width: 1024px) and (orientation: portrait) {
+  .hero-grid { grid-template-columns: 1fr; justify-items: center; }
+  .hero-copy { grid-row: 1; margin-inline: auto; text-align: center; }
+  .hero-sub { margin-inline: auto; }
+  .hero-actions { justify-content: center; }
+  .hero-figure { grid-row: 2; margin-top: 1rem; width: min(420px, 88%); }
+}
+
+/* ---------- Politik & information ---------- */
+.policy-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1rem, 2vw, 1.6rem);
+  margin-top: 3.2rem;
+}
+.policy-card {
+  background: var(--white);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  padding: 1.9rem 1.7rem;
+}
+.policy-card h3 {
+  font-family: var(--sans);
+  font-size: .875rem;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--rose-deep);
+  margin: 0 0 .85rem;
+}
+.policy-card p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 1.125rem;
+  line-height: 1.65;
+}
+.policy-note {
+  max-width: 68ch;
+  margin: 2.6rem auto 0;
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 1.125rem;
+  line-height: 1.65;
+}
+.policy-accept {
+  max-width: 68ch;
+  margin: .9rem auto 0;
+  text-align: center;
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+@media (max-width: 900px) {
+  .policy-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 620px) {
+  .policy-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- Book-knap i prislisten ---------- */
+.price-book {
+  margin-left: 1rem;
+  font-family: var(--sans);
+  font-size: .95rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--rose-deep);
+  border: 1px solid var(--rose-soft);
+  border-radius: 999px;
+  padding: .38rem .95rem;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background .3s ease, color .3s ease, border-color .3s ease;
+}
+.price-book:hover { background: var(--rose-deep); border-color: var(--rose-deep); color: var(--cream); }
+
+/* ---------- Klik-for-at-hente-boksen over kalenderen ---------- */
+.cal-invite { text-align: center; padding: .5rem 0 1rem; }
+.cal-invite-ic {
+  width: 54px; height: 54px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--blush);
+  color: var(--rose-deep);
+  margin: 0 auto 1.2rem;
+}
+.cal-invite h3 { margin: 0 0 .6rem; }
+.cal-invite p {
+  max-width: 46ch;
+  margin: 0 auto 1.6rem;
+  color: var(--ink-soft);
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+.cal-load[disabled] { opacity: .6; cursor: default; }
+
+/* ---------- Introduktion (Wiktorias §3) ---------- */
+.section--intro { padding-block: clamp(3.5rem, 7vw, 6rem); }
+.intro-block {
+  max-width: 44ch;
+  margin-inline: auto;
+  text-align: center;
+}
+.intro-block h2 { margin-bottom: 1.4rem; }
+.intro-block p {
+  color: var(--ink-soft);
+  font-size: 1.125rem;
+  line-height: 1.75;
+  margin: 0 0 1rem;
+}
+.intro-closing {
+  margin-top: 1.8rem !important;
+  font-family: var(--serif);
+  font-size: clamp(1.35rem, 2.6vw, 1.8rem);
+  font-style: italic;
+  color: var(--rose-deep) !important;
+}
+
+/* ---------- "What you can expect" på behandlingskortene ---------- */
+.service-expect {
+  list-style: none;
+  margin: 0 0 1.2rem;
+  padding: 0;
+  display: grid;
+  gap: .5rem;
+}
+.service-expect li {
+  display: flex;
+  gap: .6rem;
+  align-items: flex-start;
+  font-size: 1.125rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+.service-expect svg { flex: none; width: 16px; height: 16px; margin-top: .18rem; color: var(--rose-deep); }
+.service-tagline {
+  margin: 0 0 1.4rem;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.18rem;
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+/* ---------- Om mig: citat, læs mere, afslutning ---------- */
+.about-pull {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+  line-height: 1.4;
+  color: var(--rose-deep);
+  margin: 1.6rem 0;
+}
+.about-more { margin: 1.4rem 0 0; }
+.about-more summary {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--sans);
+  font-size: .95rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--rose-deep);
+  border-bottom: 1px solid var(--rose-soft);
+  padding-bottom: .3rem;
+}
+.about-more summary::-webkit-details-marker { display: none; }
+.about-more summary::after {
+  content: "";
+  width: 7px; height: 7px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-25%) rotate(45deg);
+  transition: transform .3s ease;
+}
+.about-more[open] summary::after { transform: translateY(10%) rotate(-135deg); }
+.about-more-body { padding-top: 1.4rem; }
+.about-more-body h3 {
+  font-family: var(--sans);
+  font-size: .875rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--rose-deep);
+  margin: 1.6rem 0 .8rem;
+}
+.about-closing {
+  margin-top: 1.8rem;
+  font-family: var(--serif);
+  font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+/* ---------- Afsluttende opfordring (Wiktorias §19) ---------- */
+.finalcta {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(4.5rem, 9vw, 8rem);
+  background: var(--rose-deep);
+}
+.finalcta::before {
+  content: "";
+  position: absolute;
+  width: min(70vw, 900px);
+  aspect-ratio: 1;
+  top: -90%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 1px solid rgba(238,228,218,.2);
+  border-radius: 50%;
+  box-shadow: 0 0 0 80px rgba(238,228,218,.03), 0 0 0 160px rgba(238,228,218,.025);
+}
+.finalcta-inner { max-width: 46ch; margin-inline: auto; text-align: center; }
+.finalcta-inner h2 { margin-bottom: 1rem; color: var(--cream); }
+.finalcta-inner p {
+  color: rgba(238,228,218,.78);
+  font-size: 1.125rem;
+  line-height: 1.7;
+  margin: 0 0 2.2rem;
+}
+
+/* ---------- Sæt-kortet i behandlingsgitteret ---------- */
+.service--sets {
+  background: linear-gradient(170deg, var(--blush), var(--cream-2));
+  text-decoration: none;
+  color: inherit;
+}
+.service--sets:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+.sets-list {
+  list-style: none;
+  margin: 0 0 1.4rem;
+  padding: 0;
+  display: grid;
+  gap: .1rem;
+}
+.sets-list li {
+  display: flex;
+  align-items: baseline;
+  gap: .6rem;
+  padding: .5rem 0;
+  border-bottom: 1px solid var(--line-soft);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+.sets-list li:last-child { border-bottom: 0; }
+.sets-list li span { flex: 1; color: var(--ink-soft); }
+.sets-list li b { font-family: var(--serif); font-size: 1.08rem; color: var(--ink); white-space: nowrap; }
+.sets-link {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-family: var(--sans);
+  font-size: .875rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--rose-deep);
+}
+.sets-link svg { width: 16px; height: 16px; }
+
+/* ---------- Resultater: filmstrimlen under før/efter ---------- */
+.results-strip {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(210px, 1fr);
+  gap: 14px;
+  margin-top: 2.6rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: .5rem;
+  scrollbar-width: thin;
+}
+.results-shot {
+  margin: 0;
+  scroll-snap-align: start;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--cream-2);
+}
+.results-shot img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  display: block;
+  transition: transform .7s cubic-bezier(.2,.7,.2,1);
+}
+.results-shot:hover img { transform: scale(1.05); }
+.results-shot figcaption {
+  padding: .7rem .2rem 0;
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--ink-soft);
+}
+.results-follow { text-align: center; margin-top: 2.4rem; }
+
+/* ---------- Branded 404 ---------- */
+.error-page { min-height: 70dvh; display: grid; place-items: center; text-align: center; }
+.error-page__inner { max-width: 560px; }
+.error-page__text { margin-inline: auto; }
+.error-page__actions { justify-content: center; }
+
+/* Rytme: sektionerne stod for langt fra hinanden, da brødteksten blev 18px */
+:root { --section-y: clamp(3.5rem, 7vw, 6.5rem); }
+
+
+/* ---------- Sikring mod vandret overløb på små skærme ---------- */
+.pricing-wrap > *, .services-grid > *, .policy-grid > *,
+.reviews-grid > *, .about-grid > * { min-width: 0; }
+.sets-list li span { min-width: 0; overflow-wrap: anywhere; }
+.price-row .name { overflow-wrap: anywhere; }

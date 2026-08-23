@@ -1,25 +1,31 @@
-{{ $p := .Site.Params }}
+{{ $p := hugo.Data.business }}
 {{ $L := .Site.Language.Lang }}
 {{ $h := (index hugo.Data.site $L).hero }}
+{{ $seo := index hugo.Data.seo $L }}
 <section class="hero">
   <div class="container hero-grid">
     <div class="hero-copy">
       <p class="eyebrow reveal">{{ $h.eyebrow }}</p>
-      <h1 class="reveal d1">{{ replaceRE `\{([^}]+)\}` `<span class="accent">$1</span>` $h.heading | safeHTML }}</h1>
+      <h1 class="reveal d1">
+        {{- /* The CMS uses {braces} to mark one italic phrase. Render every
+              captured part separately so Hugo still HTML-escapes editor text. */ -}}
+        {{- with findRESubmatch `^(.*?)\{([^{}]+)\}(.*)$` $h.heading 1 -}}
+          {{- $parts := index . 0 -}}
+          {{- index $parts 1 -}}<span class="accent">{{ index $parts 2 }}</span>{{- index $parts 3 -}}
+        {{- else -}}
+          {{- $h.heading -}}
+        {{- end -}}
+      </h1>
       <p class="hero-sub reveal d2">{{ $h.subheading }}</p>
       <div class="hero-actions reveal d3">
-        <a href="#booking" class="btn btn--primary">{{ $h.primaryCta }}</a>
-        <a href="#ydelser" class="btn btn--ghost">{{ $h.secondaryCta }}</a>
-      </div>
-      <div class="hero-trust reveal d3">
-        <span class="stars" aria-hidden="true">★★★★★</span>
-        <span>{{ i18n "hero_trusted" (dict "Count" $p.trustCount) }}</span>
+        <a href="#ydelser" class="btn btn--primary">{{ $h.primaryCta }}</a>
+        <a href="#booking" class="btn btn--ghost">{{ $h.secondaryCta }}</a>
       </div>
     </div>
 
     <div class="hero-figure reveal d2">
       <div class="hero-frame">
-        <img src="{{ "img/hero-portrait.jpg" | relURL }}" alt="{{ $p.ownerName }} — {{ $p.tagline }}"
+        <img src="{{ hugo.Data.images.hero | relURL }}" alt="{{ $p.ownerName }}, {{ $seo.title }}"
              width="800" height="1000" fetchpriority="high">
       </div>
       <div class="hero-badge">

@@ -7,6 +7,12 @@ baseURL = "https://wiktoria.christiansdemo.dk/"
 enableRobotsTXT = true
 disableKinds = ["taxonomy", "term"]
 
+# Giver sitemap'et et ærligt <lastmod>. Hugo læser commit-datoen for
+# content/_index.md. Bemærk: teksten bor i data/*.yaml, så en CMS-rettelse
+# flytter ikke datoen — den er "sidste gang sidens ramme blev rørt", ikke
+# "sidste gang et komma blev rettet". Bedre end ingen dato, ikke mere.
+enableGitInfo = true
+
 defaultContentLanguage = "da"
 defaultContentLanguageInSubdir = false   # dansk på /, engelsk på /en/
 
@@ -20,11 +26,8 @@ defaultContentLanguageInSubdir = false   # dansk på /, engelsk på /en/
     weight = 1
     title = "Wiktoria Gordon Beauty"
     [languages.da.params]
-      tagline = "Koreansk lash lift & bryn der passer til dig"
-      description = "Koreansk lash lift og brynstyling i Horsens. Naturligt løft, bryn der klæder dit ansigt, og en rolig, personlig oplevelse. Betroet af 180+ kvinder. Book din tid hos Wiktoria Gordon Beauty."
       ogLocale = "da_DK"
       country = "Danmark"
-      ogImage = "img/og-card.png"
 
   [languages.en]
     locale = "en-GB"
@@ -32,45 +35,34 @@ defaultContentLanguageInSubdir = false   # dansk på /, engelsk på /en/
     weight = 2
     title = "Wiktoria Gordon Beauty"
     [languages.en.params]
-      tagline = "Korean lash lift & brows that suit you"
-      description = "Korean lash lift and brow styling in Horsens, Denmark. A natural lift, brows shaped to suit your face, and a calm, personal experience. Trusted by 180+ women. Book with Wiktoria Gordon Beauty."
       ogLocale = "en_DK"
       country = "Denmark"
-      ogImage = "img/og-card-en.png"
-
-# =====================================================================
-#  Fælles oplysninger (samme på begge sprog)
-# =====================================================================
-[params]
-  businessName = "Wiktoria Gordon Beauty"
-  ownerName = "Wiktoria Gordon"
-  city = "Horsens"
-  region = "Midtjylland"
-  postalCode = "8700"
-  cvr = "45930238"
-  trustCount = "180+"
-  trustNumber = "180"
-  priceRange = "300–650 kr."
-
-  instagram = "https://www.instagram.com/wiktoriagordon.beauty/"
-  instagramHandle = "wiktoriagordon.beauty"
-  instagramDM = "https://ig.me/m/wiktoriagordon.beauty"
-  facebook = "https://www.facebook.com/p/Wiktoria-Lash-Studio-61580409810902/"
-  # Direkte link til anmeldelses-fanen på Facebook-siden
-  facebookReviews = "https://www.facebook.com/profile.php?id=61580409810902&sk=reviews"
-  # m.me-link til Messenger-chat med siden (side-ID, da siden ikke har brugernavn)
-  messenger = "https://m.me/61580409810902"
-  email = ""                       # valgfri – udfyld hvis kunder må skrive på mail
-  phone = ""                       # valgfri – udfyld hvis telefon-booking ønskes
-
-  # ogImage sat pr. sprog ovenfor ([languages.da.params] / [languages.en.params]),
-  # så /en/ ikke deler et link med dansk tekst i preview-billedet.
 
 [markup.goldmark.renderer]
-  unsafe = true
+  unsafe = false
+
+# =====================================================================
+#  Sitemap
+# =====================================================================
+[sitemap]
+  changefreq = "monthly"
+  priority = 0.5
+
+# =====================================================================
+#  Output-formater
+#  LLMS = /llms.txt (og /en/llms.txt): en ren tekstopsummering af hele
+#  sitet, skrevet til sprogmodeller. Genereres fra de samme data/*.yaml
+#  som siden selv, så den aldrig kan komme ud af sync med indholdet.
+# =====================================================================
+[outputFormats]
+  [outputFormats.LLMS]
+    mediaType = "text/plain"
+    baseName = "llms"
+    isPlainText = true
+    notAlternative = true
 
 [outputs]
-  home = ["HTML"]
+  home = ["HTML", "LLMS"]
 
 [minify]
   disableXML = true

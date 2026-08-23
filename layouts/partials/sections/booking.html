@@ -2,7 +2,7 @@
 {{ $d := index hugo.Data.site $L }}
 {{ $b := $d.booking }}
 {{ $c := $d.contact }}
-{{ $p := .Site.Params }}
+{{ $p := hugo.Data.business }}
 <section class="section booking" id="booking">
   <div class="container">
     <div class="booking-card reveal">
@@ -10,28 +10,32 @@
       <h2>{{ $b.heading }}</h2>
 
       {{ if and $b.online $b.onlineEmbed }}
-        {{/* Online-booking er aktiveret – vis embed */}}
-        <div class="booking-embed">
-          <iframe src="{{ $b.onlineEmbed }}" title="{{ $b.heading }}" loading="lazy"></iframe>
-        </div>
+        {{/* Online-booking er aktiveret. Kalenderen hentes først på klik —
+             se layouts/partials/cal-embed.html for hvorfor. */}}
+        {{ partial "cal-embed.html" (dict "ns" "book" "calLink" $b.onlineEmbed) }}
       {{ else }}
         {{/* Placeholder indtil online-booking åbner */}}
         <p>{{ $b.text }}</p>
         <div class="booking-actions">
+          <a href="#ydelser" class="btn btn--text">
+            {{ $b.treatmentButton }} {{ partial "icon.html" "arrow" }}
+          </a>
           <a href="{{ $p.instagramDM }}" target="_blank" rel="noopener" class="btn btn--primary">
-            {{ partial "icon.html" "instagram" }} {{ $b.dmButton }}
+            {{ partial "icon.html" "instagram" }} {{ $b.bookButton }}
           </a>
-          {{ with $p.messenger }}
-          <a href="{{ . }}" target="_blank" rel="noopener" class="btn btn--ghost">
-            {{ partial "icon.html" "messenger" }} {{ $b.messengerButton }}
-          </a>
-          {{ end }}
         </div>
       {{ end }}
 
+      {{/* Hver oplysning er sit eget element, så en linje aldrig brækker
+           midt i den — og separatoren står FORAN, så den ikke bliver
+           efterladt alene i slutningen af en linje. */}}
       <p class="booking-note">
-        {{ partial "icon.html" "pin" }} {{ $c.area }} &nbsp;·&nbsp;
-        {{ partial "icon.html" "clock" }} {{ $b.note }}
+        <span>{{ partial "icon.html" "pin" }}{{ $c.area }}</span>
+        {{ range $i, $part := split $b.note "·" }}
+          {{ with trim $part " " }}
+          <span>{{ if eq $i 0 }}{{ partial "icon.html" "clock" }}{{ end }}{{ . }}</span>
+          {{ end }}
+        {{ end }}
       </p>
     </div>
   </div>

@@ -1,0 +1,85 @@
+# =====================================================================
+#  Salon-politik. Wiktorias egen tekst, modtaget 22/8-2026.
+#  Den engelske version er hendes ordlyd; den danske er en oversættelse.
+#
+#  ⚠️  Teksten er en aftale med kunden. Ret ikke i betydningen —
+#      hverken beløb, frister eller "non-refundable" — uden hendes ja.
+#      Depositum står som MobilePay, fordi det er sådan hun gør det I DAG.
+#      Skifter bookingen til kortbetaling, SKAL den linje rettes.
+# =====================================================================
+
+da:
+  eyebrow: "Godt at vide"
+  heading: "Politik & information"
+  intro: "For at give alle kunder den bedste oplevelse beder jeg venligst om, at følgende respekteres:"
+  items:
+    - title: "Booking & depositum"
+      text: >-
+        Tider bookes via besked eller direkte i salonen. Der betales et
+        depositum på 50 % af den valgte behandling via MobilePay ved booking.
+        Depositummet refunderes ikke. Resten betales efter din behandling.
+    - title: "Afbud & ombooking"
+      text: >-
+        Du kan aflyse eller flytte din tid indtil 24 timer før det aftalte
+        tidspunkt. Sker det senere, mistes depositummet. Ellers overføres
+        depositummet til din næste tid.
+    - title: "Udeblivelse"
+      text: >-
+        Udebliver du, mistes depositummet. Næste tid kan først bookes, når
+        hele behandlingens pris er betalt forud.
+    - title: "Sikkerhed"
+      text: >-
+        Du skal oplyse mig om allergier, sygdomme og brug af retinol eller
+        Accutane. Salonen forbeholder sig retten til at afvise en behandling,
+        hvis der er tvivl om sikkerhed eller kontraindikationer.
+    - title: "Justeringer"
+      text: >-
+        Er der noget, du er i tvivl om, skal det siges inden for 48 timer.
+        Gratis korrektion hvor det er relevant. Der gives ikke pengene tilbage.
+    - title: "Eftervejledning"
+      text: >-
+        God eftervejledning er afgørende for, hvor længe vipper og bryn holder.
+        Hvor længe resultatet varer, er forskelligt fra person til person.
+  note: >-
+    Jeg har fuld forståelse for, at der kan opstå uventede situationer. Jeg beder
+    blot om gensidig respekt for min tid og mit arbejde.
+  accept: "Når du booker en tid, accepterer du denne politik."
+
+en:
+  eyebrow: "Good to know"
+  heading: "Policy & information"
+  intro: "To ensure the best experience for every client, please kindly respect the following:"
+  items:
+    - title: "Booking & deposit"
+      text: >-
+        Appointments may be booked via message or directly at the salon. A 50%
+        non-refundable deposit of your selected service is required via
+        MobilePay upon booking, with the remaining balance payable after your
+        appointment.
+    - title: "Cancellation & rescheduling"
+      text: >-
+        You can cancel or reschedule your appointment up to 24 hours before your
+        scheduled time. Failure to respect this policy will result in loss of
+        deposit; otherwise, your deposit will be transferred to your next
+        appointment.
+    - title: "Missed appointments"
+      text: >-
+        A no-show results in loss of deposit. The next appointment can be
+        scheduled only after prepayment of the full price of the service.
+    - title: "Safety"
+      text: >-
+        You must inform me of any allergies, medical conditions, or use of
+        retinol or Accutane. The salon reserves the right to refuse treatment if
+        there are concerns regarding safety or contraindications.
+    - title: "Adjustments"
+      text: >-
+        Any concerns must be reported within 48 hours. Free correction if
+        applicable, no refunds.
+    - title: "Aftercare"
+      text: >-
+        Proper aftercare is essential for the longevity of lash and brow
+        treatments. The longevity of results varies from person to person.
+  note: >-
+    I completely understand that unexpected situations can happen, however I
+    kindly ask for mutual respect for both my time and commitment.
+  accept: "Booking an appointment confirms acceptance of this policy."

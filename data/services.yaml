@@ -1,131 +1,278 @@
 # =====================================================================
-#  Ydelser & priser — pr. sprog. Bruges i "Ydelser" OG i prislisten.
-#  ⚠️  PRISER ER PLACEHOLDERE – ret dem før sitet går live.
-#  Hold 'da' og 'en' i SAMME rækkefølge (ikon + pris + varighed matcher).
+#  Ydelser & priser.
+#  Priser: Wiktorias egen prisliste, gældende fra august 2026.
+#  Tekster: Wiktorias eget manuskript, 22/8-2026 — engelsk er hendes
+#  ordlyd ordret, dansk er oversat og bør læses igennem af hende.
+#
+#  ⚠️  VARIGHEDER MANGLER STADIG. De er ikke gættet. Feltet står tomt og
+#      skjules på siden. Bookingsystemet kan ikke sættes op uden dem.
+#
+#  De fire sæt har bevidst hverken beskrivelse eller punkter — hun har
+#  ikke skrevet nogen, og de opfindes ikke.
 # =====================================================================
 
-# ---------------------------------------------------------------- DANSK
 da:
   intro:
-    eyebrow: "Ydelser"
-    heading: "Behandlinger"
-    text: "Alt tager udgangspunkt i dine egne vipper og bryn – forstærket, aldrig overdrevet."
+    eyebrow: "Behandlinger"
+    heading: "Behandlinger, der tager udgangspunkt i dig"
+    text: >-
+      Ingen to ansigter er ens, og din behandling bør heller ikke være det. Hver
+      tid tilpasses dine egne vipper eller bryn, dine træk og det resultat, du
+      gerne vil have.
   main:
-    - title: "Koreansk Lash Lift"
-      icon: "lash"
-      duration: "45–60 min"
-      price: "450 kr."
-      featured: true
-      desc: >-
-        Et blødt, naturligt løft der får dine egne vipper til at se længere og
-        mere åbne ud – helt uden extensions. Holder typisk 6–8 uger.
-    - title: "Lash Lift + farve"
+    - title: "Koreansk lash lift"
+      group: "lashes"
+      calSlug: ""
       icon: "lash-tint"
-      duration: "60 min"
+      duration: ""
       price: "500 kr."
       featured: false
       desc: >-
-        Løft og farve i én behandling, så vipperne fremstår mørkere, fyldigere og
-        pigger smukt opad. Perfekt til lyse vippespidser.
+        En moderne løfteteknik, der giver et rent løft fra rod til spids, så dine
+        naturlige vipper ser længere og fyldigere ud og øjnene åbner sig, uden
+        vippebukker og uden extensions.
+      expect:
+        - "Vipper løftet fra rod til spids"
+        - "Naturlige vipper, der ser længere og tykkere ud"
+        - "Vipper farvet i den nuance, du vælger"
+        - "Et resultat der holder 6-8 uger"
+        - "At vågne op med vipperne klar hver dag"
+      tagline: "Dine egne vipper, bare bedre."
     - title: "Brynlaminering"
+      group: "brows"
+      calSlug: ""
       icon: "brow"
-      duration: "45 min"
-      price: "400 kr."
-      featured: true
-      desc: >-
-        Ustyrlige bryn børstes op og sættes i en fyldig, velplejet form der holder
-        hele dagen – det eftertragtede fluffy, feathered look.
-    - title: "Brynlaminering + farve"
-      icon: "brow-tint"
-      duration: "60 min"
+      duration: ""
       price: "450 kr."
       featured: false
       desc: >-
-        Laminering kombineret med farve, så brynene får dybde, form og en fyldig
-        finish på én gang.
-    - title: "Brynstyling – form & farve"
-      icon: "shape"
-      duration: "30 min"
-      price: "300 kr."
+        En stylingbehandling, der lægger brynhårene i en fyldigere og mere
+        struktureret form. Den kan give et løftet, fluffy udtryk, samtidig med at
+        brynene forbliver bløde og lettere at style. Den perfekte løsning til
+        genstridige, kraftige bryn.
+      expect:
+        - "Fyldigere og blødere bryn"
+        - "En tydeligere brynform"
+        - "Et løftet udtryk omkring øjnene"
+        - "Mindre tid brugt på at style brynene"
+      tagline: "Struktureret nok til at definere. Blødt nok til at føles som dig."
+    - title: "Brynlaminering + farve"
+      group: "brows"
+      calSlug: ""
+      icon: "brow-tint"
+      duration: ""
+      price: "500 kr."
       featured: false
       desc: >-
-        Dine bryn kortlægges efter dit ansigt (brow mapping), formes med pincet og
-        voks og farves, så de rammer præcis din stil.
-    - title: "Signatur-combo: Lash Lift + Bryn"
-      icon: "combo"
-      duration: "90 min"
-      price: "650 kr."
-      featured: true
+        Den komplette brynbehandling for mere form, dybde og definition.
+        Lamineringen skaber retningen og strukturen, mens farven giver brynhårene
+        dybde og en fyldigere finish.
+      expect: []
+      tagline: "Form, retning og definition i én behandling."
+    - title: "Brynfarve & formning"
+      group: "brows"
+      calSlug: ""
+      icon: "sparkle"
+      duration: ""
+      price: "400 kr."
+      featured: false
       desc: >-
-        Vipper og bryn i én tid – den komplette “vågnet-sådan”-finish, hvor det
-        hele er afstemt. Den mest populære oplevelse.
-  addons:
-    - title: "Vippefarve (separat)"
-      price: "+50 kr."
-    - title: "Brynfarve (separat)"
-      price: "+50 kr."
-    - title: "Bryn-vedligehold (form uden farve)"
+        Den rigtige brynform kan ændre balancen i hele dit ansigt. Dine bryn måles
+        op efter dine egne træk, formes omhyggeligt og farves, så definitionen
+        passer til dig.
+      expect:
+        - "Præcis brynopmåling og geometri"
+        - "En farve tilpasset dine træk og dine ønsker"
+        - "Mere balance i ansigtets træk"
+        - "Renere definition i brynene"
+        - "Mindre behov for brynmakeup til hverdag"
+      tagline: "Målet er ikke perfekte bryn. Det er de rigtige bryn til dig."
+    - title: "Brynopmåling & formning"
+      group: "brows"
+      calSlug: ""
+      icon: "shape"
+      duration: ""
       price: "200 kr."
+      featured: false
+      desc: >-
+        Det er aldrig en løsning, der passer til alle. Dine bryn måles op efter
+        dine egne træk og ønsker og formes omhyggeligt med voks eller pincet.
+      expect:
+        - "Præcis brynopmåling og geometri"
+        - "Mere balance i ansigtets træk"
+        - "Renere definition i brynene"
+      tagline: "Find din ideelle brynform."
+    - title: "Koreansk lash lift + brynlaminering + farve"
+      group: "sets"
+      calSlug: ""
+      icon: "combo"
+      duration: ""
+      price: "900 kr."
+      featured: false
+      desc: ""
+      expect: []
+      tagline: ""
+    - title: "Koreansk lash lift + brynlaminering"
+      group: "sets"
+      calSlug: ""
+      icon: "combo"
+      duration: ""
+      price: "850 kr."
+      featured: false
+      desc: ""
+      expect: []
+      tagline: ""
+    - title: "Koreansk lash lift + brynfarve"
+      group: "sets"
+      calSlug: ""
+      icon: "combo"
+      duration: ""
+      price: "800 kr."
+      featured: false
+      desc: ""
+      expect: []
+      tagline: ""
+    - title: "Koreansk lash lift + brynformning"
+      group: "sets"
+      calSlug: ""
+      icon: "combo"
+      duration: ""
+      price: "600 kr."
+      featured: false
+      desc: ""
+      expect: []
+      tagline: ""
+  addons: []
 
-# -------------------------------------------------------------- ENGELSK
 en:
   intro:
-    eyebrow: "Services"
-    heading: "Treatments"
-    text: "Everything starts with your own lashes and brows – enhanced, never overdone."
+    eyebrow: "Treatments"
+    heading: "Treatments designed around you."
+    text: >-
+      No two faces are the same, and your treatment shouldn't be either. Every
+      appointment is adapted to your natural lashes or brows, your features and the
+      result you want to achieve.
   main:
-    - title: "Korean Lash Lift"
-      icon: "lash"
-      duration: "45–60 min"
-      price: "450 kr."
-      featured: true
-      desc: >-
-        A soft, natural lift that makes your own lashes look longer and more open
-        – with no extensions. Typically lasts 6–8 weeks.
-    - title: "Lash Lift + tint"
+    - title: "Korean lash lift"
+      group: "lashes"
+      calSlug: ""
       icon: "lash-tint"
-      duration: "60 min"
+      duration: ""
       price: "500 kr."
       featured: false
       desc: >-
-        Lift and tint in one treatment, so your lashes look darker, fuller and
-        beautifully curled upward. Perfect for light lash tips.
-    - title: "Brow Lamination"
+        A modern lash-lifting technique designed to create a clean lift from the
+        roots to tips, making your natural lashes appear longer, fuller and
+        eye-opening, without the need of lash curler or extensions.
+      expect:
+        - "Lifted lashes from the roots to tips"
+        - "Longer and thicker looking natural lashes"
+        - "Tinted lashes with colour of your choice"
+        - "Result lasting up to 6-8 weeks"
+        - "Waking up with your lashes ready everyday"
+      tagline: "Your natural lashes, but better."
+    - title: "Brow lamination"
+      group: "brows"
+      calSlug: ""
       icon: "brow"
-      duration: "45 min"
-      price: "400 kr."
-      featured: true
-      desc: >-
-        Unruly brows are brushed up and set into a full, groomed shape that lasts
-        all day – the coveted fluffy, feathered look.
-    - title: "Brow Lamination + tint"
-      icon: "brow-tint"
-      duration: "60 min"
+      duration: ""
       price: "450 kr."
       featured: false
       desc: >-
-        Lamination combined with tint, giving your brows depth, shape and a full
-        finish all at once.
-    - title: "Brow styling – shape & tint"
-      icon: "shape"
-      duration: "30 min"
-      price: "300 kr."
+        A styling treatment that redirects the brow hairs into a fuller, more
+        structured shape. It can create a lifted, fluffy appearance while keeping
+        the brows soft and more manageable. Perfect solution for unruly, thicker
+        brows.
+      expect:
+        - "Fuller, softer looking brows"
+        - "More visible brow shape"
+        - "A lifted appearance around the eyes"
+        - "Less time spent styling your brows"
+      tagline: "Structured enough to define. Soft enough to feel like you."
+    - title: "Brow lamination + tint"
+      group: "brows"
+      calSlug: ""
+      icon: "brow-tint"
+      duration: ""
+      price: "500 kr."
       featured: false
       desc: >-
-        Your brows are mapped to your face (brow mapping), shaped with tweezers
-        and wax, and tinted to match your style exactly.
-    - title: "Signature combo: Lash Lift + Brows"
-      icon: "combo"
-      duration: "90 min"
-      price: "650 kr."
-      featured: true
+        The complete brow treatment for more shape, depth and definition.
+        Lamination creates the direction and structure, while tint adds depth to the
+        brow hairs for a fuller-looking finish.
+      expect: []
+      tagline: "Shape, direction and definition in one treatment."
+    - title: "Brow tint & shaping"
+      group: "brows"
+      calSlug: ""
+      icon: "sparkle"
+      duration: ""
+      price: "400 kr."
+      featured: false
       desc: >-
-        Lashes and brows in one visit – the complete “woke-up-like-this” finish,
-        all in harmony. The most popular experience.
-  addons:
-    - title: "Lash tint (separate)"
-      price: "+50 kr."
-    - title: "Brow tint (separate)"
-      price: "+50 kr."
-    - title: "Brow upkeep (shape, no tint)"
+        The right brow shape can subtly change the balance of your entire face.
+        Your brows are mapped according to your individual features, carefully
+        shaped and tinted to create definition that suits you.
+      expect:
+        - "Precise brow geometry and mapping"
+        - "A tint tailored to your features and expectations"
+        - "More balanced face features"
+        - "Cleaner brow definition"
+        - "Less need for daily brow makeup"
+      tagline: "The goal isn't perfect brows. It's the right brows for you."
+    - title: "Brow geometry & shaping"
+      group: "brows"
+      calSlug: ""
+      icon: "shape"
+      duration: ""
       price: "200 kr."
+      featured: false
+      desc: >-
+        It is never one-size-fits-all. Your brows are mapped according to your
+        individual features and expectations, carefully shaped with wax or tweezers.
+      expect:
+        - "Precise brow geometry and mapping"
+        - "More balanced face features"
+        - "Cleaner brow definition"
+      tagline: "Find your ideal brow shape."
+    - title: "Korean lash lift + brow lamination + tint"
+      group: "sets"
+      calSlug: ""
+      icon: "combo"
+      duration: ""
+      price: "900 kr."
+      featured: false
+      desc: ""
+      expect: []
+      tagline: ""
+    - title: "Korean lash lift + brow lamination"
+      group: "sets"
+      calSlug: ""
+      icon: "combo"
+      duration: ""
+      price: "850 kr."
+      featured: false
+      desc: ""
+      expect: []
+      tagline: ""
+    - title: "Korean lash lift + brow tint"
+      group: "sets"
+      calSlug: ""
+      icon: "combo"
+      duration: ""
+      price: "800 kr."
+      featured: false
+      desc: ""
+      expect: []
+      tagline: ""
+    - title: "Korean lash lift + brow shaping"
+      group: "sets"
+      calSlug: ""
+      icon: "combo"
+      duration: ""
+      price: "600 kr."
+      featured: false
+      desc: ""
+      expect: []
+      tagline: ""
+  addons: []

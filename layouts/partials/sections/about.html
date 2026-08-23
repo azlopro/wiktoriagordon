@@ -1,10 +1,10 @@
 {{ $L := .Site.Language.Lang }}
 {{ $a := (index hugo.Data.site $L).about }}
-{{ $p := .Site.Params }}
+{{ $p := hugo.Data.business }}
 <section class="section bg-blush" id="om">
   <div class="container about-grid">
     <div class="about-figure reveal">
-      <img src="{{ "img/about-portrait.jpg" | relURL }}" alt="{{ $p.ownerName }} — {{ $p.city }}" loading="lazy" width="600" height="800">
+      <img src="{{ hugo.Data.images.portrait | relURL }}" alt="{{ $p.ownerName }}, {{ $p.city }}" loading="lazy" width="600" height="800">
     </div>
 
     <div class="about-copy reveal d1">
@@ -12,13 +12,24 @@
       <h2>{{ $a.heading }}</h2>
       {{ range $a.paragraphs }}<p>{{ . }}</p>{{ end }}
 
-      <ul class="about-highlights">
-        {{ range $a.highlights }}
-        <li>{{ partial "icon.html" "check" }}<span>{{ . }}</span></li>
-        {{ end }}
-      </ul>
+      {{ with $a.pullquote }}<p class="about-pull">{{ . }}</p>{{ end }}
 
-      <p class="signature">{{ $a.signature }}</p>
+      {{/* Resten af teksten foldes ud på klik. <details> frem for JavaScript,
+           så den også virker for skærmlæsere og uden scripts — og så
+           teksten stadig kan findes af Google. */}}
+      {{ if or $a.moreIntro $a.moreParagraphs }}
+      <details class="about-more">
+        <summary>{{ $a.moreButton }}</summary>
+        <div class="about-more-body">
+          {{ range $a.moreIntro }}<p>{{ . }}</p>{{ end }}
+          {{ with $a.moreHeading }}<h3>{{ . }}</h3>{{ end }}
+          {{ range $a.moreParagraphs }}<p>{{ . }}</p>{{ end }}
+          {{ with $a.closing }}<p class="about-closing">{{ . }}</p>{{ end }}
+        </div>
+      </details>
+      {{ else }}
+        {{ with $a.closing }}<p class="about-closing">{{ . }}</p>{{ end }}
+      {{ end }}
     </div>
   </div>
 </section>

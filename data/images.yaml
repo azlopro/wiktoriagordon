@@ -1,0 +1,12 @@
+# =====================================================================
+#  Faste billeder på forsiden. Samme billede på begge sprog, så de
+#  ligger her og ikke under da/en.
+#
+#  Stier er relative til /static/, fx "img/hero-portrait.jpg".
+#  Redigeres normalt i CMS'et under "Photos" — ikke i hånden.
+# =====================================================================
+
+hero: "img/hero-portrait.jpg"        # stort portræt øverst på siden
+portrait: "img/about-portrait.jpg"   # portrættet i "Om Wiktoria"
+before: "img/ba-before.jpg"          # venstre side af før/efter-slideren
+after: "img/ba-after.jpg"            # højre side af før/efter-slideren

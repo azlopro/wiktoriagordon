@@ -1,63 +1,88 @@
 # =====================================================================
-#  Ofte stillede spørgsmål — pr. sprog. Bruges også til FAQ-schema.
+#  Ofte stillede spørgsmål. Wiktorias eget manuskript, 22/8-2026.
+#  Engelsk er hendes ordlyd ordret. Dansk er oversat af Christian/Claude
+#  og bør læses igennem af hende.
+#  Bruges også til FAQ-schema, så svarene skal være sande.
 # =====================================================================
 
-# ---------------------------------------------------------------- DANSK
 da:
   eyebrow: "Godt at vide"
   heading: "Ofte stillede spørgsmål"
   items:
+    - q: "Hvad er en koreansk lash lift?"
+      a: >-
+        En koreansk lash lift er en moderne måde at løfte og kruse dine naturlige
+        vipper på, helt fra roden til spidsen. Det giver et rent løft, der åbner
+        øjnene, uden vippebukker og uden extensions. Behandlingen er lagt an på
+        vippernes sundhed, med nærende og fugtgivende pleje undervejs.
+    - q: "Hvordan adskiller den sig fra en almindelig lash lift?"
+      a: >-
+        Forskellen ligger i teknikken, holdbarheden og resultatet. En koreansk lash
+        lift løfter vipperne fra rod til spids og giver et mere aflangt, løftet
+        udtryk. En almindelig lash lift skaber mest krøl på midten af vippen. Den
+        koreanske teknik lægger desuden større vægt på fugt og vippesundhed, og
+        resultatet holder typisk længere.
+    - q: "Bliver mine vipper rent faktisk længere?"
+      a: >-
+        Behandlingen gør ikke vipperne fysisk længere. Men når de løftes fra roden,
+        kommer mere af den naturlige vippe til syne, og det får dem til at se
+        længere og tydeligere ud, især når de også farves.
     - q: "Hvor længe holder en koreansk lash lift?"
       a: >-
-        Typisk 6–8 uger – lige så længe som vippernes naturlige vækstcyklus. Så
-        falder løftet blødt ud igen, uden en skarp kant.
-    - q: "Gør det ondt?"
+        Resultatet holder typisk 6-8 uger, afhængigt af din naturlige vækstcyklus.
+    - q: "Virker det på korte vipper?"
       a: >-
-        Nej. Behandlingen er helt smertefri, og dine øjne er lukkede hele vejen.
-        De fleste slapper så meget af, at de falder i søvn.
-    - q: "Hvordan forbereder jeg mig?"
+        Ja, absolut! Det er ofte dér, den største forskel ses. Den koreanske lash
+        lift løfter vipperne fra rod til spids og afslører deres naturlige længde,
+        og hvor meget dine vipper egentlig kan.
+    - q: "Hvordan ved jeg, hvilken brynbehandling der passer til mig?"
       a: >-
-        Mød op med rene vipper og bryn – uden makeup, mascara eller olieholdig
-        creme omkring øjnene. Så får du det bedste og mest holdbare resultat.
-    - q: "Må jeg bruge mascara bagefter?"
+        Det behøver du ikke vide på forhånd. Dine bryn og ansigtstræk vurderes under
+        selve tiden, og vi finder den rigtige behandling sammen i konsultationen.
+    - q: "Skal jeg have en konsultation?"
       a: >-
-        Undgå vand, damp og makeup på vipperne de første 24 timer. Derefter kan du
-        bruge mascara som normalt – de fleste synes slet ikke, de har brug for den.
-    - q: "Hvor foregår behandlingerne?"
-      a: >-
-        I mit private studie i Horsens. Du får den præcise adresse, når din tid er
-        bekræftet.
-    - q: "Hvordan booker jeg tid?"
-      a: >-
-        Skriv til mig på Instagram (@wiktoriagordon.beauty), så finder vi sammen en
-        tid der passer. Online-booking åbner snart.
+        Hver tid begynder med en kort konsultation, så behandlingen kan tilpasses dig.
 
-# -------------------------------------------------------------- ENGELSK
 en:
   eyebrow: "Good to know"
   heading: "Frequently asked questions"
   items:
-    - q: "How long does a Korean lash lift last?"
+    - q: "What is a Korean Lash Lift?"
       a: >-
-        Typically 6–8 weeks – as long as your lashes' natural growth cycle. Then
-        the lift softly grows out again, with no harsh line.
-    - q: "Does it hurt?"
+        A Korean Lash Lift is a modern approach to lifting and curling natural
+        lashes from the very root to the tip, creating a clean effect that opens up
+        the eyes without lash curler or extensions. The treatment is designed with
+        lash health in mind, incorporating nourishing and moisturising care
+        throughout the process.
+    - q: "How is it different from a traditional lash lift?"
       a: >-
-        No. The treatment is completely painless and your eyes stay closed the
-        whole time. Most people relax so much they fall asleep.
-    - q: "How do I prepare?"
+        The main difference is the technique, longevity and the final result. A
+        Korean Lash Lift lifts the lashes from root to tip, creating a more
+        elongated, lifted appearance. Traditional lash lifts focus more on creating
+        a curl through the middle of the lash. The Korean technique also places
+        greater focus on hydration and lash health, and the result typically lasts
+        longer.
+    - q: "Will my lashes actually become longer?"
       a: >-
-        Arrive with clean lashes and brows – no makeup, mascara or oily cream
-        around the eyes. That gives the best and longest-lasting result.
-    - q: "Can I wear mascara afterwards?"
+        The treatment does not physically increase the length of your lashes.
+        However, lifting them from the root exposes more of the natural lash, which
+        can make them appear longer and more visible, especially when lashes are
+        also tinted.
+    - q: "How long does a Korean Lash Lift last?"
       a: >-
-        Avoid water, steam and makeup on the lashes for the first 24 hours. After
-        that you can wear mascara as usual – though most find they don't need it.
-    - q: "Where do the treatments take place?"
+        Results typically last around 6-8 weeks, depending on your natural lash
+        growth cycle.
+    - q: "Is it suitable for short lashes?"
       a: >-
-        In my private studio in Horsens. You'll get the exact address once your
-        appointment is confirmed.
-    - q: "How do I book?"
+        Yes, definitely! This is often where the biggest transformation can be seen.
+        The Korean Lash Lift lifts your lashes from root to tip, revealing their
+        natural length and showing just how much potential your lashes actually have.
+    - q: "How do I know which brow treatment is right for me?"
       a: >-
-        Message me on Instagram (@wiktoriagordon.beauty) and we'll find a time
-        together. Online booking opens soon.
+        You don't need to know before booking. Your brows and facial features are
+        assessed during the appointment, and the treatment can be recommended during
+        our consultation.
+    - q: "Do I need a consultation?"
+      a: >-
+        Every appointment begins with a short consultation so the treatment can be
+        adapted to you.

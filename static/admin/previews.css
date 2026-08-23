@@ -1,0 +1,199 @@
+/* Visual previews inside Sveltia CMS. Loaded only in the preview iframe. */
+body {
+  min-width: 0;
+  background: #f5eee6;
+  font-size: 16px;
+  overflow-x: hidden;
+}
+
+.wg-preview { min-height: 100vh; color: var(--ink); background: var(--cream-2); }
+.wg-preview-bar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  min-height: 52px;
+  padding: .65rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  background: rgba(46,37,35,.96);
+  color: #fff;
+  font-family: var(--sans);
+  font-size: .75rem;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.wg-preview-status { display: flex; align-items: center; gap: .55rem; }
+.wg-preview-dot { width: 8px; height: 8px; border-radius: 50%; background: #b9d6aa; box-shadow: 0 0 0 4px rgba(185,214,170,.15); }
+.wg-preview-languages { display: flex; align-items: center; padding: 3px; border: 1px solid rgba(255,255,255,.2); border-radius: 999px; }
+.wg-preview-languages button {
+  appearance: none;
+  border: 0;
+  border-radius: 999px;
+  padding: .34rem .62rem;
+  background: transparent;
+  color: rgba(255,255,255,.65);
+  font: inherit;
+  letter-spacing: inherit;
+}
+.wg-preview-languages button.is-active { background: var(--cream); color: var(--rose-deep); }
+.wg-preview-languages button:focus-visible { outline-color: #fff; outline-offset: 2px; }
+.wg-preview-shared { color: rgba(255,255,255,.68); }
+.wg-preview-context {
+  padding: .72rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  gap: .8rem;
+  color: var(--ink-soft);
+  background: #fff;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--sans);
+  font-size: .82rem;
+  font-weight: 500;
+}
+.wg-preview-context a { color: var(--rose-deep); text-decoration: underline; text-underline-offset: 3px; }
+.wg-preview-canvas { overflow: hidden; }
+.wg-preview-note {
+  margin: 0;
+  padding: 1.1rem;
+  color: var(--ink-soft);
+  background: #fff;
+  border-top: 1px solid var(--line);
+  font-family: var(--sans);
+  font-size: .78rem;
+  line-height: 1.55;
+}
+.wg-preview-canvas .container { width: auto; padding-inline: clamp(1rem, 4vw, 2.5rem); }
+.wg-preview-canvas .section-head { max-width: 42rem; }
+.wg-preview-canvas .section-head p { font-size: 1rem; }
+.wg-preview-canvas h1 { font-size: clamp(2.4rem, 7vw, 4.8rem); }
+.wg-preview-canvas h2 { font-size: clamp(2rem, 5vw, 3.25rem); }
+.wg-preview-canvas h3 { font-size: clamp(1.25rem, 3vw, 1.75rem); }
+.wg-preview-canvas .eyebrow { font-size: .72rem; }
+.wg-preview-canvas .btn { pointer-events: none; font-size: .78rem; padding: .72rem 1rem; }
+.wg-preview-canvas .price-aside { position: static; margin-top: 1.5rem; }
+
+.wg-page-preview > section { padding: clamp(2.4rem, 7vw, 5rem) clamp(1rem, 5vw, 3.5rem); }
+.wg-hero-preview {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(180px, .8fr);
+  gap: clamp(1.5rem, 5vw, 4rem);
+  align-items: center;
+  background: var(--cream);
+}
+.wg-hero-copy { max-width: 40rem; }
+.wg-lead { max-width: 35rem; color: var(--ink-soft); font-size: clamp(1rem, 2.4vw, 1.22rem); }
+.wg-actions { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 1.35rem; }
+.wg-actions--center { justify-content: center; }
+.wg-photo-placeholder,
+.wg-portrait-placeholder {
+  min-height: 19rem;
+  display: grid;
+  place-items: center;
+  color: rgba(255,255,255,.78);
+  border-radius: 14rem 14rem 1.1rem 1.1rem;
+  background: radial-gradient(circle at 70% 20%, var(--rose), transparent 35%), linear-gradient(145deg, var(--sand), var(--rose-deep));
+  font-family: var(--sans);
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.wg-strip-preview { display: flex; gap: 1.25rem; overflow: hidden; padding: .85rem 1rem; background: var(--rose-deep); color: #fff; font-family: var(--serif); font-size: 1.12rem; font-style: italic; white-space: nowrap; }
+.wg-strip-preview span { display: inline-flex; align-items: center; gap: 1.25rem; }
+.wg-strip-preview i { color: var(--gold); font-size: .62rem; }
+.wg-copy-section { padding: clamp(2.5rem, 7vw, 4.8rem) clamp(1rem, 5vw, 3.5rem); background: var(--cream-2); }
+.wg-copy-section--center { text-align: center; }
+.wg-copy-section--center > p { max-width: 42rem; margin-inline: auto; }
+.wg-pullquote { margin-top: 1.2rem; color: var(--rose-deep); font-family: var(--serif); font-size: 1.45rem; font-style: italic; }
+.wg-about-preview { display: grid; grid-template-columns: minmax(150px,.7fr) minmax(0,1.3fr); gap: clamp(1.5rem,5vw,3.5rem); align-items: center; background: linear-gradient(180deg,var(--cream),var(--blush)); }
+.wg-portrait-placeholder { min-height: 18rem; }
+.wg-text-link { color: var(--rose-deep); border-bottom: 1px solid currentColor; font-family: var(--sans); font-size: .78rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+.wg-results-copy { background: #fff; }
+.wg-booking-preview { padding: clamp(2.5rem,7vw,5rem) clamp(1rem,5vw,3.5rem); background: var(--cream); }
+.wg-final-preview { text-align: center; background: var(--rose-deep); color: #fff; }
+.wg-final-preview h2 { color: #fff; }
+.wg-final-preview p { color: rgba(255,255,255,.78); }
+
+.wg-services-preview { padding: 0 clamp(1rem, 5vw, 3.5rem) clamp(3rem, 7vw, 5rem); margin-top: 0; background: var(--cream-2); }
+.wg-services-preview .service { min-width: 0; }
+.wg-services-preview .service-icon { font-family: var(--serif); font-size: 1.4rem; }
+.wg-expect { margin: 0 0 1rem; padding: 0; list-style: none; color: var(--ink-soft); font-size: .9rem; }
+.wg-service-tagline { color: var(--rose-deep); font-family: var(--serif); font-size: 1.08rem; font-style: italic; }
+.wg-sets-list { display: grid; gap: .55rem; margin: .5rem 0 0; padding: 0; list-style: none; }
+.wg-sets-list li { display: flex; justify-content: space-between; gap: 1rem; color: var(--ink-soft); font-size: .9rem; }
+.wg-sets-list b { color: var(--rose-deep); white-space: nowrap; }
+.wg-price-preview { padding: clamp(2.5rem,7vw,5rem) clamp(1rem,5vw,3.5rem); background: #fff; }
+.wg-preview-kicker { margin: 0 0 1rem; color: var(--rose-deep); font-family: var(--sans); font-size: .7rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+
+.wg-image-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1rem; padding: clamp(1rem,4vw,2.5rem); }
+.wg-image-card { position: relative; min-height: 14rem; margin: 0; overflow: hidden; border-radius: 1.1rem; background: var(--blush); }
+.wg-image-card--hero { grid-row: span 2; min-height: 29rem; border-radius: 12rem 12rem 1.1rem 1.1rem; }
+.wg-image-card img { width: 100%; height: 100%; position: absolute; inset: 0; object-fit: cover; }
+.wg-image-card figcaption,
+.wg-result-card figcaption { position: absolute; inset: auto .65rem .65rem; padding: .45rem .65rem; border-radius: .5rem; background: rgba(46,37,35,.78); color: #fff; font-family: var(--sans); font-size: .7rem; font-weight: 500; }
+.wg-empty-image { min-height: inherit; display: grid; place-items: center; color: var(--ink-soft); font-family: var(--sans); font-size: .75rem; }
+.wg-gallery-preview { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .8rem; padding: clamp(1rem,4vw,2.5rem); }
+.wg-result-card { position: relative; min-height: 16rem; margin: 0; overflow: hidden; border-radius: 1rem; background: var(--blush); }
+.wg-result-card:nth-child(3n+1) { min-height: 22rem; }
+.wg-result-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+.wg-seo-preview { max-width: 46rem; margin: 0 auto; padding: clamp(1.25rem,5vw,3rem); font-family: Arial,sans-serif; }
+.wg-google-card { margin-bottom: .7rem; padding: 1.25rem; border-radius: .8rem; background: #fff; box-shadow: var(--shadow-sm); }
+.wg-google-card p { margin: 0; font-size: .88rem; line-height: 1.45; }
+.wg-google-card .wg-google-site { color: #202124; }
+.wg-google-card .wg-google-url { color: #4d5156; font-size: .78rem; }
+.wg-google-card h2 { margin: .35rem 0; color: #1a0dab; font: 400 1.25rem/1.3 Arial,sans-serif; }
+.wg-counter-row { display: flex; flex-wrap: wrap; gap: .5rem 1rem; margin-bottom: 2.5rem; font-size: .72rem; }
+.wg-counter-row .is-good { color: #42653a; }
+.wg-counter-row .is-warning { color: #9b3f35; font-weight: 700; }
+.wg-social-card { overflow: hidden; border: 1px solid #d8d8d8; border-radius: .85rem; background: #fff; }
+.wg-social-card > img,
+.wg-social-placeholder { width: 100%; aspect-ratio: 1200/630; object-fit: cover; background: var(--blush); }
+.wg-social-placeholder { display: grid; place-items: center; color: var(--ink-soft); }
+.wg-social-card > div { padding: 1rem; }
+.wg-social-card small { color: #65676b; text-transform: uppercase; }
+.wg-social-card h3 { margin: .25rem 0; color: #1c1e21; font: 600 1.05rem/1.3 Arial,sans-serif; }
+.wg-social-card p { margin: 0; color: #65676b; font-size: .84rem; }
+
+.wg-business-preview { padding: clamp(1rem,5vw,3rem); }
+.wg-business-card { padding: clamp(1.5rem,5vw,3rem); border-radius: 1.2rem 1.2rem 0 0; background: #fff; }
+.wg-owner { color: var(--ink-soft); font-family: var(--serif); font-size: 1.3rem; font-style: italic; }
+.wg-business-card dl { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1rem; margin: 2rem 0 0; }
+.wg-business-card dl div { padding-top: 1rem; border-top: 1px solid var(--line); }
+.wg-business-card dt { color: var(--ink-soft); font-family: var(--sans); font-size: .68rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.wg-business-card dd { margin: .35rem 0 0; font-family: var(--serif); font-size: 1.1rem; }
+.wg-footer-preview { display: flex; justify-content: space-between; gap: 1rem; padding: 1.5rem; border-radius: 0 0 1.2rem 1.2rem; background: var(--ink); color: #fff; }
+.wg-footer-preview strong,
+.wg-footer-preview span { display: block; }
+.wg-footer-preview strong { font-family: var(--serif); font-size: 1.35rem; }
+.wg-footer-preview span { color: rgba(255,255,255,.68); font-size: .78rem; }
+.wg-contact-list { text-align: right; }
+
+.wg-reviews-preview { margin-top: 2rem; }
+.wg-reviews-preview .review { padding: 1.5rem; }
+.wg-faq-preview { display: grid; grid-template-columns: minmax(12rem,.7fr) minmax(0,1.3fr); gap: clamp(1.5rem,5vw,4rem); padding: clamp(2rem,6vw,4rem) clamp(1rem,5vw,3.5rem); }
+.wg-faq-preview .section-head { position: static !important; }
+.wg-policy-preview { grid-template-columns: repeat(2,minmax(0,1fr)); margin-top: 2rem; }
+
+@media (max-width: 620px) {
+  .wg-preview-context { align-items: flex-start; flex-direction: column; }
+  .wg-hero-preview,
+  .wg-about-preview,
+  .wg-faq-preview { grid-template-columns: 1fr; }
+  .wg-photo-placeholder { min-height: 15rem; }
+  .wg-about-preview .wg-portrait-placeholder { min-height: 15rem; }
+  .wg-services-preview .service--wide,
+  .wg-services-preview .service--narrow { grid-column: 1/-1; }
+  .wg-image-grid,
+  .wg-gallery-preview,
+  .wg-policy-preview,
+  .wg-business-card dl { grid-template-columns: 1fr; }
+  .wg-image-card--hero { grid-row: auto; min-height: 20rem; }
+  .wg-result-card,
+  .wg-result-card:nth-child(3n+1) { min-height: 18rem; }
+  .wg-footer-preview { flex-direction: column; }
+  .wg-contact-list { text-align: left; }
+}

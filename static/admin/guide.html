@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Website editing guide · Wiktoria Gordon Beauty</title>
+  <link rel="icon" href="/favicon.svg">
+  <style>
+    :root { color-scheme: light; --ink:#2e2523; --wine:#4d0e13; --paper:#f8f2ed; --line:#d9c9bf; }
+    * { box-sizing: border-box; }
+    body { margin:0; color:var(--ink); background:var(--paper); font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    main { width:min(100% - 2rem, 52rem); margin:0 auto; padding:3.5rem 0 5rem; }
+    h1,h2 { line-height:1.15; color:var(--wine); }
+    h1 { font-size:clamp(2rem,6vw,3.7rem); letter-spacing:-.035em; margin:0 0 .75rem; }
+    h2 { margin:2.5rem 0 .5rem; font-size:1.45rem; }
+    p,li { max-width:68ch; }
+    a { color:var(--wine); text-underline-offset:3px; }
+    .back { display:inline-block; margin-bottom:2rem; font-weight:700; }
+    .lead { font-size:1.15rem; }
+    .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:.75rem; margin:2rem 0; padding:0; list-style:none; counter-reset:steps; }
+    .steps li { background:#fff; border:1px solid var(--line); border-radius:12px; padding:1rem; }
+    .steps li::before { counter-increment:steps; content:counter(steps); display:block; color:var(--wine); font-weight:800; font-size:1.5rem; }
+    .note { border-left:4px solid var(--wine); background:#fff; padding:1rem 1.1rem; margin:1.5rem 0; }
+    code { background:#eee4da; border-radius:4px; padding:.12rem .3rem; }
+    @media (max-width:620px) { .steps { grid-template-columns:1fr; } main { padding-top:2rem; } }
+  </style>
+</head>
+<body>
+<main>
+  <a class="back" href="/admin/">← Back to the editor</a>
+  <h1>Editing your website</h1>
+  <p class="lead">The editor is organised by task, much like WordPress: treatments, photos, reviews, page wording, SEO and business settings each have their own screen.</p>
+
+  <ol class="steps">
+    <li>Choose a section and make the change.</li>
+    <li>Use the visual preview and check both <strong>DA</strong> and <strong>EN</strong>.</li>
+    <li>Press <strong>Save</strong>, wait 1–2 minutes and check the live site.</li>
+  </ol>
+
+  <h2>The visual preview</h2>
+  <p>On a larger screen, the form and a branded preview appear beside each other. The preview updates while you type and shows the part of the website controlled by the current screen: for example treatment cards, photos, reviews, Google results or footer details.</p>
+  <p>Use the <strong>DA</strong> and <strong>EN</strong> buttons inside the preview to inspect both versions. These buttons only change the preview language; make the actual translations in the matching DA and EN form tabs. On a phone or narrow tablet, use the editor's Edit/Preview control to move between the form and preview.</p>
+  <div class="note"><strong>The preview is a safety check, not the published website.</strong> It accurately reflects the section and brand styling, but navigation, booking and the final page layout still need a quick check on both live pages after saving.</div>
+
+  <h2>Publishing and recovery</h2>
+  <p><strong>Save</strong> normally publishes the change. The arrow beside Save also offers <strong>Save without publishing</strong> if unfinished work should be kept out of the next deployment.</p>
+  <p>A technical build failure leaves the previous working site online. A wording or price mistake can still publish, so always open both the <a href="/" target="_blank">Danish page</a> and <a href="/en/" target="_blank">English page</a> after saving.</p>
+  <div class="note"><strong>If something is wrong:</strong> stop making further edits and tell the site administrator which section changed and roughly when. Every save is kept in Git history and can be restored.</div>
+
+  <h2>Danish and English</h2>
+  <p>Text fields have DA and EN tabs. Prices, images, review quotations and treatment order are deliberately shared so the two versions cannot drift apart. A genuine review remains in the language the customer used; never translate it.</p>
+
+  <h2>Treatments and prices</h2>
+  <p>Use <strong>Treatments & prices</strong> for names, descriptions, duration and price. Drag treatments to reorder them. Duration may stay empty until it is confirmed. Booking-system identifiers are protected and do not appear in this editor.</p>
+
+  <h2>Photos</h2>
+  <p>Use <strong>Main photos</strong> for the hero, portrait and before/after pair. Use <strong>Result photos</strong> for the scrolling result strip. Upload sharp images with the client’s permission; the editor automatically converts large phone photos to web-friendly WebP files.</p>
+
+  <h2>SEO and link previews</h2>
+  <p>Use <strong>SEO & link previews</strong> for the Google title and description in each language. The character counters are intentional. Mention the main service and Horsens naturally, write for people, and avoid repeating keywords or making claims that are not visible on the page.</p>
+  <p>The social title, description and 1200 × 630 image control how the link looks in Messenger, Facebook and similar services. Those services may cache an older preview for a while even after the website has changed.</p>
+
+  <h2>Business settings</h2>
+  <p><strong>Business details & links</strong> controls social buttons, public contact details, the footer and structured business information for search engines. Optional email and phone fields disappear from the website when left blank.</p>
+
+  <h2>Changes that need the site administrator</h2>
+  <p>The editor intentionally does not expose the domain, login/authentication, layout code, booking integration, analytics or deployment settings. Those changes can affect the whole site and should be tested before publication.</p>
+</main>
+</body>
+</html>

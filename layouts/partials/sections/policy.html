@@ -1,0 +1,23 @@
+{{ $L := .Site.Language.Lang }}
+{{ $p := index hugo.Data.policy $L }}
+<section class="section" id="politik">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">{{ $p.eyebrow }}</p>
+      <h2>{{ $p.heading }}</h2>
+      <p>{{ $p.intro }}</p>
+    </div>
+
+    <div class="policy-grid">
+      {{ range $i, $item := $p.items }}
+      <article class="policy-card reveal{{ if lt $i 3 }} d{{ add $i 1 }}{{ end }}">
+        <h3>{{ $item.title }}</h3>
+        <p>{{ $item.text }}</p>
+      </article>
+      {{ end }}
+    </div>
+
+    <p class="policy-note reveal">{{ $p.note }}</p>
+    <p class="policy-accept reveal">{{ $p.accept }}</p>
+  </div>
+</section>

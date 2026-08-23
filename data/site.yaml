@@ -1,96 +1,125 @@
 # =====================================================================
-#  Redigerbar forsidetekst — pr. sprog (da = dansk, en = engelsk).
-#  Ret under det rigtige sprog. Ingen kode at røre ved.
+#  Forsidetekst. Wiktorias eget manuskript, modtaget 22/8-2026.
+#  Engelsk er hendes ordlyd ORDRET. Dansk er oversat af Christian/Claude
+#  og bør læses igennem af hende, før sitet går live.
+#
 # =====================================================================
 
-# ---------------------------------------------------------------- DANSK
 da:
   hero:
     eyebrow: "Koreansk lash lift · Brynstyling · Horsens"
-    heading: "Dit smukkeste {jeg} – helt naturligt"   # ordet i {kursiv} vises kursivt
+    heading: "Skønhed, {tilpasset dig}"
     subheading: >-
-      Blødt, naturligt vippeløft og bryn der klæder netop dit ansigt.
-      En rolig, personlig oplevelse i hjertet af Horsens.
-    primaryCta: "Book din tid"
-    secondaryCta: "Se ydelser"
+      Gennemtænkte vippe- og brynbehandlinger, der åbner blikket, definerer
+      brynene og skaber balance i dine træk, og samtidig holder resultatet
+      blødt, naturligt og umiskendeligt dig.
+    primaryCta: "Se behandlinger"
+    secondaryCta: "Book din tid"
 
   strip:
     - "Koreansk lash lift"
     - "Brynlaminering"
-    - "Brow mapping"
+    - "Brynopmåling"
     - "Lash lift & farve"
     - "Naturligt løft"
     - "Horsens"
 
+  intro:
+    heading: "Nogle gange ændrer én lille detalje alt."
+    paragraphs:
+      - "Hele dit udtryk behøver ikke altid at laves om."
+      - >-
+        Små justeringer kan få dine træk til at fremstå mere balancerede,
+        definerede og velplejede, uden at du kommer til at ligne en anden.
+    closing: "Forstærkning, ikke forvandling."
+
   about:
-    eyebrow: "Om Wiktoria"
-    heading: "Skønhed der ligner dig – bare på en god dag"
+    eyebrow: "Om mig"
+    heading: "Skønhed er mere end resultatet. Det er, hvordan du har det undervejs og bagefter."
     paragraphs:
       - >-
-        Jeg hedder Wiktoria, og jeg er specialiseret i koreansk lash lift og
-        brynstyling. Min filosofi er enkel: du skal ikke se ud som en anden – du
-        skal ligne dig selv, veludhvilet og velplejet.
+        Fra begyndelsen ønskede jeg at skabe et sted, hvor du kan sænke farten,
+        føle dig lyttet til og virkelig taget hånd om.
       - >-
-        Hver behandling starter med en samtale om, hvad der passer til dit ansigt,
-        din hverdag og dine ønsker. Jeg arbejder med præcision, gode produkter og
-        god tid, så du kan læne dig tilbage og slappe helt af.
+        Jeg mener, at enhver kvinde fortjener at føle sig tilpas og velkommen fra
+        det øjeblik, hun træder ind ad døren. Derfor har det altid været lige så
+        vigtigt for mig at skabe en varm, privat og personlig ramme som selve
+        behandlingen.
+    pullquote: "Et øjeblik, der udelukkende er dit."
+    moreButton: "Læs mere"
+    moreIntro:
       - >-
-        Mit studie i Horsens er blevet et lille frirum for 180+ kvinder – og jeg
-        glæder mig til at byde dig velkommen.
-    signature: "Kærligst, Wiktoria 🌹"
-    highlights:
-      - "Specialist i koreansk lash lift"
-      - "Bryn tilpasset dit ansigt (brow mapping)"
-      - "Skånsomme, premium-produkter"
-      - "Rolig, personlig 1-til-1 oplevelse"
+        Hverdagen kan være travl, og nogle gange har vi bare brug for lidt tid væk
+        fra alt det andet.
+      - >-
+        Jeg ville have, at din tid hos mig skulle føles som en lille pause fra
+        hverdagens pligter. Et øjeblik til at slappe af, koble fra og nyde at
+        passe på dig selv. Ingen hastværk, intet pres, bare tid til at trække
+        vejret og være til stede.
+    moreHeading: "Hvorfor vipper og bryn?"
+    moreParagraphs:
+      - >-
+        Jeg har valgt at specialisere mig i koreansk lash lift og brynbehandlinger,
+        fordi jeg tror på, at det kan gøre en stor forskel at forstærke dine
+        naturlige træk.
+      - >-
+        De mindste detaljer kan ændre den måde, dit ansigt ser ud på, og endnu
+        vigtigere den måde, du har det på, når du ser dig i spejlet. Jeg elsker at
+        skabe resultater, der stadig føles som dig, bare en anelse mere definerede
+        og forfinede.
+      - >-
+        Og noget af det, jeg holder allermest af ved mit arbejde, er at se det ægte
+        smil, når en kunde ser sit resultat for første gang. Netop det øjeblik,
+        hvor hun ser sig i spejlet og har det godt med det, hun ser, er præcis
+        derfor, jeg skabte mit studie.
+    closing: "Du tilbringer hver eneste dag med dig selv. Du fortjener at have det bedst muligt."
 
   pricing:
     eyebrow: "Priser"
     heading: "Prisliste"
-    intro: "Klar og enkel. Alt inkluderer en kort konsultation, så resultatet passer til netop dig."
+    intro: "Klar og enkel. Hver tid begynder med en kort konsultation, så resultatet passer til netop dig."
     addonsTitle: "Tilvalg"
     asideTitle: "Book din tid"
-    asideText: "Ikke sikker på hvad du skal vælge? Skriv til mig på Instagram, så finder vi den rette behandling sammen."
+    asideText: "Ikke sikker på, hvad du skal vælge? Skriv til mig, så finder vi den rette behandling sammen."
     cta: "Book tid"
-    note: "Priser er vejledende og kan variere efter behandlingens omfang. Betaling med kort eller MobilePay."
+    note: "Ved booking betales 50 % af behandlingens pris i depositum via MobilePay. Resten betales efter din behandling."
 
   booking:
     eyebrow: "Book tid"
-    heading: "Klar til et løft?"
+    heading: "Ikke sikker på, hvor du skal starte?"
     text: >-
-      Online-booking er lige på trapperne. Indtil da booker du nemmest ved at
-      skrive til mig på Instagram – så finder vi en tid der passer dig.
+      Fortæl mig bare, hvad du gerne vil forbedre eller ændre, så hjælper jeg dig
+      med at finde den behandling, der er den rigtige for dig.
     online: false
     onlineEmbed: ""
-    dmButton: "Skriv til mig på Instagram"
-    messengerButton: "Skriv på Messenger"
+    treatmentButton: "Find din behandling"
+    bookButton: "Book en tid"
     note: "Svar inden for 24 timer · Aflysning senest 24 timer før"
 
   contact:
     area: "Horsens, Danmark"
-    hours:
-      - "Man – tors: 09.00 – 18.00"
-      - "Fredag: 09.00 – 15.00"
-      - "Weekend: efter aftale"
-    address: ""
 
   beforeafter:
-    eyebrow: "Før / efter"
-    heading: "Se forskellen"
-    text: "Samme øjne, samme bryn – bare løftet, defineret og fuldt afstemt. Træk i håndtaget."
+    eyebrow: "Resultater"
+    heading: "Se forskellen."
+    text: "Rigtige kunder. Rigtige træk. Gennemtænkte resultater."
     beforeLabel: "Før"
     afterLabel: "Efter"
 
-# -------------------------------------------------------------- ENGELSK
+  finalcta:
+    heading: "Dine træk. Din stil. Din behandling."
+    text: "Lidt tid til dig. En forskel, du vil lægge mærke til."
+
 en:
   hero:
     eyebrow: "Korean lash lift · Brow styling · Horsens"
-    heading: "Your most beautiful {you} — naturally"
+    heading: "Beauty, {tailored to you}"
     subheading: >-
-      Soft, natural lash lifts and brows shaped to suit your face.
-      A calm, personal experience in the heart of Horsens.
-    primaryCta: "Book your time"
-    secondaryCta: "See services"
+      Thoughtfully tailored lash and brow treatments designed to open up the eyes,
+      define the brows and bring balance to your features, while keeping the
+      result soft, natural and unmistakably you.
+    primaryCta: "Explore treatments"
+    secondaryCta: "Book your appointment"
 
   strip:
     - "Korean lash lift"
@@ -100,61 +129,85 @@ en:
     - "Natural lift"
     - "Horsens"
 
+  intro:
+    heading: "Sometimes, one small detail changes everything."
+    paragraphs:
+      - "Your entire look doesn't always need changing."
+      - >-
+        Small adjustments can make your features look more balanced, defined and
+        polished, without making you look like someone else.
+    closing: "Enhancement, not transformation."
+
   about:
-    eyebrow: "About Wiktoria"
-    heading: "Beauty that looks like you — just on a good day"
+    eyebrow: "About me"
+    heading: "Beauty is more than the result. It's how you feel during and after the experience."
     paragraphs:
       - >-
-        I'm Wiktoria, and I specialise in Korean lash lifts and brow styling. My
-        philosophy is simple: you shouldn't look like someone else – you should
-        look like you, well-rested and well-groomed.
+        From the very beginning, I wished to create a place where you can slow
+        down, feel listened to and truly taken care of.
       - >-
-        Every treatment begins with a conversation about what suits your face,
-        your everyday life and your wishes. I work with precision, quality
-        products and no rush, so you can lean back and truly relax.
+        I believe every woman deserves to feel comfortable and welcomed from the
+        moment she walks through the door. That is why creating a warm, private and
+        personal environment has always been just as important to me as the
+        treatment itself.
+    pullquote: "A moment that is entirely yours."
+    moreButton: "Read more"
+    moreIntro:
       - >-
-        My studio in Horsens has become a little sanctuary for 180+ women – and I
-        can't wait to welcome you.
-    signature: "With love, Wiktoria 🌹"
-    highlights:
-      - "Korean lash lift specialist"
-      - "Brows mapped to your face"
-      - "Gentle, premium products"
-      - "Calm, personal 1-to-1 experience"
+        Life can be busy, and sometimes we simply need a little time away from
+        everything else.
+      - >-
+        I wanted your appointment to feel like a small pause from everyday
+        responsibilities. A moment to relax, switch off and enjoy taking care of
+        yourself. No rushing, no pressure, just time to breathe and be present.
+    moreHeading: "Why lashes & brows?"
+    moreParagraphs:
+      - >-
+        I chose to specialise in Korean lash lift and brow treatments, because I
+        believe enhancing your natural features can have a powerful effect.
+      - >-
+        The smallest details can change the way your face looks and, more
+        importantly, the way you feel when you look in the mirror. I love creating
+        results that still feel like you, just a little more defined and refined.
+      - >-
+        And one of my favourite parts of what I do is seeing that genuine smile
+        when a client sees her result for the first time. That moment, when she
+        looks in the mirror and feels good about what she sees, is exactly why I
+        created my beauty studio.
+    closing: "You spend every day with yourself. You deserve to feel your best."
 
   pricing:
     eyebrow: "Prices"
     heading: "Price list"
-    intro: "Clear and simple. Every treatment includes a short consultation so the result suits you perfectly."
+    intro: "Clear and simple. Every appointment begins with a short consultation so the result suits you perfectly."
     addonsTitle: "Add-ons"
-    asideTitle: "Book your time"
-    asideText: "Not sure what to choose? Message me on Instagram and we'll find the right treatment together."
+    asideTitle: "Book your appointment"
+    asideText: "Not sure what to choose? Message me and we'll find the right treatment together."
     cta: "Book now"
-    note: "Prices are guiding and may vary with the scope of the treatment. Payment by card or MobilePay."
+    note: "A 50% deposit of your selected service is paid via MobilePay when you book. The remaining balance is payable after your appointment."
 
   booking:
     eyebrow: "Book"
-    heading: "Ready for a lift?"
+    heading: "Not sure where to start?"
     text: >-
-      Online booking is just around the corner. Until then, the easiest way to
-      book is to message me on Instagram – and we'll find a time that suits you.
+      Simply tell me what you'd like to improve or change, and I'll help you find
+      the treatment that's right for you.
     online: false
     onlineEmbed: ""
-    dmButton: "Message me on Instagram"
-    messengerButton: "Chat on Messenger"
+    treatmentButton: "Find your treatment"
+    bookButton: "Book an appointment"
     note: "Reply within 24 hours · Cancellation at least 24 hours ahead"
 
   contact:
     area: "Horsens, Denmark"
-    hours:
-      - "Mon – Thu: 09:00 – 18:00"
-      - "Friday: 09:00 – 15:00"
-      - "Weekend: by appointment"
-    address: ""
 
   beforeafter:
-    eyebrow: "Before / after"
-    heading: "See the difference"
-    text: "Same eyes, same brows – just lifted, defined and perfectly in tune. Drag the handle."
+    eyebrow: "Results"
+    heading: "See the difference."
+    text: "Real clients. Real features. Carefully considered results."
     beforeLabel: "Before"
     afterLabel: "After"
+
+  finalcta:
+    heading: "Your features. Your style. Your treatment."
+    text: "A little time for you. A difference you'll notice."

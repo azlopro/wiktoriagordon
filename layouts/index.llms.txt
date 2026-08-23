@@ -1,0 +1,147 @@
+{{- /* =====================================================================
+     /llms.txt  (og /en/llms.txt)
+
+     En ren tekstudgave af hele sitet, skrevet til sprogmodeller. Alt
+     hentes fra de samme data/*.yaml som HTML-siden, så filen ikke kan
+     komme ud af sync med det, kunden faktisk læser.
+
+     Intet må opfindes her. Felter, der står tomme i data (varigheder,
+     beskrivelser på sættene, telefon, e-mail), springes over i stedet
+     for at blive gættet — en model, der læser dette, videregiver det
+     som fakta om en rigtig virksomhed.
+     ===================================================================== */ -}}
+{{- $L := .Site.Language.Lang -}}
+{{- $p := hugo.Data.business -}}
+{{- $seo := index hugo.Data.seo $L -}}
+{{- $d := index hugo.Data.site $L -}}
+{{- $s := index hugo.Data.services $L -}}
+{{- $f := index hugo.Data.faq $L -}}
+{{- $pol := index hugo.Data.policy $L -}}
+{{- $r := index hugo.Data.reviews $L -}}
+{{- $labels := dict
+  "da" (dict
+    "overview" "Overblik" "owner" "Indehaver" "city" "By" "area" "Betjener"
+    "langs" "Sprog på sitet" "prices" "Prisleje" "cvr" "CVR" "pay" "Betaling"
+    "treatments" "Behandlinger" "lashes" "Vipper" "brows" "Bryn" "sets" "Sæt"
+    "includes" "Indeholder" "duration" "Varighed" "addons" "Tilvalg"
+    "faq" "Ofte stillede spørgsmål" "policy" "Politik og vilkår"
+    "reviews" "Anmeldelser" "about" "Om Wiktoria" "booking" "Booking og kontakt"
+    "alt" "Samme side på engelsk" "src" "Kilde"
+    "sourcenote" "Genereret fra sitets eget indhold. Priser i danske kroner."
+    "reviewnote" "Ordrette kundeanmeldelser fra Facebook, gengivet uredigeret.")
+  "en" (dict
+    "overview" "At a glance" "owner" "Owner" "city" "City" "area" "Serves"
+    "langs" "Site languages" "prices" "Price range" "cvr" "Danish company no."
+    "pay" "Payment"
+    "treatments" "Treatments" "lashes" "Lashes" "brows" "Brows" "sets" "Packages"
+    "includes" "Includes" "duration" "Duration" "addons" "Add-ons"
+    "faq" "Frequently asked questions" "policy" "Policies and terms"
+    "reviews" "Reviews" "about" "About Wiktoria" "booking" "Booking and contact"
+    "alt" "Same page in Danish" "src" "Source"
+    "sourcenote" "Generated from the site's own content. Prices in Danish kroner."
+    "reviewnote" "Verbatim customer reviews from Facebook, reproduced unedited.")
+  -}}
+{{- $t := index $labels $L -}}
+{{- $groups := slice (slice "lashes" (index $t "lashes")) (slice "brows" (index $t "brows")) (slice "sets" (index $t "sets")) -}}
+# {{ $p.businessName }}
+
+> {{ $seo.description }}
+
+{{ index $t "src" }}: {{ .Permalink }}
+{{ index $t "sourcenote" }}
+
+## {{ index $t "overview" }}
+
+- {{ index $t "owner" }}: {{ $p.ownerName }}
+- {{ index $t "city" }}: {{ $p.city }}, {{ $p.postalCode }}, {{ $p.region }}, {{ .Site.Params.country }}
+- {{ index $t "area" }}: {{ $d.contact.area }}
+- {{ index $t "prices" }}: {{ $p.priceRange }}
+- {{ index $t "pay" }}: MobilePay
+- {{ index $t "cvr" }}: {{ $p.cvr }}
+- {{ index $t "langs" }}: {{ range $i, $tr := .AllTranslations }}{{ if $i }}, {{ end }}{{ $tr.Language.Label }} ({{ $tr.Permalink }}){{ end }}
+
+{{ $d.intro.heading }}
+{{ range $d.intro.paragraphs }}
+{{ . }}
+{{ end }}
+## {{ index $t "treatments" }}
+
+{{ $s.intro.text }}
+{{ range $g := $groups }}{{ $key := index $g 0 }}{{ $items := where $s.main "group" $key }}{{ with $items }}
+### {{ index $g 1 }}
+{{ range . }}
+**{{ .title }}** - {{ .price }}
+{{- with .duration }}
+{{ index $t "duration" }}: {{ . }}
+{{- end }}
+{{- with .desc }}
+{{ . }}
+{{- end }}
+{{- with .expect }}
+{{ index $t "includes" }}: {{ delimit . ", " }}
+{{- end }}
+{{ end }}{{ end }}{{ end }}
+{{ $d.pricing.note }}
+{{- with $s.addons }}
+
+### {{ index $t "addons" }}
+{{ range . }}
+- {{ .title }} - {{ .price }}
+{{- end }}
+{{- end }}
+
+## {{ index $t "faq" }}
+{{ range $f.items }}
+**{{ .q }}**
+{{ .a }}
+{{ end }}
+## {{ index $t "policy" }}
+
+{{ $pol.intro }}
+{{ range $pol.items }}
+**{{ .title }}**
+{{ .text }}
+{{ end }}
+{{ $pol.note }}
+{{ $pol.accept }}
+
+## {{ index $t "about" }}
+
+{{ $d.about.heading }}
+{{ range $d.about.paragraphs }}
+{{ . }}
+{{ end }}
+{{- range $d.about.moreIntro }}
+{{ . }}
+{{ end }}
+### {{ $d.about.moreHeading }}
+{{ range $d.about.moreParagraphs }}
+{{ . }}
+{{ end }}
+{{ $d.about.closing }}
+
+## {{ index $t "reviews" }}
+
+{{ index $t "reviewnote" }}
+{{ range $r.items }}
+"{{ .text }}"
+- {{ .name }}{{ with .service }}, {{ . }}{{ end }}
+{{ end }}
+## {{ index $t "booking" }}
+
+{{ $d.booking.text }}
+
+- Instagram: {{ $p.instagram }}
+- Instagram DM: {{ $p.instagramDM }}
+- Facebook: {{ $p.facebook }}
+{{- with $p.messenger }}
+- Messenger: {{ . }}
+{{- end }}
+{{- with $p.email }}
+- E-mail: {{ . }}
+{{- end }}
+{{- with $p.phone }}
+- Telefon: {{ . }}
+{{- end }}
+
+{{ $d.booking.note }}

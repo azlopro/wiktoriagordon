@@ -1,38 +1,52 @@
-{{ $p := .Site.Params -}}
-{{ $title := printf "%s · %s · %s" $p.businessName $p.tagline $p.city -}}
-{{ $desc := $p.description -}}
+{{ $p := hugo.Data.business -}}
+{{ $seo := index hugo.Data.seo .Site.Language.Lang -}}
+{{ $title := $seo.title -}}
+{{ $desc := $seo.description -}}
+{{ $socialTitle := $seo.socialTitle | default $title -}}
+{{ $socialDesc := $seo.socialDescription | default $desc -}}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ $title }}</title>
 <meta name="description" content="{{ $desc }}">
 <meta name="author" content="{{ $p.ownerName }}">
-<meta name="theme-color" content="#FAF5F0">
-<script>document.documentElement.classList.add('js');</script>
+<meta name="theme-color" content="#EEE4DA">
+<script src="{{ "js/early.js" | relURL }}"></script>
 <link rel="canonical" href="{{ .Permalink }}">
-<meta name="robots" content="index, follow, max-image-preview:large">
+{{ if eq .Kind "404" -}}
+{{/* Fejlsider må aldrig indekseres. "follow" beholdes, så crawleren stadig
+     følger linkene tilbage til forsiden. */}}
+<meta name="robots" content="noindex, follow">
+{{- else -}}
+{{/* max-snippet:-1 giver Google og AI-svartjenester lov til at citere så
+     meget af siden, de vil — vi vil gerne citeres helt, ikke i stumper. */}}
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+{{- end }}
 
 <!-- Sprog-alternativer (hreflang) -->
 {{ range .AllTranslations -}}
 <link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}">
 {{ end -}}
-<link rel="alternate" hreflang="x-default" href="{{ .Site.Home.Permalink }}">
+{{ with index hugo.Sites 0 }}<link rel="alternate" hreflang="x-default" href="{{ .Home.Permalink }}">{{ end }}
 
 <!-- Open Graph / social -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="{{ $p.businessName }}">
-<meta property="og:title" content="{{ $title }}">
-<meta property="og:description" content="{{ $desc }}">
-<meta property="og:locale" content="{{ $p.ogLocale }}">
+<meta property="og:title" content="{{ $socialTitle }}">
+<meta property="og:description" content="{{ $socialDesc }}">
+<meta property="og:locale" content="{{ .Site.Params.ogLocale }}">
 {{ range .Translations }}<meta property="og:locale:alternate" content="{{ .Site.Params.ogLocale }}">
 {{ end -}}
 <meta property="og:url" content="{{ .Permalink }}">
-{{ with $p.ogImage }}<meta property="og:image" content="{{ . | absURL }}">
+{{ with $seo.socialImage }}<meta property="og:image" content="{{ . | absURL }}">
+<meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">{{ end }}
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{{ $socialTitle }}">{{ end }}
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{{ $title }}">
-<meta name="twitter:description" content="{{ $desc }}">
-{{ with $p.ogImage }}<meta name="twitter:image" content="{{ . | absURL }}">{{ end }}
+<meta name="twitter:title" content="{{ $socialTitle }}">
+<meta name="twitter:description" content="{{ $socialDesc }}">
+{{ with $seo.socialImage }}<meta name="twitter:image" content="{{ . | absURL }}">
+<meta name="twitter:image:alt" content="{{ $socialTitle }}">{{ end }}
 
 <!-- Ikoner -->
 <link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
@@ -45,4 +59,6 @@
 <link rel="stylesheet" href="{{ "css/fonts.css" | relURL }}">
 <link rel="stylesheet" href="{{ "css/style.css" | relURL }}">
 
-{{ partial "schema.html" . }}
+{{/* Ingen strukturerede data på fejlsiden. Den er noindex, og dens
+     FAQPage/WebPage ville kollidere med forsidens @id'er. */}}
+{{ if ne .Kind "404" }}{{ partial "schema.html" . }}{{ end }}

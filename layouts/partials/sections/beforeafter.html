@@ -1,6 +1,7 @@
 {{ $L := .Site.Language.Lang }}
 {{ $ba := (index hugo.Data.site $L).beforeafter }}
-<section class="section ba" id="foer-efter">
+{{ $p := hugo.Data.business }}
+<section class="section ba" id="resultater">
   <div class="container">
     <div class="section-head section-head--center reveal">
       <p class="eyebrow eyebrow--center">{{ $ba.eyebrow }}</p>
@@ -10,10 +11,10 @@
 
     <div class="ba-wrap reveal d1">
       <div class="ba-slider" id="baSlider">
-        <img class="ba-img ba-img--before" src="{{ "img/ba-before.jpg" | relURL }}"
+        <img class="ba-img ba-img--before" src="{{ hugo.Data.images.before | relURL }}"
              alt="{{ $ba.beforeLabel }}" width="1000" height="1333" loading="lazy" draggable="false">
         <div class="ba-top" id="baTop">
-          <img class="ba-img" src="{{ "img/ba-after.jpg" | relURL }}"
+          <img class="ba-img" src="{{ hugo.Data.images.after | relURL }}"
                alt="{{ $ba.afterLabel }}" width="1000" height="1333" loading="lazy" draggable="false">
         </div>
         <span class="ba-label ba-label--before" aria-hidden="true">{{ $ba.beforeLabel }}</span>
@@ -26,6 +27,29 @@
         <input type="range" class="ba-range" id="baRange" min="0" max="100" value="50"
                aria-label="{{ $ba.beforeLabel }} / {{ $ba.afterLabel }}">
       </div>
+    </div>
+
+    {{/* Billederne fra galleriet ligger nu her. Wiktorias manuskript har
+         ingen selvstændig gallerisektion — hun har "16. RESULTS" med
+         før/efter-billeder, og det er dét, det her er.
+         Filmstrimlen går altid op, uanset hvor mange billeder der er:
+         de ruller vandret i stedet for at efterlade huller i et gitter. */}}
+    {{ $g := index hugo.Data.gallery .Site.Language.Lang }}
+    {{ with $g.items }}
+    <div class="results-strip reveal d2">
+      {{ range . }}
+      <figure class="results-shot">
+        <img src="{{ .image | relURL }}" alt="{{ .caption }}" loading="lazy" width="800" height="1000">
+        {{ with .caption }}<figcaption>{{ . }}</figcaption>{{ end }}
+      </figure>
+      {{ end }}
+    </div>
+    {{ end }}
+
+    <div class="results-follow reveal">
+      <a href="{{ $p.instagram }}" target="_blank" rel="noopener" class="btn btn--ghost">
+        {{ partial "icon.html" "instagram" }} {{ i18n "follow" }} @{{ $p.instagramHandle }}
+      </a>
     </div>
   </div>
 </section>
