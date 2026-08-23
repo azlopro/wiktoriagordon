@@ -20,3 +20,15 @@ other = "to top"
 
 [skip_content]
 other = "Skip to main content"
+
+[open_image]
+other = "Open the photo"
+
+[close]
+other = "Close"
+
+[previous]
+other = "Previous photo"
+
+[next]
+other = "Next photo"

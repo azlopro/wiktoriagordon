@@ -127,8 +127,28 @@ collections:
           - {name: logoLight, label: Logo for dark background, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, hint: 'The light version, used in the footer. Leave the dark one alone if you only have one file.'}
           - {name: hero, label: Large photo at the top, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, hint: A high-quality portrait image works best here.}
           - {name: portrait, label: Photo in the About section, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false}
-          - {name: before, label: Before photo, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, hint: Use the same angle and light as the After photo.}
-          - {name: after, label: After photo, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, hint: Use the same angle and light as the Before photo.}
+
+      - name: beforeafter
+        label: Before & after
+        file: data/beforeafter.yaml
+        icon: compare
+        i18n: true
+        description: >-
+          The pairs behind the before/after slider. The first one is shown by
+          default. Both photos in a pair must be framed identically, otherwise
+          the slider looks broken rather than convincing.
+        fields:
+          - name: items
+            label: Pairs
+            widget: list
+            i18n: duplicate
+            label_singular: pair
+            summary: '{{fields.label}}'
+            hint: The photos are shared between the languages; translate only the label.
+            fields:
+              - {name: before, label: Before photo, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, i18n: duplicate, hint: Same angle, same distance and same light as the After photo.}
+              - {name: after, label: After photo, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, i18n: duplicate}
+              - {name: label, label: Button text, widget: string, i18n: true, hint: 'Shown on the button that switches to this pair, for example: Lashes & brows.'}
 
       - name: gallery
         label: Result photos

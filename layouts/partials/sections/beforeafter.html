@@ -2,6 +2,7 @@
 {{ $ba := (index hugo.Data.site $L).beforeafter }}
 {{- $p := hugo.Data.business -}}
 {{- $u := index hugo.Data.ui $L -}}
+{{- $pairs := (index hugo.Data.beforeafter $L).items -}}
 <section class="section ba" id="resultater">
   <div class="container">
     <div class="section-head section-head--center reveal">
@@ -10,13 +11,14 @@
       <p>{{ $ba.text }}</p>
     </div>
 
+    {{ with index $pairs 0 }}
     <div class="ba-wrap reveal d1">
       <div class="ba-slider" id="baSlider">
-        <img class="ba-img ba-img--before" src="{{ hugo.Data.images.before | relURL }}"
-             alt="{{ $ba.beforeLabel }}" width="1000" height="1333" loading="lazy" draggable="false">
+        <img class="ba-img ba-img--before" id="baBefore" src="{{ .before | relURL }}"
+             alt="{{ $ba.beforeLabel }}" width="1400" height="1050" loading="lazy" draggable="false">
         <div class="ba-top" id="baTop">
-          <img class="ba-img" src="{{ hugo.Data.images.after | relURL }}"
-               alt="{{ $ba.afterLabel }}" width="1000" height="1333" loading="lazy" draggable="false">
+          <img class="ba-img" id="baAfter" src="{{ .after | relURL }}"
+               alt="{{ $ba.afterLabel }}" width="1400" height="1050" loading="lazy" draggable="false">
         </div>
         <span class="ba-label ba-label--before" aria-hidden="true">{{ $ba.beforeLabel }}</span>
         <span class="ba-label ba-label--after" aria-hidden="true">{{ $ba.afterLabel }}</span>
@@ -29,21 +31,55 @@
                aria-label="{{ $ba.beforeLabel }} / {{ $ba.afterLabel }}">
       </div>
     </div>
+    {{ end }}
+
+    {{/* Vælgeren vises kun når der faktisk er noget at vælge imellem. Uden
+         JS bliver knapperne bare stående uvirksomme, så de skjules af CSS'en
+         indtil scriptet melder sig; det første par vises under alle
+         omstændigheder. */}}
+    {{ if gt (len $pairs) 1 }}
+    <div class="ba-tabs reveal d2" id="baTabs">
+      {{ range $i, $pair := $pairs }}
+      <button type="button" class="ba-tab{{ if eq $i 0 }} is-active{{ end }}"
+              data-before="{{ $pair.before | relURL }}" data-after="{{ $pair.after | relURL }}"
+              aria-pressed="{{ if eq $i 0 }}true{{ else }}false{{ end }}">{{ $pair.label }}</button>
+      {{ end }}
+    </div>
+    {{ end }}
 
     {{/* Billederne fra galleriet ligger nu her. Wiktorias manuskript har
          ingen selvstændig gallerisektion — hun har "16. RESULTS" med
          før/efter-billeder, og det er dét, det her er.
          Filmstrimlen går altid op, uanset hvor mange billeder der er:
-         de ruller vandret i stedet for at efterlade huller i et gitter. */}}
-    {{ $g := index hugo.Data.gallery .Site.Language.Lang }}
+         de ruller vandret i stedet for at efterlade huller i et gitter.
+
+         Hvert billede er en knap, fordi strimlen beskærer dem til 4:5, og
+         de brede før/efter-billeder derfor kun kan ses som en midterstribe.
+         Klik åbner dem i fuld bredde. Uden JS sker der ingenting ved klik,
+         og billederne står som før. */}}
+    {{ $g := index hugo.Data.gallery $L }}
     {{ with $g.items }}
-    <div class="results-strip reveal d2">
-      {{ range . }}
+    <div class="results-strip reveal d2" id="resultsStrip">
+      {{ range $i, $shot := . }}
       <figure class="results-shot">
-        <img src="{{ .image | relURL }}" alt="{{ .caption }}" loading="lazy" width="800" height="1000">
-        {{ with .caption }}<figcaption>{{ . }}</figcaption>{{ end }}
+        <button type="button" class="results-open" data-index="{{ $i }}"
+                aria-label="{{ i18n "open_image" }}{{ with $shot.caption }}: {{ . }}{{ end }}">
+          <img src="{{ $shot.image | relURL }}" alt="{{ $shot.caption }}" loading="lazy" width="800" height="1000">
+        </button>
+        {{ with $shot.caption }}<figcaption>{{ . }}</figcaption>{{ end }}
       </figure>
       {{ end }}
+    </div>
+
+    <div class="lightbox" id="lightbox" hidden aria-hidden="true" role="dialog" aria-modal="true"
+         aria-label="{{ $ba.heading }}">
+      <button type="button" class="lightbox-btn lightbox-close" id="lbClose" aria-label="{{ i18n "close" }}">&times;</button>
+      <button type="button" class="lightbox-btn lightbox-prev" id="lbPrev" aria-label="{{ i18n "previous" }}">&lsaquo;</button>
+      <figure class="lightbox-figure">
+        <img id="lbImg" src="" alt="">
+        <figcaption id="lbCap"></figcaption>
+      </figure>
+      <button type="button" class="lightbox-btn lightbox-next" id="lbNext" aria-label="{{ i18n "next" }}">&rsaquo;</button>
     </div>
     {{ end }}
 

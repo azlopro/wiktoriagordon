@@ -12,5 +12,3 @@ logoLight: "img/logo-wg-light.png"
 
 hero: "img/hero-portrait.jpg"        # stort portræt øverst på siden
 portrait: "img/about-portrait.jpg"   # portrættet i "Om Wiktoria"
-before: "img/ba-before.jpg"          # venstre side af før/efter-slideren
-after: "img/ba-after.jpg"            # højre side af før/efter-slideren

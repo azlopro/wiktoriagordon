@@ -1,0 +1,25 @@
+# =====================================================================
+#  Før/efter-par til slideren. Det første par vises som standard.
+#
+#  Billederne skæres af scripts/beforeafter/make.py, som retter ansigtet
+#  op og giver før og efter nøjagtig samme udsnit. Udskiftes de i hånden,
+#  skal parret være rammet ens, ellers ligner wipe-linjen en fejl.
+# =====================================================================
+
+da:
+  items:
+    - before: "img/ba-lashes-brows-before.jpg"
+      after: "img/ba-lashes-brows-after.jpg"
+      label: "Vipper & bryn"
+    - before: "img/ba-lashes-before.jpg"
+      after: "img/ba-lashes-after.jpg"
+      label: "Kun vipper"
+
+en:
+  items:
+    - before: "img/ba-lashes-brows-before.jpg"
+      after: "img/ba-lashes-brows-after.jpg"
+      label: "Lashes & brows"
+    - before: "img/ba-lashes-before.jpg"
+      after: "img/ba-lashes-after.jpg"
+      label: "Lashes only"

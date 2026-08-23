@@ -660,8 +660,8 @@ strong { font-weight: 500; }
 .ba-slider {
   --pos: 50%;
   position: relative;
-  width: min(460px, 100%);
-  aspect-ratio: 3 / 4;
+  width: min(600px, 100%);
+  aspect-ratio: 4 / 3;
   border-radius: var(--radius);
   overflow: hidden;
   box-shadow: var(--shadow);
@@ -1186,6 +1186,83 @@ strong { font-weight: 500; }
   line-height: 1.4;
   color: var(--ink-soft);
 }
+/* Vælger mellem før/efter-par. Skjult indtil JS melder sig, så knapperne
+   ikke står og ser klikbare ud på en side, hvor de ikke kan gøre noget. */
+.ba-tabs { display: none; }
+.ba-tabs.is-ready {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem;
+  margin-top: 1.6rem;
+}
+.ba-tab {
+  font-family: var(--sans); font-size: 1rem; font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: .6rem 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  background: transparent;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: background .3s ease, color .3s ease, border-color .3s ease;
+}
+.ba-tab:hover { border-color: var(--rose-deep); color: var(--rose-deep); }
+.ba-tab.is-active {
+  background: var(--rose-deep); border-color: var(--rose-deep); color: #fff;
+}
+
+/* Resultatbillederne bliver først knapper, når JS kan åbne dem */
+.results-open {
+  display: block; width: 100%; padding: 0; border: 0;
+  background: none; cursor: default;
+}
+.is-clickable .results-open { cursor: zoom-in; }
+.results-open:focus-visible { outline: 2px solid var(--rose-deep); outline-offset: 3px; }
+
+/* Overlay til det store billede */
+body.no-scroll { overflow: hidden; }
+.lightbox {
+  position: fixed; inset: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: center;
+  gap: clamp(.5rem, 2vw, 1.5rem);
+  padding: clamp(1rem, 4vw, 3rem);
+  background: rgba(26, 20, 19, .92);
+  backdrop-filter: blur(6px);
+}
+.lightbox[hidden] { display: none; }
+.lightbox-figure {
+  margin: 0; display: flex; flex-direction: column; align-items: center;
+  max-width: min(1100px, 100%); max-height: 100%;
+}
+.lightbox-figure img {
+  max-width: 100%; max-height: 78dvh;
+  width: auto; height: auto;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 30px 70px -30px rgba(0,0,0,.8);
+}
+.lightbox-figure figcaption {
+  margin-top: 1rem; text-align: center;
+  font-size: 1.0625rem; color: rgba(233,222,217,.85);
+}
+.lightbox-btn {
+  flex: none;
+  width: 46px; height: 46px;
+  display: grid; place-items: center;
+  font-size: 1.9rem; line-height: 1;
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: 50%;
+  background: rgba(255,255,255,.08);
+  color: #fff;
+  cursor: pointer;
+  transition: background .3s ease, border-color .3s ease;
+}
+.lightbox-btn:hover { background: rgba(255,255,255,.2); border-color: rgba(255,255,255,.5); }
+.lightbox-btn:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.lightbox-close { position: absolute; top: 1.2rem; right: 1.2rem; font-size: 1.6rem; }
+@media (max-width: 620px) {
+  .lightbox { gap: .4rem; padding: 1rem .5rem 2rem; }
+  .lightbox-btn { width: 40px; height: 40px; }
+  .lightbox-figure img { max-height: 66dvh; }
+}
+
 .results-follow { text-align: center; margin-top: 2.4rem; }
 
 /* ---------- Branded 404 ---------- */

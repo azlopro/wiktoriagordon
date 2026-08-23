@@ -20,3 +20,15 @@ other = "til toppen"
 
 [skip_content]
 other = "Spring til hovedindhold"
+
+[open_image]
+other = "Åbn billedet"
+
+[close]
+other = "Luk"
+
+[previous]
+other = "Forrige billede"
+
+[next]
+other = "Næste billede"

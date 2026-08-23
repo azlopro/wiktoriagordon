@@ -105,6 +105,99 @@
     });
     baSlider.addEventListener("pointerup", function () { dragging = false; });
     baSlider.addEventListener("pointercancel", function () { dragging = false; });
+
+    /* Skift mellem før/efter-par. Knapperne er skjult indtil her, så de ikke
+       står og ser klikbare ud, hvis scriptet aldrig når at køre. */
+    var baTabs = document.getElementById("baTabs");
+    var baBefore = document.getElementById("baBefore");
+    var baAfter = document.getElementById("baAfter");
+    if (baTabs && baBefore && baAfter) {
+      var tabs = Array.prototype.slice.call(baTabs.querySelectorAll(".ba-tab"));
+      baTabs.classList.add("is-ready");
+      /* Hent de øvrige par på forhånd, så skiftet ikke blinker hvidt */
+      tabs.forEach(function (t) {
+        [t.dataset.before, t.dataset.after].forEach(function (u) {
+          var pre = new Image();
+          pre.src = u;
+        });
+      });
+      tabs.forEach(function (t) {
+        t.addEventListener("click", function () {
+          if (t.classList.contains("is-active")) return;
+          baBefore.src = t.dataset.before;
+          baAfter.src = t.dataset.after;
+          tabs.forEach(function (o) {
+            o.classList.toggle("is-active", o === t);
+            o.setAttribute("aria-pressed", o === t ? "true" : "false");
+          });
+          baRange.value = 50;
+          setPos(50);
+        });
+      });
+    }
+  }
+
+  /* Klik på et resultatbillede åbner det i fuld bredde. Strimlen beskærer
+     til 4:5, så de brede før/efter-billeder ellers kun ses som en stribe. */
+  var lightbox = document.getElementById("lightbox");
+  var strip = document.getElementById("resultsStrip");
+  if (lightbox && strip) {
+    var shots = Array.prototype.slice.call(strip.querySelectorAll(".results-open"));
+    var lbImg = document.getElementById("lbImg");
+    var lbCap = document.getElementById("lbCap");
+    var lbPrev = document.getElementById("lbPrev");
+    var lbNext = document.getElementById("lbNext");
+    var lbClose = document.getElementById("lbClose");
+    var current = 0;
+    var opener = null;
+
+    strip.classList.add("is-clickable");
+
+    var show = function (i) {
+      current = (i + shots.length) % shots.length;
+      var img = shots[current].querySelector("img");
+      lbImg.src = img.currentSrc || img.src;
+      lbImg.alt = img.alt || "";
+      lbCap.textContent = img.alt || "";
+    };
+    var open = function (i) {
+      opener = shots[i];
+      show(i);
+      lightbox.hidden = false;
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.classList.add("no-scroll");
+      lbClose.focus();
+    };
+    var close = function () {
+      lightbox.hidden = true;
+      lightbox.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("no-scroll");
+      if (opener) opener.focus();
+    };
+
+    shots.forEach(function (b, i) {
+      b.addEventListener("click", function () { open(i); });
+    });
+    lbPrev.addEventListener("click", function () { show(current - 1); });
+    lbNext.addEventListener("click", function () { show(current + 1); });
+    lbClose.addEventListener("click", close);
+    lightbox.addEventListener("click", function (e) {
+      if (e.target === lightbox) close();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (lightbox.hidden) return;
+      if (e.key === "Escape") close();
+      else if (e.key === "ArrowLeft") show(current - 1);
+      else if (e.key === "ArrowRight") show(current + 1);
+      else if (e.key === "Tab") {
+        /* Hold tastaturet inde i overlayet, så man ikke taber fokus ned
+           bag ved det, mens det er åbent. */
+        var f = [lbClose, lbPrev, lbNext];
+        var i = f.indexOf(document.activeElement);
+        e.preventDefault();
+        f[(i + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus();
+      }
+    });
   }
 
   /* Blødt scroll med kompensation for fast header */
