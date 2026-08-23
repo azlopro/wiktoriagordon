@@ -236,6 +236,11 @@ strong { font-weight: 500; }
   color: var(--ink);
 }
 .brand-mark { height: 2.5rem; width: auto; flex: none; }
+/* Navnet må ikke brække. Med monogrammet ved siden af blev brand-blokken
+   bredere, og i mellembredderne faldt "Wiktoria Gordon" på tre linjer og
+   lagde sig oven i menuen. */
+.brand-text { white-space: nowrap; }
+.nav-book { white-space: nowrap; }
 .brand-last { color: var(--rose-deep); font-style: italic; }
 .brand small {
   display: block;
@@ -831,22 +836,12 @@ strong { font-weight: 500; }
 @media (prefers-reduced-motion: reduce) { .js .reveal { opacity: 1; transform: none; } }
 
 /* ---------- Responsivt ---------- */
-@media (max-width: 960px) {
-  .service--wide, .service--narrow { grid-column: span 6; }
-  .reviews-grid { columns: 1; }
-  .pricing-wrap { grid-template-columns: 1fr; }
-  .price-aside { position: static; }
-  .hero-grid { grid-template-columns: 1fr; justify-items: center; }
-  .hero-copy { grid-row: 1; margin-inline: auto; text-align: center; }
-  .hero-sub { margin-inline: auto; }
-  .hero-actions { justify-content: center; }
-  .hero-figure { grid-row: 2; margin-top: 1rem; width: min(420px, 88%); }
-  .about-grid { grid-template-columns: 1fr; }
-  .about-figure { width: min(360px, 80%); margin-inline: auto; }
-  #faq .container { grid-template-columns: 1fr; gap: 2rem; }
-  #faq .section-head { position: static; max-width: 620px; }
-}
-@media (max-width: 720px) {
+
+/* Navigationen har sit eget breakpoint. Den løber tør for plads længe før
+   resten af layoutet gør, fordi brand, fem menupunkter, sprogskifter og
+   booking-knap skal stå på én linje. Ved 1000 px begynder navnet at brække
+   ind i menuen, så burgeren overtager dér i stedet for først ved 720. */
+@media (max-width: 1000px) {
   .nav-toggle { display: block; }
   .nav-menu {
     position: fixed; inset: 78px 0 auto 0;
@@ -867,12 +862,73 @@ strong { font-weight: 500; }
   .nav-links { flex-direction: column; align-items: flex-start; gap: 1.3rem; width: 100%; }
   .nav-links a { font-size: 1.1rem; letter-spacing: .05em; }
   .nav-book { width: 100%; }
+}
+
+/* Lige over burger-grænsen er der plads, men ikke rigelig. */
+@media (min-width: 1001px) and (max-width: 1180px) {
+  .nav-menu { gap: 1.2rem; }
+  .nav-links { gap: 1.4rem; }
+  .nav-links a { font-size: 1rem; letter-spacing: .08em; }
+  .nav-book { padding: .85rem 1.3rem; font-size: .9375rem; letter-spacing: .08em; }
+  .brand { font-size: 1.3rem; }
+  .brand-mark { height: 2.1rem; }
+  .brand small { font-size: .8125rem; letter-spacing: .26em; }
+}
+
+
+/* Store tablets i portræt (fx iPad Pro, 1024px) rammer ikke 960-grænsen, men
+   skal have samme stablede hero. Blokken skal stå FØR de smallere
+   breakpoints: ellers overskriver den telefonreglerne, fordi en telefon
+   også er "portrait" under 1024px. */
+@media (max-width: 1024px) and (orientation: portrait) {
+  .hero-grid { grid-template-columns: 1fr; justify-items: center; }
+  .hero-figure { grid-row: 1; margin-bottom: 2.4rem; width: min(420px, 88%); }
+  .hero-copy { grid-row: 2; margin-inline: auto; text-align: center; }
+  .hero-sub { margin-inline: auto; }
+  .hero-actions { justify-content: center; }
+}
+
+@media (max-width: 960px) {
+  .service--wide, .service--narrow { grid-column: span 6; }
+  .reviews-grid { columns: 1; }
+  .pricing-wrap { grid-template-columns: 1fr; }
+  .price-aside { position: static; }
+  /* Billedet først. Et ansigt er det stærkeste, en personlig
+     behandlingsvirksomhed har at åbne med, og på en telefon er der kun plads
+     til ét blikfang over folden. Rækkefølgen ændres kun visuelt: i koden
+     står h1 stadig før billedet, så skærmlæsere og Google møder
+     overskriften først. */
+  .hero-grid { grid-template-columns: 1fr; justify-items: center; }
+  .hero-figure { grid-row: 1; margin-bottom: 2.4rem; width: min(420px, 88%); }
+  .hero-copy { grid-row: 2; margin-inline: auto; text-align: center; }
+  .hero-sub { margin-inline: auto; }
+  .hero-actions { justify-content: center; }
+  .about-grid { grid-template-columns: 1fr; }
+  .about-figure { width: min(360px, 80%); margin-inline: auto; }
+  #faq .container { grid-template-columns: 1fr; gap: 2rem; }
+  #faq .section-head { position: static; max-width: 620px; }
+}
+@media (max-width: 720px) {
   .gallery { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 160px; }
   .gallery-item.wide { grid-column: span 2; }
   .service--wide, .service--narrow { grid-column: 1 / -1; }
   .footer-grid { grid-template-columns: 1fr; gap: 2.2rem; }
   .reviews-head { flex-direction: column; align-items: flex-start; }
-  .hero { padding-top: 7rem; }
+  .hero { padding-top: 4.6rem; }
+  /* Mindre billede på telefon, så overskriften når med over folden ved
+     siden af ansigtet. I fuld bredde fylder det alene hele skærmen. */
+  .hero-figure { width: min(264px, 66%); margin-bottom: 1.4rem; }
+  .hero-sub { margin-bottom: 1.6rem; }
+  /* Badgen er skaleret efter et billede i fuld bredde. På det mindre
+     mobilbillede brækker den til to linjer og stikker ud i begge sider. */
+  .hero-badge {
+    font-size: .8125rem;
+    padding: .5rem .85rem;
+    gap: .45rem;
+    left: -10px; bottom: 14px;
+    white-space: nowrap;
+  }
+  .hero-badge .dot { width: 6px; height: 6px; box-shadow: 0 0 0 3px rgba(196,170,133,.2); }
   .hero-actions .btn { flex: 1 1 100%; }
   .booking-actions { align-items: stretch; flex-direction: column; }
   .booking-actions .btn { width: 100%; }
@@ -883,14 +939,6 @@ strong { font-weight: 500; }
   .gallery-item.wide, .gallery-item.tall { grid-column: auto; grid-row: auto; }
 }
 
-/* Store tablets i portræt (fx iPad Pro, 1024px) — samme stablede, centrerede hero */
-@media (max-width: 1024px) and (orientation: portrait) {
-  .hero-grid { grid-template-columns: 1fr; justify-items: center; }
-  .hero-copy { grid-row: 1; margin-inline: auto; text-align: center; }
-  .hero-sub { margin-inline: auto; }
-  .hero-actions { justify-content: center; }
-  .hero-figure { grid-row: 2; margin-top: 1rem; width: min(420px, 88%); }
-}
 
 /* ---------- Politik & information ---------- */
 .policy-grid {

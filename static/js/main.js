@@ -74,6 +74,20 @@
       });
     }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
     reveals.forEach(function (el) { io.observe(el); });
+
+    /* Heroen ligger altid over folden og skal ikke afhænge af observeren.
+       Den måler ved indlæsning, og skifter layoutet bagefter — fordi
+       skrifterne falder på plads, eller fordi billedet ligger øverst på en
+       telefon og skubber teksten ned — kan overskriften ende lige under
+       observerens nedre kant og aldrig blive vist. Sidens vigtigste
+       overskrift må ikke kunne forsvinde på den måde. Animationen kører
+       stadig; den udløses bare med det samme i stedet for ved scroll. */
+    requestAnimationFrame(function () {
+      document.querySelectorAll(".hero .reveal").forEach(function (el) {
+        el.classList.add("in");
+        io.unobserve(el);
+      });
+    });
   } else {
     reveals.forEach(function (el) { el.classList.add("in"); });
   }
