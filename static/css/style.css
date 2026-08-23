@@ -660,8 +660,8 @@ strong { font-weight: 500; }
 .ba-slider {
   --pos: 50%;
   position: relative;
-  width: min(600px, 100%);
-  aspect-ratio: 4 / 3;
+  width: min(680px, 100%);
+  aspect-ratio: 3 / 2;
   border-radius: var(--radius);
   overflow: hidden;
   box-shadow: var(--shadow);
