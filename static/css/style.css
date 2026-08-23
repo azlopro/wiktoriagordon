@@ -223,6 +223,11 @@ strong { font-weight: 500; }
   height: 78px;
 }
 .brand {
+  /* Mærke og navn side om side. Flex, så de to linjer navn/underlinje
+     bliver ét blokelement ved siden af logoet i stedet for to flex-børn. */
+  display: inline-flex;
+  align-items: center;
+  gap: .7rem;
   font-family: var(--serif);
   font-size: 1.5rem;
   font-weight: 600;
@@ -230,7 +235,8 @@ strong { font-weight: 500; }
   line-height: 1;
   color: var(--ink);
 }
-.brand span { color: var(--rose-deep); font-style: italic; }
+.brand-mark { height: 2.5rem; width: auto; flex: none; }
+.brand-last { color: var(--rose-deep); font-style: italic; }
 .brand small {
   display: block;
   font-family: var(--sans);
@@ -786,7 +792,7 @@ strong { font-weight: 500; }
   border-bottom: 1px solid rgba(255,255,255,.12);
 }
 .footer .brand, .footer .brand small { color: #fff; }
-.footer .brand span { color: var(--rose-soft); }
+.footer .brand-last { color: var(--rose-soft); }
 .footer-about p { color: rgba(233,222,217,.72); max-width: 34ch; margin-top: 1.1rem; }
 .footer h4 {
   font-family: var(--sans); font-weight: 500; font-size: .875rem;

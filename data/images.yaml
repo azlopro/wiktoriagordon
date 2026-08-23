@@ -6,6 +6,10 @@
 #  Redigeres normalt i CMS'et under "Photos" — ikke i hånden.
 # =====================================================================
 
+# Monogrammet. Lys variant bruges i footeren, som har mørk bund.
+logo: "img/logo-wg.png"
+logoLight: "img/logo-wg-light.png"
+
 hero: "img/hero-portrait.jpg"        # stort portræt øverst på siden
 portrait: "img/about-portrait.jpg"   # portrættet i "Om Wiktoria"
 before: "img/ba-before.jpg"          # venstre side af før/efter-slideren

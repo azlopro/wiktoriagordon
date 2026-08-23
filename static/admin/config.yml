@@ -5,7 +5,7 @@ app_title: Wiktoria Gordon Beauty
 site_url: https://wiktoria.christiansdemo.dk
 display_url: https://wiktoria.christiansdemo.dk
 logo:
-  src: /favicon.svg
+  src: /favicon.png
   show_in_header: true
 
 backend:
@@ -123,6 +123,8 @@ collections:
         icon: image
         i18n: false
         fields:
+          - {name: logo, label: Logo, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, hint: 'Use a PNG with a transparent background. Shown next to your name in the top left corner.'}
+          - {name: logoLight, label: Logo for dark background, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, hint: 'The light version, used in the footer. Leave the dark one alone if you only have one file.'}
           - {name: hero, label: Large photo at the top, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, hint: A high-quality portrait image works best here.}
           - {name: portrait, label: Photo in the About section, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false}
           - {name: before, label: Before photo, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, hint: Use the same angle and light as the After photo.}

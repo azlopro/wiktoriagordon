@@ -6,7 +6,11 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-about">
-        <a href="#top" class="brand">{{ $p.brandFirstName }} <span>{{ $p.brandLastName }}</span><small>{{ $p.brandLine }}</small></a>
+        <a href="#top" class="brand">
+          <img class="brand-mark" src="{{ hugo.Data.images.logoLight | relURL }}" alt=""
+               width="272" height="160" aria-hidden="true">
+          <span class="brand-text">{{ $p.brandFirstName }} <span class="brand-last">{{ $p.brandLastName }}</span><small>{{ $p.brandLine }}</small></span>
+        </a>
         <p>{{ $u.footer.about }}</p>
         <div class="socials">
           <a href="{{ $p.instagram }}" target="_blank" rel="noopener" aria-label="Instagram">{{ partial "icon.html" "instagram" }}</a>

@@ -3,8 +3,12 @@
 <header class="header" id="header">
   <div class="container nav">
     <a href="#top" class="brand" aria-label="Wiktoria Gordon Beauty, {{ i18n "to_top" }}">
-      {{ $p.brandFirstName }} <span>{{ $p.brandLastName }}</span>
-      <small>{{ $p.brandLine }}</small>
+      <img class="brand-mark" src="{{ hugo.Data.images.logo | relURL }}" alt=""
+           width="258" height="160" aria-hidden="true">
+      <span class="brand-text">
+        {{ $p.brandFirstName }} <span class="brand-last">{{ $p.brandLastName }}</span>
+        <small>{{ $p.brandLine }}</small>
+      </span>
     </a>
 
     <nav class="nav-menu" id="navMenu" aria-label="{{ $u.footer.menu }}">
