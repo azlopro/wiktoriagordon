@@ -18,6 +18,10 @@
 *.p12
 *.pfx
 
+# Python-bytekode fra scripts/
+__pycache__/
+*.pyc
+
 # OS/editor
 .DS_Store
 *.swp
