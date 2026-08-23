@@ -16,6 +16,8 @@ da:
       caption: "Lash lift + brynlaminering"
     - image: "img/gal-diptych.jpg"
       caption: "Før / efter"
+    - image: "img/gal-diptych-lift.jpg"
+      caption: "Lash lift & brynstyling, før / efter"
 
 # -------------------------------------------------------------- ENGELSK
 en:
@@ -30,3 +32,5 @@ en:
       caption: "Lash lift + brow lamination"
     - image: "img/gal-diptych.jpg"
       caption: "Before / after"
+    - image: "img/gal-diptych-lift.jpg"
+      caption: "Lash lift & brow styling, before / after"
