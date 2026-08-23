@@ -9,6 +9,10 @@
      CREME #EEE4DA · SAND #D8C4AC · DUSTY PINK #C8A49F · BURGUNDY #4D0E13.
      Variabelnavnene er beholdt (--rose, --rose-deep osv.), så resten af
      stilarket ikke skal skrives om — men værdierne er hendes. */
+  /* Headerens højde. Mobilmenuen hænger nedenunder og heroen skal holde
+     afstand til den, så de tre tal skal følges ad. */
+  --header-h:   78px;
+
   --cream:      #EEE4DA;   /* hovedfarve, sidens baggrund */
   --cream-2:    #F5EEE6;   /* lysere cremenuance til skift mellem sektioner */
   --blush:      #E6D6CF;   /* dusty pink, lysnet — ikoncirkler og flader */
@@ -220,7 +224,7 @@ strong { font-weight: 500; }
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  height: 78px;
+  height: var(--header-h);
 }
 .brand {
   /* Mærke og navn side om side. Flex, så de to linjer navn/underlinje
@@ -847,7 +851,7 @@ strong { font-weight: 500; }
 @media (max-width: 1000px) {
   .nav-toggle { display: block; }
   .nav-menu {
-    position: fixed; inset: 78px 0 auto 0;
+    position: fixed; inset: var(--header-h) 0 auto 0;
     flex-direction: column;
     align-items: stretch;
     background: rgba(250,245,240,.98);
@@ -943,7 +947,17 @@ strong { font-weight: 500; }
   .service--wide, .service--narrow { grid-column: 1 / -1; }
   .footer-grid { grid-template-columns: 1fr; gap: 2.2rem; }
   .reviews-head { flex-direction: column; align-items: flex-start; }
-  .hero { padding-top: 4.6rem; }
+  /* Headeren er fastgjort og gennemsigtig i toppen, så heroen skal selv
+     holde afstand. Der skal være plads til headerens højde PLUS guldbuen,
+     der stikker 22 px op over billedrammen; ellers lægger fotoet sig bag
+     logoet. Headeren er samtidig strammet en anelse herunder, så pladsen
+     ikke går fra indholdet. */
+  .brand { font-size: 1.3rem; gap: .55rem; }
+  .brand-mark { height: 2.1rem; }
+  .brand small { font-size: .8125rem; letter-spacing: .26em; margin-top: .22rem; }
+  :root { --header-h: 64px; }
+  .hero { padding-top: 6.4rem; }
+  .hero-figure::after { inset: -14px -14px 30px -14px; }
   /* Mindre billede på telefon, så overskriften når med over folden ved
      siden af ansigtet. I fuld bredde fylder det alene hele skærmen. */
   .hero-figure { width: min(264px, 66%); margin-bottom: 1.4rem; }
