@@ -2,6 +2,7 @@
 {{ $L := .Site.Language.Lang }}
 {{ $h := (index hugo.Data.site $L).hero }}
 {{ $seo := index hugo.Data.seo $L }}
+{{- $u := index hugo.Data.ui $L -}}
 <section class="hero">
   <div class="container hero-grid">
     <div class="hero-copy">
@@ -30,7 +31,7 @@
       </div>
       <div class="hero-badge">
         <span class="dot" aria-hidden="true"></span>
-        <span>{{ i18n "book_dm_badge" }}</span>
+        <span>{{ $u.labels.heroBadge }}</span>
       </div>
     </div>
   </div>

@@ -1,0 +1,139 @@
+# =====================================================================
+#  Faste tekster i rammen om indholdet: menu, knapper, mærkater, footer,
+#  fejlside og bookingkalender.
+#
+#  Lå før i i18n/da.toml og i18n/en.toml, hvor Wiktoria ikke kunne nå dem.
+#  Nu er de her, så de kan redigeres i CMS'et under "Buttons & labels"
+#  ligesom alt andet tekst på sitet.
+#
+#  Tilbage i i18n/ ligger kun de rene tilgængelighedstekster ("Spring til
+#  hovedindhold", "Åbn menu", "Skift sprog"). De læses op af skærmlæsere,
+#  ses aldrig af en almindelig besøgende, og skal ikke kunne slettes ved
+#  et uheld.
+# =====================================================================
+
+da:
+  nav:
+    services: "Behandlinger"
+    results: "Resultater"
+    prices: "Priser"
+    about: "Om"
+    faq: "FAQ"
+    policy: "Politik"
+    book: "Book tid"
+
+  labels:
+    popular: "Populær"
+    bookThis: "Book"
+    expectHeading: "Det kan du forvente"
+    heroBadge: "Personlig booking · svar < 24t"
+    follow: "Følg"
+
+  groups:
+    lashes: "Vipper"
+    brows: "Bryn"
+    sets: "Sæt"
+
+  sets:
+    heading: "Sæt"
+    text: "Vipper og bryn i samme tid. Behandlingerne ovenfor sat sammen."
+    link: "Se prislisten"
+
+  reviews:
+    badge: "Anbefaler på Facebook"
+    link: "Se alle anmeldelser på Facebook"
+
+  footer:
+    about: "Koreansk lash lift & brynstyling i Horsens. Naturlige resultater, rolige rammer og gennemtænkt præcision."
+    menu: "Menu"
+    contact: "Kontakt"
+    hours: "Åbningstider"
+    rights: "Alle rettigheder forbeholdes."
+    tagline: "Booking via Instagram · Horsens, Danmark"
+
+  calendar:
+    heading: "Se ledige tider"
+    text: "Kalenderen hentes først, når du trykker. Så henter siden ikke noget om dig, du ikke selv har bedt om."
+    button: "Vis ledige tider"
+    loading: "Henter kalenderen…"
+
+  error:
+    eyebrow: "Fejl 404"
+    heading: "Denne side blev vist bort"
+    text: "Siden findes ikke længere, men dine vipper og bryn venter stadig."
+    home: "Til forsiden"
+    book: "Book en tid"
+
+  # Ugedagene skrives på engelsk i åbningstiderne, fordi det er
+  # schema.org's format. Her oversættes de til det, kunden ser.
+  # Små bogstaver: sådan staves ugedage på dansk midt i en opremsning.
+  # Det første bogstav i hver linje sættes stort af CSS'en.
+  weekdays:
+    Monday: "mandag"
+    Tuesday: "tirsdag"
+    Wednesday: "onsdag"
+    Thursday: "torsdag"
+    Friday: "fredag"
+    Saturday: "lørdag"
+    Sunday: "søndag"
+
+en:
+  nav:
+    services: "Treatments"
+    results: "Results"
+    prices: "Prices"
+    about: "About"
+    faq: "FAQ"
+    policy: "Policy"
+    book: "Book now"
+
+  labels:
+    popular: "Popular"
+    bookThis: "Book"
+    expectHeading: "What you can expect"
+    heroBadge: "Personal booking · reply < 24h"
+    follow: "Follow"
+
+  groups:
+    lashes: "Lashes"
+    brows: "Brows"
+    sets: "Sets"
+
+  sets:
+    heading: "Sets"
+    text: "Lashes and brows in one appointment. The treatments above, combined."
+    link: "See the price list"
+
+  reviews:
+    badge: "Recommends on Facebook"
+    link: "See all reviews on Facebook"
+
+  footer:
+    about: "Korean lash lift & brow styling in Horsens. Natural results, calm surroundings and thoughtful precision."
+    menu: "Menu"
+    contact: "Contact"
+    hours: "Opening hours"
+    rights: "All rights reserved."
+    tagline: "Booking via Instagram · Horsens, Denmark"
+
+  calendar:
+    heading: "See available times"
+    text: "The calendar only loads when you press the button. So the page doesn't fetch anything about you that you haven't asked for."
+    button: "Show available times"
+    loading: "Loading the calendar…"
+
+  error:
+    eyebrow: "Error 404"
+    heading: "This page was whisked away"
+    text: "The page no longer exists, but your lashes and brows are still waiting."
+    home: "Back to home"
+    book: "Book a time"
+
+  weekdays:
+    Monday: "Monday"
+    Tuesday: "Tuesday"
+    Wednesday: "Wednesday"
+    Thursday: "Thursday"
+    Friday: "Friday"
+    Saturday: "Saturday"
+    Sunday: "Sunday"

@@ -794,6 +794,11 @@ strong { font-weight: 500; }
   margin-bottom: 1.1rem;
 }
 .footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .7rem; }
+/* Åbningstiderne er den anden overskrift i kontaktkolonnen og skal have luft
+   over sig. ::first-letter gør det store begyndelsesbogstav til CSS'ens ansvar,
+   så ugedagene kan staves korrekt med småt på dansk og med stort på engelsk. */
+.footer-hours-title { margin-top: 2rem; }
+.footer-hours li::first-letter { text-transform: uppercase; }
 .footer ul a { font-size: 1.125rem; }
 .footer .socials { display: flex; gap: .8rem; margin-top: 1.4rem; }
 .footer .socials a {

@@ -2,6 +2,16 @@
 # Editors change these through /admin/ under “Business details & links”.
 businessName: "Wiktoria Gordon Beauty"
 ownerName: "Wiktoria Gordon"
+
+# Logoteksten i toppen og i footeren. Stod før ordret i skabelonerne, hvor
+# Wiktoria ikke kunne nå den. brandLine er den lille linje under navnet.
+brandFirstName: "Wiktoria"
+brandLastName: "Gordon"
+brandLine: "Beauty · Horsens"
+
+# Navnet på Facebook-siden, som det vises i footerens kontaktliste.
+# Skal matche det, siden faktisk hedder, ellers linker vi til noget andet.
+facebookPageName: "Wiktoria Lash Studio"
 city: "Horsens"
 region: "Midtjylland"
 postalCode: "8700"

@@ -1,6 +1,7 @@
 {{ $L := .Site.Language.Lang }}
 {{ $ba := (index hugo.Data.site $L).beforeafter }}
-{{ $p := hugo.Data.business }}
+{{- $p := hugo.Data.business -}}
+{{- $u := index hugo.Data.ui $L -}}
 <section class="section ba" id="resultater">
   <div class="container">
     <div class="section-head section-head--center reveal">
@@ -48,7 +49,7 @@
 
     <div class="results-follow reveal">
       <a href="{{ $p.instagram }}" target="_blank" rel="noopener" class="btn btn--ghost">
-        {{ partial "icon.html" "instagram" }} {{ i18n "follow" }} @{{ $p.instagramHandle }}
+        {{ partial "icon.html" "instagram" }} {{ $u.labels.follow }} @{{ $p.instagramHandle }}
       </a>
     </div>
   </div>

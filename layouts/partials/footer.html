@@ -1,12 +1,13 @@
 {{ $p := hugo.Data.business }}
 {{ $L := .Site.Language.Lang }}
 {{ $c := (index hugo.Data.site $L).contact }}
+{{- $u := index hugo.Data.ui $L -}}
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-about">
-        <a href="#top" class="brand">Wiktoria <span>Gordon</span><small>Beauty · Horsens</small></a>
-        <p>{{ i18n "footer_about" }}</p>
+        <a href="#top" class="brand">{{ $p.brandFirstName }} <span>{{ $p.brandLastName }}</span><small>{{ $p.brandLine }}</small></a>
+        <p>{{ $u.footer.about }}</p>
         <div class="socials">
           <a href="{{ $p.instagram }}" target="_blank" rel="noopener" aria-label="Instagram">{{ partial "icon.html" "instagram" }}</a>
           {{ with $p.facebook }}<a href="{{ . }}" target="_blank" rel="noopener" aria-label="Facebook">{{ partial "icon.html" "facebook" }}</a>{{ end }}
@@ -16,34 +17,50 @@
       </div>
 
       <div class="footer-nav">
-        <h4>{{ i18n "footer_menu" }}</h4>
+        <h4>{{ $u.footer.menu }}</h4>
         <ul>
-          <li><a href="#ydelser">{{ i18n "nav_services" }}</a></li>
-          <li><a href="#resultater">{{ i18n "nav_results" }}</a></li>
-          <li><a href="#priser">{{ i18n "nav_prices" }}</a></li>
-          <li><a href="#om">{{ i18n "nav_about" }}</a></li>
-          <li><a href="#faq">{{ i18n "nav_faq" }}</a></li>
-          <li><a href="#politik">{{ i18n "nav_policy" }}</a></li>
-          <li><a href="#booking">{{ i18n "book" }}</a></li>
+          <li><a href="#ydelser">{{ $u.nav.services }}</a></li>
+          <li><a href="#resultater">{{ $u.nav.results }}</a></li>
+          <li><a href="#priser">{{ $u.nav.prices }}</a></li>
+          <li><a href="#om">{{ $u.nav.about }}</a></li>
+          <li><a href="#faq">{{ $u.nav.faq }}</a></li>
+          <li><a href="#politik">{{ $u.nav.policy }}</a></li>
+          <li><a href="#booking">{{ $u.nav.book }}</a></li>
         </ul>
       </div>
 
       <div class="footer-contact">
-        <h4>{{ i18n "footer_contact" }}</h4>
+        <h4>{{ $u.footer.contact }}</h4>
         <ul>
           <li>{{ $c.area }}</li>
           <li><a href="{{ $p.instagram }}" target="_blank" rel="noopener">@{{ $p.instagramHandle }}</a></li>
-          {{ with $p.facebook }}<li><a href="{{ . }}" target="_blank" rel="noopener">Wiktoria Lash Studio</a></li>{{ end }}
+          {{ with $p.facebook }}<li><a href="{{ . }}" target="_blank" rel="noopener">{{ $p.facebookPageName }}</a></li>{{ end }}
           {{ with $p.email }}<li><a href="mailto:{{ . }}">{{ . }}</a></li>{{ end }}
           {{ with $p.phone }}<li><a href="tel:{{ . | replaceRE `[^0-9+]` `` }}">{{ . }}</a></li>{{ end }}
           <li>CVR {{ $p.cvr }}</li>
         </ul>
+
+        {{/* Åbningstider vises kun når de er udfyldt. De kommer fra samme felt
+             som de strukturerede data, så siden og Google aldrig kan komme til
+             at sige to forskellige ting. */}}
+        {{ with $p.openingHours }}
+        <h4 class="footer-hours-title">{{ $u.footer.hours }}</h4>
+        <ul class="footer-hours">
+          {{ range . }}
+          <li>
+            {{- $names := slice -}}
+            {{- range .days }}{{ $names = $names | append (index $u.weekdays . | default .) }}{{ end -}}
+            {{ delimit $names ", " }}: {{ .opens }}&ndash;{{ .closes }}
+          </li>
+          {{ end }}
+        </ul>
+        {{ end }}
       </div>
     </div>
 
     <div class="footer-bottom">
-      <span>© {{ now.Year }} {{ $p.businessName }}. {{ i18n "footer_rights" }}</span>
-      <span>{{ i18n "footer_tagline" }}</span>
+      <span>© {{ now.Year }} {{ $p.businessName }}. {{ $u.footer.rights }}</span>
+      <span>{{ $u.footer.tagline }}</span>
     </div>
   </div>
 </footer>

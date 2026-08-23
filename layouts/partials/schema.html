@@ -21,6 +21,7 @@
 {{- $s := index hugo.Data.services $L -}}
 {{- $f := index hugo.Data.faq $L -}}
 {{- $d := index hugo.Data.site $L -}}
+{{- $u := index hugo.Data.ui $L -}}
 {{- $base := .Site.Home.Permalink -}}
 
 {{- /* Virksomheden, Wiktoria selv og sitet er ÉN entitet på tværs af de to
@@ -75,10 +76,7 @@
     {{- end -}}
     {{- $catalogs = $catalogs | append (dict
         "@type" "OfferCatalog"
-        "name" (index (dict
-            "lashes" (cond (eq $L "da") "Vipper" "Lashes")
-            "brows"  (cond (eq $L "da") "Bryn" "Brows")
-            "sets"   (cond (eq $L "da") "Sæt" "Packages")) $g)
+        "name" (index $u.groups $g)
         "itemListElement" $listed) -}}
   {{- end -}}
 {{- end -}}

@@ -1,94 +1,22 @@
-# UI microcopy (English). Longer prose lives in the data/ files.
-
-[nav_services]
-other = "Treatments"
-[nav_gallery]
-other = "Gallery"
-[nav_prices]
-other = "Prices"
-[nav_about]
-other = "About"
-[nav_faq]
-other = "FAQ"
-
-[book]
-other = "Book now"
-[popular]
-other = "Popular"
-[follow]
-other = "Follow"
-
-[book_dm_badge]
-other = "Personal booking · reply < 24h"
-[reviews_recommend]
-other = "recommend"
-[reviews_badge]
-other = "Recommends on Facebook"
-[reviews_link]
-other = "See all reviews on Facebook"
-
-[footer_about]
-other = "Korean lash lift & brow styling in Horsens. Natural results, calm surroundings and thoughtful precision."
-[footer_menu]
-other = "Menu"
-[footer_contact]
-other = "Contact"
-[footer_rights]
-other = "All rights reserved."
-[footer_tagline]
-other = "Booking via Instagram · Horsens, Denmark"
+# =====================================================================
+#  Accessibility strings only. Screen readers announce them; a regular
+#  visitor never sees them.
+#
+#  All other interface wording lives in data/ui.yaml so Wiktoria can edit
+#  it in the CMS. Do not put visible text back in here.
+# =====================================================================
 
 [menu_open]
 other = "Open menu"
+
 [menu_close]
 other = "Close menu"
+
 [lang_label]
 other = "Change language"
+
 [to_top]
 other = "to top"
 
-[err_eyebrow]
-other = "Error 404"
-[err_heading]
-other = "This page was whisked away"
-[err_text]
-other = "The page no longer exists, but your lashes and brows are still waiting."
-[err_home]
-other = "Back to home"
-[err_book]
-other = "Book a time"
-[nav_policy]
-other = "Policy"
-[cal_invite_heading]
-other = "See available times"
-[cal_invite_text]
-other = "The calendar only loads when you press the button. So the page doesn't fetch anything about you that you haven't asked for."
-[cal_invite_button]
-other = "Show available times"
-[cal_invite_loading]
-other = "Loading the calendar…"
-[book_this]
-other = "Book"
-[sets_heading]
-other = "Sets"
-[sets_text]
-other = "Lashes and brows in one appointment. The treatments above, combined."
-[sets_link]
-other = "See the price list"
-
-[nav_results]
-other = "Results"
-
-[expect_heading]
-other = "What you can expect"
-
 [skip_content]
 other = "Skip to main content"
-[service_group_lashes]
-other = "Lashes"
-
-[service_group_brows]
-other = "Brows"
-
-[service_group_sets]
-other = "Sets"

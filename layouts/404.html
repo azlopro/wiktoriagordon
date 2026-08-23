@@ -1,12 +1,13 @@
 {{ define "main" }}
+{{- $u := index hugo.Data.ui .Site.Language.Lang -}}
 <section class="section error-page">
   <div class="container error-page__inner">
-    <p class="eyebrow eyebrow--center">{{ i18n "err_eyebrow" }}</p>
-    <h1>{{ i18n "err_heading" }}</h1>
-    <p class="hero-sub error-page__text">{{ i18n "err_text" }}</p>
+    <p class="eyebrow eyebrow--center">{{ $u.error.eyebrow }}</p>
+    <h1>{{ $u.error.heading }}</h1>
+    <p class="hero-sub error-page__text">{{ $u.error.text }}</p>
     <div class="hero-actions error-page__actions">
-      <a href="{{ "/" | relLangURL }}" class="btn btn--primary">{{ i18n "err_home" }}</a>
-      <a href="{{ "/#booking" | relLangURL }}" class="btn btn--ghost">{{ i18n "err_book" }}</a>
+      <a href="{{ "/" | relLangURL }}" class="btn btn--primary">{{ $u.error.home }}</a>
+      <a href="{{ "/#booking" | relLangURL }}" class="btn btn--ghost">{{ $u.error.book }}</a>
     </div>
   </div>
 </section>

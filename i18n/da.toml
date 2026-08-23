@@ -1,94 +1,22 @@
-# UI-mikrotekst (dansk). Længere prosa ligger i data/-filerne.
-
-[nav_services]
-other = "Behandlinger"
-[nav_gallery]
-other = "Galleri"
-[nav_prices]
-other = "Priser"
-[nav_about]
-other = "Om"
-[nav_faq]
-other = "FAQ"
-
-[book]
-other = "Book tid"
-[popular]
-other = "Populær"
-[follow]
-other = "Følg"
-
-[book_dm_badge]
-other = "Personlig booking · svar < 24t"
-[reviews_recommend]
-other = "anbefaler"
-[reviews_badge]
-other = "Anbefaler på Facebook"
-[reviews_link]
-other = "Se alle anmeldelser på Facebook"
-
-[footer_about]
-other = "Koreansk lash lift & brynstyling i Horsens. Naturlige resultater, rolige rammer og gennemtænkt præcision."
-[footer_menu]
-other = "Menu"
-[footer_contact]
-other = "Kontakt"
-[footer_rights]
-other = "Alle rettigheder forbeholdes."
-[footer_tagline]
-other = "Booking via Instagram · Horsens, Danmark"
+# =====================================================================
+#  Kun tilgængelighedstekster. Skærmlæsere læser dem op; en almindelig
+#  besøgende ser dem aldrig.
+#
+#  Alt andet UI-tekst er flyttet til data/ui.yaml, så Wiktoria kan
+#  redigere det i CMS'et. Læg ikke synlig tekst tilbage her.
+# =====================================================================
 
 [menu_open]
 other = "Åbn menu"
+
 [menu_close]
 other = "Luk menu"
+
 [lang_label]
 other = "Skift sprog"
+
 [to_top]
 other = "til toppen"
 
-[err_eyebrow]
-other = "Fejl 404"
-[err_heading]
-other = "Denne side blev vist bort"
-[err_text]
-other = "Siden findes ikke længere, men dine vipper og bryn venter stadig."
-[err_home]
-other = "Til forsiden"
-[err_book]
-other = "Book en tid"
-[nav_policy]
-other = "Politik"
-[cal_invite_heading]
-other = "Se ledige tider"
-[cal_invite_text]
-other = "Kalenderen hentes først, når du trykker. Så henter siden ikke noget om dig, du ikke selv har bedt om."
-[cal_invite_button]
-other = "Vis ledige tider"
-[cal_invite_loading]
-other = "Henter kalenderen…"
-[book_this]
-other = "Book"
-[sets_heading]
-other = "Sæt"
-[sets_text]
-other = "Vipper og bryn i samme tid. Behandlingerne ovenfor sat sammen."
-[sets_link]
-other = "Se prislisten"
-
-[nav_results]
-other = "Resultater"
-
-[expect_heading]
-other = "Det kan du forvente"
-
 [skip_content]
 other = "Spring til hovedindhold"
-[service_group_lashes]
-other = "Vipper"
-
-[service_group_brows]
-other = "Bryn"
-
-[service_group_sets]
-other = "Sæt"

@@ -22,13 +22,15 @@
 {{- $ns := .ns -}}
 {{- $link := .calLink -}}
 {{- $minh := .minh | default 850 -}}
+{{- /* "." er en dict her, ikke siden, så sproget hentes globalt. */ -}}
+{{- $u := index hugo.Data.ui site.Language.Lang -}}
 <div class="cal-slot" data-cal-ns="{{ $ns }}" data-cal-link="{{ $link }}" data-cal-minh="{{ $minh }}">
   <div class="cal-invite">
     <span class="cal-invite-ic" aria-hidden="true">{{ partial "icon.html" "clock" }}</span>
-    <h3>{{ i18n "cal_invite_heading" }}</h3>
-    <p>{{ i18n "cal_invite_text" }}</p>
+    <h3>{{ $u.calendar.heading }}</h3>
+    <p>{{ $u.calendar.text }}</p>
     <button type="button" class="btn btn--primary cal-load"
-            data-loading="{{ i18n "cal_invite_loading" }}">{{ i18n "cal_invite_button" }}</button>
+            data-loading="{{ $u.calendar.loading }}">{{ $u.calendar.button }}</button>
   </div>
   <div class="cal-mount" id="cal-inline-{{ $ns }}"
        style="width:100%;min-height:{{ $minh }}px;overflow:visible;display:none"></div>

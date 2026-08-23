@@ -1,6 +1,7 @@
 {{ $L := .Site.Language.Lang }}
 {{ $r := index hugo.Data.reviews $L }}
-{{ $p := hugo.Data.business }}
+{{- $p := hugo.Data.business -}}
+{{- $u := index hugo.Data.ui $L -}}
 <section class="section" id="anmeldelser">
   <div class="container">
     {{/* Antallet af anmeldelser er fjernet efter Wiktorias udtrykkelige
@@ -15,7 +16,7 @@
     <div class="reviews-grid">
       {{ range $i, $rev := $r.items }}
       <article class="review reveal{{ if lt $i 2 }} d{{ add $i 1 }}{{ end }}">
-        <div class="rec">{{ partial "icon.html" "check" }} {{ i18n "reviews_badge" }}</div>
+        <div class="rec">{{ partial "icon.html" "check" }} {{ $u.reviews.badge }}</div>
         <p class="quote">“{{ $rev.text }}”</p>
         <div class="who">
           <span class="avatar" aria-hidden="true">{{ substr $rev.name 0 1 }}</span>
@@ -30,7 +31,7 @@
 
     <div class="reviews-more reveal">
       <a href="{{ $p.facebookReviews | default $p.facebook }}" target="_blank" rel="noopener" class="btn btn--ghost">
-        {{ partial "icon.html" "facebook" }} {{ i18n "reviews_link" }}
+        {{ partial "icon.html" "facebook" }} {{ $u.reviews.link }}
       </a>
     </div>
   </div>

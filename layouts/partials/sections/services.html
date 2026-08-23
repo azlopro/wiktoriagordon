@@ -1,5 +1,6 @@
 {{ $L := .Site.Language.Lang }}
 {{ $s := index hugo.Data.services $L }}
+{{- $u := index hugo.Data.ui $L -}}
 {{/* Kun behandlinger MED en beskrivelse bliver til kort. Sættene har ingen
      tekst fra Wiktoria, og et kort uden indhold efterlader et hul i gitteret.
      De står i stedet i prislisten under "Sæt". Skriver hun senere en
@@ -16,12 +17,12 @@
     <div class="services-grid">
       {{ range $i, $svc := $kort }}
       <article class="service service--{{ cond (eq (mod $i 2) 0) `wide` `narrow` }}{{ if $svc.featured }} service--featured{{ end }} reveal{{ if lt $i 3 }} d{{ add $i 1 }}{{ end }}">
-        {{ if $svc.featured }}<span class="tag-popular">{{ i18n "popular" }}</span>{{ end }}
+        {{ if $svc.featured }}<span class="tag-popular">{{ $u.labels.popular }}</span>{{ end }}
         <span class="service-icon">{{ partial "icon.html" $svc.icon }}</span>
         <h3>{{ $svc.title }}</h3>
         {{ with $svc.desc }}<p class="desc">{{ . }}</p>{{ end }}
         {{ with $svc.expect }}
-        <p class="service-expect-title">{{ i18n "expect_heading" }}</p>
+        <p class="service-expect-title">{{ $u.labels.expectHeading }}</p>
         <ul class="service-expect">
           {{ range . }}<li>{{ partial "icon.html" "check" }}<span>{{ . }}</span></li>{{ end }}
         </ul>
@@ -40,12 +41,12 @@
       {{ with $saet }}
       <a class="service service--sets service--narrow reveal" href="#priser">
         <span class="service-icon">{{ partial "icon.html" "combo" }}</span>
-        <h3>{{ i18n "sets_heading" }}</h3>
-        <p class="desc">{{ i18n "sets_text" }}</p>
+        <h3>{{ $u.sets.heading }}</h3>
+        <p class="desc">{{ $u.sets.text }}</p>
         <ul class="sets-list">
           {{ range . }}<li><span>{{ .title }}</span><b>{{ .price }}</b></li>{{ end }}
         </ul>
-        <span class="sets-link">{{ i18n "sets_link" }} {{ partial "icon.html" "arrow" }}</span>
+        <span class="sets-link">{{ $u.sets.link }} {{ partial "icon.html" "arrow" }}</span>
       </a>
       {{ end }}
     </div>
