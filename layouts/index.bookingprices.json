@@ -1,0 +1,22 @@
+{{- /* Behandlingernes pris i øre, slået op på Cal-slug'en.
+
+     Workeren regner depositummet ud herfra. Beløbet må ALDRIG komme fra
+     browseren: query-parametre kan redigeres i adresselinjen, og så kunne
+     enhver booke det store sæt og betale én krone.
+
+     Priserne står som fri tekst i prislisten ("500 kr."), fordi det er sådan
+     kunden skal se dem. Her trækkes tallet ud, så bookingen ikke kan komme
+     til at regne på en tekststreng. */ -}}
+{{- $L := .Site.Language.Lang -}}
+{{- $s := index hugo.Data.services $L -}}
+{{- $out := dict -}}
+{{- range $svc := $s.main -}}
+  {{- with $svc.calSlug -}}
+    {{- $kr := int (replaceRE `[^0-9]` "" $svc.price) -}}
+    {{- $out = merge $out (dict . (dict
+        "title" $svc.title
+        "priceOere" (int (mul $kr 100))
+        "depositOere" (int (mul $kr 50)))) -}}
+  {{- end -}}
+{{- end -}}
+{{ dict "currency" "DKK" "depositPercent" 50 "treatments" $out | jsonify (dict "indent" "  ") }}

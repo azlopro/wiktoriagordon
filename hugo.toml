@@ -63,10 +63,24 @@ defaultContentLanguageInSubdir = false   # dansk på /, engelsk på /en/
     isPlainText = true
     notAlternative = true
 
+  # /booking-prices.json: behandlingernes slug og pris, som bookingen slår
+  # depositummet op i. Genereres fra data/services.yaml, så en prisændring i
+  # CMS'et slår igennem på bookingen uden at nogen skal huske det.
+  [outputFormats.BOOKINGPRICES]
+    mediaType = "application/json"
+    baseName = "booking-prices"
+    isPlainText = true
+    notAlternative = true
+
 [outputs]
-  home = ["HTML", "LLMS"]
+  home = ["HTML", "LLMS", "BOOKINGPRICES"]
 
 [minify]
   disableXML = true
+  # Uden keepNumbers skriver minifieren 45000 som 45e3. Det er gyldig JSON og
+  # JavaScript læser det rigtigt, men /booking-prices.json indeholder beløb, og
+  # et beløb skal kunne læses som det tal det er.
+  [minify.tdewolff.json]
+    keepNumbers = true
   [minify.tdewolff.html]
     keepWhitespace = false

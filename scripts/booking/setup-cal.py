@@ -42,20 +42,21 @@ API_VERSION = '2024-06-14'
 BUFFER_AFTER = 15      # minutter til oprydning og skift
 NOTICE = 12 * 60       # kunden kan tidligst booke 12 timer ude
 
-# slug -> (nøgle i services.yaml efter rækkefølge, estimeret varighed)
-# Slugs er engelske og neutrale, fordi de står i URL'en og i calSlug.
-# Navnene kommer fra services.yaml og er danske.
-PLAN = [
-    ('lash-lift', 60),
-    ('brow-lamination', 45),
-    ('brow-lamination-tint', 60),
-    ('brow-tint-shaping', 45),
-    ('brow-shaping', 30),
-    ('lash-brow-lamination-tint', 120),
-    ('lash-brow-lamination', 105),
-    ('lash-brow-tint', 105),
-    ('lash-brow-shaping', 90),
-]
+# Estimerede varigheder, slået op på calSlug. Bruges KUN når duration står tom
+# i services.yaml. Slug og navn kommer fra datafilen, så der ikke er to lister
+# at holde i sync: retter Wiktoria en pris eller et navn i CMS'et, følger Cal
+# med næste gang scriptet køres.
+FALLBACK_MINUTES = {
+    'lash-lift': 60,
+    'brow-lamination': 45,
+    'brow-lamination-tint': 60,
+    'brow-tint-shaping': 45,
+    'brow-shaping': 30,
+    'lash-brow-lamination-tint': 120,
+    'lash-brow-lamination': 105,
+    'lash-brow-tint': 105,
+    'lash-brow-shaping': 90,
+}
 
 
 def load_key():
@@ -102,17 +103,20 @@ def main():
     apply = '--apply' in sys.argv
     key = load_key()
     services = yaml.safe_load((ROOT / 'data/services.yaml').read_text(encoding='utf-8'))['da']['main']
-    if len(services) != len(PLAN):
-        sys.exit(f'services.yaml har {len(services)} behandlinger, planen har {len(PLAN)}')
+    services = [s for s in services if (s.get('calSlug') or '').strip()]
+    unknown = [s['calSlug'] for s in services if s['calSlug'] not in FALLBACK_MINUTES]
+    if unknown:
+        sys.exit(f'ingen varighed kendt for: {unknown}')
 
     existing = {e['slug']: e for e in call('GET', '/event-types', key).get('data', [])}
     print(f'{len(existing)} event types findes i forvejen\n')
 
-    for (slug, fallback), svc in zip(PLAN, services):
+    for svc in services:
+        slug = svc['calSlug']
         payload = {
             'title': svc['title'],
             'slug': slug,
-            'lengthInMinutes': minutes(svc, fallback),
+            'lengthInMinutes': minutes(svc, FALLBACK_MINUTES[slug]),
             'description': svc.get('desc') or '',
             # Bookingen oprettes først NÅR depositummet er betalt, så den er
             # bekræftet i samme øjeblik den findes. Der er ingen ubetalte
