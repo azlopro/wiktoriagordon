@@ -131,6 +131,11 @@ body {
 .wg-image-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1rem; padding: clamp(1rem,4vw,2.5rem); }
 .wg-image-card { position: relative; min-height: 14rem; margin: 0; overflow: hidden; border-radius: 1.1rem; background: var(--blush); }
 .wg-image-card--hero { grid-row: span 2; min-height: 29rem; border-radius: 12rem 12rem 1.1rem 1.1rem; }
+/* Logoerne er gennemsigtige PNG'er og skal ses hele, ikke beskæres som fotos.
+   Den lyse variant er hvid og forsvinder på lys bund, så den får mørk bag. */
+.wg-image-card--logo img,
+.wg-image-card--logoLight img { object-fit: contain; padding: 1.6rem; }
+.wg-image-card--logoLight { background: #2E2523; }
 .wg-image-card img { width: 100%; height: 100%; position: absolute; inset: 0; object-fit: cover; }
 .wg-image-card figcaption,
 .wg-result-card figcaption { position: absolute; inset: auto .65rem .65rem; padding: .45rem .65rem; border-radius: .5rem; background: rgba(46,37,35,.78); color: #fff; font-family: var(--sans); font-size: .7rem; font-weight: 500; }
@@ -197,3 +202,19 @@ body {
   .wg-footer-preview { flex-direction: column; }
   .wg-contact-list { text-align: left; }
 }
+
+
+/* ---------- Før/efter ---------- */
+.wg-ba-preview { display: grid; gap: 1.6rem; padding: clamp(1rem,4vw,2.5rem); }
+.wg-ba-pair { margin: 0; }
+.wg-ba-shots { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; border-radius: 1.1rem; overflow: hidden; background: var(--blush); }
+.wg-ba-shots img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; display: block; }
+.wg-ba-pair figcaption { margin-top: .7rem; display: flex; align-items: baseline; gap: .6rem; }
+.wg-ba-first { font-size: .8125rem; letter-spacing: .1em; text-transform: uppercase; color: var(--rose-deep); }
+
+/* ---------- Knapper og mærkater ---------- */
+.wg-ui-preview { padding: clamp(1rem,4vw,2.5rem); display: grid; gap: 1.6rem; }
+.wg-ui-group h3 { margin: 0 0 .5rem; font-size: 1.15rem; }
+.wg-ui-row { display: flex; gap: .8rem; align-items: baseline; padding: .3rem 0; border-bottom: 1px solid var(--line-soft); }
+.wg-ui-row dt { flex: 0 0 11rem; font-family: var(--sans); font-size: .8125rem; letter-spacing: .06em; color: var(--ink-soft); }
+.wg-ui-row dd { margin: 0; }

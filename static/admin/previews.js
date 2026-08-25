@@ -186,7 +186,16 @@
           about.moreButton ? h('span', { className: 'wg-text-link' }, about.moreButton, ' ↓') : null
         )
       ),
-      h('section', { className: 'wg-copy-section wg-copy-section--center wg-results-copy' }, sectionHead(beforeafter, true)),
+      /* Resultat-sektionens overskrift er skjult på den rigtige side, så den
+         vises heller ikke her. Kun før/efter-mærkaterne er synlige. */
+      h(
+        'section',
+        { className: 'wg-copy-section wg-copy-section--center wg-results-copy' },
+        h('p', { className: 'wg-note' },
+          'Before/after: ', h('b', {}, shown(beforeafter.beforeLabel, 'Before')),
+          ' / ', h('b', {}, shown(beforeafter.afterLabel, 'After')),
+          '. The heading is hidden on the page.')
+      ),
       h(
         'section',
         { className: 'booking wg-booking-preview' },
@@ -268,7 +277,11 @@
   }
 
   function renderImages(data, locale, props) {
-    var labels = { hero: 'Large top photo', portrait: 'About photo', before: 'Before', after: 'After' };
+    /* Before/after ligger nu i sin egen samling. Logoerne kom til, da
+       monogrammet afløste tekstlogoet. Nøglerne skal matche images.yaml,
+       ellers står der tomme felter for billeder der ikke findes, og de
+       billeder der faktisk er, vises slet ikke. */
+    var labels = { logo: 'Logo', logoLight: 'Logo for dark background', hero: 'Large top photo', portrait: 'About photo' };
     return h('div', { className: 'wg-image-grid' }, Object.keys(labels).map(function (key) {
       var url = assetUrl(data[key], props.getAsset);
       return h('figure', { className: 'wg-image-card wg-image-card--' + key, key: key }, url ? h('img', { src: url, alt: labels[key] }) : h('div', { className: 'wg-empty-image' }, 'Choose an image'), h('figcaption', {}, labels[key]));
@@ -279,6 +292,45 @@
     return h('div', { className: 'wg-gallery-preview' }, list(data.items).map(function (item, index) {
       var url = assetUrl(item.image, props.getAsset);
       return h('figure', { className: 'wg-result-card', key: index }, url ? h('img', { src: url, alt: item.caption || '' }) : h('div', { className: 'wg-empty-image' }, 'Choose a photo'), h('figcaption', {}, shown(item.caption, 'Photo caption')));
+    }));
+  }
+
+  function renderBeforeAfter(data, locale, props) {
+    var items = list(data.items);
+    if (!items.length) return h('p', { className: 'wg-note' }, 'Add a pair to see it here.');
+    return h('div', { className: 'wg-ba-preview' }, items.map(function (pair, index) {
+      var before = assetUrl(pair.before, props.getAsset);
+      var after = assetUrl(pair.after, props.getAsset);
+      return h('figure', { className: 'wg-ba-pair', key: index },
+        h('div', { className: 'wg-ba-shots' },
+          before ? h('img', { src: before, alt: 'Before' }) : h('div', { className: 'wg-empty-image' }, 'Choose the before photo'),
+          after ? h('img', { src: after, alt: 'After' }) : h('div', { className: 'wg-empty-image' }, 'Choose the after photo')
+        ),
+        h('figcaption', {},
+          h('b', {}, shown(pair.label, 'Button text')),
+          index === 0 ? h('span', { className: 'wg-ba-first' }, 'shown first') : null),
+        h('p', { className: 'wg-note' }, 'Both photos must be framed identically, otherwise the slider looks broken.')
+      );
+    }));
+  }
+
+  function renderUi(data) {
+    var groups = [
+      ['Menu', data.nav], ['Small labels', data.labels], ['Price-list groups', data.groups],
+      ['Sets block', data.sets], ['Reviews', data.reviews], ['Footer', data.footer],
+      ['Booking calendar', data.calendar], ['Error page', data.error]
+    ];
+    return h('div', { className: 'wg-ui-preview' }, groups.map(function (pair, index) {
+      var values = pair[1] || {};
+      var keys = Object.keys(values);
+      if (!keys.length) return null;
+      return h('section', { className: 'wg-ui-group', key: index },
+        h('h3', {}, pair[0]),
+        h('dl', {}, keys.map(function (key) {
+          return h('div', { className: 'wg-ui-row', key: key },
+            h('dt', {}, key), h('dd', {}, shown(values[key], '(empty)')));
+        }))
+      );
     }));
   }
 
@@ -343,6 +395,8 @@
     register('reviews', { title: 'Reviews', anchor: '#anmeldelser', localized: true }, renderReviews);
     register('faq', { title: 'Questions & answers', anchor: '#faq', localized: true }, renderFaq);
     register('policy', { title: 'Salon policy', anchor: '#politik', localized: true }, renderPolicy);
+    register('beforeafter', { title: 'Before & after', anchor: '#resultater', localized: true }, renderBeforeAfter);
+    register('ui', { title: 'Buttons & labels', anchor: '', localized: true }, renderUi);
   } catch (error) {
     console.error('Visual preview registration failed; the content editor will continue without previews.', error);
   } finally {

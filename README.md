@@ -327,3 +327,16 @@ det samme. **Målt: nul forespørgsler til app.cal.eu ved sideindlæsning.** For
 Cal er sitets eneste tredjepart, og fonte og alt andet er selvhostet, betyder
 det, at sitet **ikke behøver et cookie-banner**. Lægger man Cal ind som et
 almindeligt script, gælder det ikke længere — så skal der bygges et banner.
+
+## Efter ændringer i data/
+
+Datafilerne og redigeringssystemet i `/admin/` hænger sammen tre steder, og
+ingen af dem fejler højlydt, når de kommer ud af trit: et felt uden et felt i
+`config.yml` bliver slettet, når Wiktoria gemmer; en samling uden preview
+vises som ren tekst; og en preview kan pege på felter, der er flyttet.
+
+    python3 scripts/cms-check.py
+
+Kør den efter enhver ændring i `data/*.yaml`. Den ligger bevidst uden for
+`build.sh`, så et manglende PyYAML på Cloudflare ikke kan stoppe et deploy
+over noget, der kun handler om redigeringsoplevelsen.
