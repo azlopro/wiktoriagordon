@@ -1,42 +1,40 @@
 /* =====================================================================
    Wiktoria Gordon Beauty — designsystem
-   Premium, roligt, feminint. Cream + mauve-rosa + guld.
+   Editorial beauty studio: clean white, ink and signature burgundy.
    ===================================================================== */
 
 /* ---------- Design-tokens ---------- */
 :root {
-  /* Farver — Wiktorias egen palet, fra hendes moodboard 22/8-2026:
-     CREME #EEE4DA · SAND #D8C4AC · DUSTY PINK #C8A49F · BURGUNDY #4D0E13.
-     Variabelnavnene er beholdt (--rose, --rose-deep osv.), så resten af
-     stilarket ikke skal skrives om — men værdierne er hendes. */
+  /* Burgundy remains the signature colour. The former beige canvas has
+     been replaced with white and cool, paper-like neutrals. */
   /* Headerens højde. Mobilmenuen hænger nedenunder og heroen skal holde
      afstand til den, så de tre tal skal følges ad. */
   --header-h:   78px;
 
-  --cream:      #EEE4DA;   /* hovedfarve, sidens baggrund */
-  --cream-2:    #F5EEE6;   /* lysere cremenuance til skift mellem sektioner */
-  --blush:      #E6D6CF;   /* dusty pink, lysnet — ikoncirkler og flader */
+  --cream:      #FFFFFF;
+  --cream-2:    #F4F2F2;
+  --blush:      #E9E2E4;
   --white:      #FFFFFF;
-  --ink:        #2E2523;   /* varm næsten-sort tekst */
-  --ink-soft:   #6F615C;   /* dæmpet tekst */
-  --sand:       #D8C4AC;   /* neutral sandtone */
-  --rose:       #C8A49F;   /* DUSTY PINK */
-  --rose-deep:  #4D0E13;   /* BURGUNDY — knapper og accenter */
-  --rose-soft:  #E6D6CF;
-  --gold:       #C4AA85;   /* sand, en anelse dybere — tynde linjer */
-  --line:       rgba(46, 37, 35, 0.12);
-  --line-soft:  rgba(46, 37, 35, 0.07);
+  --ink:        #171315;
+  --ink-soft:   #676064;
+  --sand:       #C9C3C5;
+  --rose:       #9B7E84;
+  --rose-deep:  #5B1020;
+  --rose-soft:  #E9DADD;
+  --gold:       #7A2939;
+  --line:       rgba(23, 19, 21, 0.18);
+  --line-soft:  rgba(23, 19, 21, 0.09);
 
   /* Typografi */
   --serif: 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
   --sans:  'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   /* Form */
-  --radius:    18px;
-  --radius-sm: 12px;
-  --shadow:    0 24px 60px -28px rgba(78, 46, 46, 0.35);
-  --shadow-sm: 0 12px 30px -18px rgba(78, 46, 46, 0.3);
-  --container: 1180px;
+  --radius:    2px;
+  --radius-sm: 1px;
+  --shadow:    0 28px 70px -38px rgba(55, 18, 27, 0.38);
+  --shadow-sm: 0 14px 36px -26px rgba(55, 18, 27, 0.3);
+  --container: 1320px;
   --gutter:    clamp(1.25rem, 5vw, 3rem);
 
   /* Rytme */
@@ -68,9 +66,9 @@ body::before {
   inset: 0;
   z-index: 90;
   pointer-events: none;
-  opacity: .055;
-  background-image: radial-gradient(rgba(77, 14, 19, .42) .45px, transparent .55px);
-  background-size: 3px 3px;
+  opacity: .022;
+  background-image: radial-gradient(rgba(23, 19, 21, .5) .4px, transparent .55px);
+  background-size: 4px 4px;
 }
 body.nav-open { overflow: hidden; }
 img { max-width: 100%; height: auto; display: block; }

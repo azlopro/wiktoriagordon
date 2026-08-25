@@ -1,7 +1,9 @@
-# Baseline for every static response. HSTS starts at one day; increase it only
-# after the final domain and every required subdomain are confirmed HTTPS-only.
+# Baseline for every static response. HSTS was one day while the site lived on a
+# temporary demo host. The final domain is now live and HTTPS-only, so it is
+# raised to 180 days. No includeSubDomains: that would also lock any future
+# subdomain into HTTPS before one exists, and it cannot be undone quickly.
 /*
-  Strict-Transport-Security: max-age=86400
+  Strict-Transport-Security: max-age=15552000
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
