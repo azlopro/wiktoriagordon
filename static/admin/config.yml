@@ -10,7 +10,7 @@ logo:
 
 backend:
   name: github
-  repo: azlopro/wiktoriagordon
+  repo: wiktoriagordon/w-website
   branch: master
   base_url: https://REPLACE-ME.workers.dev
   auth_methods: [oauth]
