@@ -367,9 +367,7 @@ collections:
             collapsed: true
             summary: Results section
             fields:
-              - {name: eyebrow, label: Small label above, widget: string, i18n: true}
-              - {name: heading, label: Heading, widget: string, i18n: true}
-              - {name: text, label: Text, widget: text, i18n: true}
+              - {name: heading, label: Heading (not shown on the page), widget: string, i18n: true, hint: 'The section sits right under the opening text and the photos speak for themselves, so this heading is hidden. It is still used by screen readers and by Google to understand the page.'}
               - {name: beforeLabel, label: Before label, widget: string, i18n: true}
               - {name: afterLabel, label: After label, widget: string, i18n: true}
           - name: finalcta

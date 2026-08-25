@@ -100,9 +100,10 @@ da:
     area: "Horsens, Danmark"
 
   beforeafter:
-    eyebrow: "Resultater"
+    # Overskriften vises ikke på siden. Sektionen står lige under
+    # introteksten, og billederne taler for sig selv. Den bruges til
+    # sidens overskriftsstruktur og til skærmlæsere.
     heading: "Se forskellen."
-    text: "Rigtige kunder. Rigtige træk. Gennemtænkte resultater."
     beforeLabel: "Før"
     afterLabel: "Efter"
 
@@ -202,9 +203,10 @@ en:
     area: "Horsens, Denmark"
 
   beforeafter:
-    eyebrow: "Results"
+    # Overskriften vises ikke på siden. Sektionen står lige under
+    # introteksten, og billederne taler for sig selv. Den bruges til
+    # sidens overskriftsstruktur og til skærmlæsere.
     heading: "See the difference."
-    text: "Real clients. Real features. Carefully considered results."
     beforeLabel: "Before"
     afterLabel: "After"
 

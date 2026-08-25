@@ -5,11 +5,14 @@
 {{- $pairs := (index hugo.Data.beforeafter $L).items -}}
 <section class="section ba" id="resultater">
   <div class="container">
-    <div class="section-head section-head--center reveal">
-      <p class="eyebrow eyebrow--center">{{ $ba.eyebrow }}</p>
-      <h2>{{ $ba.heading }}</h2>
-      <p>{{ $ba.text }}</p>
-    </div>
+    {{/* Sektionen står lige under introteksten, som allerede siger hvad man
+         skal se. En overskrift mere dér ville bare være tekst mod tekst, og
+         billederne taler for sig selv.
+
+         Overskriften er ikke slettet, kun skjult visuelt: uden en h2 ville
+         hele resultatsektionen mangle i sidens overskriftsstruktur, og en
+         skærmlæser ville lande i et navnløst område fulgt af billeder. */}}
+    <h2 class="visually-hidden">{{ $ba.heading }}</h2>
 
     {{ with index $pairs 0 }}
     <div class="ba-wrap reveal d1">
