@@ -125,7 +125,9 @@ strong { font-weight: 500; }
   padding-inline: var(--gutter);
 }
 .section { padding-block: var(--section-y); }
-.section[id] { scroll-margin-top: 88px; }
+/* Ankerspring skal lande under den fastgjorte header, og den er lavere på
+   mobil end på desktop. Bindes til samme variabel som headeren selv. */
+.section[id] { scroll-margin-top: calc(var(--header-h) + 12px); }
 .section--tight { padding-block: clamp(3rem, 6vw, 5rem); }
 .bg-cream2 { background: var(--cream-2); }
 .bg-blush  { background: linear-gradient(180deg, var(--cream) 0%, var(--blush) 100%); }
@@ -1077,6 +1079,10 @@ strong { font-weight: 500; }
 
 /* ---------- Introduktion (Wiktorias §3) ---------- */
 .section--intro { padding-block: clamp(3.5rem, 7vw, 6rem); }
+/* Før/efter står lige efter introteksten og skal læses som svaret på den,
+   ikke som en ny sektion langt nede. Begge sektioners lodrette luft lagde
+   sig oven i hinanden og skabte et hul på et par hundrede pixels. */
+.section--intro + .ba { padding-top: clamp(.5rem, 1.5vw, 1.5rem); }
 .intro-block {
   max-width: 44ch;
   margin-inline: auto;
