@@ -2,8 +2,8 @@
 # Client-facing editor. Keep technical booking values hidden.
 
 app_title: Wiktoria Gordon Beauty
-site_url: https://wiktoria.christiansdemo.dk
-display_url: https://wiktoria.christiansdemo.dk
+site_url: https://www.wiktoriagordon.dk
+display_url: https://www.wiktoriagordon.dk
 logo:
   src: /favicon.png
   show_in_header: true

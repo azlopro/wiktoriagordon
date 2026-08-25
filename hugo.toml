@@ -1,9 +1,11 @@
-# ⚠ MIDLERTIDIG: peger på Christians demo-subdomæne, fordi wiktoriagordon.dk endnu
-# ikke er sat op. Uden dette virker OG-billede/canonical/schema-URL'er ikke, fordi de
-# bruger absURL (= baseURL) — og pegede før på et domæne der ikke findes endnu, så
-# Facebook/Instagrams link-preview-crawler fik "server not found".
-# RET TIL "https://www.wiktoriagordon.dk/" NÅR DOMÆNET ER LIVE PÅ CLOUDFLARE.
-baseURL = "https://wiktoria.christiansdemo.dk/"
+# Sitets rigtige adresse. Alt hvad der skal være absolut — canonical, OG-billede,
+# hreflang, sitemap, schema.org og llms.txt — bygges ud fra den her.
+#
+# www og ikke apex, fordi det var det valg der blev truffet fra start og står i
+# alle de kort der allerede er delt. Vælges apex senere, skal der sættes en
+# permanent omdirigering fra www, ellers findes sitet på to adresser og Google
+# skal selv gætte hvilken der gælder.
+baseURL = "https://www.wiktoriagordon.dk/"
 enableRobotsTXT = true
 disableKinds = ["taxonomy", "term"]
 
