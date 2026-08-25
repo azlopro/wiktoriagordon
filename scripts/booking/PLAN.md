@@ -23,13 +23,23 @@ Begge dele er ventetid, ikke arbejde. Sæt dem i gang før alt andet.
    konstruktionen hviler på det, og det står ikke i dokumentationen. Spørg
    Cals support direkte.
 
-2. **Handelsaftale til Vipps MobilePays ePayment API.** Søges i deres
-   business-portal og skal stå i **Wiktorias CVR**, ikke Christians. Giver
-   adgang til testmiljøet (Merchant Test) med det samme og til produktion
-   efter godkendelse, som kan tage nogle hverdage.
+2. **Produktet "Payment Integration" hos Vipps MobilePay.** Hendes
+   MyShop-aftale er IKKE nok. MyShop er den færdige løsning, hvor hun
+   modtager betalinger manuelt; ePayment-API'et er et andet produkt, der
+   bestilles for sig og opretter en salgsenhed med sit eget sæt nøgler.
+   MyShop bliver som den er, til betaling i salonen.
 
-   Nøgler der kommer ud af det: `client_id`, `client_secret`,
-   `Ocp-Apim-Subscription-Key` og `Merchant-Serial-Number`.
+   Det bestilles i portalen på hendes CVR. Testnøgler fås med det samme,
+   produktion efter godkendelse, som kan tage nogle hverdage.
+
+   **Hun skal ikke sende nøgler eller kodeord.** I stedet tilføjer hun
+   Christian som portalbruger med **Assistant**-adgang, så han selv logger
+   ind på portal.vippsmobilepay.com og henter dem under "For developers"
+   → salgsenheden. Samme mønster som gæstebrugeren på one.com.
+
+   Nøgler der skal bruges: `client_id`, `client_secret`,
+   `Ocp-Apim-Subscription-Key` og `Merchant-Serial-Number` (MSN), i både
+   test- og produktionsudgave.
 
 3. **Cloudflare-konto på den Protonmail-adresse, der overdrages til hende.**
    Domænet skal oprettes dér fra starten, ikke flyttes bagefter.
