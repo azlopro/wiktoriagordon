@@ -148,7 +148,7 @@ collections:
             fields:
               - {name: before, label: Before photo, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, i18n: duplicate, hint: Same angle, same distance and same light as the After photo.}
               - {name: after, label: After photo, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, i18n: duplicate}
-              - {name: label, label: Button text, widget: string, i18n: true, hint: 'Use the exact treatment name from the price list, for example: Korean lash lift + brow lamination. The price list sits right below on the page, so an invented name is also a wrong price.'}
+              - {name: label, label: Button text, widget: string, i18n: true, hint: 'Use the exact treatment name from the price list, so the name matches a price. NOT YET CONFIRMED: the first pair says lash lift + brow lamination (850 kr.). If her brows were tinted as well it should say + tint (900 kr.). Ask Wiktoria.'}
 
       - name: gallery
         label: Result photos
