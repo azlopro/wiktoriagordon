@@ -21,6 +21,9 @@
 //   Build command:   (må gerne være tom)
 //   Env-variabler:   ingen — Hugo-versionen står i build.sh
 //
+// Hemmeligheder sættes derimod med wrangler og aldrig i repoet:
+//   npx wrangler secret put CAL_API_KEY
+//
 // Lokal deploy uden git-flowet:
 //   npx wrangler deploy
 //
@@ -28,11 +31,18 @@
 {
   "name": "wiktoriagordon",
   "compatibility_date": "2026-07-22",
+  "main": "worker/index.js",
   "build": {
     "command": "chmod a+x build.sh && ./build.sh"
   },
   "assets": {
     "directory": "./public",
-    "not_found_handling": "404-page"
+    "not_found_handling": "404-page",
+    "binding": "ASSETS",
+    // Statiske filer serveres normalt før Workeren overhovedet spørges, og så
+    // ville /api/ ende i 404-siden i stedet for hos koden. Med den her linje
+    // kører Workeren først, men KUN på /api/ — resten af sitet leveres som før
+    // uden at gå gennem kode.
+    "run_worker_first": ["/api/*"]
   }
 }
