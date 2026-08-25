@@ -44,25 +44,45 @@ Begge dele er ventetid, ikke arbejde. Sæt dem i gang før alt andet.
 3. **Cloudflare-konto på den Protonmail-adresse, der overdrages til hende.**
    Domænet skal oprettes dér fra starten, ikke flyttes bagefter.
 
+## Hvorfor bookingen ikke går gennem Cals egen side
+
+Første udkast lod Cal tage bookingen og sende kunden videre til betaling med
+**Redirect on Booking**. Det virker ikke: API'et afviser feltet med 403 og
+beskeden *"Redirect on booking is a feature for team plan users."* Alt andet
+er testet og virker på gratis-planen — requires confirmation, buffer,
+minimum notice og telefonfelt.
+
+Derfor vendes forløbet om: bestillingen sker på hendes eget site, og
+bookingen oprettes i Cal **først når depositummet er betalt**.
+
+Det viste sig at være den bedre løsning:
+
+- Ingen ubetalte bookinger findes nogensinde, så der er intet oprydningsjob,
+  ingen 30-minutters frist og ingen cron-trigger.
+- Intet webhook, og dermed ingen signaturverifikation at få galt i halsen.
+- Cals embed forsvinder fra siden. Der er ingen tredjepart tilbage, som
+  henter noget om den besøgende, og hele cookiebanner-spørgsmålet bortfalder.
+- Bestillingen ser ud som resten af sitet i stedet for som en indlejret
+  fremmed kalender.
+
+Prisen er, at tidsvælgeren skal bygges. Det er en afgrænset opgave: hent
+ledige tider, vis dem, send valget videre.
+
 ## Forløbet
 
-1. Kunden vælger en tid i den indlejrede Cal-kalender på sitet.
-2. Cal opretter bookingen som **ikke-bekræftet** ("requires confirmation") og
-   sender kunden videre til `/betal/?uid=...` via **Redirect on Booking**.
-3. `/betal/` kalder Workeren med bookingens `uid`.
-4. Workeren slår bookingen op **via Cals API** for at finde behandlingen, og
-   regner depositummet ud som 50 % af prisen. Prisen tages fra sitets eget
-   `/booking-prices.json`, som genereres af Hugo fra `data/services.yaml`.
-5. Workeren opretter en MobilePay-betaling og får en `redirectUrl` retur.
-   Bookingen gemmes som afventende i KV med et tidsstempel.
-6. Kunden sendes til MobilePay, godkender, og lander på `/tak/`.
-7. MobilePay kalder Workeren tilbage. Er betalingen gennemført, **bekræftes
-   bookingen via Cals API**, og KV-posten fjernes.
-8. En cron-trigger hvert 5. minut aflyser afventende bookinger, der er ældre
-   end **30 minutter**. Tiden bliver fri igen.
+1. Kunden vælger behandling og tid i sitets egen tidsvælger. Tiderne hentes
+   fra Cals API gennem Workeren, så nøglen aldrig når browseren.
+2. Hun indtaster navn, mail og telefon og sender af sted.
+3. Workeren regner depositummet ud som 50 % af prisen, som den henter fra
+   sitets eget `/booking-prices.json`, genereret af Hugo fra
+   `data/services.yaml`. Beløbet kommer aldrig fra browseren.
+4. Workeren opretter en MobilePay-betaling og gemmer det valgte tidspunkt i
+   KV under betalingens reference.
+5. Kunden sendes til MobilePay, godkender, og lander på `/tak/`.
+6. Workeren slår betalingen op hos MobilePay. Er den gennemført, **oprettes
+   bookingen i Cal** via API'et, og KV-posten fjernes.
 
-Kalenderen holdes altså aldrig optaget af en ubetalt tid, og Wiktoria rører
-ikke ved noget.
+Betales der ikke, findes bookingen aldrig. Tiden var aldrig optaget.
 
 ## Regler der ikke må brydes
 
@@ -70,10 +90,6 @@ ikke ved noget.
 query-parametre, og de kan redigeres i adresselinjen. Depositummet skal regnes
 ud af Workeren efter opslag i Cals API. Ellers kan enhver booke en tid til
 900 kr. og betale 1 krone.
-
-**Verificér Cals webhook-signatur.** Cal sender HMAC-SHA256 i headeren
-`x-cal-signature-256`. Uden det kan hvem som helst, der gætter URL'en,
-bekræfte bookinger uden at betale.
 
 **Verificér betalingen hos MobilePay, ikke i callbacket.** Et callback siger
 kun at noget skete. Slå betalingen op med `GET /epayment/v1/payments/{ref}` og
@@ -90,10 +106,11 @@ mail, telefon og behandling — ikke andet.
 ## Teknisk opsætning
 
 - **Cloudflare Worker** i hendes konto, med en route på `/api/*`.
-- **KV namespace** til afventende bookinger.
-- **Cron trigger** hvert 5. minut til at rydde op.
+- **KV namespace** til betalinger, der afventer svar fra MobilePay.
 - **Secrets** som Worker secrets, aldrig i repoet: MobilePay-nøglerne og
   Cal-API-nøglen.
+
+Ingen cron-trigger. Der findes ingen ubetalte bookinger at rydde op efter.
 
 ## Når det virker
 

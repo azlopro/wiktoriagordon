@@ -36,7 +36,9 @@ ROOT = Path(__file__).resolve().parents[2]
 API = 'https://api.cal.com/v2'
 API_VERSION = '2024-06-14'
 
-REDIRECT = 'https://www.wiktoriagordon.dk/betal/'
+# Ingen successRedirectUrl: "Redirect on booking" er en Teams-funktion, og
+# API'et afviser den med 403 på gratis-planen. Det er derfor bookingen ikke
+# længere går gennem Cals egen side, se PLAN.md.
 BUFFER_AFTER = 15      # minutter til oprydning og skift
 NOTICE = 12 * 60       # kunden kan tidligst booke 12 timer ude
 
@@ -76,6 +78,10 @@ def call(method, path, key, body=None):
             'Authorization': f'Bearer {key}',
             'cal-api-version': API_VERSION,
             'Content-Type': 'application/json',
+            # Uden en rigtig User-Agent svarer Cals API 403 med Cloudflare-kode
+            # 1010: bot-beskyttelsen afviser Pythons standardstreng.
+            'User-Agent': 'wiktoriagordon-setup/1.0 (+https://www.wiktoriagordon.dk)',
+            'Accept': 'application/json',
         })
     try:
         with urllib.request.urlopen(req) as r:
@@ -108,8 +114,10 @@ def main():
             'slug': slug,
             'lengthInMinutes': minutes(svc, fallback),
             'description': svc.get('desc') or '',
-            'requiresConfirmation': True,
-            'successRedirectUrl': REDIRECT,
+            # Bookingen oprettes først NÅR depositummet er betalt, så den er
+            # bekræftet i samme øjeblik den findes. Der er ingen ubetalte
+            # bookinger at rydde op efter.
+            'requiresConfirmation': False,
             'afterEventBuffer': BUFFER_AFTER,
             'minimumBookingNotice': NOTICE,
             'bookingFields': [{
@@ -134,9 +142,8 @@ def main():
     if not apply:
         print('\nIngenting er ændret. Kør igen med --apply for at gøre det.')
     else:
-        print('\nFærdig. Tjek i Cal at "requires confirmation" står til på alle ni:')
-        print('API\'et understøtter feltet, men er det ikke slået igennem, er det')
-        print('ni klik under Advanced, og resten af opsætningen står allerede.')
+        print('\nFærdig. Slet de event types Cal selv oprettede, og eventuelle')
+        print('håndlavede, så der kun står de ni behandlinger tilbage.')
 
 
 if __name__ == '__main__':
