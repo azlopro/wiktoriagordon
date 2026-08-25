@@ -1,36 +1,28 @@
-# =====================================================================
-#  Galleri — pr. sprog (billederne er de samme, kun teksterne skifter).
-#  Fotos ligger i /static/img/ (beskåret fra Wiktorias IG-opslag).
-# =====================================================================
-
-# ---------------------------------------------------------------- DANSK
 da:
   items:
-    - image: "img/gal-lash-close.jpg"
-      caption: "Koreansk lash lift, naturligt løft"
-    - image: "img/gal-lash-wide.jpg"
-      caption: "Løftede vipper, helt uden extensions"
-    - image: "img/gal-after-eyes.jpg"
-      caption: "Bryn & vipper i harmoni"
-    - image: "img/gal-after-face.jpg"
-      caption: "Lash lift + brynlaminering"
-    - image: "img/gal-diptych.jpg"
-      caption: "Før / efter"
-    - image: "img/gal-diptych-lift.jpg"
-      caption: "Lash lift & brynstyling, før / efter"
-
-# -------------------------------------------------------------- ENGELSK
+    - image: img/gal-lash-close.jpg
+      caption: Naturligt løft uden extensions
+    - image: img/gal-lash-wide.jpg
+      caption: Korean lashlift
+    - image: img/gal-after-eyes.jpg
+      caption: Bryn & vipper i harmoni
+    - image: img/gal-after-face.jpg
+      caption: Naturligt løft
+    - image: img/gal-diptych.jpg
+      caption: Før / efter
+    - image: img/gal-diptych-lift.jpg
+      caption: Lash lift & brynstyling, før / efter
 en:
   items:
-    - image: "img/gal-lash-close.jpg"
-      caption: "Korean lash lift, natural lift"
-    - image: "img/gal-lash-wide.jpg"
-      caption: "Lifted lashes, no extensions"
-    - image: "img/gal-after-eyes.jpg"
-      caption: "Brows & lashes in harmony"
-    - image: "img/gal-after-face.jpg"
-      caption: "Lash lift + brow lamination"
-    - image: "img/gal-diptych.jpg"
-      caption: "Before / after"
-    - image: "img/gal-diptych-lift.jpg"
-      caption: "Lash lift & brow styling, before / after"
+    - image: img/gal-lash-close.jpg
+      caption: Korean lash lift, natural lift
+    - image: img/gal-lash-wide.jpg
+      caption: Lifted lashes, no extensions
+    - image: img/gal-after-eyes.jpg
+      caption: Brows & lashes in harmony
+    - image: img/gal-after-face.jpg
+      caption: Lash lift + brow lamination
+    - image: img/gal-diptych.jpg
+      caption: Before / after
+    - image: img/gal-diptych-lift.jpg
+      caption: Lash lift & brow styling, before / after

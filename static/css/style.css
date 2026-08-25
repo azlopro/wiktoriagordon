@@ -1092,9 +1092,19 @@ strong { font-weight: 500; }
 /* ---------- Introduktion (Wiktorias §3) ---------- */
 .section--intro { padding-block: clamp(3.5rem, 7vw, 6rem); }
 /* Før/efter står lige efter introteksten og skal læses som svaret på den,
-   ikke som en ny sektion langt nede. Begge sektioners lodrette luft lagde
-   sig oven i hinanden og skabte et hul på et par hundrede pixels. */
-.section--intro + .ba { padding-top: clamp(.5rem, 1.5vw, 1.5rem); }
+   ikke som en ny sektion langt nede.
+
+   Tre afstande lagde sig oven i hinanden og gav 128 px hul: introens
+   bundluft, sektionens topluft og .ba-wrap's margin. Den sidste var til at
+   skabe afstand til resultatsektionens overskrift, som ikke længere vises,
+   så den er overflødig her. Nu er der 56 px.
+
+   :has() lader introen selv stramme op, men kun når før/efter faktisk
+   følger efter. Browsere uden :has() får den oprindelige, lidt større
+   afstand — det ser fint ud, bare mindre stramt. */
+.section--intro:has(+ .ba) { padding-bottom: clamp(2.5rem, 5vw, 4.5rem); }
+.section--intro + .ba { padding-top: 0; }
+.section--intro + .ba .ba-wrap { margin-top: 0; }
 .intro-block {
   max-width: 44ch;
   margin-inline: auto;
