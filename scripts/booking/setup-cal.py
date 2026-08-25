@@ -124,13 +124,31 @@ def main():
             'requiresConfirmation': False,
             'afterEventBuffer': BUFFER_AFTER,
             'minimumBookingNotice': NOTICE,
-            'bookingFields': [{
-                'type': 'phone',
-                'slug': 'attendeePhoneNumber',
-                'label': 'Telefonnummer',
-                'required': True,
-                'hidden': False,
-            }],
+            # Wiktoria vil have fornavn, efternavn og telefon. Ingen mail.
+            # Cal understøtter det: telefon som påkrævet felt, mailfeltet skjult.
+            'bookingFields': [
+                {
+                    'type': 'name',
+                    'slug': 'name',
+                    'label': 'Navn',
+                    'required': True,
+                    'hidden': False,
+                    'variant': 'firstAndLastName',
+                },
+                {
+                    'type': 'phone',
+                    'slug': 'attendeePhoneNumber',
+                    'label': 'Telefonnummer',
+                    'required': True,
+                    'hidden': False,
+                },
+                {
+                    'type': 'email',
+                    'slug': 'email',
+                    'required': False,
+                    'hidden': True,
+                },
+            ],
         }
         found = existing.get(slug)
         verb = 'opdaterer' if found else 'opretter'

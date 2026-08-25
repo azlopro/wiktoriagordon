@@ -100,8 +100,21 @@ kan komme mere end én gang. En booking må ikke kunne udløse to betalinger, og
 betaling må ikke kunne bekræfte den samme booking to gange.
 
 **Ingen helbredsoplysninger i bookingen.** Politikken beder kunden oplyse om
-allergier, retinol og Accutane. Det bliver i stolen. Bookingen tager navn,
-mail, telefon og behandling — ikke andet.
+allergier, retinol og Accutane. Det bliver i stolen. Bookingen tager fornavn,
+efternavn, telefon og behandling — ikke andet.
+
+**Ingen mailadresse.** Wiktorias eget valg (26/8-2026). Cal understøtter det:
+telefon som påkrævet felt, mailfeltet skjult.
+
+Konsekvensen skal håndteres på kvitteringssiden. Uden mail sender Cal ingen
+bekræftelse, så kunden har intet at slå op i bagefter. Derfor skal `/tak/`
+vise tid, behandling og adresse tydeligt OG tilbyde en kalenderfil, så
+aftalen lander i kundens egen telefonkalender. Det er gratis og kræver ingen
+tredjepart.
+
+Udeblivelser er dækket af depositummet, som er en stærkere spærre end en
+påmindelse. Vil hun senere have SMS-påmindelser, kan Cal det på gratis-planen,
+men beskeder til danske numre trækker på et kreditkøb.
 
 ## Teknisk opsætning
 
