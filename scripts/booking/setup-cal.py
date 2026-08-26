@@ -118,10 +118,17 @@ def main():
             'slug': slug,
             'lengthInMinutes': minutes(svc, FALLBACK_MINUTES[slug]),
             'description': svc.get('desc') or '',
-            # Bookingen oprettes først NÅR depositummet er betalt, så den er
-            # bekræftet i samme øjeblik den findes. Der er ingen ubetalte
-            # bookinger at rydde op efter.
-            'requiresConfirmation': False,
+            # TÆNDT med vilje, selvom vores egen booking altid er betalt inden
+            # den oprettes. Cals event types er nemlig offentligt bookbare på
+            # cal.com/<bruger>/<slug>, og uden bekræftelse kunne enhver, der
+            # finder det link, booke uden om betalingen og få en bekræftet tid
+            # gratis.
+            #
+            # Workeren bekræfter selv de betalte bookinger med
+            # POST /v2/bookings/{uid}/confirm lige efter oprettelsen, så
+            # Wiktoria ikke skal gøre noget. Det der bliver liggende og venter
+            # på hende, er præcis det der ikke er betalt for.
+            'requiresConfirmation': True,
             'afterEventBuffer': BUFFER_AFTER,
             'minimumBookingNotice': NOTICE,
             # Wiktoria vil have fornavn, efternavn og telefon. Ingen mail.

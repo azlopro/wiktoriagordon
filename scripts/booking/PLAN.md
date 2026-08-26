@@ -80,9 +80,24 @@ ledige tider, vis dem, send valget videre.
    KV under betalingens reference.
 5. Kunden sendes til MobilePay, godkender, og lander på `/tak/`.
 6. Workeren slår betalingen op hos MobilePay. Er den gennemført, **oprettes
-   bookingen i Cal** via API'et, og KV-posten fjernes.
+   bookingen i Cal** via API'et og bekræftes med det samme via
+   `POST /v2/bookings/{uid}/confirm`. KV-posten fjernes.
 
 Betales der ikke, findes bookingen aldrig. Tiden var aldrig optaget.
+
+## Hvorfor "requires confirmation" er tændt alligevel
+
+Vores egen booking er altid betalt, inden den oprettes, så der skulle
+principielt ikke være noget at bekræfte. Den er tændt af en anden grund:
+
+Cals event types er **offentligt bookbare** på `cal.com/<bruger>/<slug>`.
+Uden bekræftelse kunne enhver, der finder det link, booke uden om betalingen
+og få en bekræftet tid gratis. At skjule event typen hjælper ikke; den kan
+stadig bookes direkte på adressen.
+
+Med den tændt lander sådan en booking som ikke-bekræftet, og Wiktoria kan
+afvise den. Workeren bekræfter selv de betalte, så hun kun ser det, der ikke
+er betalt for.
 
 ## Regler der ikke må brydes
 
