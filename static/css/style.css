@@ -2117,10 +2117,6 @@ h3 {
   background: var(--cream);
 }
 
-.about-figure img {
-  filter: saturate(.72) contrast(.98) sepia(.04);
-}
-
 .result-proof {
   width: min(760px, 100%);
   margin: clamp(3.5rem, 7vw, 6rem) auto 0;
