@@ -75,7 +75,7 @@ da:
   pricing:
     eyebrow: "Priser"
     heading: "Prisliste"
-    intro: "Klar og enkel. Hver tid begynder med en kort konsultation, så resultatet passer til netop dig."
+    intro: "Hver tid begynder med en kort konsultation, så behandlingen kan tilpasses dig."
     addonsTitle: "Tilvalg"
     asideTitle: "Book din tid"
     asideText: "Ikke sikker på, hvad du skal vælge? Skriv til mig, så finder vi den rette behandling sammen."
@@ -176,7 +176,7 @@ en:
   pricing:
     eyebrow: "Prices"
     heading: "Price list"
-    intro: "Clear and simple. Every appointment begins with a short consultation so the result suits you perfectly."
+    intro: "Every appointment begins with a short consultation so the treatment can be adapted to you."
     addonsTitle: "Add-ons"
     asideTitle: "Book your appointment"
     asideText: "Not sure what to choose? Message me and we'll find the right treatment together."

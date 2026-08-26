@@ -27,7 +27,7 @@ da:
     bookThis: "Book"
     expectHeading: "Det kan du forvente"
     heroBadge: ""
-    heroResultAlt: "Wiktoria Gordon i sit studie i Horsens"
+    heroResultAlt: "Wiktoria Gordon, indehaver af Wiktoria Gordon Beauty"
     moreOnInstagram: "Se flere resultater på Instagram"
 
   groups:
@@ -45,7 +45,7 @@ da:
     link: "Se alle anmeldelser på Facebook"
 
   footer:
-    about: "Koreansk lash lift & brynstyling i Horsens. Naturlige resultater, rolige rammer og gennemtænkt præcision."
+    about: "Koreansk lash lift og brynstyling i Horsens. Kun efter aftale."
     menu: "Menu"
     contact: "Kontakt"
     hours: "Åbningstider"
@@ -60,8 +60,8 @@ da:
 
   error:
     eyebrow: "Fejl 404"
-    heading: "Denne side blev vist bort"
-    text: "Siden findes ikke længere, men dine vipper og bryn venter stadig."
+    heading: "Siden findes ikke"
+    text: "Prøv forsiden, eller skriv til mig, hvis du leder efter noget bestemt."
     home: "Til forsiden"
     book: "Book en tid"
 
@@ -112,7 +112,7 @@ en:
     bookThis: "Book"
     expectHeading: "What you can expect"
     heroBadge: ""
-    heroResultAlt: "Wiktoria Gordon in her studio in Horsens"
+    heroResultAlt: "Wiktoria Gordon, owner of Wiktoria Gordon Beauty"
     moreOnInstagram: "See more results on Instagram"
 
   groups:
@@ -130,7 +130,7 @@ en:
     link: "See all reviews on Facebook"
 
   footer:
-    about: "Korean lash lift & brow styling in Horsens. Natural results, calm surroundings and thoughtful precision."
+    about: "Korean lash lift and brow styling in Horsens. By appointment only."
     menu: "Menu"
     contact: "Contact"
     hours: "Opening hours"
@@ -145,8 +145,8 @@ en:
 
   error:
     eyebrow: "Error 404"
-    heading: "This page was whisked away"
-    text: "The page no longer exists, but your lashes and brows are still waiting."
+    heading: "Page not found"
+    text: "Try the front page, or message me if you are looking for something specific."
     home: "Back to home"
     book: "Book a time"
 
