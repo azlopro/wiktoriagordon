@@ -1666,8 +1666,14 @@ h3 { letter-spacing: -.025em; }
 }
 .service:nth-child(even) { border-right: 0; }
 .service:hover { transform: none; box-shadow: none; background: var(--cream-2); }
-.service--featured,
-.service--sets { background: var(--rose-deep); color: #fff; }
+/* Klassen skrives dobbelt med vilje. Nulstillingen ovenfor rammer
+   .service:nth-child(4n + 1) og (4n + 2), og et klassenavn plus en
+   pseudoklasse vejer tungere end et klassenavn alene. Uden .service foran
+   vandt "background: transparent" over bordeauxfarven, og sætkortet, der er
+   nr. 6 i gitteret og dermed rammes af 4n + 2, stod med hvid tekst på hvid
+   bund. Kortet var der, men var usynligt. */
+.service.service--featured,
+.service.service--sets { background: var(--rose-deep); color: #fff; }
 .service--featured h3,
 .service--featured .desc,
 .service--featured .service-expect-title,
@@ -1678,7 +1684,13 @@ h3 { letter-spacing: -.025em; }
 .service--sets .desc,
 .service--sets .sets-list li span,
 .service--sets .sets-list li b,
-.service--sets .sets-link { color: #fff; }
+.service--sets .sets-link,
+/* Ikonet arver ikke kortets hvide tekstfarve: det har sin egen
+   color: var(--rose-deep) fra grundreglen, og rammen tegnes med
+   currentColor. På det bordeauxfarvede kort blev ikonet derfor bordeaux
+   på bordeaux. */
+.service--featured .service-icon,
+.service--sets .service-icon { color: #fff; }
 .service--featured .service-meta,
 .service--sets .sets-list li { border-color: rgba(255,255,255,.22); }
 .service-icon {
@@ -1800,16 +1812,35 @@ h3 { letter-spacing: -.025em; }
   .nav-menu { background: rgba(255,255,255,.985); }
 }
 
+/* De tre oplysninger under bookingknapperne står på én linje med prikker
+   imellem, når der er plads. Er der ikke, brækker linjen, og fordi
+   prikken er sat foran hver oplysning, står den alene forrest på den nye
+   linje. Under 900 px sættes de derfor under hinanden uden prikker. */
+@media (max-width: 900px) {
+  .booking-note { flex-direction: column; align-items: center; gap: .55rem; }
+  .booking-note span + span::before { content: none; }
+}
+
 @media (max-width: 960px) {
-  .hero { min-height: auto; }
+  /* Stablet står foto og tekst efter hinanden i stedet for ved siden af.
+     Toppolstringen og billedet er skruet ned, så overskriften og de to
+     knapper stadig kan nås uden at rulle på en tablet i højformat. */
+  .hero { min-height: auto; padding-top: calc(var(--header-h) + 3.5rem); padding-bottom: 4.5rem; }
   .hero::after { display: none; }
   .hero-grid { grid-template-columns: 1fr; align-items: start; }
+  /* På desktop står tekst og foto ved siden af hinanden, og overskriften
+     får lov at løbe ind under billedet. Det virker vandret. Da spalterne
+     stables, blev den samme overlapning lavet lodret med en negativ
+     bundmargen, og så lagde eyebrow, overskrift og badge sig oven i
+     ansigtet på fotoet. Der er ingen tom plads at rykke op i, når teksten
+     fylder hele bredden. Billedet står stadig forskudt mod højre, så
+     opsætningen ikke bliver en midterstillet standardside. */
   .hero-figure {
     grid-row: 1;
-    width: min(540px, 74%);
+    width: min(420px, 58%);
     max-width: none;
     justify-self: end;
-    margin-bottom: -9rem;
+    margin-bottom: 2.4rem;
   }
   .hero-copy {
     grid-row: 2;
@@ -1827,14 +1858,19 @@ h3 { letter-spacing: -.025em; }
 
 @media (max-width: 720px) {
   h1 { font-size: clamp(3.75rem, 18vw, 6rem); }
-  h2 { font-size: clamp(2.7rem, 14vw, 4.4rem); }
+  /* 14vw gav 55 px på en almindelig telefon, og "Skønhed er mere end
+     resultatet ..." fyldte seks linjer og hele skærmen. Overskrifterne er
+     stadig store, bare ikke råbende. */
+  h2 { font-size: clamp(2.3rem, 12vw, 4rem); }
   .section { padding-block: clamp(4.5rem, 17vw, 7rem); }
   .brand-text { font-size: 1rem; }
   .brand small { font-size: .53rem; letter-spacing: .28em; }
   .hero { padding-top: calc(var(--header-h) + 2.6rem); padding-bottom: 4.5rem; }
+  /* Lidt smallere end på tablet, så overskrift og knapper stadig når med
+     over folden på en telefon. */
   .hero-figure {
-    width: 72%;
-    margin: 0 0 -4.8rem auto;
+    width: min(300px, 74%);
+    margin: 0 0 1.8rem auto;
   }
   .hero-frame { aspect-ratio: 4 / 5; }
   .hero-figure::after { inset: auto auto -10px -10px; }
@@ -1860,7 +1896,14 @@ h3 { letter-spacing: -.025em; }
   .service-book { border-radius: 0; }
   .about-figure { width: 100%; }
   .about-copy { margin: -2rem 1rem 0; padding: 2.2rem 1.3rem; }
-  .booking-card { margin-inline: calc(var(--gutter) * -1); }
+  /* Kortet går ud til kanten på en telefon, og så er 4 rem polstring i hver
+     side for meget: der bliver kun 262 px tilbage indeni, og knappen "Find
+     din behandling" brækkede til to linjer med pilen efterladt alene til
+     højre. */
+  .booking-card {
+    margin-inline: calc(var(--gutter) * -1);
+    padding: clamp(2.6rem, 9vw, 4rem) clamp(1.4rem, 6vw, 3rem);
+  }
   .results-strip { grid-auto-columns: 76%; }
 }
 
