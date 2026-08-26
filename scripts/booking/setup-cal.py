@@ -170,9 +170,49 @@ def main():
 
     if not apply:
         print('\nIngenting er ændret. Kør igen med --apply for at gøre det.')
-    else:
-        print('\nFærdig. Slet de event types Cal selv oprettede, og eventuelle')
-        print('håndlavede, så der kun står de ni behandlinger tilbage.')
+        return
+
+    verify(key, {s['calSlug']: minutes(s, FALLBACK_MINUTES[s['calSlug']])
+                 for s in services})
+
+
+def verify(key, expected):
+    """Læs indstillingerne tilbage fra Cal og hold dem op mod det, vi bad om.
+
+    Et 200-svar betyder kun at kaldet blev modtaget, ikke at feltet slog
+    igennem: Cal kan afvise en enkelt indstilling uden at fejle på resten.
+    Derfor læses de tilbage."""
+    print('\nKontrollerer hvad der faktisk står i Cal:\n')
+    data = call('GET', '/event-types', key).get('data', [])
+    found = {e['slug']: e for e in data}
+    problems = 0
+
+    print(f"  {'behandling':28} {'min':>4} {'buffer':>7} {'varsel':>7}  bekræft  telefon")
+    print('  ' + '-' * 68)
+    for slug, want_min in expected.items():
+        e = found.get(slug)
+        if not e:
+            print(f'  {slug:28} MANGLER I CAL'); problems += 1; continue
+        fields = e.get('bookingFields') or []
+        phone = any(f.get('slug') == 'attendeePhoneNumber' and f.get('required')
+                    for f in fields)
+        conf = bool(e.get('requiresConfirmation'))
+        got_min = e.get('lengthInMinutes')
+        buf = e.get('afterEventBuffer') or 0
+        notice = e.get('minimumBookingNotice') or 0
+        row = (f"  {slug:28} {got_min:>4} {buf:>7} {notice:>7}  "
+               f"{'ja ' if conf else 'NEJ':>7}  {'ja' if phone else 'NEJ'}")
+        print(row)
+        if got_min != want_min or buf != BUFFER_AFTER or notice != NOTICE \
+                or not conf or not phone:
+            problems += 1
+
+    print()
+    if problems:
+        print(f'{problems} behandling(er) står ikke som forventet. Ret dem i Cal,')
+        print('eller kør scriptet igen.')
+        sys.exit(1)
+    print('Alle ni står som de skal.')
 
 
 if __name__ == '__main__':
