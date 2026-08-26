@@ -25,10 +25,14 @@ STUB=0
 
 BACKUP="$(mktemp)"
 cp data/site.yaml "$BACKUP"
+# Markerer at træet er midlertidigt ændret. scripts/security-check.sh nægter
+# at bygge, så længe filen findes, så et deploy ikke kan nå at få bookingen
+# med, mens den er tændt til lokal test.
+touch .booking-dev-active
 
 cleanup() {
   cp "$BACKUP" data/site.yaml
-  rm -f "$BACKUP" .dev-stub.py
+  rm -f "$BACKUP" .dev-stub.py .booking-dev-active
   echo
   echo "Bookingen er slået fra igen. data/site.yaml er som før."
 }

@@ -22,6 +22,10 @@
 __pycache__/
 *.pyc
 
+# Markør mens en lokal booking-session kører
+.booking-dev-active
+.dev-stub.py
+
 # OS/editor
 .DS_Store
 *.swp

@@ -31,6 +31,12 @@ grep -q 'auth_methods: \[oauth\]' static/admin/config.yml \
 grep -q 'branch: master' static/admin/config.yml \
   || fail "CMS branch no longer matches the repository default"
 
+# A dev session temporarily switches online booking on in data/site.yaml and
+# switches it back when it exits. Committing while one is running ships a
+# half-finished booking form to the live site, which is exactly what happened
+# on 26 Aug 2026. The marker file only exists while a session is in flight.
+[[ -f .booking-dev-active ]] && fail "a local booking dev session is running; stop it before building"
+
 [[ -f static/_headers ]] || fail "Cloudflare security headers are missing"
 grep -q 'Content-Security-Policy:' static/_headers || fail "CSP is missing"
 grep -q 'Strict-Transport-Security:' static/_headers || fail "HSTS is missing"
