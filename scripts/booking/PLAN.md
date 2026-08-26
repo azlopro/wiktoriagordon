@@ -162,6 +162,30 @@ Ingen cron-trigger. Der findes ingen ubetalte bookinger at rydde op efter.
 - Test at kalenderen stadig først henter noget ved klik. Det er dét, der
   holder sitet fri for et cookiebanner.
 
+## Hendes krav, 26/8-2026
+
+Fra beskeder samme dag. Skrevet ned her, fordi de ændrer på kvitteringen
+og på hvad der skal stå hvor.
+
+- **Adressen er Fredericiagade 11/1, 8700 Horsens.** På sitet må kun
+  gadenavnet stå, uden nummer. Den fulde adresse vises først EFTER
+  depositummet er betalt.
+- **Kvitteringssiden `/tak/` skal indeholde:** fuld adresse, noten om at
+  møde op uden mascara, en påmindelse om politikken med link til den, og
+  kontaktoplysninger (telefon, Instagram, Facebook).
+- **Politikken skal vises FØR man betaler depositum**, og igen bagefter som
+  en kort påmindelse om at den kan læses på sitet.
+- **Politikken skal have sin egen side** i menuen på linje med behandlinger
+  og priser, ikke kun en sektion på forsiden.
+- **Hun booker selv kunder i salonen.** De fleste bestiller næste tid, mens
+  de stadig sidder i stolen. Hun skal derfor kunne åbne kalenderen og
+  ændre ledige tider uden besvær i hverdagen. Løsningen er, at hun blokerer
+  tiden i sin egen Google- eller Apple-kalender, og Cal skjuler den
+  automatisk. Det er lovet, og det skal testes, før det afleveres.
+
+Stadig ubesvaret efter denne runde: depositum 50 % eller fast 200 kr.,
+åbningstider ("Mon wed"), sprogvalg og hendes mailadresse.
+
 ## Kilder
 
 - ePayment API, opret betaling:
