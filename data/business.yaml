@@ -7,11 +7,11 @@ ownerName: "Wiktoria Gordon"
 # Wiktoria ikke kunne nå den. brandLine er den lille linje under navnet.
 brandFirstName: "Wiktoria"
 brandLastName: "Gordon"
-brandLine: "Beauty · Horsens"
+brandLine: "Beauty"
 
 # Navnet på Facebook-siden, som det vises i footerens kontaktliste.
 # Skal matche det, siden faktisk hedder, ellers linker vi til noget andet.
-facebookPageName: "Wiktoria Lash Studio"
+facebookPageName: "Wiktoria Gordon Beauty"
 city: "Horsens"
 region: "Midtjylland"
 postalCode: "8700"
@@ -24,7 +24,7 @@ facebook: "https://www.facebook.com/p/Wiktoria-Lash-Studio-61580409810902/"
 facebookReviews: "https://www.facebook.com/profile.php?id=61580409810902&sk=reviews"
 messenger: "https://m.me/61580409810902"
 email: ""
-phone: ""
+phone: "+45 52 61 53 80"
 
 # =====================================================================
 #  Lokal SEO. Alle fire felter er TOMME med vilje og udelades helt fra

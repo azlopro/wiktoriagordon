@@ -36,12 +36,15 @@
 
       <div class="footer-contact">
         <h4>{{ $u.footer.contact }}</h4>
+        {{/* Rækkefølgen er Wiktorias egen (26/8-2026): telefon først, så
+             Instagram, så Facebook. Sted og CVR står under, fordi de er
+             oplysninger og ikke måder at få fat i hende på. */}}
         <ul>
-          <li>{{ $c.area }}</li>
+          {{ with $p.phone }}<li><a href="tel:{{ . | replaceRE `[^0-9+]` `` }}">{{ . }}</a></li>{{ end }}
           <li><a href="{{ $p.instagram }}" target="_blank" rel="noopener">@{{ $p.instagramHandle }}</a></li>
           {{ with $p.facebook }}<li><a href="{{ . }}" target="_blank" rel="noopener">{{ $p.facebookPageName }}</a></li>{{ end }}
           {{ with $p.email }}<li><a href="mailto:{{ . }}">{{ . }}</a></li>{{ end }}
-          {{ with $p.phone }}<li><a href="tel:{{ . | replaceRE `[^0-9+]` `` }}">{{ . }}</a></li>{{ end }}
+          <li>{{ $c.area }}</li>
           <li>CVR {{ $p.cvr }}</li>
         </ul>
 

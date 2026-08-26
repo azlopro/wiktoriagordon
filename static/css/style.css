@@ -895,17 +895,12 @@ strong { font-weight: 500; }
 }
 
 
-/* Store tablets i portræt (fx iPad Pro, 1024px) rammer ikke 960-grænsen, men
-   skal have samme stablede hero. Blokken skal stå FØR de smallere
-   breakpoints: ellers overskriver den telefonreglerne, fordi en telefon
-   også er "portrait" under 1024px. */
-@media (max-width: 1024px) and (orientation: portrait) {
-  .hero-grid { grid-template-columns: 1fr; justify-items: center; }
-  .hero-figure { grid-row: 1; margin-bottom: 2.4rem; width: min(420px, 88%); }
-  .hero-copy { grid-row: 2; margin-inline: auto; text-align: center; }
-  .hero-sub { margin-inline: auto; }
-  .hero-actions { justify-content: center; }
-}
+/* Her stod en blok for store tablets i portræt (iPad Pro, 1024 px), som gav
+   dem den stablede hero. Den er flyttet ned til den nyere hero-blok og
+   fjernet her. Grunden: den satte grid-row på spalterne, men dens
+   grid-template-columns blev overskrevet af de senere desktop-regler. Så
+   blev heroen stablet i ÉN kolonne af et to-kolonners gitter, og hele
+   højre halvdel af skærmen stod tom på en iPad Pro i højformat. */
 
 @media (max-width: 960px) {
   .service--wide, .service--narrow { grid-column: span 6; }
@@ -1453,7 +1448,8 @@ h3 { letter-spacing: -.025em; }
 
 .section-head { max-width: 760px; }
 .section-head--center { max-width: 900px; }
-.section-head p { max-width: 54ch; }
+/* Samme længere linjer som i introen, så de to ikke står med hver sit mål. */
+.section-head p { max-width: 62ch; }
 .section-head--center p { margin-inline: auto; }
 
 /* Crisp, fashion-site controls replace the former rounded UI. */
@@ -1491,11 +1487,17 @@ h3 { letter-spacing: -.025em; }
   letter-spacing: -.02em;
 }
 .brand-last { color: var(--ink); font-style: normal; }
+/* "Beauty" centreres under navnet. Wiktorias eget ønske (26/8-2026).
+   Sporingen på .37em lægger et mellemrum efter det sidste bogstav, som
+   tæller med i bredden, så ordet ville ligge en anelse til højre for
+   midten. Den negative højremargen tager det tilbage. */
 .brand small {
   margin-top: .22rem;
+  margin-right: -.37em;
   font-size: .61rem;
   font-weight: 500;
   letter-spacing: .37em;
+  text-align: center;
   color: var(--rose-deep);
 }
 .nav-links { gap: clamp(1rem, 1.65vw, 1.85rem); }
@@ -1572,7 +1574,7 @@ h3 { letter-spacing: -.025em; }
   margin-bottom: .3em;
 }
 .hero-sub {
-  max-width: 42ch;
+  max-width: 50ch;
   margin-left: 0;
   font-size: clamp(1rem, 1.2vw, 1.14rem);
   line-height: 1.65;
@@ -1589,11 +1591,9 @@ h3 { letter-spacing: -.025em; }
   outline: 0;
   box-shadow: var(--shadow);
 }
-/* Fotoet er 656 x 820, altså præcis 4/5, og rammen har samme format overalt,
-   så der beskæres intet på desktop og telefon. På tablet skærer højdeloftet
-   en flig af, og den skal tages fra bunden, ikke fra toppen, hvor hovedet
-   er. Håret begynder 5,5 % nede i billedet, så 6 % lader lidt luft stå. */
-.hero-frame img { object-position: 50% 6%; }
+/* Beskæringspunktet står længere nede i filen, i det sidste lag regler.
+   Det stod begge steder, og det nederste vandt, så en rettelse her så ud
+   til ikke at virke. */
 .hero-figure::after {
   inset: auto auto -18px -18px;
   width: 44%;
@@ -1647,9 +1647,13 @@ h3 { letter-spacing: -.025em; }
   padding-block: clamp(6rem, 10vw, 10rem);
   border-bottom: 1px solid var(--line-soft);
 }
-.intro-block { max-width: 900px; }
+/* Længere linjer. Wiktoria skrev det to gange på sine gennemsyn: "a little
+   bit longer lines of text so it's easier to read". 54 tegn gav fem korte
+   linjer på en tablet, som øjet skal springe for tit i. 64 ligger stadig
+   inden for det læsbare (45 til 75) og er tættere på det klassiske ideal. */
+.intro-block { max-width: 980px; }
 .intro-block h2 { margin-bottom: 2rem; }
-.intro-block p { max-width: 54ch; margin-inline: auto; }
+.intro-block p { max-width: 64ch; margin-inline: auto; }
 .intro-closing {
   margin-top: 2.4rem !important;
   font-size: clamp(1.7rem, 3vw, 2.8rem);
@@ -1846,7 +1850,10 @@ h3 { letter-spacing: -.025em; }
   .booking-note span + span::before { content: none; }
 }
 
-@media (max-width: 960px) {
+/* Store tablets i portræt (iPad Pro, 1024 px) rammer ikke 960-grænsen, men
+   skal have den samme stablede hero, så de er taget med her i stedet for i
+   en blok for sig. */
+@media (max-width: 960px), (max-width: 1024px) and (orientation: portrait) {
   /* Stablet står foto og tekst efter hinanden i stedet for ved siden af.
      Toppolstringen og billedet er skruet ned, så overskriften og de to
      knapper stadig kan nås uden at rulle på en tablet i højformat. */
@@ -2148,8 +2155,13 @@ h3 {
   font-size: clamp(1rem, 1vw, 1.0625rem);
 }
 
+/* Fotoet er 656 x 820, altså præcis 4/5. På desktop har rammen samme
+   format, så der beskæres intet. På tablet og telefon er højden sat fast,
+   og så skal beskæringen tages fra bunden, ikke fra toppen, hvor hovedet
+   er. Håret begynder 5,5 % nede i billedet, så 6 % lader lidt luft stå.
+   Med 50 % blev ansigtet skåret af på en iPad Pro i højformat. */
 .hero-frame img {
-  object-position: 50% 50%;
+  object-position: 50% 6%;
 }
 
 .hero-badge {
