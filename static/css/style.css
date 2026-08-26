@@ -2238,11 +2238,18 @@ h3 {
 
   .section { padding-block: clamp(4rem, 14vw, 5.5rem); }
 
-  /* Mobile uses one deliberate content grid. The desktop lines and offset
-     image looked detached when stacked into a narrow viewport. */
+  /* Heroen på telefon er ét forløb: foto, så tekst.
+
+     Fotoet stod før som en aflang firkant inde mellem sidens margener, med
+     luft hele vejen rundt. Så bliver det et kort der ligger på siden i
+     stedet for at være siden, og teksten under det ser ud som en
+     billedtekst. Nu går det helt ud til skærmkanten og er højt nok til at
+     være et portræt frem for et bånd. Teksten begynder inde ved margenen,
+     og forskellen mellem fotoets kant og tekstens kant er så det eneste,
+     der skaber komposition. */
   .hero {
-    padding-top: calc(var(--header-h) + 2rem);
-    padding-bottom: 4rem;
+    padding-top: calc(var(--header-h) + .9rem);
+    padding-bottom: 3.5rem;
   }
 
   .hero::before,
@@ -2251,17 +2258,15 @@ h3 {
   .hero-grid { gap: 0; }
 
   .hero-figure {
-    width: 100%;
+    width: auto;
     max-width: none;
     justify-self: stretch;
-    margin: 0 0 1.5rem;
+    margin: 0 calc(var(--gutter) * -1) 1.6rem;
   }
 
   .hero-frame {
-    /* Højden er sat, så overskriften og den første knap stadig er synlige
-       uden at rulle på en almindelig telefon. */
     aspect-ratio: auto;
-    height: min(400px, 46vh);
+    height: min(500px, 56vh);
     box-shadow: none;
   }
 
@@ -2269,10 +2274,21 @@ h3 {
   /* Etiketten er for lang til én linje på en telefon. Med guldstregen foran
      står stregen alene ude til venstre, og "· HORSENS" hænger tilbage på
      linje to. Uden streg brækker de to linjer pænt fra samme kant. */
-  .hero .eyebrow { margin-bottom: 1rem; }
+  .hero .eyebrow { margin-bottom: .9rem; }
   .hero .eyebrow::before { display: none; }
-  .hero h1 { margin-bottom: .45em; }
-  .hero-sub { max-width: 34ch; }
+  .hero h1 { margin-bottom: .4em; }
+  /* Overskriftens anden linje er rykket ind på desktop, hvor der er bredde
+     nok til at det læses som en bevidst forskydning. På en telefon fylder
+     "SKØNHED," næsten hele bredden i forvejen, og indrykningen ligner bare
+     en linje der er skredet. Begge linjer flugter. */
+  .hero h1 .accent { margin-left: 0; }
+  /* 34 tegn var smallere end skærmen. Underrubrikken må bruge den bredde,
+     der er, som Wiktoria selv bad om. */
+  .hero-sub { max-width: none; margin-bottom: 1.7rem; }
+  /* To knapper ved siden af hinanden bliver 150 px brede med tekst i
+     versaler. Under hinanden i fuld bredde er de både til at ramme og
+     roligere at se på. */
+  .hero-actions { grid-template-columns: 1fr; gap: .7rem; }
 
   .hero-actions .btn,
   .service-book { min-height: 3rem; }
