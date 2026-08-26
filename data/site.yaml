@@ -85,12 +85,12 @@ da:
     note: "Ved booking betales 200 kr. i depositum via MobilePay. Resten betales efter din behandling."
 
   booking:
-    eyebrow: "Book tid"
-    heading: "Ikke sikker på, hvor du skal starte?"
+    eyebrow: "Book online"
+    heading: "Vælg en tid, der passer dig"
     text: >-
       Fortæl mig bare, hvad du gerne vil forbedre eller ændre, så hjælper jeg dig
       med at finde den behandling, der er den rigtige for dig.
-    online: false
+    online: true
     onlineEmbed: ""
     treatmentButton: "Find din behandling"
     bookButton: "Book en tid"
@@ -188,12 +188,12 @@ en:
     note: "A 200 kr. deposit is paid via MobilePay when you book. The remaining balance is payable after your appointment."
 
   booking:
-    eyebrow: "Book"
-    heading: "Not sure where to start?"
+    eyebrow: "Book online"
+    heading: "Choose a time that suits you"
     text: >-
       Simply tell me what you'd like to improve or change, and I'll help you find
       the treatment that's right for you.
-    online: false
+    online: true
     onlineEmbed: ""
     treatmentButton: "Find your treatment"
     bookButton: "Book an appointment"

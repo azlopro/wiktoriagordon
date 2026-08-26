@@ -13,6 +13,10 @@
         {{/* Online-booking er tændt. Vælgeren er skjult, indtil scriptet
              melder sig, og DM-knapperne nedenfor skjules af samme script.
              Uden JavaScript står de tilbage og virker som før. */}}
+        {{/* Depositummet står FØR man vælger noget, ikke under knappen hvor
+             man først møder det efter at have besluttet sig. Teksten er
+             prislistens egen, så beløbet kun står ét sted. */}}
+        <p class="booking-deposit">{{ (index hugo.Data.site $L).pricing.note }}</p>
         {{ partial "sections/booking-picker.html" . }}
       {{ end }}
 

@@ -1954,6 +1954,19 @@ h3 { letter-spacing: -.025em; }
 .bp-status { margin: 1.1rem 0 0; color: rgba(255,255,255,.78); font-size: 1rem; }
 .bp-status[hidden] { display: none; }
 
+/* Depositum-linjen under vælgeren. Skjult sammen med vælgeren, indtil
+   scriptet melder sig, så den ikke står og lover en booking der ikke virker. */
+.booking-deposit {
+  display: none;
+  margin: 1.4rem auto 0;
+  font-size: 1rem;
+  color: rgba(255,255,255,.72);
+  max-width: 52ch;
+}
+/* Vises kun sammen med vælgeren. Uden JavaScript står DM-knapperne tilbage,
+   og så ville en linje om depositum ved booking love noget, der ikke findes. */
+.booking-deposit:has(~ .booking-picker.is-ready) { display: block; }
+
 /* Vejen ud, når der ikke er noget at vælge. */
 .bp-reach { margin-top: 1.1rem; }
 .bp-reach[hidden] { display: none; }
