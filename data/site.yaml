@@ -82,7 +82,7 @@ da:
     asideTitle: "Book din tid"
     asideText: "Ikke sikker på, hvad du skal vælge? Skriv til mig, så finder vi den rette behandling sammen."
     cta: "Book tid"
-    note: "Ved booking betales 50 % af behandlingens pris i depositum via MobilePay. Resten betales efter din behandling."
+    note: "Ved booking betales 200 kr. i depositum via MobilePay. Resten betales efter din behandling."
 
   booking:
     eyebrow: "Book tid"
@@ -185,7 +185,7 @@ en:
     asideTitle: "Book your appointment"
     asideText: "Not sure what to choose? Message me and we'll find the right treatment together."
     cta: "Book now"
-    note: "A 50% deposit of your selected service is paid via MobilePay when you book. The remaining balance is payable after your appointment."
+    note: "A 200 kr. deposit is paid via MobilePay when you book. The remaining balance is payable after your appointment."
 
   booking:
     eyebrow: "Book"

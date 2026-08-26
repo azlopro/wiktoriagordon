@@ -9,14 +9,22 @@
      til at regne på en tekststreng. */ -}}
 {{- $L := .Site.Language.Lang -}}
 {{- $s := index hugo.Data.services $L -}}
+{{- /* Fast depositum på tværs af alle behandlinger, Wiktorias eget valg
+     (26/8-2026). Var 50 % af prisen. Bemærk at det for den billigste
+     behandling betyder fuld forudbetaling, og at depositummet ikke
+     refunderes. */ -}}
+{{- $deposit := 200 -}}
 {{- $out := dict -}}
 {{- range $svc := $s.main -}}
   {{- with $svc.calSlug -}}
     {{- $kr := int (replaceRE `[^0-9]` "" $svc.price) -}}
+    {{- /* Aldrig mere end prisen: et depositum større end behandlingen ville
+         være en fejl, uanset hvad tallet ovenfor bliver sat til. */ -}}
+    {{- $dep := cond (lt $kr $deposit) $kr $deposit -}}
     {{- $out = merge $out (dict . (dict
         "title" $svc.title
         "priceOere" (int (mul $kr 100))
-        "depositOere" (int (mul $kr 50)))) -}}
+        "depositOere" (int (mul $dep 100)))) -}}
   {{- end -}}
 {{- end -}}
-{{ dict "currency" "DKK" "depositPercent" 50 "treatments" $out | jsonify (dict "indent" "  ") }}
+{{ dict "currency" "DKK" "depositOere" (int (mul $deposit 100)) "treatments" $out | jsonify (dict "indent" "  ") }}

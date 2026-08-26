@@ -16,8 +16,8 @@ da:
     - title: "Booking & depositum"
       text: >-
         Tider bookes via besked eller direkte i salonen. Der betales et
-        depositum på 50 % af den valgte behandling via MobilePay ved booking.
-        Depositummet refunderes ikke. Resten betales efter din behandling.
+        depositum på 200 kr. via MobilePay ved booking. Depositummet
+        refunderes ikke. Resten betales efter din behandling.
     - title: "Afbud & ombooking"
       text: >-
         Du kan aflyse eller flytte din tid indtil 24 timer før det aftalte
@@ -52,10 +52,9 @@ en:
   items:
     - title: "Booking & deposit"
       text: >-
-        Appointments may be booked via message or directly at the salon. A 50%
-        non-refundable deposit of your selected service is required via
-        MobilePay upon booking, with the remaining balance payable after your
-        appointment.
+        Appointments may be booked via message or directly at the salon. A
+        non-refundable deposit of 200 kr. is required via MobilePay upon
+        booking, with the remaining balance payable after your appointment.
     - title: "Cancellation & rescheduling"
       text: >-
         You can cancel or reschedule your appointment up to 24 hours before your
