@@ -9,6 +9,8 @@
  * flytte prisen på en behandling.
  */
 
+import { handleAuth, handleCallback } from './auth.js';
+
 const CAL = 'https://api.cal.com/v2';
 const TZ = 'Europe/Copenhagen';
 const MAX_DAYS = 62;          // så ingen kan bede om ledige tider ti år frem
@@ -119,11 +121,19 @@ async function slots(url, env) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    if (!url.pathname.startsWith('/api/')) return env.ASSETS.fetch(request);
+    const path = url.pathname;
+
+    /* Login til /admin/. Ligger på /auth og /callback, fordi det er dér
+       Sveltia CMS forventer dem, og fordi GitHubs callback-adresse skal
+       registreres som en fast URL. */
+    if (path === '/auth') return handleAuth(url, env);
+    if (path === '/callback') return await handleCallback(request, url, env);
+
+    if (!path.startsWith('/api/')) return env.ASSETS.fetch(request);
     if (request.method !== 'GET') return fail(405, 'kun GET');
 
     try {
-      if (url.pathname === '/api/slots') return await slots(url, env);
+      if (path === '/api/slots') return await slots(url, env);
       return fail(404, 'ukendt endepunkt');
     } catch (err) {
       console.error(err);

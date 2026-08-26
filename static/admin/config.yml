@@ -12,7 +12,10 @@ backend:
   name: github
   repo: wiktoriagordon/w-website
   branch: master
-  base_url: https://REPLACE-ME.workers.dev
+  # Loginet kører i sitets egen Worker på /auth og /callback, ikke i en
+  # separat auth-worker. Ét deploy, én adresse, og oprindelsestjekket kan
+  # nøjes med hendes eget domæne.
+  base_url: https://www.wiktoriagordon.dk
   auth_methods: [oauth]
   skip_ci: false
   commit_messages:

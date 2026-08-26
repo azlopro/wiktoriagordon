@@ -43,6 +43,8 @@
     // ville /api/ ende i 404-siden i stedet for hos koden. Med den her linje
     // kører Workeren først, men KUN på /api/ — resten af sitet leveres som før
     // uden at gå gennem kode.
-    "run_worker_first": ["/api/*"]
+    // /auth og /callback hører til CMS-loginet. De skal også ramme Workeren
+    // før de statiske filer, ellers ender de i 404-siden.
+    "run_worker_first": ["/api/*", "/auth", "/callback"]
   }
 }
