@@ -24,6 +24,13 @@
       <a href="#booking" class="btn btn--primary nav-book">{{ $u.nav.book }}</a>
     </nav>
 
+    {{/* Bookingknappen ligger inde i .nav-menu, og den er gemt bag
+         burgermenuen på telefon. Der var derfor ingen synlig vej til
+         booking overhovedet, før man rullede. Den her står altid fremme
+         under 1000 px og er skjult derover, hvor knappen i menuen er
+         synlig hele tiden. To knapper i koden, aldrig to på skærmen. */}}
+    <a href="#booking" class="btn btn--primary nav-book nav-book--compact">{{ $u.nav.book }}</a>
+
     <button class="nav-toggle" id="navToggle" aria-label="{{ i18n "menu_open" }}"
             data-open="{{ i18n "menu_open" }}" data-close="{{ i18n "menu_close" }}"
             aria-expanded="false" aria-controls="navMenu">

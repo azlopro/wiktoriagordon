@@ -309,6 +309,10 @@ strong { font-weight: 500; }
 .lang-switch a.active { color: var(--rose-deep); font-weight: 500; }
 .lang-switch a:not(:last-child)::after { content: "·"; margin-left: .55rem; color: var(--line); }
 
+/* Den altid synlige bookingknap på smalle skærme. Skjult som udgangspunkt,
+   fordi menuens egen knap står fremme på desktop. */
+.nav-book--compact { display: none; }
+
 /* Burger */
 .nav-toggle {
   display: none;
@@ -881,6 +885,25 @@ strong { font-weight: 500; }
   .nav-links { flex-direction: column; align-items: flex-start; gap: 1.3rem; width: 100%; }
   .nav-links a { font-size: 1.1rem; letter-spacing: .05em; }
   .nav-book { width: 100%; }
+  /* Menuens egen bookingknap er overflødig, når den kompakte står fremme i
+     headeren hele tiden. To ens knapper på skærmen samtidig er ikke et
+     valg, det er støj. */
+  .nav-menu .nav-book { display: none; }
+  /* Knappen skal kunne stå ved siden af navnet og burgeren på en telefon,
+     så den er mindre end menuens egen og må aldrig brække til to linjer.
+     margin-left: auto skubber den helt hen til burgeren, så mellemrummet
+     lander mellem navn og knap i stedet for at blive delt i to. */
+  .nav-book--compact {
+    display: inline-flex;
+    align-items: center;
+    width: auto;
+    margin-left: auto;
+    min-height: 2.5rem;
+    padding: .6rem 1.05rem;
+    font-size: .68rem;
+    letter-spacing: .13em;
+    white-space: nowrap;
+  }
 }
 
 /* Lige over burger-grænsen er der plads, men ikke rigelig. */
@@ -1958,9 +1981,29 @@ h3 { letter-spacing: -.025em; }
 }
 
 @media (max-width: 400px) {
-  .brand-mark { height: 1.85rem; }
-  .brand-text { font-size: .92rem; }
+  /* Under 400 px skal navnet, bookingknappen og burgeren dele en bredde,
+     der ikke rækker til dem alle tre i fuld størrelse. Navnet må ikke
+     brække, så det er knappen og mellemrummene der giver efter. Målt på
+     320 px, hvor det lige akkurat går op. */
+  .brand-mark { height: 1.75rem; }
+  .brand-text { font-size: .82rem; }
+  .brand { gap: .45rem; }
+  .nav { gap: .5rem; }
+  .nav-book--compact {
+    min-height: 2.3rem;
+    padding: .55rem .8rem;
+    font-size: .62rem;
+    letter-spacing: .08em;
+  }
   .hero-actions { grid-template-columns: 1fr; }
+}
+
+/* De smalleste telefoner der stadig er i brug, fx iPhone SE af første
+   slags. Her er der ikke mere at give af, så navnet og knappen skrumper
+   endnu en tak frem for at røre hinanden. */
+@media (max-width: 340px) {
+  .brand-text { font-size: .74rem; }
+  .nav-book--compact { padding: .5rem .65rem; letter-spacing: .06em; }
 }
 
 /* ---------- Tidsvælger (online-booking) ---------- */
