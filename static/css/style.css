@@ -1589,7 +1589,11 @@ h3 { letter-spacing: -.025em; }
   outline: 0;
   box-shadow: var(--shadow);
 }
-.hero-frame img { object-position: 50% 35%; }
+/* Fotoet er 656 x 820, altså præcis 4/5, og rammen har samme format overalt,
+   så der beskæres intet på desktop og telefon. På tablet skærer højdeloftet
+   en flig af, og den skal tages fra bunden, ikke fra toppen, hvor hovedet
+   er. Håret begynder 5,5 % nede i billedet, så 6 % lader lidt luft stå. */
+.hero-frame img { object-position: 50% 6%; }
 .hero-figure::after {
   inset: auto auto -18px -18px;
   width: 44%;
@@ -1868,7 +1872,15 @@ h3 { letter-spacing: -.025em; }
     justify-self: stretch;
     margin: 0 0 2.2rem;
   }
-  .hero-frame { aspect-ratio: 5 / 4; }
+  /* Samme stående format som fotoet selv, så der ikke skæres i det. I fuld
+     spaltebredde ville 4/5 blive 864 px højt på en tablet og fylde hele
+     skærmen, så højden får et loft. Beskæringen tages fra bunden, ikke
+     fra toppen, hvor hovedet er. */
+  /* Fast højde i stedet for format. Med aspect-ratio og et højdeloft
+     regner browseren bredden ud af den lave højde, og billedet holder op
+     med at gå ud i fuld bredde. Her sættes højden, bredden bliver, og
+     beskæringen tages fra bunden, hvor der ikke er noget hoved. */
+  .hero-frame { aspect-ratio: auto; height: min(520px, 52vh); }
   .hero-figure::after { display: none; }
   .hero-grid { justify-items: stretch; }
   .hero-copy {
@@ -2234,7 +2246,10 @@ h3 {
   }
 
   .hero-frame {
-    aspect-ratio: 1;
+    /* Højden er sat, så overskriften og den første knap stadig er synlige
+       uden at rulle på en almindelig telefon. */
+    aspect-ratio: auto;
+    height: min(400px, 46vh);
     box-shadow: none;
   }
 
