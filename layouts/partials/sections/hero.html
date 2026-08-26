@@ -1,7 +1,5 @@
-{{ $p := hugo.Data.business }}
 {{ $L := .Site.Language.Lang }}
 {{ $h := (index hugo.Data.site $L).hero }}
-{{ $seo := index hugo.Data.seo $L }}
 {{- $u := index hugo.Data.ui $L -}}
 <section class="hero">
   <div class="container hero-grid">
@@ -26,8 +24,8 @@
 
     <div class="hero-figure reveal d2">
       <div class="hero-frame">
-        <img src="{{ hugo.Data.images.hero | relURL }}" alt="{{ $p.ownerName }}, {{ $seo.title }}"
-             width="656" height="820" fetchpriority="high">
+        <img src="{{ hugo.Data.images.hero | relURL }}" alt="{{ $u.labels.heroResultAlt }}"
+             width="900" height="1011" fetchpriority="high">
       </div>
       <div class="hero-badge">
         <span class="dot" aria-hidden="true"></span>

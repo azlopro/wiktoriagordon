@@ -15,7 +15,9 @@
 
     <div class="reviews-grid">
       {{ range $i, $rev := $r.items }}
-      <article class="review reveal{{ if lt $i 2 }} d{{ add $i 1 }}{{ end }}">
+      {{ if ne $i 6 }}
+      {{ $mobilePriority := in (slice 2 4 7) $i }}
+      <article class="review{{ if $mobilePriority }} review--mobile-priority{{ end }} reveal{{ if lt $i 2 }} d{{ add $i 1 }}{{ end }}">
         <div class="rec">{{ partial "icon.html" "check" }} {{ $u.reviews.badge }}</div>
         <p class="quote">“{{ $rev.text }}”</p>
         <div class="who">
@@ -26,6 +28,7 @@
           </span>
         </div>
       </article>
+      {{ end }}
       {{ end }}
     </div>
 

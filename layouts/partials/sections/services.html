@@ -45,15 +45,16 @@
            hen til prislisten, hvor sættene står med pris. */}}
       {{ $saet := where $s.main "desc" "" }}
       {{ with $saet }}
-      <a class="service service--sets service--narrow reveal" href="#priser">
+      <article class="service service--sets service--narrow reveal">
         <span class="service-icon">{{ partial "icon.html" "combo" }}</span>
         <h3>{{ $u.sets.heading }}</h3>
         <p class="desc">{{ $u.sets.text }}</p>
         <ul class="sets-list">
           {{ range . }}<li><span>{{ .title }}</span><b>{{ .price }}</b></li>{{ end }}
         </ul>
-        <span class="sets-link">{{ $u.sets.link }} {{ partial "icon.html" "arrow" }}</span>
-      </a>
+        <a class="sets-link sets-link--desktop" href="#priser">{{ $u.sets.link }} {{ partial "icon.html" "arrow" }}</a>
+        <a class="sets-link sets-link--mobile" href="#booking">{{ $u.nav.book }} {{ partial "icon.html" "arrow" }}</a>
+      </article>
       {{ end }}
     </div>
   </div>
