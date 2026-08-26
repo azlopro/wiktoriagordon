@@ -128,7 +128,19 @@ def main():
             # POST /v2/bookings/{uid}/confirm lige efter oprettelsen, så
             # Wiktoria ikke skal gøre noget. Det der bliver liggende og venter
             # på hende, er præcis det der ikke er betalt for.
-            'requiresConfirmation': True,
+            # Feltet hedder confirmationPolicy, ikke requiresConfirmation. Det
+            # sidste accepteres af API'et uden at fejle og bliver derefter
+            # ignoreret, hvilket er grunden til at scriptet nu læser sine egne
+            # indstillinger tilbage.
+            'confirmationPolicy': {
+                'type': 'always',
+                'blockUnconfirmedBookingsInBooker': True,
+            },
+            # Skjult fra hendes Cal-profil, så den eneste annoncerede vej til
+            # booking er hendes egen hjemmeside. Bemærk at skjult IKKE er en
+            # spærre: en skjult event type kan stadig bookes direkte på sin
+            # adresse. Det er confirmationPolicy der lukker den vej.
+            'hidden': True,
             'afterEventBuffer': BUFFER_AFTER,
             'minimumBookingNotice': NOTICE,
             # Wiktoria vil have fornavn, efternavn og telefon. Ingen mail.
@@ -187,7 +199,7 @@ def verify(key, expected):
     found = {e['slug']: e for e in data}
     problems = 0
 
-    print(f"  {'behandling':28} {'min':>4} {'buffer':>7} {'varsel':>7}  bekræft  telefon")
+    print(f"  {'behandling':28} {'min':>4} {'buffer':>7} {'varsel':>7}  bekræft  telefon  skjult")
     print('  ' + '-' * 68)
     for slug, want_min in expected.items():
         e = found.get(slug)
@@ -196,15 +208,17 @@ def verify(key, expected):
         fields = e.get('bookingFields') or []
         phone = any(f.get('slug') == 'attendeePhoneNumber' and f.get('required')
                     for f in fields)
-        conf = bool(e.get('requiresConfirmation'))
+        policy = e.get('confirmationPolicy') or {}
+        conf = policy.get('type') == 'always'
         got_min = e.get('lengthInMinutes')
         buf = e.get('afterEventBuffer') or 0
         notice = e.get('minimumBookingNotice') or 0
-        row = (f"  {slug:28} {got_min:>4} {buf:>7} {notice:>7}  "
-               f"{'ja ' if conf else 'NEJ':>7}  {'ja' if phone else 'NEJ'}")
-        print(row)
+        hidden = bool(e.get('hidden'))
+        print(f"  {slug:28} {got_min:>4} {buf:>7} {notice:>7}  "
+              f"{'ja ' if conf else 'NEJ':>7}  {'ja' if phone else 'NEJ':>7}  "
+              f"{'ja' if hidden else 'NEJ'}")
         if got_min != want_min or buf != BUFFER_AFTER or notice != NOTICE \
-                or not conf or not phone:
+                or not conf or not phone or not hidden:
             problems += 1
 
     print()

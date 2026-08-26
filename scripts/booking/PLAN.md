@@ -99,6 +99,16 @@ Med den tændt lander sådan en booking som ikke-bekræftet, og Wiktoria kan
 afvise den. Workeren bekræfter selv de betalte, så hun kun ser det, der ikke
 er betalt for.
 
+Event typerne er desuden skjult fra hendes Cal-profil, så den eneste
+annoncerede vej til booking er hjemmesiden. Skjult er dog **ikke** en spærre
+i sig selv: en skjult event type kan stadig bookes direkte på sin adresse.
+Det er bekræftelsen der lukker den vej.
+
+Feltet hedder `confirmationPolicy` og tager et objekt, ikke `requiresConfirmation`
+som et ja/nej. API'et accepterer det forkerte navn uden at fejle og ignorerer
+det derefter. Det er grunden til at opsætningsscriptet læser sine egne
+indstillinger tilbage bagefter.
+
 ## Regler der ikke må brydes
 
 **Beløbet må aldrig komme fra kunden.** Cal sender bookingdetaljer med som
