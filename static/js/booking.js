@@ -26,6 +26,7 @@
   var elWeek = document.getElementById("bpWeek");
   var elForm = document.getElementById("bpForm");
   var elChosen = document.getElementById("bpChosen");
+  var elReach = document.getElementById("bpReach");
   var fallback = document.getElementById("bookingFallback");
 
   var weekStart = startOfWeek(new Date());
@@ -71,9 +72,12 @@
 
   /* --- hentning ---------------------------------------------------------- */
 
-  function status(text) {
+  /* reach = tilbyd en vej til hende. Vises når der ikke er noget at vælge,
+     uanset om ugen er tom eller kaldet fejlede. */
+  function status(text, reach) {
     elStatus.textContent = text || "";
     elStatus.hidden = !text;
+    if (elReach) elReach.hidden = !reach;
   }
 
   function load() {
@@ -101,13 +105,13 @@
         if (token !== requestToken) return;
         slotsByDay = data.days || {};
         var any = Object.keys(slotsByDay).length > 0;
-        status(any ? "" : L.empty);
+        status(any ? "" : L.empty, !any);
         renderDays();
       })
       .catch(function () {
         if (token !== requestToken) return;
         slotsByDay = {};
-        status(L.error);
+        status(L.error, true);
         renderDays();
       });
   }

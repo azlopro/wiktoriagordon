@@ -56,6 +56,16 @@
 
   <p class="bp-status" id="bpStatus" role="status" aria-live="polite"></p>
 
+  {{/* Vises når der ikke er nogen tider at vælge, uanset om det skyldes en
+       fejl eller en tom uge. Uden den ender kunden i en blindgyde: beskeden
+       fortæller hende at hun kan skrive, men ikke hvorhen. */}}
+  <div class="bp-reach" id="bpReach" hidden>
+    <a href="{{ (hugo.Data.business).instagramDM }}" target="_blank" rel="noopener"
+       class="btn btn--primary bp-reach-btn">
+      {{ partial "icon.html" "instagram" }} {{ (index hugo.Data.site $L).booking.bookButton }}
+    </a>
+  </div>
+
   <form class="bp-form" id="bpForm" hidden>
     <div class="bp-chosen" id="bpChosen"></div>
     <div class="bp-fields">

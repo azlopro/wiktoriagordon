@@ -1954,6 +1954,11 @@ h3 { letter-spacing: -.025em; }
 .bp-status { margin: 1.1rem 0 0; color: rgba(255,255,255,.78); font-size: 1rem; }
 .bp-status[hidden] { display: none; }
 
+/* Vejen ud, når der ikke er noget at vælge. */
+.bp-reach { margin-top: 1.1rem; }
+.bp-reach[hidden] { display: none; }
+.bp-reach-btn { width: 100%; }
+
 .bp-form { margin-top: 2rem; padding-top: 1.8rem; border-top: 1px solid rgba(255,255,255,.22); }
 .bp-chosen-line {
   margin: 0 0 1.4rem; font-family: var(--serif); font-size: 1.35rem; color: #fff;
