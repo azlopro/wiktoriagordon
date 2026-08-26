@@ -421,18 +421,26 @@ strong { font-weight: 500; }
   overflow: hidden;
 }
 .strip-track {
+  --strip-gap: 3.5rem;
   display: flex;
-  gap: 3.5rem;
+  /* gap: 0 med vilje. Se noten i strip.html: et mellemrum mellem grupperne
+     ville forskyde 50 %-punktet med et halvt mellemrum, og løkken ville
+     hakke én gang pr. omgang. Hvert ord bærer sin egen afstand i stedet. */
+  gap: 0;
+  width: max-content;
   padding-block: 1.1rem;
   white-space: nowrap;
-  animation: marquee 34s linear infinite;
+  animation: marquee 160s linear infinite;
 }
+.strip-group { display: flex; gap: 0; }
 .strip-track span {
   font-family: var(--serif);
   font-style: italic;
   font-size: 1.35rem;
   color: var(--rose-deep);
-  display: inline-flex; align-items: center; gap: 3.5rem;
+  display: inline-flex; align-items: center;
+  gap: var(--strip-gap);
+  padding-right: var(--strip-gap);
 }
 .strip-track span::after { content: "✦"; color: var(--gold); font-style: normal; font-size: .8rem; }
 @keyframes marquee { to { transform: translateX(-50%); } }
@@ -1554,23 +1562,29 @@ h3 { letter-spacing: -.025em; }
 /* Den svævende lodrette streg til venstre hang uden at høre til noget.
    "Minimalistisk, rent" er hendes første punkt, så den er væk. */
 .hero::before { display: none; }
-.hero::after {
-  content: "WGB  /  BEAUTY STUDIO  /  HORSENS";
+/* Den lodrette signatur i højre margen. Teksten stod før i stylesheetet som
+   "WGB / BEAUTY STUDIO / HORSENS", altså en forkortelse ingen kender og et
+   navn firmaet ikke hedder, låst inde et sted Wiktoria aldrig kommer. Den
+   står nu i markuppen og henter virksomhedens rigtige navn fra
+   data/business.yaml. */
+.hero-mark {
   position: absolute;
   right: clamp(.5rem, 1.4vw, 1.5rem);
   top: 50%;
   z-index: 2;
   writing-mode: vertical-rl;
   transform: translateY(-50%);
+  font-family: var(--sans);
   font-size: .62rem;
   font-weight: 600;
   letter-spacing: .32em;
+  text-transform: uppercase;
   color: var(--ink-soft);
 }
 /* Under 1280 px er der ikke margen nok tilbage til den lodrette tekst, og
    den klemmer sig ind mod kanten i stedet for at stå som en detalje. */
 @media (max-width: 1280px) {
-  .hero::after { display: none; }
+  .hero-mark { display: none; }
 }
 .hero-grid {
   grid-template-columns: minmax(0, 1.02fr) minmax(380px, .98fr);
@@ -1657,7 +1671,11 @@ h3 { letter-spacing: -.025em; }
   border: 0;
   background: var(--rose-deep);
 }
-.strip-track { padding-block: .82rem; }
+/* Mindre skrift her end i grundlaget, så afstanden mellem ordene skal ned
+   i samme forhold. Variablen styrer både mellemrummet inde i et ord og
+   afstanden til det næste, så de to aldrig kan komme til at glide fra
+   hinanden og ødelægge løkken. */
+.strip-track { --strip-gap: 2.4rem; padding-block: .82rem; }
 .strip-track span {
   font-family: var(--sans);
   font-style: normal;
@@ -1886,7 +1904,7 @@ h3 { letter-spacing: -.025em; }
      Toppolstringen og billedet er skruet ned, så overskriften og de to
      knapper stadig kan nås uden at rulle på en tablet i højformat. */
   .hero { min-height: auto; padding-top: calc(var(--header-h) + 3.5rem); padding-bottom: 4.5rem; }
-  .hero::after { display: none; }
+  .hero-mark { display: none; }
   .hero-grid { grid-template-columns: 1fr; align-items: start; }
   /* På desktop står tekst og foto ved siden af hinanden, og overskriften
      får lov at løbe ind under billedet. Det virker vandret. Da spalterne

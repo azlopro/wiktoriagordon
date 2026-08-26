@@ -1,7 +1,11 @@
 {{ $L := .Site.Language.Lang }}
 {{ $h := (index hugo.Data.site $L).hero }}
 {{- $u := index hugo.Data.ui $L -}}
+{{- $p := hugo.Data.business -}}
 <section class="hero">
+  {{/* Lodret signatur i højre margen. Skjult under 1280 px, hvor der
+       ikke er margen nok til at den kan stå som en detalje. */}}
+  <span class="hero-mark" aria-hidden="true">{{ $p.businessName }}</span>
   <div class="container hero-grid">
     <div class="hero-copy">
       <p class="eyebrow reveal">{{ $h.eyebrow }}</p>

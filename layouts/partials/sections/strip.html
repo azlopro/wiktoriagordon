@@ -1,8 +1,29 @@
 {{ $L := .Site.Language.Lang }}
 {{ $words := (index hugo.Data.site $L).strip }}
+{{/* Rullebåndet er to identiske grupper, og animationen flytter sporet
+     præcis 50 % til venstre. I det øjeblik den er i mål, står gruppe to
+     nøjagtig hvor gruppe et startede, og løkken begynder forfra uden at
+     nogen kan se det.
+
+     To ting skal holdes, ellers hakker den:
+
+     1. En gruppe skal være BREDERE END SKÆRMEN. Ellers er sporet sluppet op,
+        inden animationen er færdig, og der kommer et tomt felt ind fra
+        højre. Ordlisten er nede på fire ord, så hver gruppe gentager den fem
+        gange. Målt i browseren giver det 3925 px, altså nok til en 4K-skærm.
+        Fjernes flere ord fra listen, skal tallet herunder op, og
+        animationens varighed med, hvis farten skal være den samme.
+
+     2. Der må ikke være mellemrum MELLEM gruppernes elementer, kun inde i
+        dem. Et flex-gap lægger sig også mellem de to grupper, og så rammer
+        de 50 % ved siden af med et halvt mellemrum. Derfor bærer hvert ord
+        sin egen afstand som padding, og sporet har gap: 0. */}}
 <div class="strip" aria-hidden="true">
   <div class="strip-track">
-    {{ range $words }}<span>{{ . }}</span>{{ end }}
-    {{ range $words }}<span>{{ . }}</span>{{ end }}
+    {{ range seq 2 }}
+    <div class="strip-group">
+      {{ range seq 5 }}{{ range $words }}<span>{{ . }}</span>{{ end }}{{ end }}
+    </div>
+    {{ end }}
   </div>
 </div>
