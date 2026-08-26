@@ -309,6 +309,10 @@ strong { font-weight: 500; }
 .lang-switch a.active { color: var(--rose-deep); font-weight: 500; }
 .lang-switch a:not(:last-child)::after { content: "·"; margin-left: .55rem; color: var(--line); }
 
+/* Kassen om etiket og overskrift er usynlig for layoutet, indtil telefon-
+   reglerne gør den til et selvstændigt felt oven på fotoet. */
+.hero-lede { display: contents; }
+
 /* Den altid synlige bookingknap på smalle skærme. Skjult som udgangspunkt,
    fordi menuens egen knap står fremme på desktop. */
 .nav-book--compact { display: none; }
@@ -893,6 +897,11 @@ strong { font-weight: 500; }
   .nav-links { flex-direction: column; align-items: flex-start; gap: 1.3rem; width: 100%; }
   .nav-links a { font-size: 1.1rem; letter-spacing: .05em; }
   .nav-book { width: 100%; }
+  /* Mærket var skrumpet ind for at give plads til bookingknappen. Knappen
+     siger nu bare "Book", og den plads der bliver til overs, går tilbage
+     til logoet, som er det eneste sted hendes mærke står i toppen. */
+  .brand-mark { height: 2.4rem; }
+  .brand-text { font-size: 1.05rem; }
   /* Menuens egen bookingknap er overflødig, når den kompakte står fremme i
      headeren hele tiden. To ens knapper på skærmen samtidig er ikke et
      valg, det er støj. */
@@ -1918,35 +1927,75 @@ h3 { letter-spacing: -.025em; }
      udfyldte, og det er den samme fejl som den tomme plads på desktop, bare
      spejlet. Vinklen og den lodrette streg hører til en spalteopsætning og
      giver ikke mening, når alt er stablet. */
+  /* Når spalterne stables, bliver heroen en FORSIDE, ikke en stak.
+
+     Fotoet og overskriften deler den samme celle i gitteret, så
+     overskriften lægger sig ned i billedets nederste kant i stedet for at
+     stå under det. Foto, tekst og knapper efter hinanden er tre løsrevne
+     kasser; det her er ét billede med en titel på.
+
+     .hero-copy bliver display: contents, så dens tre børn selv bliver
+     felter i gitteret. Ellers kunne overskriften ikke dele celle med
+     fotoet, mens underrubrik og knapper stadig ligger under. */
+  /* text-align skal blive stående, selv om kassen er display: contents.
+     Boksen forsvinder, men arvede egenskaber gør ikke, og en ældre regel
+     længere oppe sætter .hero-copy til centreret. Uden den her arver
+     overskrift og underrubrik centrering fra en kasse, der ikke findes. */
+  .hero-copy { display: contents; text-align: left; }
+  .hero-grid { justify-items: stretch; }
+
   .hero-figure {
-    grid-row: 1;
-    width: 100%;
+    grid-area: 1 / 1;
+    width: auto;
     max-width: none;
     justify-self: stretch;
-    margin: 0 0 2.2rem;
+    /* Ud til skærmkanten. Et billede med luft omkring sig er et kort der
+       ligger på siden; et billede der rører kanten ER siden. */
+    margin: 0 calc(var(--gutter) * -1);
   }
-  /* Samme stående format som fotoet selv, så der ikke skæres i det. I fuld
-     spaltebredde ville 4/5 blive 864 px højt på en tablet og fylde hele
-     skærmen, så højden får et loft. Beskæringen tages fra bunden, ikke
-     fra toppen, hvor hovedet er. */
-  /* Fast højde i stedet for format. Med aspect-ratio og et højdeloft
-     regner browseren bredden ud af den lave højde, og billedet holder op
-     med at gå ud i fuld bredde. Her sættes højden, bredden bliver, og
-     beskæringen tages fra bunden, hvor der ikke er noget hoved. */
-  .hero-frame { aspect-ratio: auto; height: min(520px, 52vh); }
+  /* Fast højde i stedet for format. Med aspect-ratio og et højdeloft regner
+     browseren bredden ud af den lave højde, og billedet holder op med at gå
+     ud i fuld bredde. Her sættes højden, bredden bliver, og beskæringen
+     tages fra bunden, hvor der ikke er noget hoved. */
+  .hero-frame { aspect-ratio: auto; height: min(660px, 62vh); }
   .hero-figure::after { display: none; }
-  .hero-grid { justify-items: stretch; }
-  .hero-copy {
-    grid-row: 2;
-    max-width: 780px;
-    margin-inline: 0;
-    text-align: left;
+
+  /* Slør fra bunden af fotoet, så hvid tekst kan læses oven på det uanset
+     hvilket billede Wiktoria lægger ind. Bordeaux frem for sort, fordi det
+     er hendes accentfarve og klæder den rosa baggrund i fotoet. */
+  .hero-frame::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top,
+      rgba(48, 12, 21, .82) 0%,
+      rgba(48, 12, 21, .55) 20%,
+      rgba(48, 12, 21, .12) 40%,
+      transparent 58%);
+    pointer-events: none;
   }
+
+  .hero-lede {
+    display: block;
+    grid-area: 1 / 1;
+    align-self: end;
+    z-index: 2;
+    padding-bottom: 2.1rem;
+  }
+  .hero-lede .eyebrow { color: rgba(255, 255, 255, .82); }
+  /* Stregen foran etiketten er bordeaux og forsvandt i sløret. */
+  .hero-lede .eyebrow::before { background: rgba(255, 255, 255, .6); }
+  .hero-lede h1,
+  .hero-lede .accent { color: #fff; }
+
   /* Samme venstrekant til alt, som på desktop. */
   .hero h1 { margin-right: 0; }
-  .hero-sub,
-  .hero-actions { margin-left: 0; margin-right: 0; }
-  .hero-actions { justify-content: flex-start; }
+  .hero-sub {
+    grid-row: 2;
+    max-width: 780px;
+    margin: 1.7rem 0 0;
+  }
+  .hero-actions { grid-row: 3; margin-left: 0; justify-content: flex-start; }
   .about-grid { grid-template-columns: 1fr; }
   .about-figure { min-height: auto; width: min(680px, 92%); }
   .about-copy { margin-left: clamp(0rem, 7vw, 5rem); margin-top: -4rem; position: relative; }
@@ -1962,19 +2011,12 @@ h3 { letter-spacing: -.025em; }
   .brand-text { font-size: 1rem; }
   .brand small { font-size: .53rem; letter-spacing: .28em; }
   .hero { padding-top: calc(var(--header-h) + 2.6rem); padding-bottom: 4.5rem; }
-  /* Lidt smallere end på tablet, så overskrift og knapper stadig når med
-     over folden på en telefon. */
-  .hero-figure {
-    width: min(300px, 74%);
-    margin: 0 0 1.8rem auto;
-  }
-  .hero-frame { aspect-ratio: 4 / 5; }
-  .hero-figure::after { inset: auto auto -10px -10px; }
-  .hero-copy { width: 100%; padding: 0; }
+  /* Heroens opsætning på telefon står samlet i 960-blokken, som også
+     dækker det her breakpoint. Her stod tidligere et sæt regler for et
+     mindre, forskudt foto. De er fjernet: de kom SENERE i filen end
+     960-blokken og trak billedet ud af den celle det deler med
+     overskriften, så forsiden faldt fra hinanden. */
   .hero h1 { position: relative; margin-bottom: .45em; }
-  .hero-sub,
-  .hero-actions { margin-left: 0; }
-  .hero-sub { max-width: 34ch; }
   .hero-actions { display: grid; grid-template-columns: 1fr 1fr; gap: .65rem; }
   .hero-actions .btn { min-width: 0; padding-inline: .7rem; }
   .hero-badge { left: -1rem; bottom: 1rem; font-size: .58rem; }
@@ -2008,8 +2050,8 @@ h3 { letter-spacing: -.025em; }
      der ikke rækker til dem alle tre i fuld størrelse. Navnet må ikke
      brække, så det er knappen og mellemrummene der giver efter. Målt på
      320 px, hvor det lige akkurat går op. */
-  .brand-mark { height: 1.75rem; }
-  .brand-text { font-size: .82rem; }
+  .brand-mark { height: 2.1rem; }
+  .brand-text { font-size: .92rem; }
   .brand { gap: .45rem; }
   .nav { gap: .5rem; }
   .nav-book--compact {
@@ -2025,8 +2067,9 @@ h3 { letter-spacing: -.025em; }
    slags. Her er der ikke mere at give af, så navnet og knappen skrumper
    endnu en tak frem for at røre hinanden. */
 @media (max-width: 340px) {
-  .brand-text { font-size: .74rem; }
-  .nav-book--compact { padding: .5rem .65rem; letter-spacing: .06em; }
+  .brand-mark { height: 1.95rem; }
+  .brand-text { font-size: .84rem; }
+  .nav-book--compact { padding: .5rem .7rem; letter-spacing: .06em; }
 }
 
 /* ---------- Tidsvælger (online-booking) ---------- */
@@ -2323,20 +2366,18 @@ h3 {
 
   .hero-grid { gap: 0; }
 
-  .hero-figure {
-    width: auto;
-    max-width: none;
-    justify-self: stretch;
-    margin: 0 calc(var(--gutter) * -1) 1.6rem;
-  }
+  /* Fotoet og overskriften deler den samme celle i gitteret, så
+     overskriften kan lægge sig ned i billedets nederste kant i stedet for
+     at stå under det. Det er dét, der gør toppen til en forside frem for
+     en stak: foto, tekst, knapper, hver for sig.
 
-  .hero-frame {
-    aspect-ratio: auto;
-    height: min(500px, 56vh);
-    box-shadow: none;
-  }
-
-  .hero-copy { width: 100%; }
+     .hero-copy bliver display: contents, så dens tre børn selv bliver
+     felter i gitteret. Ellers kunne overskriften ikke dele celle med
+     fotoet, mens underrubrik og knapper stadig ligger under. */
+  /* Forsiden er sat op i 960-blokken. Her står kun det, en telefon skal
+     have anderledes: et højere foto i forhold til skærmen, og lidt mindre
+     luft omkring det. */
+  .hero-frame { height: min(620px, 70vh); box-shadow: none; }
   /* Etiketten er for lang til én linje på en telefon. Med guldstregen foran
      står stregen alene ude til venstre, og "· HORSENS" hænger tilbage på
      linje to. Uden streg brækker de to linjer pænt fra samme kant. */

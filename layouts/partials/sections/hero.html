@@ -8,6 +8,11 @@
   <span class="hero-mark" aria-hidden="true">{{ $p.businessName }}</span>
   <div class="container hero-grid">
     <div class="hero-copy">
+      {{/* Etiket og overskrift er samlet i én kasse, fordi de på telefon
+           flyttes ind OVEN PÅ fotoet som ét blok. På desktop er kassen
+           display: contents, altså usynlig for layoutet, og de to står
+           præcis som før. */}}
+      <div class="hero-lede">
       <p class="eyebrow reveal">{{ $h.eyebrow }}</p>
       <h1 class="reveal d1">
         {{- /* The CMS uses {braces} to mark one italic phrase. Render every
@@ -19,6 +24,7 @@
           {{- $h.heading -}}
         {{- end -}}
       </h1>
+      </div>
       <p class="hero-sub reveal d2">{{ $h.subheading }}</p>
       <div class="hero-actions reveal d3">
         <a href="#ydelser" class="btn btn--primary">{{ $h.primaryCta }}</a>

@@ -21,6 +21,7 @@ da:
     faq: "FAQ"
     policy: "Politik"
     book: "Book tid"
+    bookShort: "Book"
 
   labels:
     popular: "Populær"
@@ -106,6 +107,7 @@ en:
     faq: "FAQ"
     policy: "Policy"
     book: "Book now"
+    bookShort: "Book"
 
   labels:
     popular: "Popular"

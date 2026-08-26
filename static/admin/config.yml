@@ -411,6 +411,7 @@ collections:
               - {name: faq, label: Questions, widget: string, i18n: true}
               - {name: policy, label: Policy, widget: string, i18n: true, hint: Shown in the footer menu only.}
               - {name: book, label: Booking button, widget: string, i18n: true, hint: The button in the top right corner and in the footer menu.}
+              - {name: bookShort, label: Booking button on phones, widget: string, i18n: true, hint: "Keep it to one short word. On a phone the button shares the top bar with your name and the menu, and a long word squeezes the logo."}
           - name: labels
             label: Small labels
             widget: object
