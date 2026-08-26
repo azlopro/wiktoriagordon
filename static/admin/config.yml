@@ -417,6 +417,7 @@ collections:
               - {name: bookThis, label: Book button in the price list, widget: string, i18n: true}
               - {name: expectHeading, label: Heading above the bullet points, widget: string, i18n: true}
               - {name: heroBadge, label: Badge on the large photo, widget: string, i18n: true, hint: This promises the client a reply time. Change it if you cannot keep it.}
+              - {name: heroResultAlt, label: Description of the top photo, widget: string, i18n: true, hint: Read aloud by screen readers and shown if the photo fails to load. Describe the result in the picture.}
               - {name: follow, label: Follow heading, widget: string, i18n: true}
           - name: groups
             label: Price-list groups

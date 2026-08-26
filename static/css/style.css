@@ -1508,24 +1508,26 @@ h3 { letter-spacing: -.025em; }
 .lang-switch { font-size: .75rem; }
 
 /* Hero — an asymmetric editorial cover rather than a soft portrait card. */
+/* Heroen er ét bånd med to spalter: tekst til venstre, foto til højre.
+   Højden styres af båndet, ikke af billedet, og teksten centreres lodret
+   op mod fotoet. Før stod spalterne bundjusteret, og fordi teksten er
+   lavere end billedet, efterlod det et stort tomt felt øverst til venstre.
+   Det var det, der fik heroen til at se uafsluttet ud. */
 .hero {
-  min-height: min(920px, 100dvh);
-  padding-top: clamp(8.5rem, 15vh, 11rem);
-  padding-bottom: clamp(4rem, 8vh, 7rem);
-  background: #fff;
+  display: grid;
+  align-content: center;
+  min-height: min(820px, 94vh);
+  padding-top: calc(var(--header-h) + clamp(2.5rem, 6vh, 5rem));
+  padding-bottom: clamp(3.5rem, 7vh, 6rem);
+  background: var(--cream);
 }
-.hero::before {
-  top: 13%;
-  right: auto;
-  left: 6%;
-  width: 1px;
-  height: 72%;
-  background: var(--line-soft);
-}
+/* Den svævende lodrette streg til venstre hang uden at høre til noget.
+   "Minimalistisk, rent" er hendes første punkt, så den er væk. */
+.hero::before { display: none; }
 .hero::after {
   content: "WGB  /  BEAUTY STUDIO  /  HORSENS";
   position: absolute;
-  right: 1.3rem;
+  right: clamp(.5rem, 1.4vw, 1.5rem);
   top: 50%;
   z-index: 2;
   writing-mode: vertical-rl;
@@ -1535,10 +1537,20 @@ h3 { letter-spacing: -.025em; }
   letter-spacing: .32em;
   color: var(--ink-soft);
 }
+/* Under 1280 px er der ikke margen nok tilbage til den lodrette tekst, og
+   den klemmer sig ind mod kanten i stedet for at stå som en detalje. */
+@media (max-width: 1280px) {
+  .hero::after { display: none; }
+}
 .hero-grid {
-  grid-template-columns: minmax(0, 1.18fr) minmax(340px, .82fr);
-  gap: clamp(1.5rem, 2vw, 3rem);
-  align-items: end;
+  grid-template-columns: minmax(0, 1.02fr) minmax(380px, .98fr);
+  gap: clamp(2.5rem, 5vw, 6rem);
+  align-items: center;
+  /* En ældre regel for tablets i højformat satte justify-items: center, og
+     den gjaldt stadig her. Den fik tekstspalten til at krympe om sit
+     bredeste element og stille sig på midten i stedet for at flugte med
+     venstrekanten. */
+  justify-items: stretch;
 }
 /* Critical above-the-fold content must never wait on JavaScript or an
    observer callback. Lower sections keep the staggered scroll reveal. */
@@ -1549,27 +1561,30 @@ h3 { letter-spacing: -.025em; }
 .hero-copy {
   position: relative;
   z-index: 3;
-  max-width: 820px;
-  padding-bottom: clamp(1.5rem, 5vw, 4rem);
+  max-width: 660px;
 }
+/* Alt i tekstspalten står på samme venstrekant. Før var underrubrik og
+   knapper rykket 5 rem ind under en overskrift, der selv stod flugtende,
+   og det gav en trappe uden begrundelse. Den eneste bevidste forskydning
+   er den kursiverede linje i overskriften, som har sin egen margin. */
 .hero h1 {
-  margin-right: -.8em;
-  margin-bottom: .28em;
+  margin-right: 0;
+  margin-bottom: .3em;
 }
 .hero-sub {
-  max-width: 44ch;
-  margin-left: clamp(.2rem, 7vw, 5rem);
+  max-width: 42ch;
+  margin-left: 0;
   font-size: clamp(1rem, 1.2vw, 1.14rem);
   line-height: 1.65;
 }
-.hero-actions { margin-left: clamp(.2rem, 7vw, 5rem); }
+.hero-actions { margin-left: 0; }
 .hero-figure {
-  justify-self: stretch;
+  justify-self: end;
   width: 100%;
-  max-width: 520px;
+  max-width: 540px;
 }
 .hero-frame {
-  aspect-ratio: 4 / 5.15;
+  aspect-ratio: 4 / 5;
   border-radius: 0;
   outline: 0;
   box-shadow: var(--shadow);
@@ -1585,11 +1600,17 @@ h3 { letter-spacing: -.025em; }
   border-radius: 0;
   opacity: 1;
 }
+/* Vinklen og badgen sad begge i billedets nederste venstre hjørne og
+   skubbede til hinanden. Vinklen bliver liggende udenfor, badgen flytter
+   ind i billedet i modsatte hjørne. */
 .hero-badge {
-  left: -2.6rem;
-  bottom: 2rem;
+  left: auto;
+  right: 1.4rem;
+  bottom: 1.4rem;
   border-radius: 0;
-  border: 1px solid rgba(255,255,255,.6);
+  border: 0;
+  background: var(--cream);
+  color: var(--ink);
   padding: .72rem 1rem;
   font-size: .72rem;
   font-weight: 500;
@@ -1835,21 +1856,31 @@ h3 { letter-spacing: -.025em; }
      ansigtet på fotoet. Der er ingen tom plads at rykke op i, når teksten
      fylder hele bredden. Billedet står stadig forskudt mod højre, så
      opsætningen ikke bliver en midterstillet standardside. */
+  /* Billedet går ud i fuld spaltebredde i stedet for at stå forskudt i 58 %.
+     Forskydningen efterlod et tomt felt til venstre for fotoet, som intet
+     udfyldte, og det er den samme fejl som den tomme plads på desktop, bare
+     spejlet. Vinklen og den lodrette streg hører til en spalteopsætning og
+     giver ikke mening, når alt er stablet. */
   .hero-figure {
     grid-row: 1;
-    width: min(420px, 58%);
+    width: 100%;
     max-width: none;
-    justify-self: end;
-    margin-bottom: 2.4rem;
+    justify-self: stretch;
+    margin: 0 0 2.2rem;
   }
+  .hero-frame { aspect-ratio: 5 / 4; }
+  .hero-figure::after { display: none; }
+  .hero-grid { justify-items: stretch; }
   .hero-copy {
     grid-row: 2;
     max-width: 780px;
+    margin-inline: 0;
     text-align: left;
   }
+  /* Samme venstrekant til alt, som på desktop. */
   .hero h1 { margin-right: 0; }
   .hero-sub,
-  .hero-actions { margin-left: clamp(1rem, 12vw, 6rem); margin-right: 0; }
+  .hero-actions { margin-left: 0; margin-right: 0; }
   .hero-actions { justify-content: flex-start; }
   .about-grid { grid-template-columns: 1fr; }
   .about-figure { min-height: auto; width: min(680px, 92%); }
@@ -2208,7 +2239,11 @@ h3 {
   }
 
   .hero-copy { width: 100%; }
+  /* Etiketten er for lang til én linje på en telefon. Med guldstregen foran
+     står stregen alene ude til venstre, og "· HORSENS" hænger tilbage på
+     linje to. Uden streg brækker de to linjer pænt fra samme kant. */
   .hero .eyebrow { margin-bottom: 1rem; }
+  .hero .eyebrow::before { display: none; }
   .hero h1 { margin-bottom: .45em; }
   .hero-sub { max-width: 34ch; }
 
