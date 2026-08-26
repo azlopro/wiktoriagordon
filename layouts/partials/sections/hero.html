@@ -27,10 +27,17 @@
         <img src="{{ hugo.Data.images.hero | relURL }}" alt="{{ $u.labels.heroResultAlt }}"
              width="656" height="820" fetchpriority="high">
       </div>
+      {{/* Badgen lovede svar inden for 24 timer. Det stammer fra dengang
+           booking foregik i Instagram-beskeder, og det løfte skal ikke stå
+           på et foto, når tider snart bestilles på siden selv. Feltet er
+           tomt i stedet for slettet, så Wiktoria kan skrive noget i det via
+           /admin/ og få badgen tilbage uden at nogen skal røre koden. */}}
+      {{ with $u.labels.heroBadge }}
       <div class="hero-badge">
         <span class="dot" aria-hidden="true"></span>
-        <span>{{ $u.labels.heroBadge }}</span>
+        <span>{{ . }}</span>
       </div>
+      {{ end }}
     </div>
   </div>
 </section>

@@ -26,9 +26,9 @@ da:
     popular: "Populær"
     bookThis: "Book"
     expectHeading: "Det kan du forvente"
-    heroBadge: "Personlig booking · svar < 24t"
+    heroBadge: ""
     heroResultAlt: "Wiktoria Gordon i sit studie i Horsens"
-    follow: "Følg"
+    moreOnInstagram: "Se flere resultater på Instagram"
 
   groups:
     lashes: "Vipper"
@@ -111,9 +111,9 @@ en:
     popular: "Popular"
     bookThis: "Book"
     expectHeading: "What you can expect"
-    heroBadge: "Personal booking · reply < 24h"
+    heroBadge: ""
     heroResultAlt: "Wiktoria Gordon in her studio in Horsens"
-    follow: "Follow"
+    moreOnInstagram: "See more results on Instagram"
 
   groups:
     lashes: "Lashes"

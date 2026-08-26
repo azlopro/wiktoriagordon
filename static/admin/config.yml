@@ -154,10 +154,15 @@ collections:
               - {name: label, label: Button text, widget: string, i18n: true, hint: 'Use the exact treatment name from the price list, so the name matches a price. NOT YET CONFIRMED: the first pair says lash lift + brow lamination (850 kr.). If her brows were tinted as well it should say + tint (900 kr.). Ask Wiktoria.'}
 
       - name: gallery
-        label: Result photos
+        label: Result photos (not shown right now)
         file: data/gallery.yaml
         icon: photo_library
         i18n: true
+        description: >-
+          These photos are not on the website at the moment. The results
+          section sends people to your Instagram instead. Nothing here is
+          lost, and the row of photos can be put back. Tell Christian if you
+          want it back.
         fields:
           - name: items
             label: Photos
@@ -416,9 +421,9 @@ collections:
               - {name: popular, label: Highlight badge, widget: string, i18n: true, hint: Shown on treatments you have marked as highlighted.}
               - {name: bookThis, label: Book button in the price list, widget: string, i18n: true}
               - {name: expectHeading, label: Heading above the bullet points, widget: string, i18n: true}
-              - {name: heroBadge, label: Badge on the large photo, widget: string, i18n: true, hint: This promises the client a reply time. Change it if you cannot keep it.}
+              - {name: heroBadge, label: Small note on the top photo, widget: string, i18n: true, required: false, hint: "Leave this empty and no note is shown. Whatever you write here appears on the photo, so only put something there you can keep."}
               - {name: heroResultAlt, label: Description of the top photo, widget: string, i18n: true, hint: Read aloud by screen readers and shown if the photo fails to load. Describe who or what is in the picture.}
-              - {name: follow, label: Follow heading, widget: string, i18n: true}
+              - {name: moreOnInstagram, label: Instagram button under the results, widget: string, i18n: true}
           - name: groups
             label: Price-list groups
             widget: object
