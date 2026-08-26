@@ -29,12 +29,13 @@
                 <span class="name">{{ .title }}{{ with .duration }}<span class="dur">{{ . }}</span>{{ end }}</span>
                 <span class="lead" aria-hidden="true"></span>
                 <span class="amt">{{ .price }}</span>
-                {{/* Direkte link til netop denne behandlings tid i Cal.
-                     Vises kun når online-booking er slået til OG behandlingen
-                     har fået sin egen event — ellers ingen død knap. */}}
+                {{/* Fører ned til bookingen med netop denne behandling valgt.
+                     Bookingen ligger på sitet selv, ikke på Cals side, så det
+                     er et almindeligt anker og ikke et link ud af huset.
+                     data-treatment læses af booking.js. */}}
                 {{ if and $bk.online .calSlug }}
-                <a class="price-book" href="https://app.cal.eu/{{ $bk.onlineEmbed }}/{{ .calSlug }}"
-                   target="_blank" rel="noopener">{{ $u.labels.bookThis }}</a>
+                <a class="price-book" href="#booking"
+                   data-treatment="{{ .calSlug }}">{{ $u.labels.bookThis }}</a>
                 {{ end }}
               </li>
               {{ end }}

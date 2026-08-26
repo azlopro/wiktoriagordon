@@ -458,6 +458,31 @@ collections:
               - {name: hours, label: Opening hours heading, widget: string, i18n: true, hint: 'Only shown when opening hours are filled in under Business details.'}
               - {name: rights, label: Copyright line, widget: string, i18n: true}
               - {name: tagline, label: Bottom right line, widget: string, i18n: true, hint: This says booking happens via Instagram. Remember to change it when online booking opens.}
+          - name: booking
+            label: Booking form
+            widget: object
+            i18n: true
+            collapsed: true
+            summary: Booking form
+            hint: The wording inside the booking itself. Only shown once online booking is switched on.
+            fields:
+              - {name: chooseTreatment, label: Choose treatment, widget: string, i18n: true}
+              - {name: chooseDay, label: Choose a day, widget: string, i18n: true}
+              - {name: chooseTime, label: Choose a time, widget: string, i18n: true}
+              - {name: firstName, label: First name, widget: string, i18n: true}
+              - {name: lastName, label: Last name, widget: string, i18n: true}
+              - {name: phone, label: Phone number, widget: string, i18n: true}
+              - {name: submit, label: Submit button, widget: string, i18n: true}
+              - {name: deposit, label: Deposit, widget: string, i18n: true}
+              - {name: duration, label: Duration, widget: string, i18n: true}
+              - {name: loading, label: While times load, widget: string, i18n: true}
+              - {name: empty, label: No times available, widget: text, i18n: true}
+              - {name: error, label: If something goes wrong, widget: text, i18n: true}
+              - {name: prevWeek, label: Previous week, widget: string, i18n: true}
+              - {name: nextWeek, label: Next week, widget: string, i18n: true}
+              - {name: today, label: Today, widget: string, i18n: true}
+              - {name: minutes, label: 'Minutes, short form', widget: string, i18n: true}
+
           - name: calendar
             label: Booking calendar
             widget: object

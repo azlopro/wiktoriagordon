@@ -1,0 +1,78 @@
+{{- /* Tidsvælgeren.
+
+     Ligger på Wiktorias eget site i stedet for som en indlejret Cal-kalender.
+     Det er ikke en designbeslutning: "Redirect on Booking" er en betalt
+     funktion, så kunden kan ikke sendes fra Cals side videre til betaling.
+     Derfor sker bestillingen her, og bookingen oprettes i Cal først når
+     depositummet er betalt. Se scripts/booking/PLAN.md.
+
+     Konsekvensen er, at der ikke er nogen tredjepart på siden. Ingen henter
+     noget om den besøgende, før hun selv trykker.
+
+     Blokken er skjult, indtil scriptet melder sig. Uden JavaScript står
+     DM-knapperne tilbage, præcis som før online-booking blev tændt. */ -}}
+{{- $L := .Site.Language.Lang -}}
+{{- $u := index hugo.Data.ui $L -}}
+{{- $b := $u.booking -}}
+{{- $s := index hugo.Data.services $L -}}
+{{- $treatments := slice -}}
+{{- range $svc := $s.main -}}
+  {{- with $svc.calSlug -}}
+    {{- $treatments = $treatments | append (dict
+        "slug" .
+        "title" $svc.title
+        "price" $svc.price
+        "duration" ($svc.duration | default "")) -}}
+  {{- end -}}
+{{- end -}}
+
+<div class="booking-picker" id="bookingPicker"
+     data-treatments="{{ $treatments | jsonify }}"
+     data-labels="{{ $b | jsonify }}"
+     data-locale="{{ if eq $L "da" }}da-DK{{ else }}en-GB{{ end }}">
+
+  <div class="bp-step">
+    <label class="bp-label" for="bpTreatment">{{ $b.chooseTreatment }}</label>
+    <select class="bp-select" id="bpTreatment">
+      {{ range $treatments }}
+      <option value="{{ .slug }}">{{ .title }} &middot; {{ .price }}</option>
+      {{ end }}
+    </select>
+  </div>
+
+  <div class="bp-step">
+    <div class="bp-weekbar">
+      <button type="button" class="bp-nav" id="bpPrev" aria-label="{{ $b.prevWeek }}">&lsaquo;</button>
+      <span class="bp-weeklabel" id="bpWeek"></span>
+      <button type="button" class="bp-nav" id="bpNext" aria-label="{{ $b.nextWeek }}">&rsaquo;</button>
+    </div>
+    <div class="bp-days" id="bpDays" role="group" aria-label="{{ $b.chooseDay }}"></div>
+  </div>
+
+  <div class="bp-step bp-times-step" id="bpTimesStep" hidden>
+    <p class="bp-label">{{ $b.chooseTime }}</p>
+    <div class="bp-times" id="bpTimes" role="group" aria-label="{{ $b.chooseTime }}"></div>
+  </div>
+
+  <p class="bp-status" id="bpStatus" role="status" aria-live="polite"></p>
+
+  <form class="bp-form" id="bpForm" hidden>
+    <div class="bp-chosen" id="bpChosen"></div>
+    <div class="bp-fields">
+      <label>{{ $b.firstName }}
+        <input type="text" name="firstName" autocomplete="given-name" required>
+      </label>
+      <label>{{ $b.lastName }}
+        <input type="text" name="lastName" autocomplete="family-name" required>
+      </label>
+      <label>{{ $b.phone }}
+        <input type="tel" name="phone" autocomplete="tel" inputmode="tel" required>
+      </label>
+    </div>
+    <button type="submit" class="btn btn--primary bp-submit">{{ $b.submit }}</button>
+  </form>
+</div>
+
+{{/* Hentes kun når online-booking er tændt, så resten af sitet ikke
+     bærer rundt på kode, der aldrig kører. */}}
+<script src="{{ "js/booking.js" | relURL }}" defer></script>

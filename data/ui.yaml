@@ -66,6 +66,25 @@ da:
 
   # Ugedagene skrives på engelsk i åbningstiderne, fordi det er
   # schema.org's format. Her oversættes de til det, kunden ser.
+  # Teksterne i selve bookingen. Vises kun når online-booking er slået til.
+  booking:
+    chooseTreatment: "Vælg behandling"
+    chooseDay: "Vælg dag"
+    chooseTime: "Vælg tidspunkt"
+    firstName: "Fornavn"
+    lastName: "Efternavn"
+    phone: "Telefonnummer"
+    submit: "Fortsæt til betaling"
+    deposit: "Depositum"
+    duration: "Varighed"
+    loading: "Henter ledige tider…"
+    empty: "Ingen ledige tider i denne periode. Prøv en anden uge."
+    error: "Kunne ikke hente ledige tider lige nu. Prøv igen om lidt, eller skriv til mig på Instagram."
+    prevWeek: "Forrige uge"
+    nextWeek: "Næste uge"
+    today: "I dag"
+    minutes: "min"
+
   # Små bogstaver: sådan staves ugedage på dansk midt i en opremsning.
   # Det første bogstav i hver linje sættes stort af CSS'en.
   weekdays:
@@ -128,6 +147,24 @@ en:
     text: "The page no longer exists, but your lashes and brows are still waiting."
     home: "Back to home"
     book: "Book a time"
+
+  booking:
+    chooseTreatment: "Choose treatment"
+    chooseDay: "Choose a day"
+    chooseTime: "Choose a time"
+    firstName: "First name"
+    lastName: "Last name"
+    phone: "Phone number"
+    submit: "Continue to payment"
+    deposit: "Deposit"
+    duration: "Duration"
+    loading: "Loading available times…"
+    empty: "No times available in this period. Try another week."
+    error: "Could not load available times right now. Try again shortly, or message me on Instagram."
+    prevWeek: "Previous week"
+    nextWeek: "Next week"
+    today: "Today"
+    minutes: "min"
 
   weekdays:
     Monday: "Monday"

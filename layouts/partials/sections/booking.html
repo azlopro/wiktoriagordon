@@ -9,12 +9,14 @@
       <p class="eyebrow eyebrow--center">{{ $b.eyebrow }}</p>
       <h2>{{ $b.heading }}</h2>
 
-      {{ if and $b.online $b.onlineEmbed }}
-        {{/* Online-booking er aktiveret. Kalenderen hentes først på klik —
-             se layouts/partials/cal-embed.html for hvorfor. */}}
-        {{ partial "cal-embed.html" (dict "ns" "book" "calLink" $b.onlineEmbed) }}
-      {{ else }}
-        {{/* Placeholder indtil online-booking åbner */}}
+      {{ if $b.online }}
+        {{/* Online-booking er tændt. Vælgeren er skjult, indtil scriptet
+             melder sig, og DM-knapperne nedenfor skjules af samme script.
+             Uden JavaScript står de tilbage og virker som før. */}}
+        {{ partial "sections/booking-picker.html" . }}
+      {{ end }}
+
+      <div class="booking-fallback" id="bookingFallback">
         <p>{{ $b.text }}</p>
         <div class="booking-actions">
           <a href="#ydelser" class="btn btn--text">
@@ -24,7 +26,7 @@
             {{ partial "icon.html" "instagram" }} {{ $b.bookButton }}
           </a>
         </div>
-      {{ end }}
+      </div>
 
       {{/* Hver oplysning er sit eget element, så en linje aldrig brækker
            midt i den — og separatoren står FORAN, så den ikke bliver
