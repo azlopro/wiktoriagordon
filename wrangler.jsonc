@@ -12,9 +12,15 @@
 // Det er Cloudflares static-assets-opsætning; _headers virker præcis som på Pages,
 // og det er vigtigt: både CSP, HSTS og noindex på demo-domænet ligger i den fil.
 //
-// "name" SKAL matche projektnavnet i Cloudflare-dashboardet. Cloudflare navngiver
-// efter GitHub-repoet, her wiktoriagordon. Hedder projektet noget andet, skal
-// linjen nedenfor rettes — ellers deployes der til et projekt ved siden af.
+// "name" SKAL matche projektet i Cloudflare. Cloudflare navngiver efter
+// GitHub-repoet, og repoet hedder w-website — derfor hedder Workeren det, og
+// ikke wiktoriagordon som her stod indtil 26/8.
+//
+// Det gør ingen forskel for de deploys Cloudflare selv kører: de rammer det
+// projekt, buildet hører til, uanset hvad der står her. Men wrangler kørt fra
+// en maskine bruger navnet herfra, og med et forkert navn opretter den en ny,
+// tom Worker ved siden af i stedet for at fejle. Sådan gik hemmelighederne
+// nær i den forkerte retning.
 //
 // Dashboardet behøver herefter kun:
 //   Deploy command:  npx wrangler deploy      (står der allerede)
@@ -29,7 +35,7 @@
 //
 // Samme mønster som ithjælpnu.dk.
 {
-  "name": "wiktoriagordon",
+  "name": "w-website",
   "compatibility_date": "2026-07-22",
   "main": "worker/index.js",
   "build": {
