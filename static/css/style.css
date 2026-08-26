@@ -897,11 +897,10 @@ strong { font-weight: 500; }
   .nav-links { flex-direction: column; align-items: flex-start; gap: 1.3rem; width: 100%; }
   .nav-links a { font-size: 1.1rem; letter-spacing: .05em; }
   .nav-book { width: 100%; }
-  /* Mærket var skrumpet ind for at give plads til bookingknappen. Knappen
-     siger nu bare "Book", og den plads der bliver til overs, går tilbage
-     til logoet, som er det eneste sted hendes mærke står i toppen. */
-  .brand-mark { height: 2.4rem; }
-  .brand-text { font-size: 1.05rem; }
+  /* Mærkets størrelse på smalle skærme står længere nede i filen, sammen
+     med de øvrige telefonregler. Den blev sat her først, men de generelle
+     .brand-regler står EFTER denne blok uden media query og vandt derfor
+     hver gang. */
   /* Menuens egen bookingknap er overflødig, når den kompakte står fremme i
      headeren hele tiden. To ens knapper på skærmen samtidig er ikke et
      valg, det er støj. */
@@ -2008,8 +2007,13 @@ h3 { letter-spacing: -.025em; }
      stadig store, bare ikke råbende. */
   h2 { font-size: clamp(2.3rem, 12vw, 4rem); }
   .section { padding-block: clamp(4.5rem, 17vw, 7rem); }
-  .brand-text { font-size: 1rem; }
-  .brand small { font-size: .53rem; letter-spacing: .28em; }
+  /* Mærket er det eneste sted hendes navn står i toppen, så det skal kunne
+     læses. Knappen siger bare "Book", og pladsen der bliver til overs går
+     hertil. Målt: ved 375 px fylder navn, knap og burger 301 af 337
+     tilgængelige px. */
+  .brand-mark { height: 2.35rem; }
+  .brand-text { font-size: 1.15rem; }
+  .brand small { font-size: .6rem; letter-spacing: .32em; }
   .hero { padding-top: calc(var(--header-h) + 2.6rem); padding-bottom: 4.5rem; }
   /* Heroens opsætning på telefon står samlet i 960-blokken, som også
      dækker det her breakpoint. Her stod tidligere et sæt regler for et
@@ -2050,8 +2054,6 @@ h3 { letter-spacing: -.025em; }
      der ikke rækker til dem alle tre i fuld størrelse. Navnet må ikke
      brække, så det er knappen og mellemrummene der giver efter. Målt på
      320 px, hvor det lige akkurat går op. */
-  .brand-mark { height: 2.1rem; }
-  .brand-text { font-size: .92rem; }
   .brand { gap: .45rem; }
   .nav { gap: .5rem; }
   .nav-book--compact {
@@ -2063,13 +2065,25 @@ h3 { letter-spacing: -.025em; }
   .hero-actions { grid-template-columns: 1fr; }
 }
 
-/* De smalleste telefoner der stadig er i brug, fx iPhone SE af første
-   slags. Her er der ikke mere at give af, så navnet og knappen skrumper
-   endnu en tak frem for at røre hinanden. */
-@media (max-width: 340px) {
-  .brand-mark { height: 1.95rem; }
-  .brand-text { font-size: .84rem; }
+/* De smalle telefoner, fra en Galaxy S i standardbredde og nedefter. Først
+   her er der ikke mere plads at give af, så mærket og knappen skrumper en
+   tak frem for at røre hinanden. Grænsen ligger ved 365 og ikke 400, så en
+   iPhone i normalbredde beholder det store mærke. */
+@media (max-width: 365px) {
+  .brand-mark { height: 2rem; }
+  .brand-text { font-size: .95rem; }
+  .brand small { font-size: .52rem; letter-spacing: .26em; }
   .nav-book--compact { padding: .5rem .7rem; letter-spacing: .06em; }
+}
+
+/* iPhone SE af første slags og lignende, 320 px. Her rører navnet og
+   knappen hinanden, hvis der ikke gives efter en sidste gang. Under det
+   her er der ikke flere telefoner at tage hensyn til. */
+@media (max-width: 330px) {
+  .brand-mark { height: 1.85rem; }
+  .brand-text { font-size: .86rem; }
+  .brand small { font-size: .48rem; letter-spacing: .22em; }
+  .nav-book--compact { padding: .48rem .62rem; font-size: .58rem; letter-spacing: .04em; }
 }
 
 /* ---------- Tidsvælger (online-booking) ---------- */
