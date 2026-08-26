@@ -1446,9 +1446,14 @@ h2 {
 
 h3 { letter-spacing: -.025em; }
 
+/* Overskriftens anden linje stod rykket ind. Den forskydning skal aflæses
+   som bevidst, og det gør den kun, hvis der er tydelig bredde omkring den.
+   Det er der ikke altid, og så ligner den bare en linje der er skredet.
+   Begge linjer flugter nu i alle bredder. Klassen bruges kun af heroens
+   overskrift. */
 .accent {
   display: block;
-  margin-left: .6em;
+  margin-left: 0;
   font-weight: 400;
   text-transform: none;
 }
@@ -2320,11 +2325,6 @@ h3 {
   .hero .eyebrow { margin-bottom: .9rem; }
   .hero .eyebrow::before { display: none; }
   .hero h1 { margin-bottom: .4em; }
-  /* Overskriftens anden linje er rykket ind på desktop, hvor der er bredde
-     nok til at det læses som en bevidst forskydning. På en telefon fylder
-     "SKØNHED," næsten hele bredden i forvejen, og indrykningen ligner bare
-     en linje der er skredet. Begge linjer flugter. */
-  .hero h1 .accent { margin-left: 0; }
   /* 34 tegn var smallere end skærmen. Underrubrikken må bruge den bredde,
      der er, som Wiktoria selv bad om. */
   .hero-sub { max-width: none; margin-bottom: 1.7rem; }
