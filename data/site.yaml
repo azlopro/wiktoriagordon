@@ -90,7 +90,7 @@ da:
     text: >-
       Fortæl mig bare, hvad du gerne vil forbedre eller ændre, så hjælper jeg dig
       med at finde den behandling, der er den rigtige for dig.
-    online: true
+    online: false
     onlineEmbed: ""
     treatmentButton: "Find din behandling"
     bookButton: "Book en tid"
@@ -193,7 +193,7 @@ en:
     text: >-
       Simply tell me what you'd like to improve or change, and I'll help you find
       the treatment that's right for you.
-    online: true
+    online: false
     onlineEmbed: ""
     treatmentButton: "Find your treatment"
     bookButton: "Book an appointment"
