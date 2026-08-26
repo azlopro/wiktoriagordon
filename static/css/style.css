@@ -2183,7 +2183,34 @@ h3 {
 
   .section { padding-block: clamp(4rem, 14vw, 5.5rem); }
 
-  .hero-figure { width: min(300px, 76%); }
+  /* Mobile uses one deliberate content grid. The desktop lines and offset
+     image looked detached when stacked into a narrow viewport. */
+  .hero {
+    padding-top: calc(var(--header-h) + 2rem);
+    padding-bottom: 4rem;
+  }
+
+  .hero::before,
+  .hero-figure::after { display: none; }
+
+  .hero-grid { gap: 0; }
+
+  .hero-figure {
+    width: 100%;
+    max-width: none;
+    justify-self: stretch;
+    margin: 0 0 1.5rem;
+  }
+
+  .hero-frame {
+    aspect-ratio: 1;
+    box-shadow: none;
+  }
+
+  .hero-copy { width: 100%; }
+  .hero .eyebrow { margin-bottom: 1rem; }
+  .hero h1 { margin-bottom: .45em; }
+  .hero-sub { max-width: 34ch; }
 
   .hero-actions .btn,
   .service-book { min-height: 3rem; }
