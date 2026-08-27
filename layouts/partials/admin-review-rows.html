@@ -1,0 +1,48 @@
+{{- $da := .da -}}
+{{- $en := .en -}}
+{{- $path := .path -}}
+{{- $sourcePath := .sourcePath -}}
+{{- $file := .file -}}
+{{- $shared := .shared -}}
+{{- $skip := slice "after" "before" "calSlug" "featured" "group" "icon" "image" "online" "socialImage" -}}
+
+{{- if reflect.IsMap $da -}}
+  {{- range $key, $daValue := $da -}}
+    {{- if not (in $skip $key) -}}
+      {{- $enValue := index $en $key -}}
+      {{- $label := $key | replaceRE "([a-z])([A-Z])" "$1 $2" | humanize -}}
+      {{- $childPath := $label -}}
+      {{- with $path }}{{ $childPath = printf "%s · %s" . $label }}{{ end -}}
+      {{- $childSourcePath := $key -}}
+      {{- with $sourcePath }}{{ $childSourcePath = printf "%s.%s" . $key }}{{ end -}}
+      {{- $childShared := $shared -}}
+      {{- if and (eq $file "reviews") (eq $key "items") }}{{ $childShared = true }}{{ end -}}
+      {{- if and (eq $file "services") (in (slice "duration" "price") $key) }}{{ $childShared = true }}{{ end -}}
+      {{- partial "admin-review-rows.html" (dict "da" $daValue "en" $enValue "path" $childPath "sourcePath" $childSourcePath "file" $file "shared" $childShared) -}}
+    {{- end -}}
+  {{- end -}}
+{{- else if reflect.IsSlice $da -}}
+  {{- range $index, $daValue := $da -}}
+    {{- $enValue := index $en $index -}}
+    {{- $childPath := printf "%s · %d" $path (add $index 1) -}}
+    {{- $childSourcePath := printf "%s.%d" $sourcePath $index -}}
+    {{- partial "admin-review-rows.html" (dict "da" $daValue "en" $enValue "path" $childPath "sourcePath" $childSourcePath "file" $file "shared" $shared) -}}
+  {{- end -}}
+{{- else if or (eq (printf "%T" $da) "string") (eq (printf "%T" $en) "string") -}}
+  <article class="copy-row{{ if $shared }} is-shared{{ end }}{{ if or (not $da) (not $en) }} is-missing{{ end }}">
+    <h3>{{ $path }}</h3>
+    {{- if $shared }}
+      <div class="copy-cell shared-cell" data-language="Shared on both languages">
+        <textarea class="copy-input" data-file="{{ $file }}" data-path="{{ $sourcePath }}" data-shared="true" aria-label="{{ $path }}, shared on both languages" readonly>{{ $da }}</textarea>
+        <small>Shared on both languages</small>
+      </div>
+    {{- else }}
+      <div class="copy-cell" data-language="Danish">
+        <textarea class="copy-input" data-file="{{ $file }}" data-path="{{ $sourcePath }}" data-locale="da" aria-label="{{ $path }}, Danish" readonly>{{ $da }}</textarea>
+      </div>
+      <div class="copy-cell" data-language="English">
+        <textarea class="copy-input" data-file="{{ $file }}" data-path="{{ $sourcePath }}" data-locale="en" aria-label="{{ $path }}, English" readonly>{{ $en }}</textarea>
+      </div>
+    {{- end }}
+  </article>
+{{- end -}}

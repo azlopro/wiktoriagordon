@@ -50,9 +50,8 @@ collections:
     icon: edit
     i18n: true
     description: >-
-      Choose what you want to change. Prices, opening hours and photos have
-      direct shortcuts at the top of the editor. Booking appointments and
-      blocking time are handled in the calendar, not here.
+      Choose the part of the website you want to change. Booking appointments
+      and blocking time are handled in the calendar, not here.
     files:
       - name: services
         label: Treatments & prices

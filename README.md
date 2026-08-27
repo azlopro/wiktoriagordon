@@ -146,7 +146,9 @@ kæden.
 | Fil | Rolle |
 |---|---|
 | `static/admin/index.html` | Siden. Monterer CMS'et i `#nc-root`, så intro-teksten øverst bliver stående |
-| `static/admin/admin.css` | Branded topbjælke, genveje til hyppige opgaver og farver i selve CMS-panelet |
+| `static/admin/admin.css` | Den enkle topbjælke omkring CMS'et; tilpasser sig lyst og mørkt systemtema |
+| `content/admin/review.md` + `layouts/_default/admin-review.html` | Samlet DA/EN-teksteditor på `/admin/review/` |
+| `static/admin/review.css` + `static/admin/review.js` | Lys/mørk styling, GitHub-login og samlet gemmeflow til teksteditoren |
 | `static/admin/guide.html` | Permanent, ikke-indekseret redigeringsvejledning til kunde/marketingperson |
 | `static/admin/config.yml` | Hele opsætningen: felter, hjælpetekster, billedbehandling |
 | `static/admin/previews.js` | Branded live previews for alle tolv redigeringsområder |
@@ -206,9 +208,9 @@ kun det viste sprog; de erstatter ikke oversættelsesfanerne i formularen. Alle 
 CMS-områder har en målrettet preview, og en fejl i preview-koden må ikke forhindre
 selve CMS'et i at starte.
 
-Topbjælken har direkte genveje til priser/behandlinger, åbningstider/kontakt,
-hovedbilleder og før/efter-slideren, så de hyppigste ændringer ikke kræver at
-hun leder i CMS-menuen. Pilen ved Save har også **Save without publishing** til ufærdigt arbejde.
+Topbjælken linker til en samlet teksteditor, hvor dansk og engelsk kan rettes
+side om side og gemmes i én commit. Pilen ved Save i det normale CMS har også
+**Save without publishing** til ufærdigt arbejde.
 Tekniske booking-id'er er skjult, felter der ikke bruges på sitet er fjernet,
 og SEO-tekster har længdevalidering. Ved en buildfejl beholder Cloudflare den
 seneste fungerende deploy; ved en almindelig indholdsfejl kan committen rulles

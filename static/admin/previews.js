@@ -30,6 +30,61 @@
     return typeof value === 'string' && value.trim() ? value : (fallback || 'Add text to preview it here');
   }
 
+  /* Samme stregikoner som Hugo-partialen på hjemmesiden. Previewet kan ikke
+     kalde en Hugo-partial i browseren, så de få behandlingsikoner spejles her. */
+  function previewIcon(name) {
+    var shapes = {
+      lash: [
+        ['path', { d: 'M2 14c3-4 7-6 10-6s7 2 10 6' }], ['path', { d: 'M12 8v-4' }],
+        ['path', { d: 'M6.5 8.5 5 5' }], ['path', { d: 'M17.5 8.5 19 5' }],
+        ['path', { d: 'M9 7.6 8 4' }], ['path', { d: 'M15 7.6 16 4' }]
+      ],
+      'lash-tint': [
+        ['path', { d: 'M2 15c3-4 7-6 10-6s7 2 10 6' }], ['path', { d: 'M12 9V5' }],
+        ['path', { d: 'M6.5 9.5 5 6' }], ['path', { d: 'M17.5 9.5 19 6' }],
+        ['circle', { cx: 12, cy: 14.5, r: 1.3, fill: 'currentColor', stroke: 'none' }]
+      ],
+      brow: [
+        ['path', { d: 'M3 14C7 9 14 8 21 11' }], ['path', { d: 'M5.5 13.2 4.4 11.4' }],
+        ['path', { d: 'M9 11.8 8.2 9.9' }], ['path', { d: 'M12.6 11.2l-.5-2' }],
+        ['path', { d: 'M16.3 11.4l-.1-2' }]
+      ],
+      'brow-tint': [
+        ['path', { d: 'M3 13C7 8 14 7 21 10' }], ['path', { d: 'M5.5 12.2 4.4 10.4' }],
+        ['path', { d: 'M9 10.8 8.2 8.9' }], ['path', { d: 'M12.6 10.2l-.5-2' }],
+        ['path', { d: 'M18 15.5c0 1.1-.9 2-2 2s-2-.9-2-2 2-3.5 2-3.5 2 2.4 2 3.5Z', fill: 'currentColor', stroke: 'none', opacity: '.85' }]
+      ],
+      shape: [
+        ['path', { d: 'm14.5 4.5 5 5L9 20l-5.5.5.5-5.5Z' }],
+        ['path', { d: 'm13 6 5 5' }], ['path', { d: 'M3 20h6' }]
+      ],
+      combo: [
+        ['path', { d: 'M4 15c2.4-3 5.3-4.5 8-4.5s5.6 1.5 8 4.5' }],
+        ['path', { d: 'M8 6C10 4.6 14 4.6 16 6' }], ['path', { d: 'M12 10.5V8' }],
+        ['path', { d: 'M12 3.5 12.9 5l1.6.2-1.2 1.1.3 1.6L12 7.2 10.4 8l.3-1.6L9.5 5.2 11.1 5Z', fill: 'currentColor', stroke: 'none' }]
+      ],
+      check: [
+        ['circle', { cx: 12, cy: 12, r: 9 }], ['path', { d: 'm8.5 12 2.5 2.5 4.5-5' }]
+      ],
+      arrow: [
+        ['path', { d: 'M5 12h14' }], ['path', { d: 'm13 6 6 6-6 6' }]
+      ]
+    };
+
+    if (name === 'sparkle') {
+      return h('svg', { viewBox: '0 0 24 24', fill: 'currentColor', stroke: 'none', 'aria-hidden': 'true' },
+        h('path', { d: 'M12 2c.4 4.6 2.4 6.6 7 7-4.6.4-6.6 2.4-7 7-.4-4.6-2.4-6.6-7-7 4.6-.4 6.6-2.4 7-7Z' }));
+    }
+
+    return h(
+      'svg',
+      { viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: name === 'arrow' ? 1.6 : 1.4, strokeLinecap: 'round', strokeLinejoin: 'round', 'aria-hidden': 'true' },
+      (shapes[name] || shapes.combo).map(function (shape, index) {
+        return h(shape[0], Object.assign({ key: index }, shape[1]));
+      })
+    );
+  }
+
   function assetUrl(path, getAsset) {
     if (!path) return '';
     var asset = getAsset ? getAsset(path) : null;
@@ -218,22 +273,34 @@
     var described = services.filter(function (service) { return service.desc; });
     var sets = services.filter(function (service) { return !service.desc; });
     var labels = locale === 'en'
-      ? { popular: 'Popular', expect: 'What you can expect', sets: 'Sets', groups: { lashes: 'Lashes', brows: 'Brows', sets: 'Sets' } }
-      : { popular: 'Populær', expect: 'Det kan du forvente', sets: 'Sæt', groups: { lashes: 'Vipper', brows: 'Bryn', sets: 'Sæt' } };
+      ? {
+          popular: 'Popular', expect: 'What you can expect', sets: 'Sets',
+          setsText: 'Lashes and brows in one appointment. The treatments above, combined.',
+          setsLink: 'See the price list',
+          groups: { lashes: 'Lashes', brows: 'Brows', sets: 'Sets' }
+        }
+      : {
+          popular: 'Populær', expect: 'Det kan du forvente', sets: 'Sæt',
+          setsText: 'Vipper og bryn i samme tid. Behandlingerne ovenfor sat sammen.',
+          setsLink: 'Se prislisten',
+          groups: { lashes: 'Vipper', brows: 'Bryn', sets: 'Sæt' }
+        };
 
     var cards = described.map(function (service, index) {
       return h(
         'article',
         { className: 'service ' + (index % 2 ? 'service--narrow' : 'service--wide') + (service.featured ? ' service--featured' : ''), key: index },
         service.featured ? h('span', { className: 'tag-popular' }, labels.popular) : null,
-        h('span', { className: 'service-icon', 'aria-hidden': 'true' }, '✦'),
+        h('span', { className: 'service-icon', 'aria-hidden': 'true' }, previewIcon(service.icon || 'sparkle')),
         h('h3', {}, shown(service.title, 'Treatment name')),
         h('p', { className: 'desc' }, shown(service.desc, 'Treatment description')),
         list(service.expect).length ? h('p', { className: 'service-expect-title' }, labels.expect) : null,
         list(service.expect).length
-          ? h('ul', { className: 'wg-expect' }, list(service.expect).map(function (point, pointIndex) { return h('li', { key: pointIndex }, '✓ ', point); }))
+          ? h('ul', { className: 'service-expect' }, list(service.expect).map(function (point, pointIndex) {
+              return h('li', { key: pointIndex }, previewIcon('check'), h('span', {}, point));
+            }))
           : null,
-        service.tagline ? h('p', { className: 'wg-service-tagline' }, service.tagline) : null,
+        service.tagline ? h('p', { className: 'service-tagline' }, service.tagline) : null,
         h('div', { className: 'service-meta' }, h('span', { className: 'service-price' }, shown(service.price, 'Price')), service.duration ? h('span', { className: 'service-dur' }, service.duration) : null)
       );
     });
@@ -242,11 +309,13 @@
       cards.push(h(
         'article',
         { className: 'service service--sets service--narrow', key: 'sets' },
-        h('span', { className: 'service-icon', 'aria-hidden': 'true' }, '✦'),
+        h('span', { className: 'service-icon', 'aria-hidden': 'true' }, previewIcon('combo')),
         h('h3', {}, labels.sets),
-        h('ul', { className: 'wg-sets-list' }, sets.map(function (service, index) {
+        h('p', { className: 'desc' }, labels.setsText),
+        h('ul', { className: 'sets-list' }, sets.map(function (service, index) {
           return h('li', { key: index }, h('span', {}, service.title), h('b', {}, service.price));
-        }))
+        })),
+        h('span', { className: 'sets-link' }, labels.setsLink, previewIcon('arrow'))
       ));
     }
 
@@ -256,7 +325,7 @@
     return h(
       'div',
       {},
-      h('section', { className: 'wg-copy-section wg-copy-section--center' }, sectionHead(data.intro || {}, true)),
+      h('section', { className: 'wg-copy-section wg-copy-section--center wg-services-intro' }, sectionHead(data.intro || {}, true)),
       h('div', { className: 'services-grid wg-services-preview' }, cards),
       h(
         'section',

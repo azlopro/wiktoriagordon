@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Review all text · Wiktoria Gordon Beauty</title>
+  <link rel="icon" href="{{ "favicon.png" | relURL }}">
+  <link rel="stylesheet" href="{{ "css/fonts.css" | relURL }}">
+  <link rel="stylesheet" href="{{ "admin/review.css" | relURL }}">
+</head>
+<body>
+{{- $sections := slice
+  (dict "data" "site" "label" "Main page text" "editor" "site")
+  (dict "data" "services" "label" "Treatments & prices" "editor" "services")
+  (dict "data" "ui" "label" "Menu, buttons & labels" "editor" "ui")
+  (dict "data" "faq" "label" "Questions & answers" "editor" "faq")
+  (dict "data" "seo" "label" "Google & link previews" "editor" "seo")
+  (dict "data" "policy" "label" "Salon policy" "editor" "policy")
+  (dict "data" "privacy" "label" "Privacy notice" "editor" "privacy")
+  (dict "data" "beforeafter" "label" "Before & after labels" "editor" "beforeafter")
+  (dict "data" "reviews" "label" "Reviews" "editor" "reviews")
+  (dict "data" "gallery" "label" "Saved result captions" "editor" "gallery")
+-}}
+  <header class="review-header">
+    <div>
+      <a href="/admin/">← Website editor</a>
+      <h1>Review all text</h1>
+      <p>Edit Danish and English side by side, then save all changes together.</p>
+      <p class="editor-status" id="editor-status" role="status">Sign in to unlock the text fields.</p>
+    </div>
+    <div class="review-actions">
+      <button class="action-button" id="sign-in" type="button">Sign in to edit</button>
+      <button class="action-button save-button" id="save-changes" type="button" hidden disabled>Save changes</button>
+      <a class="view-site" href="/" target="_blank" rel="noopener">View website ↗</a>
+    </div>
+  </header>
+
+  <nav class="section-nav" aria-label="Text sections">
+    {{- range $sections }}
+      <a href="#{{ .data }}">{{ .label }}</a>
+    {{- end }}
+  </nav>
+
+  <main>
+    <div class="column-head" aria-hidden="true">
+      <span>Text</span><strong>Danish</strong><strong>English</strong>
+    </div>
+    {{- range $sections }}
+      {{- $content := index hugo.Data .data -}}
+      <section class="review-section" id="{{ .data }}">
+        <header>
+          <h2>{{ .label }}</h2>
+        </header>
+        <div class="copy-list">
+          {{- partial "admin-review-rows.html" (dict "da" $content.da "en" $content.en "path" "" "sourcePath" "" "file" .data "shared" false) -}}
+        </div>
+      </section>
+    {{- end }}
+  </main>
+  <script src="https://unpkg.com/js-yaml@4.1.0/dist/js-yaml.min.js"
+          integrity="sha256-Rdw90D3AegZwWiwpibjH9wkBPwS9U4bjJ51ORH8H69c="
+          crossorigin="anonymous" defer></script>
+  <script src="{{ "admin/review.js" | relURL }}" defer></script>
+</body>
+</html>
