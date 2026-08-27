@@ -2459,3 +2459,245 @@ h3 {
   .policy-grid { gap: 0; }
   .policy-card { padding-block: 1.6rem; }
 }
+
+/* =====================================================================
+   Definitive responsive hero
+
+   Desktop (and 1024 px landscape) deliberately keeps the approved layout
+   above. The older responsive iterations remain useful to other sections,
+   but the hero itself has one clear outcome at each smaller range here:
+   a compact editorial split on tablets and an image-led cover on phones.
+   ===================================================================== */
+
+/* Tablet: retain the relationship between copy and portrait instead of
+   stacking them into a tall composition with an empty upper-left corner. */
+@media (min-width: 721px) and (max-width: 960px),
+       (min-width: 721px) and (max-width: 1024px) and (orientation: portrait) {
+  .hero {
+    display: grid;
+    align-content: start;
+    min-height: min(760px, 100svh);
+    padding-top: calc(var(--header-h) + clamp(1.5rem, 4vh, 2.75rem));
+    padding-bottom: clamp(3rem, 5vh, 4rem);
+  }
+
+  .hero-grid {
+    grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
+    gap: clamp(2rem, 4.5vw, 3rem);
+    align-items: center;
+    justify-items: stretch;
+  }
+
+  .hero-copy {
+    display: block;
+    grid-column: 1;
+    grid-row: 1;
+    max-width: none;
+    margin: 0;
+    text-align: left;
+  }
+
+  .hero-lede { display: contents; }
+
+  .hero .eyebrow {
+    margin-bottom: 1rem;
+    font-size: .625rem;
+    line-height: 1.7;
+    letter-spacing: .17em;
+  }
+
+  .hero .eyebrow::before {
+    display: block;
+    width: 28px;
+  }
+
+  .hero h1 {
+    position: static;
+    margin: 0 0 .42em;
+    font-size: clamp(3.45rem, 7vw, 4.6rem);
+    line-height: .91;
+    letter-spacing: -.02em;
+  }
+
+  .hero-sub {
+    max-width: 34ch;
+    margin: 0 0 1.7rem;
+    font-size: .9375rem;
+    line-height: 1.62;
+  }
+
+  .hero-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: .65rem;
+    width: min(100%, 14rem);
+    margin: 0;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    min-width: 0;
+    min-height: 3.15rem;
+    padding-inline: .9rem;
+  }
+
+  .hero-figure {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    width: calc(100% + var(--gutter));
+    max-width: 30rem;
+    margin: 0 calc(var(--gutter) * -1) 0 0;
+  }
+
+  .hero-frame {
+    height: auto;
+    aspect-ratio: 4 / 5;
+    box-shadow: 0 30px 65px -38px rgba(55, 18, 27, .48);
+  }
+
+  .hero-frame img {
+    object-fit: cover;
+    object-position: 50% 6%;
+  }
+
+  .hero-figure::after {
+    display: block;
+    inset: auto auto -14px -14px;
+    width: 42%;
+    height: 42%;
+  }
+}
+
+/* Phone: the photograph becomes the full-width opening image, while the
+   heading sits on an offset ivory panel that overlaps its lower edge. */
+@media (max-width: 720px) {
+  .hero {
+    display: grid;
+    align-content: start;
+    min-height: auto;
+    padding-top: calc(var(--header-h) + 1.25rem);
+    padding-bottom: 3.75rem;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+    align-items: start;
+    justify-items: stretch;
+  }
+
+  .hero-copy {
+    display: contents;
+    margin: 0;
+    text-align: left;
+  }
+
+  .hero-figure {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: stretch;
+    width: auto;
+    max-width: none;
+    margin: 0 calc(var(--gutter) * -1) 0 1rem;
+  }
+
+  .hero-frame {
+    height: clamp(20.5rem, 94vw, 23rem);
+    aspect-ratio: auto;
+    box-shadow: 0 28px 58px -36px rgba(55, 18, 27, .5);
+  }
+
+  .hero-frame::after { display: none; }
+
+  .hero-frame img {
+    object-fit: cover;
+    object-position: 50% 7%;
+  }
+
+  .hero-figure::after {
+    display: block;
+    inset: auto auto -12px -12px;
+    width: 44%;
+    height: 42%;
+    border: 0;
+    border-left: 1px solid var(--rose-deep);
+    border-bottom: 1px solid var(--rose-deep);
+    opacity: 1;
+  }
+
+  .hero-lede {
+    display: block;
+    grid-column: 1;
+    grid-row: 2;
+    position: static;
+    margin: 2.4rem 0 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .hero-lede .eyebrow {
+    margin-bottom: 1rem;
+    font-size: .6rem;
+    line-height: 1.6;
+    letter-spacing: .14em;
+    color: var(--rose-deep);
+  }
+
+  .hero-lede .eyebrow::before {
+    display: block;
+    width: 22px;
+    flex: none;
+  }
+
+  .hero h1 {
+    position: static;
+    margin: 0;
+    font-size: clamp(2.85rem, 12.5vw, 3.15rem);
+    line-height: .93;
+    letter-spacing: -.015em;
+    color: var(--ink);
+  }
+
+  .hero h1 .accent { color: var(--rose-deep); }
+
+  .hero-sub {
+    grid-column: 1;
+    grid-row: 3;
+    max-width: none;
+    margin: 1.35rem 0 1.5rem;
+    font-size: .96rem;
+    line-height: 1.62;
+  }
+
+  .hero-actions {
+    grid-column: 1;
+    grid-row: 4;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .6rem;
+    width: 100%;
+    margin: 0;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    min-width: 0;
+    min-height: 3.15rem;
+    padding-inline: .55rem;
+    font-size: .68rem;
+    letter-spacing: .12em;
+  }
+}
+
+@media (max-width: 365px) {
+  .hero h1 { font-size: clamp(2.65rem, 14vw, 2.9rem); }
+  .hero-actions { grid-template-columns: 1fr 1fr; }
+  .hero-actions .btn {
+    padding-inline: .4rem;
+    font-size: .625rem;
+    letter-spacing: .08em;
+  }
+}
