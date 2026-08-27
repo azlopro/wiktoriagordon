@@ -13,10 +13,9 @@
         </a>
         <p>{{ $u.footer.about }}</p>
         <div class="socials">
+          {{ with $p.phone }}<a href="tel:{{ . | replaceRE `[^0-9+]` `` }}" aria-label="{{ . }}">{{ partial "icon.html" "phone" }}</a>{{ end }}
           <a href="{{ $p.instagram }}" target="_blank" rel="noopener" aria-label="Instagram">{{ partial "icon.html" "instagram" }}</a>
           {{ with $p.facebook }}<a href="{{ . }}" target="_blank" rel="noopener" aria-label="Facebook">{{ partial "icon.html" "facebook" }}</a>{{ end }}
-          {{ with $p.messenger }}<a href="{{ . }}" target="_blank" rel="noopener" aria-label="Messenger">{{ partial "icon.html" "messenger" }}</a>{{ end }}
-          {{ with $p.email }}<a href="mailto:{{ . }}" aria-label="Email">{{ partial "icon.html" "arrow" }}</a>{{ end }}
         </div>
       </div>
 

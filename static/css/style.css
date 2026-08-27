@@ -1533,15 +1533,15 @@ h3 { letter-spacing: -.025em; }
 }
 .brand-last { color: var(--ink); font-style: normal; }
 /* "Beauty" centreres under navnet. Wiktorias eget ønske (26/8-2026).
-   Sporingen på .37em lægger et mellemrum efter det sidste bogstav, som
+   Sporingen lægger et mellemrum efter det sidste bogstav, som
    tæller med i bredden, så ordet ville ligge en anelse til højre for
    midten. Den negative højremargen tager det tilbage. */
 .brand small {
   margin-top: .22rem;
-  margin-right: -.37em;
-  font-size: .61rem;
+  margin-right: -.3em;
+  font-size: .69rem;
   font-weight: 500;
-  letter-spacing: .37em;
+  letter-spacing: .3em;
   text-align: center;
   color: var(--rose-deep);
 }
@@ -1889,7 +1889,12 @@ h3 { letter-spacing: -.025em; }
 
 .footer { background: #1d1719; }
 .footer .brand-last { color: #fff; }
-.footer .brand small { color: rgba(255,255,255,.62); }
+.footer .brand small {
+  margin-right: -.3em;
+  font-size: .69rem;
+  letter-spacing: .3em;
+  color: rgba(255,255,255,.8);
+}
 .footer .socials a { border-radius: 0; }
 
 @media (max-width: 1000px) {
@@ -2033,7 +2038,7 @@ h3 { letter-spacing: -.025em; }
      tilgængelige px. */
   .brand-mark { height: 2.35rem; }
   .brand-text { font-size: 1.15rem; }
-  .brand small { font-size: .6rem; letter-spacing: .32em; }
+  .brand small { margin-right: -.28em; font-size: .64rem; letter-spacing: .28em; }
   .hero { padding-top: calc(var(--header-h) + 2.6rem); padding-bottom: 4.5rem; }
   /* Heroens opsætning på telefon står samlet i 960-blokken, som også
      dækker det her breakpoint. Her stod tidligere et sæt regler for et
@@ -2091,7 +2096,7 @@ h3 { letter-spacing: -.025em; }
 @media (max-width: 365px) {
   .brand-mark { height: 2rem; }
   .brand-text { font-size: .95rem; }
-  .brand small { font-size: .52rem; letter-spacing: .26em; }
+  .brand small { font-size: .57rem; letter-spacing: .24em; }
   .nav-book--compact { padding: .5rem .7rem; letter-spacing: .06em; }
   /* "Se behandlinger" kræver 161 px, og her er der kun 157. Så stables de. */
   .hero-actions { grid-template-columns: 1fr; gap: .6rem; }
@@ -2103,7 +2108,7 @@ h3 { letter-spacing: -.025em; }
 @media (max-width: 330px) {
   .brand-mark { height: 1.85rem; }
   .brand-text { font-size: .86rem; }
-  .brand small { font-size: .48rem; letter-spacing: .22em; }
+  .brand small { font-size: .53rem; letter-spacing: .2em; }
   .nav-book--compact { padding: .48rem .62rem; font-size: .58rem; letter-spacing: .04em; }
 }
 
