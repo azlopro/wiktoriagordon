@@ -60,18 +60,6 @@
          sættes tilbage ved at hente markuppen op fra git. Skal den blive
          væk for altid, skal de tre ting fjernes med. */}}
 
-    {{/* One existing review sits beside the visual proof because it states
-         the everyday result most clearly. It is omitted from the full review
-         list below, so the quote is not duplicated. */}}
-    {{ $reviews := (index hugo.Data.reviews $L).items }}
-    {{ with index $reviews 6 }}
-    <aside class="result-proof reveal" aria-label="{{ $u.reviews.badge }}">
-      <p class="result-proof__label">{{ partial "icon.html" "check" }} {{ $u.reviews.badge }}</p>
-      <blockquote>“{{ .text }}”</blockquote>
-      <p class="result-proof__who">{{ .name }}</p>
-    </aside>
-    {{ end }}
-
     {{/* Knappen bar før kun "Følg @wiktoriagordon.beauty". Nu er den den
          eneste vej videre til flere resultater, så den siger hvad den gør. */}}
     <div class="results-follow reveal">
