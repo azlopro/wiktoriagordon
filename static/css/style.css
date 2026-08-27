@@ -1911,7 +1911,7 @@ h3 { letter-spacing: -.025em; }
   /* Stablet står foto og tekst efter hinanden i stedet for ved siden af.
      Toppolstringen og billedet er skruet ned, så overskriften og de to
      knapper stadig kan nås uden at rulle på en tablet i højformat. */
-  .hero { min-height: auto; padding-top: calc(var(--header-h) + 3.5rem); padding-bottom: 4.5rem; }
+  .hero { min-height: auto; padding-top: calc(var(--header-h) + 1.6rem); padding-bottom: 4rem; }
   .hero-mark { display: none; }
   .hero-grid { grid-template-columns: 1fr; align-items: start; }
   /* På desktop står tekst og foto ved siden af hinanden, og overskriften
@@ -1946,20 +1946,27 @@ h3 { letter-spacing: -.025em; }
   .hero-copy { display: contents; text-align: left; }
   .hero-grid { justify-items: stretch; }
 
+  /* Fotoet står i sit eget format, 4/5, altså præcis som filen. Så
+     beskæres der ingenting, og hun ser ud som på billedet.
+
+     Det var galt før: rammen havde en fast HØJDE og gik samtidig ud til
+     begge skærmkanter. En bred, lav ramme om et stående foto skærer i
+     højden, og jo bredere skærm, jo værre. Målt på det gamle: en telefon
+     viste 90 % af billedet, en tablet 58 %, og en iPad Pro kun 44 %. Det
+     var derfor det så zoomet ud.
+
+     På tablet er billedet derfor ikke længere i fuld bredde. Det er
+     smallere og skudt ud mod højre kant, så det kan være højt uden at
+     fylde hele skærmen. Kortet kommer ind fra venstre kant hen over dets
+     nederste hjørne, og den forskydning er hele idéen i opsætningen. */
   .hero-figure {
     grid-row: 1;
-    width: auto;
+    width: min(520px, 74%);
     max-width: none;
-    justify-self: stretch;
-    /* Ud til skærmkanten. Et billede med luft omkring sig er et kort der
-       ligger på siden; et billede der rører kanten ER siden. */
-    margin: 0 calc(var(--gutter) * -1);
+    justify-self: end;
+    margin: 0 calc(var(--gutter) * -1) 0 auto;
   }
-  /* Fast højde i stedet for format. Med aspect-ratio og et højdeloft regner
-     browseren bredden ud af den lave højde, og billedet holder op med at gå
-     ud i fuld bredde. Her sættes højden, bredden bliver, og beskæringen
-     tages fra bunden, hvor der ikke er noget hoved. */
-  .hero-frame { aspect-ratio: auto; height: min(560px, 54vh); }
+  .hero-frame { aspect-ratio: 4 / 5; height: auto; }
   .hero-figure::after { display: none; }
 
   /* Kortet. Den negative topmargen er selve idéen: den trækker kortet op
@@ -1981,6 +1988,12 @@ h3 { letter-spacing: -.025em; }
     padding: 1.5rem 1.4rem 1.35rem calc(var(--gutter) - 2px);
     background: var(--cream);
     border-left: 2px solid var(--rose-deep);
+    /* Kortet er cremefarvet, og hendes hvide jakke og den lyse baggrund i
+       fotoet ligger meget tæt på samme tone. Uden en skygge smeltede
+       kanten sammen med billedet, og kortet så ud til at forsvinde frem
+       for at ligge oven på. Skyggen kastes opad, så den kun ses dér hvor
+       kortet møder fotoet, og ikke som en kasse på den cremefarvede side. */
+    box-shadow: 0 -20px 30px -18px rgba(48, 12, 21, .40);
   }
   /* Etiketten står i en smal kasse. Guldstregen foran ville skubbe den
      over på to linjer uden at tilføje noget, og en anelse mindre skrift
@@ -2395,12 +2408,12 @@ h3 {
      .hero-copy bliver display: contents, så dens tre børn selv bliver
      felter i gitteret. Ellers kunne overskriften ikke dele celle med
      fotoet, mens underrubrik og knapper stadig ligger under. */
-  /* Kortet er sat op i 960-blokken. Her står kun fotoets højde, som skal
-     være lavere på en telefon end på en tablet: kortet trækkes 5,5 rem op
-     over billedet, og bagefter skal underrubrikken og begge knapper stadig
-     være over folden. Målt på en 844 px høj skærm ender den nederste knap
-     ved 800. */
-  .hero-frame { height: min(520px, 52vh); box-shadow: none; }
+  /* På en telefon er skærmen smal nok til at fotoet kan gå ud til begge
+     kanter og stadig være i sit eget format uden at blive urimeligt højt.
+     390 px bredt giver 487 px højt, og med kortet trukket op ender den
+     nederste knap ved 848 på en 844 px høj skærm, altså lige ved folden. */
+  .hero-figure { width: auto; margin: 0 calc(var(--gutter) * -1); }
+  .hero-frame { box-shadow: none; }
   /* Etiketten er for lang til én linje på en telefon. Med guldstregen foran
      står stregen alene ude til venstre, og "· HORSENS" hænger tilbage på
      linje to. Uden streg brækker de to linjer pænt fra samme kant. */
