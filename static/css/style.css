@@ -1926,16 +1926,19 @@ h3 { letter-spacing: -.025em; }
      udfyldte, og det er den samme fejl som den tomme plads på desktop, bare
      spejlet. Vinklen og den lodrette streg hører til en spalteopsætning og
      giver ikke mening, når alt er stablet. */
-  /* Når spalterne stables, bliver heroen en FORSIDE, ikke en stak.
+  /* Når spalterne stables, ligger overskriften på et cremefarvet kort, der
+     skyder ind over fotoets nederste del. Valgt af Christian 26/8-2026 ud
+     af seks udgaver.
 
-     Fotoet og overskriften deler den samme celle i gitteret, så
-     overskriften lægger sig ned i billedets nederste kant i stedet for at
-     stå under det. Foto, tekst og knapper efter hinanden er tre løsrevne
-     kasser; det her er ét billede med en titel på.
+     Hvorfor det virker: kortet er en flade der er lagt oven på en anden
+     flade, og det er den eneste af udgaverne hvor man kan se at nogen har
+     komponeret den. Samtidig står overskriften på creme og ikke på et
+     billede, så den beholder sine to farver, sort og bordeaux. Alle de
+     udgaver hvor teksten lå oven på fotoet krævede hvid tekst og et slør,
+     og så var både farverne og fotografens lys væk.
 
      .hero-copy bliver display: contents, så dens tre børn selv bliver
-     felter i gitteret. Ellers kunne overskriften ikke dele celle med
-     fotoet, mens underrubrik og knapper stadig ligger under. */
+     felter i gitteret og kan få hver sin række. */
   /* text-align skal blive stående, selv om kassen er display: contents.
      Boksen forsvinder, men arvede egenskaber gør ikke, og en ældre regel
      længere oppe sætter .hero-copy til centreret. Uden den her arver
@@ -1944,7 +1947,7 @@ h3 { letter-spacing: -.025em; }
   .hero-grid { justify-items: stretch; }
 
   .hero-figure {
-    grid-area: 1 / 1;
+    grid-row: 1;
     width: auto;
     max-width: none;
     justify-self: stretch;
@@ -1956,45 +1959,48 @@ h3 { letter-spacing: -.025em; }
      browseren bredden ud af den lave højde, og billedet holder op med at gå
      ud i fuld bredde. Her sættes højden, bredden bliver, og beskæringen
      tages fra bunden, hvor der ikke er noget hoved. */
-  .hero-frame { aspect-ratio: auto; height: min(660px, 62vh); }
+  .hero-frame { aspect-ratio: auto; height: min(560px, 54vh); }
   .hero-figure::after { display: none; }
 
-  /* Slør fra bunden af fotoet, så hvid tekst kan læses oven på det uanset
-     hvilket billede Wiktoria lægger ind. Bordeaux frem for sort, fordi det
-     er hendes accentfarve og klæder den rosa baggrund i fotoet. */
-  .hero-frame::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top,
-      rgba(48, 12, 21, .82) 0%,
-      rgba(48, 12, 21, .55) 20%,
-      rgba(48, 12, 21, .12) 40%,
-      transparent 58%);
-    pointer-events: none;
-  }
+  /* Kortet. Den negative topmargen er selve idéen: den trækker kortet op
+     over fotoet, og fordi kortet er uigennemsigtigt, dækker det den
+     nederste del af billedet. Rækken bliver tilsvarende lavere, så alt
+     nedenunder følger med op. Ingen absolut placering, ingen faste højder
+     at holde styr på, og teksten må gerne fylde hvad den vil.
 
+     Til venstre går kortet HELT ud til skærmkanten med en bordeauxfarvet
+     kant på 2 px. Til højre stopper det inde på siden. Det er den skæve
+     bredde der gør, at det ligner en flade der er lagt på, og ikke bare
+     endnu et afsnit. */
   .hero-lede {
     display: block;
-    grid-area: 1 / 1;
-    align-self: end;
+    grid-row: 2;
+    position: relative;
     z-index: 2;
-    padding-bottom: 2.1rem;
+    margin: -5.5rem clamp(1.75rem, 9vw, 5rem) 0 calc(var(--gutter) * -1);
+    padding: 1.5rem 1.4rem 1.35rem calc(var(--gutter) - 2px);
+    background: var(--cream);
+    border-left: 2px solid var(--rose-deep);
   }
-  .hero-lede .eyebrow { color: rgba(255, 255, 255, .82); }
-  /* Stregen foran etiketten er bordeaux og forsvandt i sløret. */
-  .hero-lede .eyebrow::before { background: rgba(255, 255, 255, .6); }
-  .hero-lede h1,
-  .hero-lede .accent { color: #fff; }
+  /* Etiketten står i en smal kasse. Guldstregen foran ville skubbe den
+     over på to linjer uden at tilføje noget, og en anelse mindre skrift
+     holder "· Horsens" oppe på samme linje som resten i stedet for at
+     efterlade det alene forneden. */
+  .hero-lede .eyebrow::before { display: none; }
+  .hero-lede .eyebrow {
+    margin-bottom: .75rem;
+    font-size: .6rem;
+    letter-spacing: .14em;
+  }
 
   /* Samme venstrekant til alt, som på desktop. */
   .hero h1 { margin-right: 0; }
   .hero-sub {
-    grid-row: 2;
+    grid-row: 3;
     max-width: 780px;
-    margin: 1.7rem 0 0;
+    margin: 1.5rem 0 0;
   }
-  .hero-actions { grid-row: 3; margin-left: 0; justify-content: flex-start; }
+  .hero-actions { grid-row: 4; margin-left: 0; justify-content: flex-start; }
   .about-grid { grid-template-columns: 1fr; }
   .about-figure { min-height: auto; width: min(680px, 92%); }
   .about-copy { margin-left: clamp(0rem, 7vw, 5rem); margin-top: -4rem; position: relative; }
@@ -2062,7 +2068,6 @@ h3 { letter-spacing: -.025em; }
     font-size: .62rem;
     letter-spacing: .08em;
   }
-  .hero-actions { grid-template-columns: 1fr; }
 }
 
 /* De smalle telefoner, fra en Galaxy S i standardbredde og nedefter. Først
@@ -2074,6 +2079,8 @@ h3 { letter-spacing: -.025em; }
   .brand-text { font-size: .95rem; }
   .brand small { font-size: .52rem; letter-spacing: .26em; }
   .nav-book--compact { padding: .5rem .7rem; letter-spacing: .06em; }
+  /* "Se behandlinger" kræver 161 px, og her er der kun 157. Så stables de. */
+  .hero-actions { grid-template-columns: 1fr; gap: .6rem; }
 }
 
 /* iPhone SE af første slags og lignende, 320 px. Her rører navnet og
@@ -2388,10 +2395,12 @@ h3 {
      .hero-copy bliver display: contents, så dens tre børn selv bliver
      felter i gitteret. Ellers kunne overskriften ikke dele celle med
      fotoet, mens underrubrik og knapper stadig ligger under. */
-  /* Forsiden er sat op i 960-blokken. Her står kun det, en telefon skal
-     have anderledes: et højere foto i forhold til skærmen, og lidt mindre
-     luft omkring det. */
-  .hero-frame { height: min(620px, 70vh); box-shadow: none; }
+  /* Kortet er sat op i 960-blokken. Her står kun fotoets højde, som skal
+     være lavere på en telefon end på en tablet: kortet trækkes 5,5 rem op
+     over billedet, og bagefter skal underrubrikken og begge knapper stadig
+     være over folden. Målt på en 844 px høj skærm ender den nederste knap
+     ved 800. */
+  .hero-frame { height: min(520px, 52vh); box-shadow: none; }
   /* Etiketten er for lang til én linje på en telefon. Med guldstregen foran
      står stregen alene ude til venstre, og "· HORSENS" hænger tilbage på
      linje to. Uden streg brækker de to linjer pænt fra samme kant. */
@@ -2401,10 +2410,10 @@ h3 {
   /* 34 tegn var smallere end skærmen. Underrubrikken må bruge den bredde,
      der er, som Wiktoria selv bad om. */
   .hero-sub { max-width: none; margin-bottom: 1.7rem; }
-  /* To knapper ved siden af hinanden bliver 150 px brede med tekst i
-     versaler. Under hinanden i fuld bredde er de både til at ramme og
-     roligere at se på. */
-  .hero-actions { grid-template-columns: 1fr; gap: .7rem; }
+  /* Ved siden af hinanden, så overskriftskortet, underrubrikken og begge
+     knapper kan ses uden at rulle. Målt ved 390 px: knappen har 170 px og
+     bruger 161. Under 366 px holder det ikke, og der stables de i stedet. */
+  .hero-actions { grid-template-columns: 1fr 1fr; gap: .65rem; }
 
   .hero-actions .btn,
   .service-book { min-height: 3rem; }
