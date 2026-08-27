@@ -2,8 +2,12 @@
 {{ $seo := index hugo.Data.seo .Site.Language.Lang -}}
 {{ $title := $seo.title -}}
 {{ $desc := $seo.description -}}
-{{ $socialTitle := $seo.socialTitle | default $title -}}
-{{ $socialDesc := $seo.socialDescription | default $desc -}}
+{{- if and (not .IsHome) (ne .Kind "404") -}}
+  {{- $title = .Title -}}
+  {{- $desc = .Params.description | default $seo.description -}}
+{{- end -}}
+{{ $socialTitle := cond .IsHome ($seo.socialTitle | default $title) $title -}}
+{{ $socialDesc := cond .IsHome ($seo.socialDescription | default $desc) $desc -}}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ $title }}</title>
@@ -63,4 +67,6 @@
 
 {{/* Ingen strukturerede data på fejlsiden. Den er noindex, og dens
      FAQPage/WebPage ville kollidere med forsidens @id'er. */}}
-{{ if ne .Kind "404" }}{{ partial "schema.html" . }}{{ end }}
+{{ if ne .Kind "404" }}
+  {{ if .IsHome }}{{ partial "schema.html" . }}{{ else }}{{ partial "schema-page.html" . }}{{ end }}
+{{ end }}

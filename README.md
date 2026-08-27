@@ -12,15 +12,14 @@ statisk, gratis at hoste og lynhurtig. Ingen cookies, ingen tracking, self-hoste
 
 ---
 
-## ⚠️ Skal rettes før siden går live
+## ⚠️ Skal afklares før endelig overdragelse
 
-Nogle oplysninger mangler stadig og skal afklares med Wiktoria:
+Det redaktionelle indhold er udfyldt. Følgende skal stadig bekræftes:
 
 | Hvad | Hvor | Bemærk |
 |------|------|--------|
-| **Varigheder** | `data/services.yaml` | Mangler for alle behandlinger og skal udfyldes før online-booking. |
-| **Domæne** | `hugo.toml` → `baseURL` | Sat til demo-domænet — ret til det endelige domæne ved lancering. |
 | **Klient-samtykke** | fotos i galleri/før-efter | Kunden på billederne skal have givet lov til brug på hjemmesiden. |
+| **Sprogkorrektur** | dansk og engelsk indhold | Begge versioner skal have Wiktorias endelige godkendelse. |
 
 ---
 
@@ -99,14 +98,13 @@ bash scripts/security-check.sh   # sikkerhedstjek + færdigt site i ./public
 
 ## Tænd rigtig online-booking senere
 
-Booking er lige nu en **placeholder** der sender folk til Instagram-DM. Når I vælger et
-system (fx Fresha, Calendly, Setmore):
+Booking er lige nu en **placeholder**, der sender folk til Instagram-DM. Den
+egenudviklede Cal.com/Vipps MobilePay-kobling ligger delvist klar, men må først
+tændes, når betalingsaftalen, kalenderen, kvitteringssiden og hele testforløbet
+er på plads. Den aktuelle afleveringsliste står i `scripts/booking/PLAN.md`.
 
-1. Åbn `data/site.yaml` → `booking` (husk **begge** sprog, `da:` og `en:`).
-2. Sæt `online: true`.
-3. Indsæt embed-linket i `onlineEmbed: "..."`.
-
-Så viser siden automatisk booking-kalenderen i stedet for DM-knappen.
+Når alle punkter er testet, sættes `booking.online: true` på begge sprog. Der
+bruges ikke længere et eksternt kalender-embed.
 
 ---
 
@@ -148,9 +146,10 @@ kæden.
 | Fil | Rolle |
 |---|---|
 | `static/admin/index.html` | Siden. Monterer CMS'et i `#nc-root`, så intro-teksten øverst bliver stående |
+| `static/admin/admin.css` | Branded topbjælke, genveje til hyppige opgaver og farver i selve CMS-panelet |
 | `static/admin/guide.html` | Permanent, ikke-indekseret redigeringsvejledning til kunde/marketingperson |
 | `static/admin/config.yml` | Hele opsætningen: felter, hjælpetekster, billedbehandling |
-| `static/admin/previews.js` | Branded live previews for alle ni redigeringsområder |
+| `static/admin/previews.js` | Branded live previews for alle tolv redigeringsområder |
 | `static/admin/previews.css` | Preview-layout, typografi og mobiltilpasning |
 | `static/admin/sveltia-cms.js` | **Selve CMS'et, version 0.195.0, som fil i repoet** |
 | `data/*.yaml` | Indholdet. CMS'et skriver direkte i disse filer |
@@ -207,7 +206,9 @@ kun det viste sprog; de erstatter ikke oversættelsesfanerne i formularen. Alle 
 CMS-områder har en målrettet preview, og en fejl i preview-koden må ikke forhindre
 selve CMS'et i at starte.
 
-Pilen ved Save har også **Save without publishing** til ufærdigt arbejde.
+Topbjælken har direkte genveje til priser/behandlinger, åbningstider/kontakt,
+hovedbilleder og før/efter-slideren, så de hyppigste ændringer ikke kræver at
+hun leder i CMS-menuen. Pilen ved Save har også **Save without publishing** til ufærdigt arbejde.
 Tekniske booking-id'er er skjult, felter der ikke bruges på sitet er fjernet,
 og SEO-tekster har længdevalidering. Ved en buildfejl beholder Cloudflare den
 seneste fungerende deploy; ved en almindelig indholdsfejl kan committen rulles
@@ -254,79 +255,16 @@ mindst én gang om året, når den lokalt fastlåste Sveltia-version opdateres.
 
 ---
 
-## Booking med depositum (Cal.com + Stripe)
+## Booking med MobilePay-depositum
 
-Kunden vælger behandling, betaler 50 % i depositum, og **tiden reserveres først,
-når betalingen er gået igennem**. Wiktoria skal aldrig afstemme MobilePay mod
-kalenderen i hånden.
+Den aktuelle løsning er en egen tidsvælger, Cal.com til kalenderen og Vipps
+MobilePay til et **fast depositum på 200 kr.** Booking oprettes først, når
+betalingen er gennemført. Der indsamles fornavn, efternavn og telefonnummer,
+men ingen mailadresse eller helbredsoplysninger.
 
-### Hvorfor det passer til hendes politik
-
-Cal.com **fjernede automatisk refundering** i version 3.9 (marts 2024, PR #13924).
-Et afbud udløser derfor ingen tilbagebetaling — refundering er en bevidst handling
-i Stripe. Hendes "50 % non-refundable" holder altså som skrevet.
-
-"Depositummet overføres til næste tid" løses af **ombooking**: flytter kunden
-tiden, følger betalingen med. Aflysning er noget andet end ombooking — præcis den
-skelnen politikken gør. Test begge dele med en 1-kr-event, før I går live.
-
-### Konti — begge i HENDES navn
-
-1. **Stripe**: stripe.com, CVR 45930238, bankkonto, legitimation. Ca. 15 min.
-2. **Cal.com**: konto på `app.cal.eu` (EU-hostet). Forbind hendes kalender, og
-   installér Stripe-appen derinde.
-
-### De ni events
-
-Depositum er 50 % af prisen. **Varigheder mangler — de skal komme fra hende.**
-
-| Behandling | Pris | Depositum | Varighed |
-|---|---|---|---|
-| Koreansk lash lift + farve | 500 kr | 250 kr | ? |
-| Brynlaminering + farve | 500 kr | 250 kr | ? |
-| Brynlaminering | 450 kr | 225 kr | ? |
-| Brynfarve | 400 kr | 200 kr | ? |
-| Brynformning | 200 kr | 100 kr | ? |
-| Lash lift + brynlaminering + farve | 900 kr | 450 kr | ? |
-| Lash lift + brynlaminering | 850 kr | 425 kr | ? |
-| Lash lift + brynfarve | 800 kr | 400 kr | ? |
-| Lash lift + brynformning | 600 kr | 300 kr | ? |
-
-### Booking-spørgsmål — på hvert event
-
-1. **Telefonnummer** — spørgsmålstypen skal være **Short Text**, ikke "Phone
-   number". Cals telefonfelt tvinger amerikansk landekode, og det kan ikke
-   rettes. Kendt, uløst fejl.
-2. **Er det din første gang hos mig?** — ja/nej.
-3. **Allergier, sygdomme, eller brug af retinol eller Accutane?** — langt
-   tekstfelt, **påkrævet**. Det er hendes Sikkerheds-punkt gjort til et felt,
-   hun kan holde folk op på.
-4. **Jeg har læst og accepterer salonens politik** — afkrydsningsfelt,
-   **påkrævet**, med link til `/#politik`.
-
-### Grænser pr. event ("Limits & buffers")
-
-Sættes i Cals dashboard, ikke i koden. **Alle fire tal mangler fra hende:**
-pause mellem to kunder · hvor langt frem man kan booke · hvor sent man kan
-booke · maks. kunder pr. dag. Aflysningsfristen sættes til **24 timer**, så den
-matcher politikken.
-
-### Til sidst i sitet
-
-- `data/site.yaml` → `booking.onlineEmbed` = hendes Cal-brugernavn
-- `data/site.yaml` → `booking.online` = `true`
-- `data/services.yaml` → `calSlug` på hver behandling = eventets slug
-
-Så tænder Book-knapperne i prislisten af sig selv, én pr. behandling, og hver
-knap peger på den rigtige tid med det rigtige depositum.
-
-### Kalenderen henter først noget på klik
-
-`layouts/partials/cal-embed.html` viser en knap i stedet for at indlæse Cal med
-det samme. **Målt: nul forespørgsler til app.cal.eu ved sideindlæsning.** Fordi
-Cal er sitets eneste tredjepart, og fonte og alt andet er selvhostet, betyder
-det, at sitet **ikke behøver et cookie-banner**. Lægger man Cal ind som et
-almindeligt script, gælder det ikke længere — så skal der bygges et banner.
+Den fulde, aktuelle arkitektur og afleveringscheckliste ligger i
+`scripts/booking/PLAN.md`. Ældre planer med Stripe, 50 % depositum og et
+Cal-embed er udgået og må ikke bruges.
 
 ## Efter ændringer i data/
 

@@ -2,11 +2,13 @@
 {{ $L := .Site.Language.Lang }}
 {{ $c := (index hugo.Data.site $L).contact }}
 {{- $u := index hugo.Data.ui $L -}}
+{{- $policyURL := cond (eq $L "da") "/politik/" "/en/policy/" -}}
+{{- $privacyURL := cond (eq $L "da") "/privatliv/" "/en/privacy/" -}}
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-about">
-        <a href="#top" class="brand">
+        <a href="{{ "/" | relLangURL }}" class="brand">
           <img class="brand-mark" src="{{ hugo.Data.images.logoLight | relURL }}" alt=""
                width="272" height="160" aria-hidden="true">
           <span class="brand-text">{{ $p.brandFirstName }} <span class="brand-last">{{ $p.brandLastName }}</span><small>{{ $p.brandLine }}</small></span>
@@ -22,14 +24,15 @@
       <div class="footer-nav">
         <h4>{{ $u.footer.menu }}</h4>
         <ul>
-          <li><a href="#resultater">{{ $u.nav.results }}</a></li>
-          <li><a href="#ydelser">{{ $u.nav.services }}</a></li>
-          <li class="nav-prices--desktop"><a href="#priser">{{ $u.nav.prices }}</a></li>
-          <li class="nav-prices--mobile"><a href="#ydelser">{{ $u.nav.prices }}</a></li>
-          <li><a href="#om">{{ $u.nav.about }}</a></li>
-          <li><a href="#faq">{{ $u.nav.faq }}</a></li>
-          <li><a href="#politik">{{ $u.nav.policy }}</a></li>
-          <li><a href="#booking">{{ $u.nav.book }}</a></li>
+          <li><a href="{{ "/#resultater" | relLangURL }}">{{ $u.nav.results }}</a></li>
+          <li><a href="{{ "/#ydelser" | relLangURL }}">{{ $u.nav.services }}</a></li>
+          <li class="nav-prices--desktop"><a href="{{ "/#priser" | relLangURL }}">{{ $u.nav.prices }}</a></li>
+          <li class="nav-prices--mobile"><a href="{{ "/#ydelser" | relLangURL }}">{{ $u.nav.prices }}</a></li>
+          <li><a href="{{ "/#om" | relLangURL }}">{{ $u.nav.about }}</a></li>
+          <li><a href="{{ "/#faq" | relLangURL }}">{{ $u.nav.faq }}</a></li>
+          <li><a href="{{ $policyURL }}">{{ $u.nav.policy }}</a></li>
+          <li><a href="{{ $privacyURL }}">{{ $u.nav.privacy }}</a></li>
+          <li><a href="{{ "/#booking" | relLangURL }}">{{ $u.nav.book }}</a></li>
         </ul>
       </div>
 
@@ -43,7 +46,7 @@
           <li><a href="{{ $p.instagram }}" target="_blank" rel="noopener">@{{ $p.instagramHandle }}</a></li>
           {{ with $p.facebook }}<li><a href="{{ . }}" target="_blank" rel="noopener">{{ $p.facebookPageName }}</a></li>{{ end }}
           {{ with $p.email }}<li><a href="mailto:{{ . }}">{{ . }}</a></li>{{ end }}
-          <li>{{ $c.area }}</li>
+          {{ with $p.streetAddress }}<li>{{ . }}, {{ $p.postalCode }} {{ $p.city }}</li>{{ else }}<li>{{ $c.area }}</li>{{ end }}
           <li>CVR {{ $p.cvr }}</li>
         </ul>
 
@@ -61,6 +64,7 @@
           </li>
           {{ end }}
         </ul>
+        {{ with $c.hoursNote }}<p class="footer-hours-note">{{ . }}</p>{{ end }}
         {{ end }}
       </div>
     </div>

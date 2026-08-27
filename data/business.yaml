@@ -23,7 +23,7 @@ instagramDM: "https://ig.me/m/wiktoriagordon.beauty"
 facebook: "https://www.facebook.com/p/Wiktoria-Lash-Studio-61580409810902/"
 facebookReviews: "https://www.facebook.com/profile.php?id=61580409810902&sk=reviews"
 messenger: "https://m.me/61580409810902"
-email: ""
+email: "gordonwiktoria@gmail.com"
 phone: "+45 52 61 53 80"
 
 # =====================================================================
@@ -33,9 +33,9 @@ phone: "+45 52 61 53 80"
 #  belønner at felterne overhovedet er der.
 # =====================================================================
 
-# Gadeadresse. Udfyld KUN hvis hun vil have salonens adresse offentligt
-# fremme; sitet nævner i dag kun "Horsens".
-streetAddress: ""
+# Kun gadenavnet er offentligt efter Wiktorias ønske. Husnummeret vises
+# først i bookingkvitteringen, når depositummet er betalt.
+streetAddress: "Fredericiagade"
 
 # Kortkoordinater, fx latitude: 55.8607 / longitude: 9.8503.
 # Bruges til "nær mig"-søgninger. Hentes fra Google Maps, ikke gættet.
@@ -48,4 +48,10 @@ longitude: ""
 #     closes: "18:00"
 # Dagene skal staves på engelsk — det er schema.org's format, ikke noget
 # kunden ser. Tom liste = ingen åbningstider i strukturerede data.
-openingHours: []
+openingHours:
+  - days: ["Monday", "Tuesday", "Wednesday"]
+    opens: "10:00"
+    closes: "19:00"
+  - days: ["Thursday", "Friday"]
+    opens: "10:00"
+    closes: "16:00"

@@ -89,13 +89,16 @@ da:
       Fortæl mig bare, hvad du gerne vil forbedre eller ændre, så hjælper jeg dig
       med at finde den behandling, der er den rigtige for dig.
     online: false
-    onlineEmbed: ""
     treatmentButton: "Find din behandling"
     bookButton: "Book en tid"
     note: "Svar inden for 24 timer · Aflysning senest 24 timer før"
 
   contact:
     area: "Horsens, Danmark"
+    hoursNote: >-
+      Weekend lukket. Tider uden for normal åbningstid og i weekenden kan nogle
+      gange aftales mod et tillæg. Kontakt mig, hvis du ikke kan finde den tid,
+      du har brug for.
 
   beforeafter:
     # Overskriften vises ikke på siden. Sektionen står lige under
@@ -190,13 +193,16 @@ en:
       Simply tell me what you'd like to improve or change, and I'll help you find
       the treatment that's right for you.
     online: false
-    onlineEmbed: ""
     treatmentButton: "Find your treatment"
     bookButton: "Book an appointment"
     note: "Reply within 24 hours · Cancellation at least 24 hours ahead"
 
   contact:
     area: "Horsens, Denmark"
+    hoursNote: >-
+      Closed on weekends. Appointments outside normal opening hours and on
+      weekends may sometimes be arranged for an additional fee. Contact me if
+      you cannot find the time you need.
 
   beforeafter:
     # Overskriften vises ikke på siden. Sektionen står lige under

@@ -1,0 +1,29 @@
+{{ define "main" }}
+{{- $L := .Site.Language.Lang -}}
+{{- $d := index hugo.Data.privacy $L -}}
+<article class="section legal-page legal-page--privacy">
+  <div class="container legal-page__inner">
+    <header class="section-head legal-page__head">
+      <p class="eyebrow">{{ $d.eyebrow }}</p>
+      <h1>{{ $d.heading }}</h1>
+      <p>{{ $d.intro }}</p>
+      <p class="legal-page__updated">{{ $d.updated }}</p>
+    </header>
+
+    <div class="legal-sections">
+      {{ range $d.sections }}
+      <section class="legal-section">
+        <h2>{{ .title }}</h2>
+        <div class="legal-section__body">
+          {{ range .paragraphs }}<p>{{ . }}</p>{{ end }}
+        </div>
+      </section>
+      {{ end }}
+    </div>
+
+    <p class="legal-page__authority">
+      <a href="{{ $d.authorityUrl }}" target="_blank" rel="noopener">{{ $d.authorityLabel }}</a>
+    </p>
+  </div>
+</article>
+{{ end }}

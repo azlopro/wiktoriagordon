@@ -46,9 +46,13 @@ i18n:
 
 collections:
   - name: website
-    label: Manage website
+    label: Website content
     icon: edit
     i18n: true
+    description: >-
+      Choose what you want to change. Prices, opening hours and photos have
+      direct shortcuts at the top of the editor. Booking appointments and
+      blocking time are handled in the calendar, not here.
     files:
       - name: services
         label: Treatments & prices
@@ -98,7 +102,7 @@ collections:
                   - {label: Mapping and shaping, value: shape}
                   - {label: Treatment set, value: combo}
                   - {label: Sparkle, value: sparkle}
-              - {name: duration, label: Duration, widget: string, i18n: duplicate, required: false, hint: 'Optional until confirmed. Example: 45–60 min'}
+              - {name: duration, label: Duration shown to clients, widget: string, i18n: duplicate, required: false, hint: 'Example: 45–60 min. This changes the website text only; ask the site administrator if the calendar block itself should change.'}
               - {name: price, label: Price, widget: string, i18n: duplicate, hint: 'Write it exactly as it should appear, for example 450 kr.'}
               - {name: featured, label: Highlight this treatment, widget: boolean, i18n: duplicate, default: false, hint: Highlighted treatments receive a marked card on the page.}
               - {name: desc, label: Description, widget: text, i18n: true, required: false}
@@ -121,7 +125,7 @@ collections:
               - {name: price, label: Price, widget: string, i18n: duplicate, hint: 'For example +50 kr.'}
 
       - name: images
-        label: Main photos
+        label: Photos used on the website
         file: data/images.yaml
         icon: image
         i18n: false
@@ -132,7 +136,7 @@ collections:
           - {name: portrait, label: Photo in the About section, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false}
 
       - name: beforeafter
-        label: Before & after
+        label: Before & after slider
         file: data/beforeafter.yaml
         icon: compare
         i18n: true
@@ -151,10 +155,10 @@ collections:
             fields:
               - {name: before, label: Before photo, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, i18n: duplicate, hint: Same angle, same distance and same light as the After photo.}
               - {name: after, label: After photo, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, i18n: duplicate}
-              - {name: label, label: Button text, widget: string, i18n: true, hint: 'Use the exact treatment name from the price list, so the name matches a price. NOT YET CONFIRMED: the first pair says lash lift + brow lamination (850 kr.). If her brows were tinted as well it should say + tint (900 kr.). Ask Wiktoria.'}
+              - {name: label, label: Button text, widget: string, i18n: true, hint: 'Use the exact treatment name from the price list, so visitors can match the result to a treatment and price.'}
 
       - name: gallery
-        label: Result photos (not shown right now)
+        label: Unused result photos
         file: data/gallery.yaml
         icon: photo_library
         i18n: true
@@ -176,7 +180,7 @@ collections:
               - {name: caption, label: Caption, widget: string, i18n: true}
 
       - name: seo
-        label: SEO & link previews
+        label: Google & link previews
         file: data/seo.yaml
         icon: search
         i18n: true
@@ -200,51 +204,62 @@ collections:
           - {name: socialImage, label: Social sharing image, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, i18n: true, hint: 'Use a 1200 × 630 image. Avoid important text near the edges.'}
 
       - name: business
-        label: Business details & links
+        label: Contact & opening hours
         file: data/business.yaml
         icon: storefront
         i18n: false
+        description: >-
+          The public contact details and regular opening hours shown on the
+          website. The exact salon number stays private and is only shown after
+          a paid booking.
         fields:
+          - name: openingHours
+            label: Regular opening hours
+            widget: list
+            required: false
+            label_singular: opening time
+            summary: '{{fields.days}} · {{fields.opens}}–{{fields.closes}}'
+            hint: 'Use one row for days that have the same hours. Special days and time off are blocked in your booking calendar instead.'
+            fields:
+              - name: days
+                label: Days with these hours
+                widget: select
+                multiple: true
+                options:
+                  - {label: Monday, value: Monday}
+                  - {label: Tuesday, value: Tuesday}
+                  - {label: Wednesday, value: Wednesday}
+                  - {label: Thursday, value: Thursday}
+                  - {label: Friday, value: Friday}
+                  - {label: Saturday, value: Saturday}
+                  - {label: Sunday, value: Sunday}
+              - {name: opens, label: Opens, widget: string, pattern: ['^(?:[01][0-9]|2[0-3]):[0-5][0-9]$', 'Use the 24-hour format HH:MM, for example 10:00.']}
+              - {name: closes, label: Closes, widget: string, pattern: ['^(?:[01][0-9]|2[0-3]):[0-5][0-9]$', 'Use the 24-hour format HH:MM, for example 19:00.']}
+          - {name: phone, label: Public phone number, widget: string, required: false, hint: 'Leave blank to hide it. This is public, so do not add a private number.'}
+          - {name: email, label: Public email, widget: string, type: email, required: false, hint: Leave blank to hide it.}
+          - {name: streetAddress, label: Public street, widget: string, required: false, hint: 'Street name only. Do not add the salon number here; the exact address is shown after a paid booking.'}
+          - {name: instagram, label: Instagram page, widget: string, type: url}
+          - {name: instagramHandle, label: Instagram username, widget: string, hint: Enter without the @ sign.}
+          - {name: facebook, label: Facebook page, widget: string, type: url, required: false}
+          - {name: facebookPageName, label: Facebook page name, widget: string, required: false, hint: Shown in the footer contact list. Must match what the page is actually called.}
+          - {name: messenger, label: Messenger link, widget: string, type: url, required: false}
+          - {name: instagramDM, label: Instagram message link, widget: string, type: url}
+          - {name: facebookReviews, label: Facebook reviews page, widget: string, type: url, required: false}
           - {name: businessName, label: Business name, widget: string}
           - {name: ownerName, label: Owner name, widget: string}
           - {name: brandFirstName, label: 'Logo: first name', widget: string, hint: The larger part of the logo in the top left corner.}
           - {name: brandLastName, label: 'Logo: last name', widget: string, hint: Shown in a lighter colour next to the first name.}
           - {name: brandLine, label: 'Logo: small line underneath', widget: string, hint: 'Example: Beauty · Horsens'}
-          - {name: facebookPageName, label: Facebook page name, widget: string, required: false, hint: Shown in the footer contact list. Must match what the page is actually called.}
           - {name: city, label: City, widget: string}
           - {name: region, label: Region, widget: string}
           - {name: postalCode, label: Postcode, widget: string}
           - {name: cvr, label: CVR number, widget: string, hint: Changes here affect the footer and Google business information.}
-          - {name: priceRange, label: Price range, widget: string, hint: 'Example: 200–900 kr.'}
-          - {name: instagram, label: Instagram page, widget: string, type: url}
-          - {name: instagramHandle, label: Instagram username, widget: string, hint: Enter without the @ sign.}
-          - {name: instagramDM, label: Instagram message link, widget: string, type: url}
-          - {name: facebook, label: Facebook page, widget: string, type: url, required: false}
-          - {name: facebookReviews, label: Facebook reviews page, widget: string, type: url, required: false}
-          - {name: messenger, label: Messenger link, widget: string, type: url, required: false}
-          - {name: email, label: Public email, widget: string, type: email, required: false, hint: Leave blank to hide it.}
-          - {name: phone, label: Public phone number, widget: string, required: false, hint: Leave blank to hide it.}
-          - {name: streetAddress, label: Street address, widget: string, required: false, hint: 'Only fill this in if the studio address should be public. Leave blank and Google is told the city only.'}
-          - {name: latitude, label: Map latitude, widget: string, required: false, hint: 'From Google Maps, for example 55.8607. Both latitude and longitude must be filled in before either is used.'}
-          - {name: longitude, label: Map longitude, widget: string, required: false, hint: 'From Google Maps, for example 9.8503.'}
-          - name: openingHours
-            label: Opening hours
-            widget: list
-            required: false
-            label_singular: opening time
-            summary: '{{fields.days}} {{fields.opens}}-{{fields.closes}}'
-            hint: 'Leave the list empty until the hours are certain. Wrong hours in Google cost more than no hours at all.'
-            fields:
-              - name: days
-                label: Days
-                widget: select
-                multiple: true
-                options: [Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday]
-              - {name: opens, label: Opens, widget: string, hint: '24-hour clock, for example 10:00.'}
-              - {name: closes, label: Closes, widget: string, hint: '24-hour clock, for example 18:00.'}
+          - {name: priceRange, label: 'Google: lowest–highest price', widget: string, hint: 'Example: 200–900 kr. Update this only if the lowest or highest treatment price changes.'}
+          - {name: latitude, widget: hidden, required: false, default: ''}
+          - {name: longitude, widget: hidden, required: false, default: ''}
 
       - name: reviews
-        label: Reviews
+        label: Customer reviews
         file: data/reviews.yaml
         icon: reviews
         i18n: true
@@ -282,7 +297,7 @@ collections:
               - {name: a, label: Answer, widget: text, i18n: true}
 
       - name: site
-        label: Page wording
+        label: Main page text
         file: data/site.yaml
         icon: edit_note
         i18n: true
@@ -356,7 +371,6 @@ collections:
               - {name: heading, label: Heading, widget: string, i18n: true}
               - {name: text, label: Intro text, widget: text, i18n: true}
               - {name: online, widget: hidden, i18n: duplicate, default: false}
-              - {name: onlineEmbed, widget: hidden, i18n: duplicate, required: false, default: ''}
               - {name: treatmentButton, label: Find-treatment button, widget: string, i18n: true}
               - {name: bookButton, label: Book-appointment button, widget: string, i18n: true}
               - {name: note, label: Small note underneath, widget: string, i18n: true}
@@ -368,6 +382,7 @@ collections:
             summary: Location line
             fields:
               - {name: area, label: Area, widget: string, i18n: true, hint: 'Example: Horsens, Denmark'}
+              - {name: hoursNote, label: Opening-hours note, widget: text, i18n: true, required: false, hint: 'Shown below the opening hours in the footer. Use this for weekend or by-arrangement information.'}
           - name: beforeafter
             label: Results section
             widget: object
@@ -389,7 +404,7 @@ collections:
               - {name: text, label: Text, widget: text, i18n: true}
 
       - name: ui
-        label: Buttons & labels
+        label: Small buttons & labels (rarely needed)
         file: data/ui.yaml
         icon: smart_button
         i18n: true
@@ -409,7 +424,8 @@ collections:
               - {name: prices, label: Prices, widget: string, i18n: true}
               - {name: about, label: About, widget: string, i18n: true}
               - {name: faq, label: Questions, widget: string, i18n: true}
-              - {name: policy, label: Policy, widget: string, i18n: true, hint: Shown in the footer menu only.}
+              - {name: policy, label: Policy, widget: string, i18n: true, hint: Shown in the main menu and footer.}
+              - {name: privacy, label: Privacy, widget: string, i18n: true, hint: Shown in the footer menu.}
               - {name: book, label: Booking button, widget: string, i18n: true, hint: The button in the top right corner and in the footer menu.}
               - {name: bookShort, label: Booking button on phones, widget: string, i18n: true, hint: "Keep it to one short word. On a phone the button shares the top bar with your name and the menu, and a long word squeezes the logo."}
           - name: labels
@@ -467,7 +483,7 @@ collections:
               - {name: about, label: Text under the logo, widget: text, i18n: true}
               - {name: menu, label: Menu heading, widget: string, i18n: true}
               - {name: contact, label: Contact heading, widget: string, i18n: true}
-              - {name: hours, label: Opening hours heading, widget: string, i18n: true, hint: 'Only shown when opening hours are filled in under Business details.'}
+              - {name: hours, label: Opening hours heading, widget: string, i18n: true, hint: 'Only shown when opening hours are filled in under Contact & opening hours.'}
               - {name: rights, label: Copyright line, widget: string, i18n: true}
               - {name: tagline, label: Bottom right line, widget: string, i18n: true, hint: This says booking happens via Instagram. Remember to change it when online booking opens.}
           - name: booking
@@ -557,3 +573,29 @@ collections:
               - {name: text, label: Text, widget: text, i18n: true}
           - {name: note, label: Closing note, widget: text, i18n: true}
           - {name: accept, label: Acceptance line, widget: string, i18n: true, hint: The sentence saying booking counts as accepting the policy.}
+
+      - name: privacy
+        label: Privacy notice (rarely needed)
+        file: data/privacy.yaml
+        icon: privacy_tip
+        i18n: true
+        fields:
+          - {name: eyebrow, label: Small label above, widget: string, i18n: true}
+          - {name: heading, label: Heading, widget: string, i18n: true}
+          - {name: updated, label: Last-updated line, widget: string, i18n: true}
+          - {name: intro, label: Introduction, widget: text, i18n: true}
+          - name: sections
+            label: Privacy sections
+            widget: list
+            i18n: duplicate
+            label_singular: section
+            summary: '{{fields.title}}'
+            fields:
+              - {name: title, label: Heading, widget: string, i18n: true}
+              - name: paragraphs
+                label: Paragraphs
+                widget: list
+                i18n: duplicate
+                field: {name: paragraph, label: Paragraph, widget: text, i18n: true}
+          - {name: authorityLabel, label: Data-protection authority link text, widget: string, i18n: true}
+          - {name: authorityUrl, label: Data-protection authority URL, widget: string, type: url, i18n: true}

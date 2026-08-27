@@ -1,0 +1,30 @@
+{{- $p := hugo.Data.business -}}
+{{- $L := .Site.Language.Lang -}}
+{{- $canonical := (index hugo.Sites 0).Home.Permalink -}}
+{{- $siteID := printf "%s#website" $canonical -}}
+{{- $businessID := printf "%s#business" $canonical -}}
+{{- $description := .Params.description | default (index hugo.Data.seo $L).description -}}
+{{- $graph := slice
+  (dict
+    "@type" "WebPage"
+    "@id" (printf "%s#webpage" .Permalink)
+    "url" .Permalink
+    "name" .Title
+    "description" $description
+    "inLanguage" $L
+    "isPartOf" (dict "@id" $siteID)
+    "about" (dict "@id" $businessID))
+  (dict
+    "@type" "WebSite"
+    "@id" $siteID
+    "url" $canonical
+    "name" $p.businessName
+    "publisher" (dict "@id" $businessID))
+  (dict
+    "@type" "BeautySalon"
+    "@id" $businessID
+    "url" $canonical
+    "name" $p.businessName
+    "telephone" $p.phone
+    "sameAs" (slice $p.instagram $p.facebook)) -}}
+<script type="application/ld+json">{{ dict "@context" "https://schema.org" "@graph" $graph | jsonify | safeJS }}</script>

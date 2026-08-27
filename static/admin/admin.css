@@ -1,0 +1,169 @@
+:root {
+  color-scheme: light;
+  --admin-wine: #5d101c;
+  --admin-wine-dark: #430a13;
+  --admin-ink: #2e2523;
+  --admin-muted: #6d625e;
+  --admin-paper: #f7f3f0;
+  --admin-blush: #eee4df;
+  --admin-line: rgba(77, 14, 25, .16);
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--admin-paper); }
+
+#intro {
+  position: relative;
+  z-index: 30;
+  color: var(--admin-ink);
+  background:
+    radial-gradient(circle at 8% -80%, rgba(93, 16, 28, .11), transparent 45%),
+    var(--admin-paper);
+  border-bottom: 1px solid var(--admin-line);
+  font-family: "Jost", system-ui, sans-serif;
+  box-shadow: 0 8px 26px rgba(67, 10, 19, .055);
+}
+
+.intro-main {
+  width: min(100% - 2rem, 78rem);
+  min-height: 66px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+}
+
+.intro-title { display: flex; align-items: center; gap: .75rem; min-width: 0; }
+.intro-title img { flex: none; object-fit: contain; }
+.intro-title strong {
+  display: block;
+  color: var(--admin-wine);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1;
+}
+.intro-title p {
+  max-width: 68ch;
+  margin: .2rem 0 0;
+  color: var(--admin-muted);
+  font-size: .78rem;
+  line-height: 1.35;
+  text-wrap: pretty;
+}
+
+.intro-tools,
+.quick-actions { display: flex; align-items: center; }
+.intro-tools { flex: none; gap: .45rem; }
+.intro-tools a,
+.quick-actions a {
+  color: var(--admin-wine);
+  border: 1px solid var(--admin-line);
+  border-radius: .4rem;
+  background: rgba(255, 255, 255, .55);
+  text-decoration: none;
+  font-size: .76rem;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  transition: color .2s ease, background-color .2s ease, border-color .2s ease, transform .2s ease;
+}
+.intro-tools a { padding: .62rem .78rem; }
+.intro-tools .view-site { color: #fff; border-color: var(--admin-wine); background: var(--admin-wine); }
+.intro-tools a:hover,
+.quick-actions a:hover { border-color: var(--admin-wine); background: #fff; }
+.intro-tools .view-site:hover { color: #fff; background: var(--admin-wine-dark); }
+.intro-tools a:active,
+.quick-actions a:active { transform: translateY(1px); }
+.intro-tools a:focus-visible,
+.quick-actions a:focus-visible { outline: 3px solid rgba(93, 16, 28, .22); outline-offset: 2px; }
+
+.quick-actions {
+  width: min(100% - 2rem, 78rem);
+  min-height: 42px;
+  margin: 0 auto;
+  gap: .4rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.quick-actions::-webkit-scrollbar { display: none; }
+.quick-actions span {
+  flex: none;
+  margin-right: .2rem;
+  color: var(--admin-muted);
+  font-size: .66rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.quick-actions a { padding: .47rem .66rem; }
+
+#nc-root {
+  min-height: calc(100dvh - 108px);
+  background: #f4f2f2;
+}
+
+/* Sveltia keeps its own component styling. These variables retain all of its
+   accessibility and states while replacing the generic blue with the brand. */
+#nc-root > .sui.app-shell {
+  --sui-base-hue: 350;
+  --sui-font-family-default: "Jost", system-ui, sans-serif;
+  --sui-heading-font-family: "Jost", system-ui, sans-serif;
+  --sui-button-primary-background-color: var(--admin-wine);
+  --sui-button-primary-background-color-active: var(--admin-wine-dark);
+  --sui-button-primary-background-color-focus: #741d2a;
+  --sui-button-primary-border-color: var(--admin-wine);
+  --sui-button-primary-foreground-color: #fff;
+  --sui-button-primary-foreground-color-active: #fff;
+  --sui-button-primary-foreground-color-focus: #fff;
+  --sui-button-secondary-border-color: rgba(93, 16, 28, .52);
+  --sui-button-secondary-foreground-color: var(--admin-wine);
+  --sui-button-secondary-foreground-color-active: var(--admin-wine-dark);
+  --sui-button-secondary-foreground-color-focus: var(--admin-wine-dark);
+  --sui-focus-ring-color: rgba(93, 16, 28, .58);
+  --sui-selected-background-color: #ead8d9;
+  --sui-highlighted-foreground-color: var(--admin-wine);
+}
+
+@media (max-width: 720px) {
+  .intro-main {
+    width: min(100% - 1.25rem, 78rem);
+    min-height: 76px;
+    gap: .5rem;
+  }
+  .intro-title img { display: none; }
+  .intro-title strong { font-size: 1.22rem; }
+  .intro-title p { max-width: 30ch; font-size: .7rem; }
+  .intro-tools a { padding: .56rem .62rem; }
+  .intro-tools a:first-child { display: none; }
+  .quick-actions { width: 100%; min-height: 46px; padding: 0 .625rem; }
+  .quick-actions span { position: sticky; left: 0; padding: .45rem .5rem .45rem 0; background: var(--admin-paper); }
+  #nc-root { min-height: calc(100dvh - 122px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-tools a,
+  .quick-actions a { transition: none; }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root { color-scheme: light dark; }
+  #intro { color: #f5ece8; background: #251d1d; border-bottom-color: rgba(255,255,255,.12); }
+  .intro-title strong { color: #f1dadd; }
+  .intro-title p,
+  .quick-actions span { color: #c9bbb7; }
+  .intro-tools a,
+  .quick-actions a { color: #f1dadd; border-color: rgba(255,255,255,.2); background: rgba(255,255,255,.04); }
+  .intro-tools .view-site { color: #2d1518; border-color: #ead0d3; background: #ead0d3; }
+  .intro-tools a:hover,
+  .quick-actions a:hover { color: #fff; border-color: rgba(255,255,255,.45); background: rgba(255,255,255,.09); }
+  .intro-tools .view-site:hover { color: #2d1518; background: #f4e0e2; }
+  .quick-actions span { background: #251d1d; }
+  #nc-root > .sui.app-shell {
+    --sui-button-secondary-border-color: rgba(241, 218, 221, .46);
+    --sui-button-secondary-foreground-color: #f1dadd;
+    --sui-button-secondary-foreground-color-active: #fff;
+    --sui-button-secondary-foreground-color-focus: #fff;
+  }
+}

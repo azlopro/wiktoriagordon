@@ -1,8 +1,10 @@
 {{- $p := hugo.Data.business -}}
 {{- $u := index hugo.Data.ui .Site.Language.Lang -}}
+{{- $L := .Site.Language.Lang -}}
+{{- $policyURL := cond (eq $L "da") "/politik/" "/en/policy/" -}}
 <header class="header" id="header">
   <div class="container nav">
-    <a href="#top" class="brand" aria-label="Wiktoria Gordon Beauty, {{ i18n "to_top" }}">
+    <a href="{{ "/" | relLangURL }}" class="brand" aria-label="Wiktoria Gordon Beauty, {{ i18n "to_top" }}">
       <img class="brand-mark" src="{{ hugo.Data.images.logo | relURL }}" alt=""
            width="258" height="160" aria-hidden="true">
       <span class="brand-text">
@@ -13,23 +15,24 @@
 
     <nav class="nav-menu" id="navMenu" aria-label="{{ $u.footer.menu }}">
       <ul class="nav-links">
-        <li><a href="#resultater">{{ $u.nav.results }}</a></li>
-        <li><a href="#ydelser">{{ $u.nav.services }}</a></li>
-        <li class="nav-prices--desktop"><a href="#priser">{{ $u.nav.prices }}</a></li>
-        <li class="nav-prices--mobile"><a href="#ydelser">{{ $u.nav.prices }}</a></li>
-        <li><a href="#om">{{ $u.nav.about }}</a></li>
-        <li><a href="#faq">{{ $u.nav.faq }}</a></li>
+        <li><a href="{{ "/#resultater" | relLangURL }}">{{ $u.nav.results }}</a></li>
+        <li><a href="{{ "/#ydelser" | relLangURL }}">{{ $u.nav.services }}</a></li>
+        <li class="nav-prices--desktop"><a href="{{ "/#priser" | relLangURL }}">{{ $u.nav.prices }}</a></li>
+        <li class="nav-prices--mobile"><a href="{{ "/#ydelser" | relLangURL }}">{{ $u.nav.prices }}</a></li>
+        <li><a href="{{ "/#om" | relLangURL }}">{{ $u.nav.about }}</a></li>
+        <li><a href="{{ "/#faq" | relLangURL }}">{{ $u.nav.faq }}</a></li>
+        <li><a href="{{ $policyURL }}"{{ if eq .Layout "policy" }} class="active" aria-current="page"{{ end }}>{{ $u.nav.policy }}</a></li>
       </ul>
       {{ partial "langswitch.html" . }}
-      <a href="#booking" class="btn btn--primary nav-book">{{ $u.nav.book }}</a>
+      <a href="{{ "/#booking" | relLangURL }}" class="btn btn--primary nav-book">{{ $u.nav.book }}</a>
     </nav>
 
     {{/* Bookingknappen ligger inde i .nav-menu, og den er gemt bag
          burgermenuen på telefon. Der var derfor ingen synlig vej til
          booking overhovedet, før man rullede. Den her står altid fremme
-         under 1000 px og er skjult derover, hvor knappen i menuen er
+         under 1180 px og er skjult derover, hvor knappen i menuen er
          synlig hele tiden. To knapper i koden, aldrig to på skærmen. */}}
-    <a href="#booking" class="btn btn--primary nav-book nav-book--compact">{{ $u.nav.bookShort }}</a>
+    <a href="{{ "/#booking" | relLangURL }}" class="btn btn--primary nav-book nav-book--compact">{{ $u.nav.bookShort }}</a>
 
     <button class="nav-toggle" id="navToggle" aria-label="{{ i18n "menu_open" }}"
             data-open="{{ i18n "menu_open" }}" data-close="{{ i18n "menu_close" }}"

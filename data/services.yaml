@@ -4,8 +4,8 @@
 #  Tekster: Wiktorias eget manuskript, 22/8-2026 — engelsk er hendes
 #  ordlyd ordret, dansk er oversat og bør læses igennem af hende.
 #
-#  ⚠️  VARIGHEDER MANGLER STADIG. De er ikke gættet. Feltet står tomt og
-#      skjules på siden. Bookingsystemet kan ikke sættes op uden dem.
+#  Varigheder: Wiktorias formularsvar, 27/8-2026. Det er den tid, kunden
+#  ser; kalenderens bloktid ligger separat i bookingopsætningen.
 #
 #  De fire sæt har bevidst hverken beskrivelse eller punkter — hun har
 #  ikke skrevet nogen, og de opfindes ikke.
@@ -24,7 +24,7 @@ da:
       group: "lashes"
       calSlug: "lash-lift"
       icon: "lash-tint"
-      duration: ""
+      duration: "45–60 min."
       price: "500 kr."
       featured: false
       desc: >-
@@ -42,7 +42,7 @@ da:
       group: "brows"
       calSlug: "brow-lamination"
       icon: "brow"
-      duration: ""
+      duration: "40–50 min."
       price: "450 kr."
       featured: false
       desc: >-
@@ -60,7 +60,7 @@ da:
       group: "brows"
       calSlug: "brow-lamination-tint"
       icon: "brow-tint"
-      duration: ""
+      duration: "45–60 min."
       price: "500 kr."
       featured: false
       desc: >-
@@ -73,7 +73,7 @@ da:
       group: "brows"
       calSlug: "brow-tint-shaping"
       icon: "sparkle"
-      duration: ""
+      duration: "45–60 min."
       price: "400 kr."
       featured: false
       desc: >-
@@ -91,7 +91,7 @@ da:
       group: "brows"
       calSlug: "brow-shaping"
       icon: "shape"
-      duration: ""
+      duration: "30 min."
       price: "200 kr."
       featured: false
       desc: >-
@@ -106,7 +106,7 @@ da:
       group: "sets"
       calSlug: "lash-brow-lamination-tint"
       icon: "combo"
-      duration: ""
+      duration: "90–120 min."
       price: "900 kr."
       featured: false
       desc: ""
@@ -116,7 +116,7 @@ da:
       group: "sets"
       calSlug: "lash-brow-lamination"
       icon: "combo"
-      duration: ""
+      duration: "90 min."
       price: "850 kr."
       featured: false
       desc: ""
@@ -126,7 +126,7 @@ da:
       group: "sets"
       calSlug: "lash-brow-tint"
       icon: "combo"
-      duration: ""
+      duration: "90–120 min."
       price: "800 kr."
       featured: false
       desc: ""
@@ -136,7 +136,7 @@ da:
       group: "sets"
       calSlug: "lash-brow-shaping"
       icon: "combo"
-      duration: ""
+      duration: "60 min."
       price: "600 kr."
       featured: false
       desc: ""
@@ -157,7 +157,7 @@ en:
       group: "lashes"
       calSlug: "lash-lift"
       icon: "lash-tint"
-      duration: ""
+      duration: "45–60 min."
       price: "500 kr."
       featured: false
       desc: >-
@@ -175,7 +175,7 @@ en:
       group: "brows"
       calSlug: "brow-lamination"
       icon: "brow"
-      duration: ""
+      duration: "40–50 min."
       price: "450 kr."
       featured: false
       desc: >-
@@ -193,7 +193,7 @@ en:
       group: "brows"
       calSlug: "brow-lamination-tint"
       icon: "brow-tint"
-      duration: ""
+      duration: "45–60 min."
       price: "500 kr."
       featured: false
       desc: >-
@@ -206,7 +206,7 @@ en:
       group: "brows"
       calSlug: "brow-tint-shaping"
       icon: "sparkle"
-      duration: ""
+      duration: "45–60 min."
       price: "400 kr."
       featured: false
       desc: >-
@@ -224,7 +224,7 @@ en:
       group: "brows"
       calSlug: "brow-shaping"
       icon: "shape"
-      duration: ""
+      duration: "30 min."
       price: "200 kr."
       featured: false
       desc: >-
@@ -239,7 +239,7 @@ en:
       group: "sets"
       calSlug: "lash-brow-lamination-tint"
       icon: "combo"
-      duration: ""
+      duration: "90–120 min."
       price: "900 kr."
       featured: false
       desc: ""
@@ -249,7 +249,7 @@ en:
       group: "sets"
       calSlug: "lash-brow-lamination"
       icon: "combo"
-      duration: ""
+      duration: "90 min."
       price: "850 kr."
       featured: false
       desc: ""
@@ -259,7 +259,7 @@ en:
       group: "sets"
       calSlug: "lash-brow-tint"
       icon: "combo"
-      duration: ""
+      duration: "90–120 min."
       price: "800 kr."
       featured: false
       desc: ""
@@ -269,7 +269,7 @@ en:
       group: "sets"
       calSlug: "lash-brow-shaping"
       icon: "combo"
-      duration: ""
+      duration: "60 min."
       price: "600 kr."
       featured: false
       desc: ""

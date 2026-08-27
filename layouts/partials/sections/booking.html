@@ -36,7 +36,7 @@
            midt i den — og separatoren står FORAN, så den ikke bliver
            efterladt alene i slutningen af en linje. */}}
       <p class="booking-note">
-        <span>{{ partial "icon.html" "pin" }}{{ $c.area }}</span>
+        <span>{{ partial "icon.html" "pin" }}{{ with $p.streetAddress }}{{ . }}, {{ end }}{{ $c.area }}</span>
         {{ range $i, $part := split $b.note "·" }}
           {{ with trim $part " " }}
           <span>{{ if eq $i 0 }}{{ partial "icon.html" "clock" }}{{ end }}{{ . }}</span>

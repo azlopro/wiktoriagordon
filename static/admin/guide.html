@@ -6,66 +6,127 @@
   <meta name="robots" content="noindex, nofollow">
   <title>Website editing guide · Wiktoria Gordon Beauty</title>
   <link rel="icon" href="/favicon.png">
+  <link rel="stylesheet" href="/css/fonts.css">
   <style>
-    :root { color-scheme: light; --ink:#2e2523; --wine:#4d0e13; --paper:#f8f2ed; --line:#d9c9bf; }
-    * { box-sizing: border-box; }
-    body { margin:0; color:var(--ink); background:var(--paper); font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
-    main { width:min(100% - 2rem, 52rem); margin:0 auto; padding:3.5rem 0 5rem; }
-    h1,h2 { line-height:1.15; color:var(--wine); }
-    h1 { font-size:clamp(2rem,6vw,3.7rem); letter-spacing:-.035em; margin:0 0 .75rem; }
-    h2 { margin:2.5rem 0 .5rem; font-size:1.45rem; }
+    :root { color-scheme:light; --ink:#2e2523; --muted:#716560; --wine:#5d101c; --paper:#f8f4f1; --blush:#eee3de; --line:#d9c9c3; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; color:var(--ink); background:var(--paper); font:400 16px/1.68 "Jost",system-ui,sans-serif; }
+    main { width:min(100% - 2rem, 66rem); margin:0 auto; padding:2rem 0 6rem; }
+    h1,h2,h3 { color:var(--wine); font-family:"Cormorant Garamond",Georgia,serif; text-wrap:balance; }
+    h1 { max-width:13ch; margin:3.4rem 0 1rem; font-size:clamp(2.8rem,7vw,5.7rem); font-weight:500; letter-spacing:-.045em; line-height:.92; }
+    h2 { margin:3.5rem 0 .7rem; font-size:clamp(1.9rem,4vw,2.8rem); font-weight:500; line-height:1.05; }
+    h3 { margin:.1rem 0 .2rem; font-size:1.35rem; font-weight:600; }
     p,li { max-width:68ch; }
     a { color:var(--wine); text-underline-offset:3px; }
-    .back { display:inline-block; margin-bottom:2rem; font-weight:700; }
-    .lead { font-size:1.15rem; }
-    .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:.75rem; margin:2rem 0; padding:0; list-style:none; counter-reset:steps; }
-    .steps li { background:#fff; border:1px solid var(--line); border-radius:12px; padding:1rem; }
-    .steps li::before { counter-increment:steps; content:counter(steps); display:block; color:var(--wine); font-weight:800; font-size:1.5rem; }
-    .note { border-left:4px solid var(--wine); background:#fff; padding:1rem 1.1rem; margin:1.5rem 0; }
-    code { background:#eee4da; border-radius:4px; padding:.12rem .3rem; }
-    @media (max-width:620px) { .steps { grid-template-columns:1fr; } main { padding-top:2rem; } }
+    a:focus-visible { outline:3px solid rgba(93,16,28,.22); outline-offset:3px; }
+    .topbar { display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+    .back,.site-link { display:inline-flex; align-items:center; min-height:40px; color:var(--wine); text-decoration:none; font-size:.82rem; font-weight:600; }
+    .site-link { padding:.55rem .8rem; border:1px solid var(--line); border-radius:.4rem; }
+    .lead { max-width:55ch; margin:0; color:var(--muted); font-size:clamp(1.05rem,2vw,1.25rem); text-wrap:pretty; }
+    .task-links { display:grid; grid-template-columns:1.25fr .75fr; gap:.7rem; margin:2.4rem 0 0; }
+    .task-links a { min-height:6.5rem; padding:1rem 1.1rem; display:flex; flex-direction:column; justify-content:space-between; border:1px solid var(--line); border-radius:.6rem; background:rgba(255,255,255,.55); text-decoration:none; transition:border-color .2s ease, transform .2s ease, background-color .2s ease; }
+    .task-links a:nth-child(2),.task-links a:nth-child(3) { background:var(--blush); }
+    .task-links a:hover { border-color:var(--wine); background:#fff; transform:translateY(-2px); }
+    .task-links b { font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; }
+    .task-links span { color:var(--ink); font-family:"Cormorant Garamond",Georgia,serif; font-size:1.45rem; line-height:1.05; }
+    .steps { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:0; margin:1.5rem 0; padding:0; list-style:none; counter-reset:steps; border-block:1px solid var(--line); }
+    .steps li { min-width:0; padding:1rem 1rem 1.25rem 0; color:var(--muted); font-size:.88rem; }
+    .steps li::before { counter-increment:steps; content:"0" counter(steps); display:block; margin-bottom:.45rem; color:var(--wine); font:600 1.15rem/1 "Cormorant Garamond",Georgia,serif; }
+    .steps li + li { padding-left:1rem; border-left:1px solid var(--line); }
+    .note { max-width:68ch; margin:1.5rem 0; padding:1rem 1.1rem; border-left:3px solid var(--wine); background:#fff; }
+    .split { display:grid; grid-template-columns:minmax(11rem,.55fr) minmax(0,1.45fr); gap:clamp(1.5rem,5vw,4rem); align-items:start; margin-top:3.5rem; padding-top:2rem; border-top:1px solid var(--line); }
+    .split h2 { position:sticky; top:1.5rem; margin:0; }
+    .split .copy > :first-child { margin-top:0; }
+    .where { margin:1.25rem 0 0; padding:0; list-style:none; border-top:1px solid var(--line); }
+    .where li { display:grid; grid-template-columns:minmax(10rem,.65fr) minmax(0,1.35fr); gap:1rem; padding:.8rem 0; border-bottom:1px solid var(--line); }
+    .where strong { color:var(--wine); }
+    code { padding:.12rem .3rem; border-radius:4px; background:var(--blush); }
+    @media (max-width:700px) {
+      main { padding-top:1rem; }
+      h1 { margin-top:2.5rem; }
+      .task-links,.split { grid-template-columns:1fr; }
+      .steps { grid-template-columns:1fr 1fr; }
+      .steps li:nth-child(3) { border-left:0; }
+      .steps li:nth-child(n+3) { border-top:1px solid var(--line); }
+      .split h2 { position:static; }
+      .where li { grid-template-columns:1fr; gap:.2rem; }
+    }
+    @media (max-width:420px) { .steps { grid-template-columns:1fr; } .steps li + li { padding-left:0; border-left:0; border-top:1px solid var(--line); } }
+    @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } .task-links a { transition:none; } }
   </style>
 </head>
 <body>
 <main>
-  <a class="back" href="/admin/">← Back to the editor</a>
-  <h1>Editing your website</h1>
-  <p class="lead">The editor is organised by task, much like WordPress: treatments, photos, reviews, page wording, SEO and business settings each have their own screen.</p>
+  <nav class="topbar" aria-label="Guide navigation">
+    <a class="back" href="/admin/">← Back to the editor</a>
+    <a class="site-link" href="/" target="_blank" rel="noopener">View website ↗</a>
+  </nav>
 
-  <ol class="steps">
-    <li>Choose a section and make the change.</li>
-    <li>Use the visual preview and check both <strong>DA</strong> and <strong>EN</strong>.</li>
-    <li>Press <strong>Save</strong>, wait 1–2 minutes and check the live site.</li>
-  </ol>
+  <h1>Your website, without the technical parts.</h1>
+  <p class="lead">Use the editor for prices, opening hours, text and photos. The shortcuts below open the places you will need most often.</p>
 
-  <h2>The visual preview</h2>
-  <p>On a larger screen, the form and a branded preview appear beside each other. The preview updates while you type and shows the part of the website controlled by the current screen: for example treatment cards, photos, reviews, Google results or footer details.</p>
-  <p>Use the <strong>DA</strong> and <strong>EN</strong> buttons inside the preview to inspect both versions. These buttons only change the preview language; make the actual translations in the matching DA and EN form tabs. On a phone or narrow tablet, use the editor's Edit/Preview control to move between the form and preview.</p>
-  <div class="note"><strong>The preview is a safety check, not the published website.</strong> It accurately reflects the section and brand styling, but navigation, booking and the final page layout still need a quick check on both live pages after saving.</div>
+  <nav class="task-links" aria-label="Common editing tasks">
+    <a href="/admin/#/collections/website/entries/services"><b>Most common</b><span>Change a price or treatment</span></a>
+    <a href="/admin/#/collections/website/entries/business"><b>Business</b><span>Hours &amp; contact</span></a>
+    <a href="/admin/#/collections/website/entries/images"><b>Images</b><span>Change a main photo</span></a>
+    <a href="/admin/#/collections/website/entries/beforeafter"><b>Results</b><span>Before &amp; after slider</span></a>
+  </nav>
 
-  <h2>Publishing and recovery</h2>
-  <p><strong>Save</strong> normally publishes the change. The arrow beside Save also offers <strong>Save without publishing</strong> if unfinished work should be kept out of the next deployment.</p>
-  <p>A technical build failure leaves the previous working site online. A wording or price mistake can still publish, so always open both the <a href="/" target="_blank">Danish page</a> and <a href="/en/" target="_blank">English page</a> after saving.</p>
-  <div class="note"><strong>If something is wrong:</strong> stop making further edits and tell the site administrator which section changed and roughly when. Every save is kept in Git history and can be restored.</div>
+  <section class="split">
+    <h2>Every change</h2>
+    <div class="copy">
+      <ol class="steps">
+        <li>Choose the section.</li>
+        <li>Edit DA and EN where tabs appear.</li>
+        <li>Check the visual preview.</li>
+        <li>Save and check the live pages.</li>
+      </ol>
+      <p>Publishing normally takes 1–2 minutes. Prices, durations, images, opening hours and genuine review quotes are shared between the languages. Translatable wording has separate <strong>DA</strong> and <strong>EN</strong> tabs.</p>
+      <div class="note"><strong>The preview is a safety check, not the published website.</strong> After saving, open both the <a href="/" target="_blank">Danish page</a> and <a href="/en/" target="_blank">English page</a>.</div>
+    </div>
+  </section>
 
-  <h2>Danish and English</h2>
-  <p>Text fields have DA and EN tabs. Prices, images, review quotations and treatment order are deliberately shared so the two versions cannot drift apart. A genuine review remains in the language the customer used; never translate it.</p>
+  <section class="split">
+    <h2>Where is it?</h2>
+    <div class="copy">
+      <ul class="where">
+        <li><strong>Treatments &amp; prices</strong><span>Names, descriptions, duration, price, order and highlighted treatment.</span></li>
+        <li><strong>Contact &amp; opening hours</strong><span>Regular weekly hours, public street, phone, email and social links.</span></li>
+        <li><strong>Photos used on the website</strong><span>Logo, large top photo and About photo.</span></li>
+        <li><strong>Before &amp; after slider</strong><span>Result pairs and the treatment label under each pair.</span></li>
+        <li><strong>Main page text</strong><span>Headings and paragraphs across the homepage.</span></li>
+        <li><strong>Google &amp; link previews</strong><span>Google title and description, plus the image shown when the site is shared.</span></li>
+      </ul>
+      <p><strong>Unused result photos</strong> are kept safely in the editor but are not currently shown. Visitors are sent to Instagram for more results.</p>
+    </div>
+  </section>
 
-  <h2>Treatments and prices</h2>
-  <p>Use <strong>Treatments & prices</strong> for names, descriptions, duration and price. Drag treatments to reorder them. Duration may stay empty until it is confirmed. Booking-system identifiers are protected and do not appear in this editor.</p>
+  <section class="split">
+    <h2>Website vs. bookings</h2>
+    <div class="copy">
+      <p>This editor changes what visitors see on the website. Appointments, days off and individual blocked times belong in the booking calendar. Once the booking setup is finished, a direct <strong>Bookings &amp; availability</strong> shortcut should be added to the top of the editor.</p>
+      <p>Changing regular opening hours here changes the public information on the website. Blocking one afternoon in the calendar does not change the public opening-hours text; it only removes those appointment times.</p>
+    </div>
+  </section>
 
-  <h2>Photos</h2>
-  <p>Use <strong>Main photos</strong> for the hero, portrait and before/after pair. Use <strong>Result photos</strong> for the scrolling result strip. Upload sharp images with the client’s permission; the editor automatically converts large phone photos to web-friendly WebP files.</p>
+  <section class="split">
+    <h2>Photos</h2>
+    <div class="copy">
+      <p>Upload sharp JPEG, PNG or WebP images only when the client has allowed website use. The editor converts large phone photos to efficient WebP files automatically.</p>
+      <p>Before and after images should use the same angle, distance and lighting. Otherwise the slider will appear to jump when visitors move it.</p>
+    </div>
+  </section>
 
-  <h2>SEO and link previews</h2>
-  <p>Use <strong>SEO & link previews</strong> for the Google title and description in each language. The character counters are intentional. Mention the main service and Horsens naturally, write for people, and avoid repeating keywords or making claims that are not visible on the page.</p>
-  <p>The social title, description and 1200 × 630 image control how the link looks in Messenger, Facebook and similar services. Those services may cache an older preview for a while even after the website has changed.</p>
-
-  <h2>Business settings</h2>
-  <p><strong>Business details & links</strong> controls social buttons, public contact details, the footer and structured business information for search engines. Optional email and phone fields disappear from the website when left blank.</p>
-
-  <h2>Changes that need the site administrator</h2>
-  <p>The editor intentionally does not expose the domain, login/authentication, layout code, booking integration, analytics or deployment settings. Those changes can affect the whole site and should be tested before publication.</p>
+  <section class="split">
+    <h2>Recovery</h2>
+    <div class="copy">
+      <p>Sign in with Wiktoria’s own GitHub account. The first time, GitHub may ask her to approve access to the website repository. She should never share that password; another editor gets their own account and access.</p>
+      <p><strong>Save</strong> publishes the change. The arrow beside Save also offers <strong>Save without publishing</strong> for unfinished work. Every save has version history.</p>
+      <div class="note"><strong>If something looks wrong:</strong> stop making further edits and tell the site administrator which section you changed and roughly when. The previous version can be restored.</div>
+      <p>Domain settings, login, layout code, the payment connection and booking integration are intentionally not editable here because they require testing before publication.</p>
+    </div>
+  </section>
 </main>
 </body>
 </html>

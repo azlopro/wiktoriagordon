@@ -846,6 +846,13 @@ strong { font-weight: 500; }
    så ugedagene kan staves korrekt med småt på dansk og med stort på engelsk. */
 .footer-hours-title { margin-top: 2rem; }
 .footer-hours li::first-letter { text-transform: uppercase; }
+.footer-hours-note {
+  max-width: 34ch;
+  margin-top: 1.1rem;
+  color: rgba(233,222,217,.66);
+  font-size: .9375rem;
+  line-height: 1.6;
+}
 .footer ul a { font-size: 1.125rem; }
 .footer .socials { display: flex; gap: .8rem; margin-top: 1.4rem; }
 .footer .socials a {
@@ -875,9 +882,9 @@ strong { font-weight: 500; }
 
 /* Navigationen har sit eget breakpoint. Den løber tør for plads længe før
    resten af layoutet gør, fordi brand, fem menupunkter, sprogskifter og
-   booking-knap skal stå på én linje. Ved 1000 px begynder navnet at brække
-   ind i menuen, så burgeren overtager dér i stedet for først ved 720. */
-@media (max-width: 1000px) {
+   booking-knap skal stå på én linje. Med den selvstændige politikside er
+   der seks menupunkter, så burgeren overtager ved 1180 px. */
+@media (max-width: 1180px) {
   .nav-toggle { display: block; }
   .nav-menu {
     position: fixed; inset: var(--header-h) 0 auto 0;
@@ -924,7 +931,7 @@ strong { font-weight: 500; }
 }
 
 /* Lige over burger-grænsen er der plads, men ikke rigelig. */
-@media (min-width: 1001px) and (max-width: 1180px) {
+@media (min-width: 1181px) and (max-width: 1320px) {
   .nav-menu { gap: 1.2rem; }
   .nav-links { gap: 1.4rem; }
   .nav-links a { font-size: 1rem; letter-spacing: .08em; }
@@ -1897,7 +1904,7 @@ h3 { letter-spacing: -.025em; }
 }
 .footer .socials a { border-radius: 0; }
 
-@media (max-width: 1000px) {
+@media (max-width: 1180px) {
   .nav-menu { background: rgba(255,255,255,.985); }
 }
 
@@ -2100,6 +2107,66 @@ h3 { letter-spacing: -.025em; }
   .nav-book--compact { padding: .5rem .7rem; letter-spacing: .06em; }
   /* "Se behandlinger" kræver 161 px, og her er der kun 157. Så stables de. */
   .hero-actions { grid-template-columns: 1fr; gap: .6rem; }
+}
+
+/* ---------- Selvstændige politik- og privatlivssider ---------- */
+.legal-page--policy { padding-top: var(--header-h); }
+.policy-page-title {
+  font-size: clamp(3rem, 6vw, 5rem);
+  line-height: .95;
+  letter-spacing: -.035em;
+  text-transform: none;
+}
+.legal-page--privacy.section {
+  padding-top: calc(var(--header-h) + clamp(4rem, 8vw, 7rem));
+}
+.legal-page__inner { max-width: 1080px; }
+.legal-page__head { max-width: 780px; }
+.legal-page__head h1 {
+  max-width: 12ch;
+  font-size: clamp(3.2rem, 7vw, 5.8rem);
+  text-transform: none;
+}
+.legal-page__updated {
+  margin-top: 1.4rem;
+  font-size: .75rem !important;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--rose-deep) !important;
+}
+.legal-sections { margin-top: clamp(3rem, 7vw, 5.5rem); }
+.legal-section {
+  display: grid;
+  grid-template-columns: minmax(12rem, .72fr) minmax(0, 1.55fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  padding-block: clamp(2rem, 4vw, 3.2rem);
+  border-top: 1px solid var(--line);
+}
+.legal-section h2,
+.legal-section h3 {
+  margin: 0;
+  font-size: clamp(1.55rem, 2.2vw, 2rem);
+}
+.legal-section p {
+  max-width: 68ch;
+  color: var(--ink-soft);
+  line-height: 1.75;
+}
+.legal-section__body p + p { margin-top: 1rem; }
+.legal-page__authority {
+  padding-top: 2rem;
+  border-top: 1px solid var(--line);
+}
+.legal-page__authority a {
+  color: var(--rose-deep);
+  border-bottom: 1px solid currentColor;
+}
+@media (max-width: 720px) {
+  .legal-page--privacy.section {
+    padding-top: calc(var(--header-h) + 3.5rem);
+  }
+  .legal-section { grid-template-columns: 1fr; gap: .9rem; }
 }
 
 /* iPhone SE af første slags og lignende, 320 px. Her rører navnet og
@@ -2324,7 +2391,7 @@ h3 {
 .nav-prices--mobile,
 .sets-link--mobile { display: none; }
 
-@media (max-width: 1000px) {
+@media (max-width: 1180px) {
   .nav-menu { background: rgba(248, 245, 242, .985); }
 }
 

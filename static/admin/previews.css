@@ -170,6 +170,14 @@ body {
 .wg-business-card dl div { padding-top: 1rem; border-top: 1px solid var(--line); }
 .wg-business-card dt { color: var(--ink-soft); font-family: var(--sans); font-size: .68rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
 .wg-business-card dd { margin: .35rem 0 0; font-family: var(--serif); font-size: 1.1rem; }
+.wg-hours-preview { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+.wg-hours-preview h3 { margin: 0 0 .8rem; }
+.wg-hours-preview ul { display: grid; gap: .45rem; margin: 0; padding: 0; list-style: none; }
+.wg-hours-preview li { display: flex; justify-content: space-between; gap: 1rem; color: var(--ink-soft); font-family: var(--sans); font-size: .86rem; }
+.wg-hours-preview li b { color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.wg-social-links-preview { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: 1.5rem; }
+.wg-social-links-preview span { display: inline-flex; gap: .35rem; padding: .5rem .65rem; border-radius: .45rem; color: var(--ink-soft); background: var(--blush); font-family: var(--sans); font-size: .75rem; }
+.wg-social-links-preview b { color: var(--rose-deep); }
 .wg-footer-preview { display: flex; justify-content: space-between; gap: 1rem; padding: 1.5rem; border-radius: 0 0 1.2rem 1.2rem; background: var(--ink); color: #fff; }
 .wg-footer-preview strong,
 .wg-footer-preview span { display: block; }

@@ -2,22 +2,22 @@
 {{ $p := index hugo.Data.policy $L }}
 <section class="section" id="politik">
   <div class="container">
-    <div class="section-head reveal">
+    <div class="section-head{{ if .IsHome }} reveal{{ end }}">
       <p class="eyebrow">{{ $p.eyebrow }}</p>
-      <h2>{{ $p.heading }}</h2>
+      {{ if .IsHome }}<h2>{{ $p.heading }}</h2>{{ else }}<h1 class="policy-page-title">{{ $p.heading }}</h1>{{ end }}
       <p>{{ $p.intro }}</p>
     </div>
 
     <div class="policy-grid">
       {{ range $i, $item := $p.items }}
-      <article class="policy-card reveal{{ if lt $i 3 }} d{{ add $i 1 }}{{ end }}">
+      <article class="policy-card{{ if $.IsHome }} reveal{{ if lt $i 3 }} d{{ add $i 1 }}{{ end }}{{ end }}">
         <h3>{{ $item.title }}</h3>
         <p>{{ $item.text }}</p>
       </article>
       {{ end }}
     </div>
 
-    <p class="policy-note reveal">{{ $p.note }}</p>
-    <p class="policy-accept reveal">{{ $p.accept }}</p>
+    <p class="policy-note{{ if .IsHome }} reveal{{ end }}">{{ $p.note }}</p>
+    <p class="policy-accept{{ if .IsHome }} reveal{{ end }}">{{ $p.accept }}</p>
   </div>
 </section>

@@ -318,7 +318,8 @@
     var groups = [
       ['Menu', data.nav], ['Small labels', data.labels], ['Price-list groups', data.groups],
       ['Sets block', data.sets], ['Reviews', data.reviews], ['Footer', data.footer],
-      ['Booking calendar', data.calendar], ['Error page', data.error]
+      ['Booking form', data.booking], ['Booking calendar', data.calendar],
+      ['Error page', data.error], ['Weekday names', data.weekdays]
     ];
     return h('div', { className: 'wg-ui-preview' }, groups.map(function (pair, index) {
       var values = pair[1] || {};
@@ -350,11 +351,44 @@
   }
 
   function renderBusiness(data) {
+    var hours = list(data.openingHours);
+    var socialLinks = [
+      data.instagram ? ['Instagram', data.instagramHandle ? '@' + data.instagramHandle : 'Connected'] : null,
+      data.facebook ? ['Facebook', data.facebookPageName || 'Connected'] : null,
+      data.messenger ? ['Messenger', 'Connected'] : null
+    ].filter(Boolean);
+
     return h(
       'div',
       { className: 'wg-business-preview' },
-      h('section', { className: 'wg-business-card' }, h('p', { className: 'wg-preview-kicker' }, 'BUSINESS INFORMATION'), h('h2', {}, shown(data.businessName, 'Business name')), h('p', { className: 'wg-owner' }, shown(data.ownerName, 'Owner name')), h('dl', {}, h('div', {}, h('dt', {}, 'Location'), h('dd', {}, [data.postalCode, data.city, data.region].filter(Boolean).join(' · '))), h('div', {}, h('dt', {}, 'CVR'), h('dd', {}, shown(data.cvr, 'CVR number'))), h('div', {}, h('dt', {}, 'Price range'), h('dd', {}, shown(data.priceRange, 'Price range'))))),
-      h('footer', { className: 'wg-footer-preview' }, h('div', {}, h('strong', {}, shown(data.businessName, 'Business name')), h('span', {}, data.instagramHandle ? '@' + data.instagramHandle : 'Instagram username')), h('div', { className: 'wg-contact-list' }, data.email ? h('span', {}, data.email) : null, data.phone ? h('span', {}, data.phone) : null, h('span', {}, data.city || 'City')))
+      h('section', { className: 'wg-business-card' },
+        h('p', { className: 'wg-preview-kicker' }, 'PUBLIC CONTACT DETAILS'),
+        h('h2', {}, shown(data.businessName, 'Business name')),
+        h('p', { className: 'wg-owner' }, shown(data.ownerName, 'Owner name')),
+        h('dl', {},
+          h('div', {}, h('dt', {}, 'Public location'), h('dd', {}, [data.streetAddress, data.postalCode, data.city].filter(Boolean).join(' · ') || 'Not shown')),
+          h('div', {}, h('dt', {}, 'Phone'), h('dd', {}, data.phone || 'Hidden')),
+          h('div', {}, h('dt', {}, 'Email'), h('dd', {}, data.email || 'Hidden'))
+        ),
+        h('div', { className: 'wg-hours-preview' },
+          h('h3', {}, 'Regular opening hours'),
+          hours.length
+            ? h('ul', {}, hours.map(function (row, index) {
+                var days = Array.isArray(row.days) ? row.days.join(', ') : row.days;
+                return h('li', { key: index }, h('span', {}, shown(days, 'Days')), h('b', {}, shown(row.opens, '00:00') + '–' + shown(row.closes, '00:00')));
+              }))
+            : h('p', { className: 'wg-note' }, 'No regular hours are published.')
+        ),
+        socialLinks.length
+          ? h('div', { className: 'wg-social-links-preview' }, socialLinks.map(function (item) {
+              return h('span', { key: item[0] }, h('b', {}, item[0]), item[1]);
+            }))
+          : null
+      ),
+      h('footer', { className: 'wg-footer-preview' },
+        h('div', {}, h('strong', {}, shown(data.businessName, 'Business name')), h('span', {}, data.instagramHandle ? '@' + data.instagramHandle : 'Instagram username')),
+        h('div', { className: 'wg-contact-list' }, data.email ? h('span', {}, data.email) : null, data.phone ? h('span', {}, data.phone) : null, h('span', {}, data.streetAddress || data.city || 'City'))
+      )
     );
   }
 
@@ -381,6 +415,23 @@
     })), h('p', { className: 'policy-note' }, shown(data.note, 'Closing policy note')), h('p', { className: 'policy-accept' }, shown(data.accept, 'Acceptance line')));
   }
 
+  function renderPrivacy(data) {
+    return h('article', { className: 'wg-copy-section wg-privacy-preview' },
+      h('p', { className: 'eyebrow' }, shown(data.eyebrow, 'Privacy label')),
+      h('h2', {}, shown(data.heading, 'Privacy heading')),
+      h('p', {}, shown(data.intro, 'Privacy introduction')),
+      h('p', { className: 'wg-preview-kicker' }, shown(data.updated, 'Last updated')),
+      h('div', { className: 'legal-sections' }, list(data.sections).map(function (section, index) {
+        return h('section', { className: 'legal-section', key: index },
+          h('h3', {}, shown(section.title, 'Section heading')),
+          h('div', {}, list(section.paragraphs).map(function (paragraph, paragraphIndex) {
+            return h('p', { key: paragraphIndex }, paragraph);
+          }))
+        );
+      }))
+    );
+  }
+
   try {
     CMS.registerPreviewStyle('/css/fonts.css');
     CMS.registerPreviewStyle('/css/style.css');
@@ -395,6 +446,7 @@
     register('reviews', { title: 'Reviews', anchor: '#anmeldelser', localized: true }, renderReviews);
     register('faq', { title: 'Questions & answers', anchor: '#faq', localized: true }, renderFaq);
     register('policy', { title: 'Salon policy', anchor: '#politik', localized: true }, renderPolicy);
+    register('privacy', { title: 'Privacy notice', anchor: '', localized: true }, renderPrivacy);
     register('beforeafter', { title: 'Before & after', anchor: '#resultater', localized: true }, renderBeforeAfter);
     register('ui', { title: 'Buttons & labels', anchor: '', localized: true }, renderUi);
   } catch (error) {

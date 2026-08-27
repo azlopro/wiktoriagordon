@@ -11,8 +11,8 @@ Det er IDEMPOTENT: findes en event type med samme slug i forvejen, opdateres
 den i stedet for at blive oprettet igen. Kør den så mange gange du vil.
 
 Navne og beskrivelser hentes fra data/services.yaml, så Cal og prislisten
-siger det samme. Varigheder tages fra samme fil, hvis de er udfyldt, og
-falder ellers tilbage på estimaterne herunder.
+siger det samme. Kalenderens bloktid ligger separat herunder, fordi den
+offentlige behandlingstid kan være et interval og ikke inkluderer pausen.
 
 Brug:
     echo 'CAL_API_KEY=cal_live_...' > scripts/booking/.env
@@ -39,23 +39,22 @@ API_VERSION = '2024-06-14'
 # Ingen successRedirectUrl: "Redirect on booking" er en Teams-funktion, og
 # API'et afviser den med 403 på gratis-planen. Det er derfor bookingen ikke
 # længere går gennem Cals egen side, se PLAN.md.
-BUFFER_AFTER = 15      # minutter til oprydning og skift
+BUFFER_AFTER = 0       # bloktiden nedenfor indeholder allerede oprydning og skift
 NOTICE = 12 * 60       # kunden kan tidligst booke 12 timer ude
 
-# Estimerede varigheder, slået op på calSlug. Bruges KUN når duration står tom
-# i services.yaml. Slug og navn kommer fra datafilen, så der ikke er to lister
-# at holde i sync: retter Wiktoria en pris eller et navn i CMS'et, følger Cal
-# med næste gang scriptet køres.
+# Kalenderens bloktid er bevidst adskilt fra den behandlingstid, kunden ser.
+# Wiktoria har bedt om 60 minutter pr. enkeltbehandling og 120 minutter pr.
+# sæt; de tider indeholder allerede oprydning og skift mellem kunder.
 FALLBACK_MINUTES = {
     'lash-lift': 60,
-    'brow-lamination': 45,
+    'brow-lamination': 60,
     'brow-lamination-tint': 60,
-    'brow-tint-shaping': 45,
-    'brow-shaping': 30,
+    'brow-tint-shaping': 60,
+    'brow-shaping': 60,
     'lash-brow-lamination-tint': 120,
-    'lash-brow-lamination': 105,
-    'lash-brow-tint': 105,
-    'lash-brow-shaping': 90,
+    'lash-brow-lamination': 120,
+    'lash-brow-tint': 120,
+    'lash-brow-shaping': 120,
 }
 
 
@@ -92,11 +91,9 @@ def call(method, path, key, body=None):
         sys.exit(f'{method} {path} svarede {e.code}\n{detail}')
 
 
-def minutes(service, fallback):
-    """Varighed fra services.yaml hvis den er udfyldt, ellers estimatet."""
-    raw = (service.get('duration') or '').strip()
-    digits = ''.join(c for c in raw if c.isdigit())
-    return int(digits) if digits else fallback
+def minutes(_service, fallback):
+    """Kalenderens bloktid; den offentlige varighed kan være et interval."""
+    return fallback
 
 
 def main():
@@ -171,8 +168,7 @@ def main():
         }
         found = existing.get(slug)
         verb = 'opdaterer' if found else 'opretter'
-        est = '' if (svc.get('duration') or '').strip() else '  (estimeret varighed)'
-        print(f"  {verb:10} {slug:28} {payload['lengthInMinutes']:>3} min  {svc['title']}{est}")
+        print(f"  {verb:10} {slug:28} {payload['lengthInMinutes']:>3} min  {svc['title']}")
         if not apply:
             continue
         if found:

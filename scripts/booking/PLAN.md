@@ -72,9 +72,9 @@ ledige tider, vis dem, send valget videre.
 
 1. Kunden vælger behandling og tid i sitets egen tidsvælger. Tiderne hentes
    fra Cals API gennem Workeren, så nøglen aldrig når browseren.
-2. Hun indtaster navn, mail og telefon og sender af sted.
-3. Workeren regner depositummet ud som 50 % af prisen, som den henter fra
-   sitets eget `/booking-prices.json`, genereret af Hugo fra
+2. Hun indtaster fornavn, efternavn og telefon og sender af sted.
+3. Workeren slår det faste depositum på 200 kr. op i sitets eget
+   `/booking-prices.json`, genereret af Hugo fra
    `data/services.yaml`. Beløbet kommer aldrig fra browseren.
 4. Workeren opretter en MobilePay-betaling og gemmer det valgte tidspunkt i
    KV under betalingens reference.
@@ -152,13 +152,12 @@ Ingen cron-trigger. Der findes ingen ubetalte bookinger at rydde op efter.
 
 ## Når det virker
 
-- `data/site.yaml` → `booking.online: true` og `onlineEmbed` sat til hendes
-  Cal-brugernavn.
+- `data/site.yaml` → `booking.online: true` på begge sprog.
 - `calSlug` pr. behandling i `data/services.yaml`, så prislistens Book-knapper
   peger direkte på den rigtige tid.
 - Prislistens depositum-note passer allerede: der står MobilePay.
-- CSP i `static/_headers` skal ændres fra `app.cal.eu` til `app.cal.com` og
-  have MobilePays domæne med.
+- Den gamle Cal-embed-tilladelse skal fjernes fra CSP'en i `static/_headers`.
+  Test derefter hele MobilePay-redirecten med den strammere politik.
 - Test at kalenderen stadig først henter noget ved klik. Det er dét, der
   holder sitet fri for et cookiebanner.
 
@@ -183,8 +182,9 @@ og på hvad der skal stå hvor.
   tiden i sin egen Google- eller Apple-kalender, og Cal skjuler den
   automatisk. Det er lovet, og det skal testes, før det afleveres.
 
-Stadig ubesvaret efter denne runde: depositum 50 % eller fast 200 kr.,
-åbningstider ("Mon wed"), sprogvalg og hendes mailadresse.
+Afklaret efter denne runde: depositummet er fast 200 kr.; siden er dansk og
+engelsk; der indsamles ingen mailadresse; og åbningstiderne er mandag–onsdag
+10–19 og torsdag–fredag 10–16. Weekend er som udgangspunkt lukket.
 
 ## Kilder
 
