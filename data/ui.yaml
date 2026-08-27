@@ -44,6 +44,8 @@ da:
   reviews:
     badge: "Anbefaler på Facebook"
     link: "Se alle anmeldelser på Facebook"
+    showMore: "Se flere anmeldelser"
+    showLess: "Vis færre anmeldelser"
 
   footer:
     about: "Koreansk lash lift og brynstyling i Horsens. Kun efter aftale."
@@ -130,6 +132,8 @@ en:
   reviews:
     badge: "Recommends on Facebook"
     link: "See all reviews on Facebook"
+    showMore: "Show more reviews"
+    showLess: "Show fewer reviews"
 
   footer:
     about: "Korean lash lift and brow styling in Horsens. By appointment only."

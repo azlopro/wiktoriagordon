@@ -647,6 +647,7 @@ strong { font-weight: 500; }
 }
 .review .rec svg { width: 17px; height: 17px; color: var(--gold); flex: none; }
 .reviews-more { text-align: center; margin-top: 2.4rem; }
+.reviews-toggle-wrap { display: none; }
 .review .quote { font-family: var(--serif); font-size: 1.28rem; line-height: 1.5; color: var(--ink); margin-bottom: 1.3rem; }
 .review .who { display: flex; align-items: center; gap: .8rem; }
 .review .avatar {
@@ -2405,6 +2406,26 @@ h3 {
 
   .nav-prices--mobile,
   .sets-link--mobile { display: inline-flex; }
+
+  .js .reviews-grid.is-collapsible:not(.is-expanded) .review--extra {
+    display: none;
+  }
+
+  .reviews-toggle-wrap.is-ready {
+    display: block;
+    margin-top: 1.25rem;
+    text-align: center;
+  }
+
+  .reviews-toggle {
+    min-height: 2.85rem;
+    padding: .75rem 1.15rem;
+    font-size: .68rem;
+  }
+
+  .js .reviews-grid.is-collapsible:not(.is-expanded) ~ .reviews-more {
+    display: none;
+  }
 
   .about-copy {
     margin-inline: 0;

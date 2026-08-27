@@ -13,9 +13,9 @@
       <h2>{{ $r.heading }}</h2>
     </div>
 
-    <div class="reviews-grid">
+    <div class="reviews-grid" id="reviewsGrid">
       {{ range $i, $rev := $r.items }}
-      <article class="review reveal{{ if lt $i 2 }} d{{ add $i 1 }}{{ end }}">
+      <article class="review{{ if ge $i 3 }} review--extra{{ end }} reveal{{ if lt $i 2 }} d{{ add $i 1 }}{{ end }}">
         <div class="rec">{{ partial "icon.html" "check" }} {{ $u.reviews.badge }}</div>
         <p class="quote">“{{ $rev.text }}”</p>
         <div class="who">
@@ -28,6 +28,14 @@
       </article>
       {{ end }}
     </div>
+
+    {{ if gt (len $r.items) 3 }}
+    <div class="reviews-toggle-wrap reveal" id="reviewsToggleWrap">
+      <button type="button" class="btn btn--ghost reviews-toggle" id="reviewsToggle"
+              data-more="{{ $u.reviews.showMore }}" data-less="{{ $u.reviews.showLess }}"
+              aria-expanded="false" aria-controls="reviewsGrid">{{ $u.reviews.showMore }}</button>
+    </div>
+    {{ end }}
 
     <div class="reviews-more reveal">
       <a href="{{ $p.facebookReviews | default $p.facebook }}" target="_blank" rel="noopener" class="btn btn--ghost">

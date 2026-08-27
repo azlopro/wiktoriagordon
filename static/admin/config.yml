@@ -455,6 +455,8 @@ collections:
             fields:
               - {name: badge, label: Badge on each review, widget: string, i18n: true}
               - {name: link, label: Link to Facebook, widget: string, i18n: true}
+              - {name: showMore, label: Show more button, widget: string, i18n: true}
+              - {name: showLess, label: Show fewer button, widget: string, i18n: true}
           - name: footer
             label: Footer
             widget: object

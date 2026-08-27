@@ -92,6 +92,21 @@
     reveals.forEach(function (el) { el.classList.add("in"); });
   }
 
+  /* På telefon vises tre anmeldelser først. Resten åbnes på stedet, så
+     siden forbliver kort uden at skjule de udvalgte citater permanent. */
+  var reviewsGrid = document.getElementById("reviewsGrid");
+  var reviewsToggle = document.getElementById("reviewsToggle");
+  var reviewsToggleWrap = document.getElementById("reviewsToggleWrap");
+  if (reviewsGrid && reviewsToggle && reviewsToggleWrap) {
+    reviewsGrid.classList.add("is-collapsible");
+    reviewsToggleWrap.classList.add("is-ready");
+    reviewsToggle.addEventListener("click", function () {
+      var expanded = reviewsGrid.classList.toggle("is-expanded");
+      reviewsToggle.setAttribute("aria-expanded", expanded ? "true" : "false");
+      reviewsToggle.textContent = expanded ? reviewsToggle.dataset.less : reviewsToggle.dataset.more;
+    });
+  }
+
   /* Før/efter-slider */
   var baSlider = document.getElementById("baSlider");
   var baRange = document.getElementById("baRange");
