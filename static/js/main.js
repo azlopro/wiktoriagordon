@@ -257,44 +257,11 @@
     }, 80);
   });
 
-  /* Cal-booking: hentes først når den besøgende trykker.
-     Se layouts/partials/cal-embed.html for hvorfor det ikke er et
-     almindeligt script i sidehovedet. */
-  document.querySelectorAll(".cal-slot").forEach(function (slot) {
-    var knap = slot.querySelector(".cal-load");
-    if (!knap) return;
-    knap.addEventListener("click", function () {
-      var ns = slot.getAttribute("data-cal-ns");
-      var link = slot.getAttribute("data-cal-link");
-      var mount = slot.querySelector(".cal-mount");
-      var invite = slot.querySelector(".cal-invite");
-      knap.disabled = true;
-      knap.textContent = knap.getAttribute("data-loading") || "…";
-
-      /* Cals egen loader-stub, uændret fra deres embed-snippet. */
-      (function (C, A, L) { var p = function (a, ar) { a.q.push(ar); }; var d = C.document; C.Cal = C.Cal || function () { var cal = C.Cal; var ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { var api = function () { p(api, arguments); }; var namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.eu/embed/embed.js", "init");
-
-      Cal("init", ns, { origin: "https://app.cal.eu" });
-      Cal.config = Cal.config || {};
-      Cal.config.forwardQueryParams = true;
-
-      mount.style.display = "";
-      invite.style.display = "none";
-
-      /* Tema skal sættes BÅDE her og i ui() nedenfor — kun ét af stederne
-         giver mørkt tema i en lys kortboks. */
-      Cal.ns[ns]("inline", {
-        elementOrSelector: "#cal-inline-" + ns,
-        config: { layout: "month_view", useSlotsViewOnSmallScreen: "true", theme: "light", timeFormat: "24" },
-        calLink: link,
-      });
-      Cal.ns[ns]("ui", {
-        hideEventTypeDetails: false,
-        layout: "month_view",
-        theme: "light",
-        styles: { branding: { brandColor: "#4D0E13" } },
-      });
-    });
-  });
+  /* Den gamle indlejrede Cal-kalender er væk. Bookingen ligger nu på sitet
+     selv i static/js/booking.js, og der hentes ikke længere noget fra en
+     tredjepart. CSP'en i static/_headers tillader det heller ikke mere, og
+     scripts/security-check.sh nægter at bygge, hvis den kommer tilbage:
+     en embed henter noget om den besøgende ved sideindlæsning, og så skal
+     sitet også have et samtykkebanner. */
 
 })();

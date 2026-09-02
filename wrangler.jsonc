@@ -29,18 +29,74 @@
 //
 // Hemmeligheder sættes derimod med wrangler og aldrig i repoet:
 //   npx wrangler secret put CAL_API_KEY
+//   npx wrangler secret put MOBILEPAY_CLIENT_ID
+//   npx wrangler secret put MOBILEPAY_CLIENT_SECRET
+//   npx wrangler secret put MOBILEPAY_SUBSCRIPTION_KEY
+//   npx wrangler secret put MOBILEPAY_MSN
+//
+// Salonens fulde adresse er også en hemmelighed her, og det er med vilje:
+//   npx wrangler secret put SALON_ADDRESS      # gaden MED husnummer og etage
+// Offentligt står kun gadenavnet uden nummer. Den fulde adresse udleveres
+// først af /api/booking, når depositummet er betalt. Stod den i data/ eller i
+// en skabelon, ville den blive bygget ind i en offentlig side.
 //
 // Lokal deploy uden git-flowet:
 //   npx wrangler deploy
 //
 // Samme mønster som ithjælpnu.dk.
 {
+  // Kontoen står HER og ikke i den wrangler-session, der tilfældigvis
+  // er aktiv. Sitet er HENDES og ligger i hendes egen konto, ikke Christians.
+  "account_id": "866f3dff32f880d50139576d18529a73",
   "name": "w-website",
   "compatibility_date": "2026-07-22",
   "main": "worker/index.js",
   "build": {
     "command": "chmod a+x build.sh && ./build.sh"
   },
+
+  // Testmiljøet er standard, sat i worker/mobilepay.js. Den her linje er den
+  // ENESTE kontakt med rigtige penge: står der ikke "production", rammer alle
+  // betalinger apitest.vipps.no. Skift den først, når hele forløbet er kørt
+  // igennem i test.
+  "vars": {
+    "MOBILEPAY_ENV": "test"
+  },
+
+  // Logning. Uden den er en fejl i bookingen usynlig bagefter: man kan kun se
+  // den, hvis man tilfaeldigvis kigger med "wrangler tail" i netop det
+  // oejeblik, den sker. Med den staar console.error-linjerne i dashboardet
+  // under Workers -> w-website -> Logs, og en booking, der gik galt i gaar,
+  // kan stadig undersoeges i dag.
+  "observability": {
+    "enabled": true
+  },
+
+  // Én betaling under behandling = ét Durable Object.
+  //
+  // HVORFOR IKKE KV: forløbet skal ske i rækkefølge og præcis én gang, og KV
+  // har hverken lås eller stærk konsistens. To samtidige svar på "er der
+  // betalt?" ville kunne oprette to bookinger. Se worker/payment.js.
+  //
+  // new_sqlite_classes og ikke new_classes: det er den SQLite-baserede slags,
+  // der er med på Workers' fri plan. Med new_classes ville deployet blive
+  // afvist på en konto uden abonnement.
+  "durable_objects": {
+    "bindings": [{ "name": "PAYMENT", "class_name": "Payment" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Payment"] }],
+
+  // Så et script ikke kan sidde og oprette betalinger i hendes navn. Grænsen
+  // gælder pr. Cloudflare-lokation og er derfor ikke en nøjagtig optælling,
+  // men den er rigelig til et site med denne trafik. Workeren kører også uden
+  // bindingen; så er der bare ingen grænse.
+  "ratelimits": [
+    {
+      "name": "CHECKOUT_LIMIT",
+      "namespace_id": "1001",
+      "simple": { "limit": 8, "period": 60 }
+    }
+  ],
   "assets": {
     "directory": "./public",
     "not_found_handling": "404-page",

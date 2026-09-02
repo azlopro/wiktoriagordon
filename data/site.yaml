@@ -88,7 +88,18 @@ da:
     text: >-
       Fortæl mig bare, hvad du gerne vil forbedre eller ændre, så hjælper jeg dig
       med at finde den behandling, der er den rigtige for dig.
-    online: false
+    online: true
+    # SÅ LÆNGE DEN HER ER true, ser almindelige besøgende IKKE tidsvælgeren.
+    # De får DM-knapperne som før. Vælgeren dukker kun op, hvis der står
+    # ?forhaandsvisning i adressen.
+    #
+    # Det er sådan hele forløbet kan prøves på det rigtige domæne, med https,
+    # som MobilePay kræver, uden at en rigtig kunde falder ind i en booking,
+    # der stadig peger på testbetalinger.
+    #
+    # Sæt den til false, når alt i scripts/booking/PLAN.md er afkrydset. DET
+    # er øjeblikket, hvor bookingen går live.
+    preview: true
     treatmentButton: "Find din behandling"
     bookButton: "Book en tid"
     note: "Svar inden for 24 timer · Aflysning senest 24 timer før"
@@ -192,7 +203,18 @@ en:
     text: >-
       Simply tell me what you'd like to improve or change, and I'll help you find
       the treatment that's right for you.
-    online: false
+    online: true
+    # SÅ LÆNGE DEN HER ER true, ser almindelige besøgende IKKE tidsvælgeren.
+    # De får DM-knapperne som før. Vælgeren dukker kun op, hvis der står
+    # ?forhaandsvisning i adressen.
+    #
+    # Det er sådan hele forløbet kan prøves på det rigtige domæne, med https,
+    # som MobilePay kræver, uden at en rigtig kunde falder ind i en booking,
+    # der stadig peger på testbetalinger.
+    #
+    # Sæt den til false, når alt i scripts/booking/PLAN.md er afkrydset. DET
+    # er øjeblikket, hvor bookingen går live.
+    preview: true
     treatmentButton: "Find your treatment"
     bookButton: "Book an appointment"
     note: "Reply within 24 hours · Cancellation at least 24 hours ahead"

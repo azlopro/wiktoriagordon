@@ -17,14 +17,31 @@
 {{- $out := dict -}}
 {{- range $svc := $s.main -}}
   {{- with $svc.calSlug -}}
-    {{- $kr := int (replaceRE `[^0-9]` "" $svc.price) -}}
-    {{- /* Aldrig mere end prisen: et depositum større end behandlingen ville
-         være en fejl, uanset hvad tallet ovenfor bliver sat til. */ -}}
-    {{- $dep := cond (lt $kr $deposit) $kr $deposit -}}
-    {{- $out = merge $out (dict . (dict
-        "title" $svc.title
-        "priceOere" (int (mul $kr 100))
-        "depositOere" (int (mul $dep 100)))) -}}
+    {{- /* KUN det første tal i prisen.
+         Varigheden står allerede som interval ("45–60 min."), så det er en
+         vane i de her filer, og skriver nogen "500–600 kr.", ville en simpel
+         "fjern alt der ikke er cifre" give 500600. Punktummet skal derimod
+         MED i første omgang, ellers bliver "1.200 kr." til 1. */ -}}
+    {{- $kr := 0 -}}
+    {{- with findRE `[0-9][0-9.]*` $svc.price 1 -}}
+      {{- $kr = int (replaceRE `[^0-9]` "" (index . 0)) -}}
+    {{- end -}}
+    {{- /* Uden en pris kan depositummet ikke regnes ud, og en behandling til
+         0 kr. må ALDRIG kunne bookes. Så udelades den hellere: Workeren
+         afviser en ukendt slug, og prislistens Book-knap forsvinder med den. */ -}}
+    {{- if gt $kr 0 -}}
+      {{- /* Aldrig mere end prisen: et depositum større end behandlingen ville
+           være en fejl, uanset hvad tallet ovenfor bliver sat til. */ -}}
+      {{- $dep := cond (lt $kr $deposit) $kr $deposit -}}
+      {{- $out = merge $out (dict . (dict
+          "title" $svc.title
+          "priceOere" (int (mul $kr 100))
+          "depositOere" (int (mul $dep 100)))) -}}
+    {{- end -}}
   {{- end -}}
 {{- end -}}
-{{ dict "currency" "DKK" "depositOere" (int (mul $deposit 100)) "treatments" $out | jsonify (dict "indent" "  ") }}
+{{- /* Virksomhedsnavnet og noten om mascara skal med i kalenderfilen, som
+     Workeren bygger. De staar i data/, og Workeren har ingen adgang dertil,
+     saa de foelger med her ligesom beloebet. */ -}}
+{{- $u := index hugo.Data.ui $L -}}
+{{ dict "currency" "DKK" "depositOere" (int (mul $deposit 100)) "businessName" (hugo.Data.business).businessName "calendarNote" $u.thanks.prepText "depositLabel" $u.booking.deposit "treatments" $out | jsonify (dict "indent" "  ") }}

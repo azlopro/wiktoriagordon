@@ -2749,3 +2749,165 @@ h3 {
     letter-spacing: .08em;
   }
 }
+
+/* =====================================================================
+   Bookingkvitteringen /tak/ og terms-linjen i tidsvælgeren.
+   Kvitteringen er kundens eneste bevis på aftalen, fordi der ikke sendes
+   mail. Derfor er den bygget til at kunne læses på en telefon i en
+   opgang, og til at kunne gemmes som skærmbillede.
+   ===================================================================== */
+
+.bp-terms {
+  margin: 1.4rem 0 0;
+  font-size: .875rem;
+  line-height: 1.6;
+  color: rgba(255,255,255,.78);
+}
+.bp-terms a { color: #fff; text-decoration: underline; text-underline-offset: .18em; }
+
+.container--narrow { max-width: 720px; }
+
+.legal-page--thanks { padding-top: var(--header-h); }
+.thanks-card { text-align: center; }
+.thanks-card h1 {
+  font-size: clamp(2.4rem, 5.5vw, 3.6rem);
+  line-height: 1.05;
+  letter-spacing: -.03em;
+  text-transform: none;
+  margin-bottom: 1rem;
+}
+.thanks-card p { margin-inline: auto; }
+.thanks-state[hidden] { display: none; }
+
+/* Snurren mens MobilePay bliver spurgt. Prefers-reduced-motion slukker
+   den; beskeden nedenunder siger alligevel hvad der sker. */
+.thanks-spinner {
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  margin: 0 auto 1.8rem;
+  border: 2px solid var(--line-soft);
+  border-top-color: var(--rose-deep);
+  border-radius: 50%;
+  animation: thanks-spin .9s linear infinite;
+}
+@keyframes thanks-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .thanks-spinner { animation: none; }
+}
+
+.thanks-when {
+  margin-top: 1.8rem;
+  font-family: var(--serif);
+  font-size: clamp(1.3rem, 3vw, 1.7rem);
+  color: var(--rose-deep);
+}
+.thanks-cal {
+  margin-top: 2.6rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line-soft);
+}
+.thanks-cal h2 {
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 1rem;
+}
+/* Tre lige store valg. Paa telefon staar de under hinanden i fuld bredde,
+   saa de kan rammes med en tommelfinger; paa en bredere skaerm ved siden af
+   hinanden. Ingen af dem er "den primaere": hvilken der er rigtig, afhaenger
+   af hvilken kalender kunden bruger. */
+/* Tre kalendere, lige store. Under hinanden i fuld bredde på telefon, så de
+   kan rammes med en tommelfinger; side om side når der er plads. Ingen af dem
+   er "den primære" — hvilken der er rigtig, afhænger af kundens egen kalender,
+   og det ved hun bedre end vi gør. */
+.thanks-cal-actions {
+  display: grid;
+  gap: .7rem;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 560px) {
+  .thanks-cal-actions { grid-template-columns: repeat(3, 1fr); }
+}
+.btn--cal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  background: var(--white);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.btn--cal:hover { border-color: var(--ink); transform: translateY(-2px); }
+.btn--cal svg { width: 1.05rem; height: 1.05rem; flex: none; }
+.thanks-cal-hint {
+  margin-top: 1rem;
+  font-size: .8rem;
+  color: var(--ink-soft);
+}
+
+.thanks-block {
+  margin-top: 2.6rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line-soft);
+}
+.thanks-block h2 {
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: .8rem;
+}
+/* Adressen er sidens vigtigste oplysning, og den skal LÆSES, ikke beundres.
+   Den stod før i den samme serif som "Tak, …"-overskriften og lignede pynt.
+   Nu er den sans, med vægt og luft mellem bogstaverne, i en indrammet boks,
+   så den skiller sig ud fra alt andet på siden og er til at tage et
+   skærmbillede af. */
+.thanks-where {
+  margin-top: 2.4rem;
+  padding: 1.6rem 1.4rem;
+  background: var(--cream-2);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+}
+.thanks-where h2 {
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: .7rem;
+}
+.thanks-address {
+  font-family: var(--sans);
+  font-size: clamp(1.1rem, 2.6vw, 1.35rem);
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -.01em;
+  color: var(--ink);
+}
+.thanks-address[hidden] { display: none; }
+.thanks-where-note {
+  margin-top: .9rem;
+  font-size: .8rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+/* Politiklinket. Teksten står for sig, knappen under, så den kan rammes med
+   en tommelfinger og ikke skal findes midt i en linje. */
+.thanks-policy { margin-top: .9rem; }
+.thanks-policy svg { width: 1rem; height: 1rem; }
+
+.thanks-links { list-style: none; padding: 0; margin: 0; display: grid; gap: .7rem; }
+.thanks-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  justify-content: center;
+}
+.thanks-links svg { width: 1.05rem; height: 1.05rem; flex: none; }

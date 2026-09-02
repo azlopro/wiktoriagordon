@@ -29,6 +29,8 @@
 <div class="booking-picker" id="bookingPicker"
      data-treatments="{{ $treatments | jsonify }}"
      data-labels="{{ $b | jsonify }}"
+     data-lang="{{ $L }}"
+     data-preview="{{ (index hugo.Data.site $L).booking.preview }}"
      data-locale="{{ if eq $L "da" }}da-DK{{ else }}en-GB{{ end }}">
 
   <div class="bp-step">
@@ -79,6 +81,13 @@
         <input type="tel" name="phone" autocomplete="tel" inputmode="tel" required>
       </label>
     </div>
+    {{/* Politikken SKAL stå før man betaler, ikke først på kvitteringen.
+         Wiktorias krav 26/8-2026. Depositummet refunderes ikke, og det skal
+         man have haft mulighed for at læse, inden man betaler det. */}}
+    <p class="bp-terms">
+      {{ $b.termsBefore }}
+      <a href="{{ cond (eq $L "da") "/politik/" "/en/policy/" }}">{{ $b.termsLink }}</a>{{ $b.termsAfter }}
+    </p>
     <button type="submit" class="btn btn--primary bp-submit">{{ $b.submit }}</button>
   </form>
 </div>

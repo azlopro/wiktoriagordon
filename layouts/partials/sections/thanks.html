@@ -1,0 +1,148 @@
+{{- /* Bookingkvitteringen.
+
+     Siden er TOM, indtil /api/booking har svaret. Det er med vilje. Uden
+     mailadresse er den her side kundens eneste bevis på aftalen, og derfor
+     står den fulde adresse på den. Men /tak/ er en helt almindelig offentlig
+     side: byggede vi adressen ind i HTML'en, kunne enhver læse den ved bare at
+     åbne adressen uden reference. Derfor kommer den fra Workeren, som først
+     udleverer den, når depositummet ER betalt. Se worker/payment.js.
+
+     Wiktorias krav 26/8-2026, som siden skal opfylde: fuld adresse, noten om
+     mascara, en påmindelse om politikken med link, og kontaktoplysninger.
+
+     Uden JavaScript vises kontaktblokken alene. Det er ikke en kvittering,
+     men det er en vej hen til hende, og det er bedre end en tom side. */ -}}
+{{- $L := .Site.Language.Lang -}}
+{{- $u := index hugo.Data.ui $L -}}
+{{- $t := $u.thanks -}}
+{{- $p := hugo.Data.business -}}
+{{- $policyURL := cond (eq $L "da") "/politik/" "/en/policy/" -}}
+
+<section class="section thanks">
+  <div class="container container--narrow">
+    <div class="thanks-card" id="thanksCard"
+         data-labels="{{ $t | jsonify }}"
+         data-lang="{{ $L }}"
+         data-locale="{{ if eq $L "da" }}da-DK{{ else }}en-GB{{ end }}">
+
+      {{/* Venter på svar. Den første tilstand man ser. */}}
+      <div class="thanks-state" id="thWait">
+        <span class="thanks-spinner" aria-hidden="true"></span>
+        <h1>{{ $t.waitHeading }}</h1>
+        <p>{{ $t.waitText }}</p>
+      </div>
+
+      {{/* Betalt og booket. */}}
+      <div class="thanks-state" id="thDone" hidden>
+        <p class="eyebrow eyebrow--center">{{ $t.doneEyebrow }}</p>
+        <h1 id="thName"></h1>
+        <p>{{ $t.doneText }}</p>
+
+        <p class="thanks-when" id="thWhen"></p>
+
+        {{/* ADRESSEN STÅR HØJT OPPE OG FOR SIG SELV.
+
+             Den er sidens vigtigste oplysning. Kunden får den kun her, først
+             efter betalt depositum, og der sendes ingen mail hun kan slå den
+             op i bagefter. Lukker hun siden uden at gemme den, kan hun ikke
+             finde salonen.
+
+             Derfor står den FØR kalenderknapperne: noten siger "gem den", og
+             knapperne lige under er svaret, for adressen følger med i
+             kalenderfilen.
+
+             Feltet fyldes af scriptet, IKKE af Hugo. /tak/ er en offentlig
+             side, så alt der bygges ind i den, kan læses af enhver, der åbner
+             adressen uden reference. Workeren udleverer den først, når der er
+             betalt. Se worker/payment.js. */}}
+        <div class="thanks-where">
+          <h2>{{ $t.addressHeading }}</h2>
+          <p class="thanks-address" id="thAddress"></p>
+          <p class="thanks-where-note">{{ $t.addressNote }}</p>
+        </div>
+
+        <div class="thanks-cal">
+          <h2>{{ $t.calendarHeading }}</h2>
+          {{/* Tre kalendere at vælge imellem, som alle andre gør det.
+
+               Der stod et stykke tid ÉN knap, der rettede sig efter
+               telefonen og bar Android-robotten på en Android. Det var
+               forkert: Android er et styresystem, ikke en kalender, og at
+               blande det med Apple og Google gav ingen mening for den, der
+               skulle vælge. Lad være med at gøre det igen.
+
+               Apple henter .ics-filen. Den virker i øvrigt med enhver
+               kalender, så det er også vejen for alle andre end de tre.
+               Google og Outlook åbner deres egen side med aftalen udfyldt.
+
+               Bemærk: på en telefon er man sjældent logget ind i browseren,
+               så dér er Apple-knappen i praksis den, der virker for alle.
+               Det kan en hjemmeside ikke gøre noget ved: der findes ingen
+               web-API, der kan skrive i en telefons kalender, og
+               ACTION_INSERT via intent: blev afprøvet 2/9-2026 og virker
+               ikke. Eventbrite og Calendly har præcis samme begrænsning. */}}
+          <div class="thanks-cal-actions">
+            <a class="btn btn--cal" id="thCalApple">
+              {{ partial "icon.html" "apple" }} {{ $t.calendarApple }}
+            </a>
+            <a class="btn btn--cal" id="thCalGoogle" target="_blank" rel="noopener">
+              {{ partial "icon.html" "google-calendar" }} {{ $t.calendarGoogle }}
+            </a>
+            <a class="btn btn--cal" id="thCalOutlook" target="_blank" rel="noopener">
+              {{ partial "icon.html" "outlook" }} {{ $t.calendarOutlook }}
+            </a>
+          </div>
+          <p class="thanks-cal-hint">{{ $t.calendarHint }}</p>
+        </div>
+
+        <div class="thanks-block">
+          <h2>{{ $t.prepHeading }}</h2>
+          <p>{{ $t.prepText }}</p>
+        </div>
+
+        {{/* Politikken er ikke en fodnote. Den er en aftale, kunden lige har
+             betalt et depositum efter, og hun skal kunne finde afbudsfristen
+             igen uden at lede. */}}
+        <div class="thanks-block">
+          <p>{{ $t.policyText }}</p>
+          <a href="{{ $policyURL }}" class="btn btn--text thanks-policy">
+            {{ $t.policyLink }} {{ partial "icon.html" "arrow" }}
+          </a>
+        </div>
+      </div>
+
+      {{/* Kunden fortrød, eller betalingen løb ud. */}}
+      <div class="thanks-state" id="thCancelled" hidden>
+        <h1>{{ $t.cancelledHeading }}</h1>
+        <p>{{ $t.cancelledText }}</p>
+        <a class="btn btn--primary" href="/#booking">{{ $t.retryButton }}</a>
+      </div>
+
+      {{/* Betalingen blev godkendt, men tiden nåede at blive taget. Beløbet er
+           sluppet igen, og kunden er aldrig blevet trukket. */}}
+      <div class="thanks-state" id="thFailed" hidden>
+        <h1>{{ $t.failedHeading }}</h1>
+        <p>{{ $t.failedText }}</p>
+        <a class="btn btn--primary" href="/#booking">{{ $t.retryButton }}</a>
+      </div>
+
+      {{/* Ingen eller ugyldig reference i adressen. */}}
+      <div class="thanks-state" id="thUnknown" hidden>
+        <h1>{{ $t.unknownHeading }}</h1>
+        <p>{{ $t.unknownText }}</p>
+      </div>
+
+      {{/* Står altid, uanset hvordan det gik. */}}
+      <div class="thanks-block thanks-contact">
+        <h2>{{ $t.contactHeading }}</h2>
+        <ul class="thanks-links">
+          <li><a href="tel:{{ replace $p.phone " " "" }}">{{ partial "icon.html" "phone" }}{{ $p.phone }}</a></li>
+          <li><a href="{{ $p.instagram }}" target="_blank" rel="noopener">{{ partial "icon.html" "instagram" }}{{ $p.instagramHandle }}</a></li>
+          <li><a href="{{ $p.facebook }}" target="_blank" rel="noopener">{{ partial "icon.html" "facebook" }}{{ $p.facebookPageName }}</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="{{ "js/thanks.js" | relURL }}" defer></script>

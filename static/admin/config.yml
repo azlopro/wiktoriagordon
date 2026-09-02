@@ -370,6 +370,7 @@ collections:
               - {name: heading, label: Heading, widget: string, i18n: true}
               - {name: text, label: Intro text, widget: text, i18n: true}
               - {name: online, widget: hidden, i18n: duplicate, default: false}
+              - {name: preview, widget: hidden, i18n: duplicate, default: true}
               - {name: treatmentButton, label: Find-treatment button, widget: string, i18n: true}
               - {name: bookButton, label: Book-appointment button, widget: string, i18n: true}
               - {name: note, label: Small note underneath, widget: string, i18n: true}
@@ -509,19 +510,48 @@ collections:
               - {name: nextWeek, label: Next week, widget: string, i18n: true}
               - {name: today, label: Today, widget: string, i18n: true}
               - {name: minutes, label: 'Minutes, short form', widget: string, i18n: true}
+              - {name: sending, label: While sending to MobilePay, widget: string, i18n: true}
+              - {name: taken, label: If the time was just taken, widget: text, i18n: true}
+              - {name: payError, label: If the payment cannot start, widget: text, i18n: true}
+              - {name: termsBefore, label: 'Deposit line, before the link', widget: text, i18n: true, hint: Sits right above the payment button. The deposit is non-refundable, so this has to be readable before paying.}
+              - {name: termsLink, label: 'Deposit line, link text', widget: string, i18n: true}
+              - {name: termsAfter, label: 'Deposit line, after the link', widget: string, i18n: true}
 
-          - name: calendar
-            label: Booking calendar
+          - name: thanks
+            label: Booking receipt
             widget: object
             i18n: true
             collapsed: true
-            summary: Booking calendar
-            hint: Shown once online booking is switched on.
+            summary: Booking receipt
+            hint: The page a customer lands on after paying the deposit. It is her only confirmation, because no email is sent.
             fields:
-              - {name: heading, label: Heading, widget: string, i18n: true}
-              - {name: text, label: Text, widget: text, i18n: true}
-              - {name: button, label: Button, widget: string, i18n: true}
-              - {name: loading, label: While the calendar loads, widget: string, i18n: true}
+              - {name: waitHeading, label: 'Waiting, heading', widget: string, i18n: true}
+              - {name: waitText, label: 'Waiting, text', widget: text, i18n: true}
+              - {name: waitSlow, label: 'Waiting, text after a minute', widget: text, i18n: true}
+              - {name: doneEyebrow, label: 'Booked, small label', widget: string, i18n: true}
+              - {name: doneHeading, label: 'Booked, heading', widget: string, i18n: true, hint: '{name} is replaced by the customer first name. Keep it in the sentence.'}
+              - {name: doneText, label: 'Booked, text', widget: text, i18n: true}
+              - {name: calendarHeading, label: Calendar heading, widget: string, i18n: true}
+              - {name: calendarApple, label: 'Calendar, Apple button', widget: string, i18n: true}
+              - {name: calendarGoogle, label: 'Calendar, Google button', widget: string, i18n: true}
+              - {name: calendarOutlook, label: 'Calendar, Outlook button', widget: string, i18n: true}
+              - {name: calendarHint, label: 'Calendar, note under the buttons', widget: text, i18n: true}
+              - {name: addressHeading, label: Address heading, widget: string, i18n: true}
+              - {name: addressNote, label: 'Address, note about saving it', widget: text, i18n: true, hint: The address is only ever shown here, after the deposit is paid. If she closes the page without saving it, there is no email to look it up in.}
+              - {name: prepHeading, label: Preparation heading, widget: string, i18n: true}
+              - {name: prepText, label: Preparation text, widget: text, i18n: true}
+              - {name: policyText, label: Policy reminder, widget: text, i18n: true}
+              - {name: policyLink, label: 'Policy reminder, link text', widget: string, i18n: true}
+              - {name: contactHeading, label: Contact heading, widget: string, i18n: true}
+              - {name: cancelledHeading, label: 'Not paid, heading', widget: string, i18n: true}
+              - {name: cancelledText, label: 'Not paid, text', widget: text, i18n: true}
+              - {name: failedHeading, label: 'Time was taken, heading', widget: string, i18n: true}
+              - {name: failedText, label: 'Time was taken, text', widget: text, i18n: true}
+              - {name: retryButton, label: Try-again button, widget: string, i18n: true}
+              - {name: unknownHeading, label: 'Unknown booking, heading', widget: string, i18n: true}
+              - {name: unknownText, label: 'Unknown booking, text', widget: text, i18n: true}
+              - {name: timeoutHeading, label: 'Still waiting, heading', widget: string, i18n: true}
+              - {name: timeoutText, label: 'Still waiting, text', widget: text, i18n: true}
           - name: error
             label: Error page
             widget: object

@@ -16,9 +16,10 @@
 <meta name="theme-color" content="#F8F5F2">
 <script src="{{ "js/early.js" | relURL }}"></script>
 <link rel="canonical" href="{{ .Permalink }}">
-{{ if eq .Kind "404" -}}
-{{/* Fejlsider må aldrig indekseres. "follow" beholdes, så crawleren stadig
-     følger linkene tilbage til forsiden. */}}
+{{ if or (eq .Kind "404") .Params.noindex -}}
+{{/* Fejlsider må aldrig indekseres, og heller ikke bookingkvitteringen, som
+     kun giver mening med en reference i adressen. "follow" beholdes, så
+     crawleren stadig følger linkene tilbage til forsiden. */}}
 <meta name="robots" content="noindex, follow">
 {{- else -}}
 {{/* max-snippet:-1 giver Google og AI-svartjenester lov til at citere så
@@ -65,8 +66,9 @@
 <link rel="stylesheet" href="{{ "css/fonts.css" | relURL }}">
 <link rel="stylesheet" href="{{ "css/style.css" | relURL }}">
 
-{{/* Ingen strukturerede data på fejlsiden. Den er noindex, og dens
-     FAQPage/WebPage ville kollidere med forsidens @id'er. */}}
-{{ if ne .Kind "404" }}
+{{/* Ingen strukturerede data på noindex-sider. Deres FAQPage/WebPage
+     ville kollidere med forsidens @id'er, og de skal alligevel ikke findes:
+     fejlsiden og bookingkvitteringen har ingen plads i et søgeresultat. */}}
+{{ if and (ne .Kind "404") (not .Params.noindex) }}
   {{ if .IsHome }}{{ partial "schema.html" . }}{{ else }}{{ partial "schema-page.html" . }}{{ end }}
 {{ end }}

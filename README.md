@@ -98,12 +98,20 @@ bash scripts/security-check.sh   # sikkerhedstjek + færdigt site i ./public
 
 ## Tænd rigtig online-booking senere
 
-Booking er lige nu en **placeholder**, der sender folk til Instagram-DM. Den
-egenudviklede Cal.com/Vipps MobilePay-kobling ligger delvist klar, men må først
-tændes, når betalingsaftalen, kalenderen, kvitteringssiden og hele testforløbet
-er på plads. Den aktuelle afleveringsliste står i `scripts/booking/PLAN.md`.
+Booking er lige nu en **placeholder**, der sender folk til Instagram-DM.
+Koden bag den rigtige booking er skrevet og ligger klar: egen tidsvælger,
+Cal.com til kalenderen og Vipps MobilePay til depositummet. Den venter kun på
+nøglerne til MobilePays ePayment-API, som bestilles på hendes CVR.
 
-Når alle punkter er testet, sættes `booking.online: true` på begge sprog. Der
+Testforløbet, opsætningen og de tre ting, der let bliver gjort forkert, står i
+`scripts/booking/PLAN.md`. Læs den, før noget røres.
+
+Hele forløbet kan afprøves lokalt uden nøgler overhovedet:
+
+    bash scripts/booking/dev.sh --stub
+
+Når alle punkter i planen er testet mod Vipps' testmiljø, sættes
+`MOBILEPAY_ENV` til `production` og `booking.online: true` på begge sprog. Der
 bruges ikke længere et eksternt kalender-embed.
 
 ---
@@ -259,12 +267,30 @@ mindst én gang om året, når den lokalt fastlåste Sveltia-version opdateres.
 
 ## Booking med MobilePay-depositum
 
-Den aktuelle løsning er en egen tidsvælger, Cal.com til kalenderen og Vipps
-MobilePay til et **fast depositum på 200 kr.** Booking oprettes først, når
-betalingen er gennemført. Der indsamles fornavn, efternavn og telefonnummer,
-men ingen mailadresse eller helbredsoplysninger.
+Egen tidsvælger, Cal.com til kalenderen og Vipps MobilePay til et **fast
+depositum på 200 kr.** Der indsamles fornavn, efternavn og telefonnummer, men
+ingen mailadresse og ingen helbredsoplysninger.
 
-Den fulde, aktuelle arkitektur og afleveringscheckliste ligger i
+Rækkefølgen er **reservér tiden, reservér beløbet, opret bookingen, hæv
+beløbet**. Går noget galt undervejs, slippes beslaget på pengene, og kunden
+bliver aldrig trukket. Det er ikke en detalje: hæves der først, skal der
+refunderes i stedet, og så står der både en betaling og en tilbagebetaling på
+kundens kontoudtog for en tid, hun aldrig fik.
+
+    worker/index.js      ruter, validering, opslag af beløb og tid
+    worker/payment.js    forløbet, som Durable Object med alarm
+    worker/cal.js        kalenderen
+    worker/mobilepay.js  betalingen
+    static/js/booking.js tidsvælgeren
+    static/js/thanks.js  kvitteringen på /tak/
+
+Uden mailadresse er `/tak/` kundens eneste bevis på aftalen. Derfor viser den
+tid, behandling, den fulde adresse og en kalenderfil. **Adressen ligger som
+Worker-secret `SALON_ADDRESS` og ikke i `data/`**: `/tak/` er en offentlig
+side, så alt der bygges ind i den, kan læses af enhver, der åbner adressen.
+Sikkerhedstjekket nægter at bygge, hvis adressen dukker op i sitets filer.
+
+Den fulde arkitektur, testlisten og afleveringschecklisten ligger i
 `scripts/booking/PLAN.md`. Ældre planer med Stripe, 50 % depositum og et
 Cal-embed er udgået og må ikke bruges.
 

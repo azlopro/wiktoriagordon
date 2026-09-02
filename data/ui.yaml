@@ -1,6 +1,6 @@
 # =====================================================================
 #  Faste tekster i rammen om indholdet: menu, knapper, mærkater, footer,
-#  fejlside og bookingkalender.
+#  fejlside, booking og bookingkvittering.
 #
 #  Lå før i i18n/da.toml og i18n/en.toml, hvor Wiktoria ikke kunne nå dem.
 #  Nu er de her, så de kan redigeres i CMS'et under "Buttons & labels"
@@ -56,12 +56,6 @@ da:
     rights: "Alle rettigheder forbeholdes."
     tagline: "Booking via Instagram · Horsens, Danmark"
 
-  calendar:
-    heading: "Se ledige tider"
-    text: "Kalenderen hentes først, når du trykker. Så henter siden ikke noget om dig, du ikke selv har bedt om."
-    button: "Vis ledige tider"
-    loading: "Henter kalenderen…"
-
   error:
     eyebrow: "Fejl 404"
     heading: "Siden findes ikke"
@@ -69,8 +63,6 @@ da:
     home: "Til forsiden"
     book: "Book en tid"
 
-  # Ugedagene skrives på engelsk i åbningstiderne, fordi det er
-  # schema.org's format. Her oversættes de til det, kunden ser.
   # Teksterne i selve bookingen. Vises kun når online-booking er slået til.
   booking:
     chooseTreatment: "Vælg behandling"
@@ -89,6 +81,59 @@ da:
     nextWeek: "Næste uge"
     today: "I dag"
     minutes: "min"
+    sending: "Sender dig til MobilePay…"
+    taken: "Tiden blev lige booket af en anden. Vælg en ny herunder."
+    payError: "Betalingen kunne ikke startes lige nu. Prøv igen om et øjeblik, eller skriv til mig direkte."
+    # Står lige over knappen til betaling. Depositummet refunderes ikke, så
+    # politikken skal kunne læses INDEN man betaler, ikke først bagefter.
+    termsBefore: "Depositummet på 200 kr. refunderes ikke. Ved at fortsætte accepterer du"
+    termsLink: "salonens politik"
+    termsAfter: "."
+
+  # =====================================================================
+  #  Kvitteringssiden /tak/. Vises FØRST når depositummet er betalt, og
+  #  det er derfor den fulde adresse står her og ikke andre steder på
+  #  sitet. Wiktorias krav 26/8-2026.
+  # =====================================================================
+  thanks:
+    waitHeading: "Vi venter på MobilePay"
+    waitText: "Det tager som regel et øjeblik. Luk ikke siden."
+    # Efter et minut. Saa venter vi paa HENDE, ikke paa os selv, og det skal
+    # hun kunne se, i stedet for at sidde og kigge paa en snurrende cirkel.
+    waitSlow: "Har du godkendt betalingen i MobilePay? Vi venter stadig, så lad siden stå åben."
+    doneEyebrow: "Din tid er booket"
+    doneHeading: "Tak, {name}"
+    doneText: "Depositummet er modtaget, og tiden er din. Der er ikke sendt en bekræftelse på mail, så gem den her side eller læg aftalen i din kalender."
+    # Tre kalendere at vaelge imellem, som alle andre gør det. Der stod et
+    # stykke tid EEN knap, der rettede sig efter telefonen og bar
+    # Android-robotten. Det var forkert: Android er et styresystem, ikke en
+    # kalender. Bland dem ikke sammen igen.
+    calendarHeading: "Læg aftalen i din kalender"
+    calendarApple: "Apple Kalender"
+    calendarGoogle: "Google Kalender"
+    calendarOutlook: "Outlook"
+    calendarHint: "Apple henter en fil, som virker med alle kalendere. Tryk på den, når den er hentet."
+    addressHeading: "Hvor"
+    # Adressen oplyses KUN her, foerst efter betalt depositum. Lukker kunden
+    # siden uden at gemme den, kan hun ikke finde salonen, og der er ingen
+    # mail at slaa den op i. Derfor skal der staa det hoejt.
+    addressNote: "Adressen står kun her. Gem siden, eller læg aftalen i din kalender nedenfor — så følger adressen med."
+    prepHeading: "Inden du kommer"
+    prepText: "Mød op uden mascara og uden makeup omkring øjne og bryn."
+    policyText: "Husk at du kan aflyse eller flytte din tid indtil 24 timer før. Sker det senere, mistes depositummet."
+    policyLink: "Politik & information"
+    contactHeading: "Har du spørgsmål"
+    cancelledHeading: "Betalingen blev ikke gennemført"
+    cancelledText: "Der er ikke trukket nogen penge, og tiden er ikke booket. Du er velkommen til at prøve igen."
+    failedHeading: "Tiden nåede desværre at blive booket"
+    failedText: "Du er ikke blevet trukket. Vælg en anden tid, eller skriv til mig, så finder vi en."
+    retryButton: "Vælg en ny tid"
+    unknownHeading: "Vi kunne ikke finde den booking"
+    unknownText: "Linket er måske for gammelt. Skriv til mig, så finder jeg din tid frem."
+    # NOGET ANDET end unknown. En kunde, der var langsom i appen, fik foer
+    # "vi kunne ikke finde den booking", og det lyder som om pengene er vaek.
+    timeoutHeading: "Vi venter stadig på svar"
+    timeoutText: "Betalingen er måske ikke godkendt endnu. Er du blevet trukket, er tiden din, og jeg kan altid finde den frem. Skriv til mig, så ser vi på det."
 
   # Små bogstaver: sådan staves ugedage på dansk midt i en opremsning.
   # Det første bogstav i hver linje sættes stort af CSS'en.
@@ -145,12 +190,6 @@ en:
     rights: "All rights reserved."
     tagline: "Booking via Instagram · Horsens, Denmark"
 
-  calendar:
-    heading: "See available times"
-    text: "The calendar only loads when you press the button. So the page doesn't fetch anything about you that you haven't asked for."
-    button: "Show available times"
-    loading: "Loading the calendar…"
-
   error:
     eyebrow: "Error 404"
     heading: "Page not found"
@@ -175,6 +214,41 @@ en:
     nextWeek: "Next week"
     today: "Today"
     minutes: "min"
+    sending: "Taking you to MobilePay…"
+    taken: "That time was just booked by someone else. Please choose another below."
+    payError: "The payment could not be started right now. Try again in a moment, or message me directly."
+    termsBefore: "The 200 kr. deposit is non-refundable. By continuing you accept"
+    termsLink: "the salon policy"
+    termsAfter: "."
+
+  thanks:
+    waitHeading: "Waiting for MobilePay"
+    waitText: "This usually takes a moment. Please do not close the page."
+    waitSlow: "Have you approved the payment in MobilePay? We are still waiting, so please leave this page open."
+    doneEyebrow: "Your appointment is booked"
+    doneHeading: "Thank you, {name}"
+    doneText: "Your deposit has been received and the time is yours. No email confirmation is sent, so save this page or add the appointment to your calendar."
+    calendarHeading: "Add the appointment to your calendar"
+    calendarApple: "Apple Calendar"
+    calendarGoogle: "Google Calendar"
+    calendarOutlook: "Outlook"
+    calendarHint: "Apple downloads a file that works with any calendar. Tap it once it has downloaded."
+    addressHeading: "Where"
+    addressNote: "This is the only place the address is shown. Save this page, or add the appointment to your calendar below — the address comes with it."
+    prepHeading: "Before you come"
+    prepText: "Please arrive without mascara and without makeup around your eyes and brows."
+    policyText: "Remember you can cancel or reschedule up to 24 hours before. Later than that, the deposit is lost."
+    policyLink: "Policy & information"
+    contactHeading: "Any questions"
+    cancelledHeading: "The payment was not completed"
+    cancelledText: "You have not been charged, and no appointment was booked. You are welcome to try again."
+    failedHeading: "That time was taken in the meantime"
+    failedText: "You have not been charged. Please pick another time, or message me and we will find one."
+    retryButton: "Choose another time"
+    unknownHeading: "We could not find that booking"
+    unknownText: "The link may be too old. Message me and I will look up your appointment."
+    timeoutHeading: "Still waiting for an answer"
+    timeoutText: "The payment may not have been approved yet. If you have been charged, the time is yours and I can always look it up. Message me and we will sort it out."
 
   weekdays:
     Monday: "Monday"

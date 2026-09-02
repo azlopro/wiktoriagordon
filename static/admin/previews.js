@@ -387,7 +387,7 @@
     var groups = [
       ['Menu', data.nav], ['Small labels', data.labels], ['Price-list groups', data.groups],
       ['Sets block', data.sets], ['Reviews', data.reviews], ['Footer', data.footer],
-      ['Booking form', data.booking], ['Booking calendar', data.calendar],
+      ['Booking form', data.booking], ['Booking receipt', data.thanks],
       ['Error page', data.error], ['Weekday names', data.weekdays]
     ];
     return h('div', { className: 'wg-ui-preview' }, groups.map(function (pair, index) {

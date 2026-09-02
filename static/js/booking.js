@@ -16,7 +16,21 @@
   var T = JSON.parse(root.dataset.treatments || "[]");
   var L = JSON.parse(root.dataset.labels || "{}");
   var LOCALE = root.dataset.locale || "da-DK";
+  var LANG = root.dataset.lang || "da";
   if (!T.length) return;
+
+  /* FORHÅNDSVISNING.
+     Så længe booking.preview er true i data/site.yaml, vises tidsvælgeren kun,
+     hvis der står ?forhaandsvisning i adressen. Alle andre ser DM-knapperne
+     som før, præcis som da bookingen var slået fra.
+
+     Det er dét, der gør, at hele forløbet kan prøves på det rigtige domæne
+     med https — som MobilePay kræver — uden at en rigtig kunde falder ind i
+     en booking, der stadig peger på testbetalinger.
+
+     Blokken herunder ryger, når preview sættes til false. */
+  if (root.dataset.preview === "true" &&
+      window.location.search.indexOf("forhaandsvisning") === -1) return;
 
   var elTreatment = document.getElementById("bpTreatment");
   var elDays = document.getElementById("bpDays");
@@ -34,6 +48,10 @@
   var chosenDay = null;
   var chosenTime = null;
   var requestToken = 0;
+  /* En besked, der skal stå TILBAGE efter næste hentning. load() skriver
+     "henter…" med det samme og ville ellers slette forklaringen på, hvorfor
+     ugen blev hentet forfra. */
+  var notice = null;
 
   /* --- datoer ------------------------------------------------------------ */
 
@@ -83,17 +101,25 @@
   function load() {
     var slug = elTreatment.value;
     var from = iso(weekStart);
-    var to = iso(addDays(weekStart, 7));
+    /* Cals "end" er inklusiv, så søndag er den sidste dag i ugen og ikke
+       mandagen efter. Ellers hentes en dag, der aldrig bliver tegnet. */
+    var to = iso(addDays(weekStart, 6));
     var token = ++requestToken;
 
     chosenDay = null;
     chosenTime = null;
     elForm.hidden = true;
     elTimesStep.hidden = true;
+    /* De gamle tider SKAL væk her.
+       Uden det står den forrige behandlings dage tændt og kan klikkes, mens
+       den nye hentes, og så kan man nå at vælge en tid, der ikke findes for
+       den behandling, man nu har valgt. */
+    slotsByDay = {};
     status(L.loading);
     renderDays();
 
     fetch("/api/slots?treatment=" + encodeURIComponent(slug) +
+          "&lang=" + encodeURIComponent(LANG) +
           "&from=" + from + "&to=" + to, { headers: { accept: "application/json" } })
       .then(function (r) {
         if (!r.ok) throw new Error(r.status);
@@ -105,7 +131,8 @@
         if (token !== requestToken) return;
         slotsByDay = data.days || {};
         var any = Object.keys(slotsByDay).length > 0;
-        status(any ? "" : L.empty, !any);
+        status(any ? (notice || "") : L.empty, !any);
+        notice = null;
         renderDays();
       })
       .catch(function () {
@@ -192,24 +219,82 @@
 
   /* --- hændelser --------------------------------------------------------- */
 
+  var elPrev = document.getElementById("bpPrev");
+
+  function syncPrev() {
+    /* Der er ingen grund til at kunne bladre bagud i tiden. Knappen slukkes
+       frem for bare at ignorere klikket, så man kan se hvorfor. */
+    elPrev.disabled = iso(weekStart) === iso(startOfWeek(new Date()));
+  }
+
   elTreatment.addEventListener("change", load);
-  document.getElementById("bpPrev").addEventListener("click", function () {
+  elPrev.addEventListener("click", function () {
     var earliest = startOfWeek(new Date());
     var candidate = addDays(weekStart, -7);
-    /* Der er ingen grund til at kunne bladre bagud i tiden. */
     weekStart = candidate < earliest ? earliest : candidate;
+    syncPrev();
     load();
   });
   document.getElementById("bpNext").addEventListener("click", function () {
     weekStart = addDays(weekStart, 7);
+    syncPrev();
     load();
   });
 
+  /* --- af sted til betaling ---------------------------------------------- */
+
+  var elSubmit = elForm.querySelector(".bp-submit");
+  var sending = false;
+
   elForm.addEventListener("submit", function (e) {
     e.preventDefault();
-    if (!chosenTime) return;
-    /* Betalingen kobles på her, når MobilePay-aftalen er godkendt. */
+    if (!chosenTime || sending) return;
+
+    sending = true;
+    elSubmit.disabled = true;
+    elSubmit.textContent = L.sending || L.loading;
     status("");
+
+    fetch("/api/checkout", {
+      method: "POST",
+      headers: { "content-type": "application/json", accept: "application/json" },
+      body: JSON.stringify({
+        treatment: elTreatment.value,
+        start: chosenTime,
+        firstName: elForm.firstName.value,
+        lastName: elForm.lastName.value,
+        phone: elForm.phone.value,
+        lang: LANG
+      })
+    })
+      .then(function (r) {
+        return r.json().then(function (data) {
+          if (r.ok) return data;
+          var err = new Error(data.error || r.status);
+          err.status = r.status;
+          throw err;
+        });
+      })
+      .then(function (data) {
+        /* location.href og IKKE en formular, der postes til MobilePay.
+           CSP'ens form-action tillader kun 'self', og Chrome tjekker også
+           redirects mod den. En almindelig navigation er ikke omfattet. */
+        window.location.href = data.redirectUrl;
+      })
+      .catch(function (err) {
+        sending = false;
+        elSubmit.disabled = false;
+        elSubmit.textContent = L.submit;
+        /* Er tiden blevet taget, mens hun udfyldte navnet, nytter det ikke at
+           prøve igen med den samme. Så hentes ugen forfra, og beskeden får lov
+           at stå bagefter, så hun kan se hvorfor tiderne skiftede. */
+        if (err.status === 409) {
+          notice = L.taken || L.empty;
+          load();
+          return;
+        }
+        status(L.payError || L.error, true);
+      });
   });
 
   /* Book-knapperne i prislisten fører herned med behandlingen valgt, så man
@@ -230,5 +315,6 @@
   /* Vælgeren afsløres først nu, hvor den beviseligt kan bruges. */
   root.classList.add("is-ready");
   if (fallback) fallback.hidden = true;
+  syncPrev();
   load();
 })();
