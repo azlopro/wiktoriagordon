@@ -350,7 +350,14 @@
        monogrammet afløste tekstlogoet. Nøglerne skal matche images.yaml,
        ellers står der tomme felter for billeder der ikke findes, og de
        billeder der faktisk er, vises slet ikke. */
-    var labels = { logo: 'Logo', logoLight: 'Logo for dark background', hero: 'Large top photo', portrait: 'About photo', finalctaBg: 'Background photo at the bottom (optional)' };
+    var labels = {
+      hero: 'Top photo — desktop & tablet',
+      heroMobile: 'Top photo — phones',
+      portrait: 'About photo',
+      finalctaBg: 'Background photo at the bottom (optional)',
+      logo: 'Logo',
+      logoLight: 'Logo for dark background'
+    };
     return h('div', { className: 'wg-image-grid' }, Object.keys(labels).map(function (key) {
       var url = assetUrl(data[key], props.getAsset);
       return h('figure', { className: 'wg-image-card wg-image-card--' + key, key: key }, url ? h('img', { src: url, alt: labels[key] }) : h('div', { className: 'wg-empty-image' }, 'Choose an image'), h('figcaption', {}, labels[key]));

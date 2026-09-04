@@ -127,7 +127,8 @@ body {
 
 .wg-image-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1rem; padding: clamp(1rem,4vw,2.5rem); }
 .wg-image-card { position: relative; min-height: 14rem; margin: 0; overflow: hidden; border-radius: 1.1rem; background: var(--blush); }
-.wg-image-card--hero { grid-row: span 2; min-height: 29rem; border-radius: 12rem 12rem 1.1rem 1.1rem; }
+.wg-image-card--hero { grid-column: 1 / -1; min-height: 0; aspect-ratio: 3 / 2; }
+.wg-image-card--heroMobile { min-height: 0; aspect-ratio: 869 / 900; }
 /* Logoerne er gennemsigtige PNG'er og skal ses hele, ikke beskæres som fotos.
    Den lyse variant er hvid og forsvinder på lys bund, så den får mørk bag. */
 .wg-image-card--logo img,
@@ -201,7 +202,7 @@ body {
   .wg-gallery-preview,
   .wg-policy-preview,
   .wg-business-card dl { grid-template-columns: 1fr; }
-  .wg-image-card--hero { grid-row: auto; min-height: 20rem; }
+  .wg-image-card--hero { grid-row: auto; min-height: 0; }
   .wg-result-card,
   .wg-result-card:nth-child(3n+1) { min-height: 18rem; }
   .wg-footer-preview { flex-direction: column; }

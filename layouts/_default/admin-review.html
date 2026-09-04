@@ -4,34 +4,35 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <title>Review all text · Wiktoria Gordon Beauty</title>
+  <title>Review wording · Wiktoria Gordon Beauty</title>
   <link rel="icon" href="{{ "favicon.png" | relURL }}">
   <link rel="stylesheet" href="{{ "css/fonts.css" | relURL }}">
   <link rel="stylesheet" href="{{ "admin/review.css" | relURL }}">
 </head>
 <body>
 {{- $sections := slice
-  (dict "data" "site" "label" "Main page text" "editor" "site")
   (dict "data" "services" "label" "Treatments & prices" "editor" "services")
-  (dict "data" "ui" "label" "Menu, buttons & labels" "editor" "ui")
+  (dict "data" "site" "label" "Homepage wording" "editor" "site")
   (dict "data" "faq" "label" "Questions & answers" "editor" "faq")
+  (dict "data" "reviews" "label" "Customer reviews" "editor" "reviews")
   (dict "data" "seo" "label" "Google & link previews" "editor" "seo")
   (dict "data" "policy" "label" "Salon policy" "editor" "policy")
   (dict "data" "privacy" "label" "Privacy notice" "editor" "privacy")
   (dict "data" "beforeafter" "label" "Before & after labels" "editor" "beforeafter")
-  (dict "data" "reviews" "label" "Reviews" "editor" "reviews")
+  (dict "data" "ui" "label" "Buttons & system wording" "editor" "ui")
   (dict "data" "gallery" "label" "Saved result captions" "editor" "gallery")
 -}}
   <header class="review-header">
     <div>
       <a href="/admin/">← Website editor</a>
-      <h1>Review all text</h1>
-      <p>Edit Danish and English side by side, then save all changes together.</p>
+      <h1>Review wording</h1>
+      <p>Compare Danish and English side by side, edit what needs attention, then save everything together.</p>
       <p class="editor-status" id="editor-status" role="status">Sign in to unlock the text fields.</p>
     </div>
     <div class="review-actions">
       <button class="action-button" id="sign-in" type="button">Sign in to edit</button>
       <button class="action-button save-button" id="save-changes" type="button" hidden disabled>Save changes</button>
+      <a class="view-site" href="/admin/guide.html">Editing guide</a>
       <a class="view-site" href="/" target="_blank" rel="noopener">View website ↗</a>
     </div>
   </header>
@@ -44,7 +45,7 @@
 
   <main>
     <div class="column-head" aria-hidden="true">
-      <span>Text</span><strong>Danish</strong><strong>English</strong>
+      <span>Page field</span><strong>Danish (DA)</strong><strong>English (EN)</strong>
     </div>
     {{- range $sections }}
       {{- $content := index hugo.Data .data -}}

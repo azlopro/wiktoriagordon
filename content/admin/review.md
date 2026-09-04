@@ -1,5 +1,5 @@
 ---
-title: "Review all website text"
+title: "Review website wording"
 layout: "admin-review"
 url: "/admin/review/"
 robots: "noindex, nofollow"

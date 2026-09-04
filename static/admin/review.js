@@ -195,7 +195,7 @@
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
-          message: 'Website editor: review all text',
+          message: 'Website editor: review wording',
           tree: tree.sha,
           parents: [headSha],
         }),

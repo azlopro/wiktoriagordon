@@ -5,12 +5,67 @@
 {{- $file := .file -}}
 {{- $shared := .shared -}}
 {{- $skip := slice "after" "before" "calSlug" "featured" "group" "icon" "image" "lang" "online" "socialImage" -}}
+{{- $labels := dict
+  "eyebrow" "Small label above"
+  "heading" "Heading"
+  "subheading" "Intro text"
+  "primaryCta" "Main button"
+  "secondaryCta" "Second button"
+  "strip" "Scrolling words"
+  "intro" "Opening section"
+  "paragraphs" "Paragraphs"
+  "closing" "Closing line"
+  "about" "About Wiktoria"
+  "pullquote" "Highlighted line"
+  "moreButton" "Read-more button"
+  "moreIntro" "Read-more introduction"
+  "moreHeading" "Read-more heading"
+  "moreParagraphs" "Read-more paragraphs"
+  "pricing" "Price-list section"
+  "addonsTitle" "Add-ons heading"
+  "asideTitle" "Side-box heading"
+  "asideText" "Side-box text"
+  "cta" "Button"
+  "note" "Small note"
+  "booking" "Booking section"
+  "treatmentButton" "Find-treatment button"
+  "contactButton" "Contact button"
+  "bookButton" "Book-appointment button"
+  "contact" "Contact section"
+  "callLabel" "Phone button"
+  "instagramLabel" "Instagram button"
+  "facebookLabel" "Facebook button"
+  "hoursTitle" "Opening-hours heading"
+  "whereTitle" "Location heading"
+  "hoursNote" "Opening-hours note"
+  "beforeafter" "Results section"
+  "beforeLabel" "Before label"
+  "afterLabel" "After label"
+  "finalcta" "Closing invitation"
+  "main" "Treatments"
+  "title" "Title"
+  "priceTitle" "Name in price list"
+  "duration" "Duration"
+  "price" "Price"
+  "desc" "Description"
+  "expect" "What clients can expect"
+  "tagline" "Closing line"
+  "addons" "Add-ons"
+  "q" "Question"
+  "a" "Answer"
+  "text" "Text"
+  "service" "Treatment"
+  "socialTitle" "Social sharing title"
+  "socialDescription" "Social sharing description"
+  "updated" "Last updated"
+-}}
 
 {{- if reflect.IsMap $da -}}
   {{- range $key, $daValue := $da -}}
     {{- if not (in $skip $key) -}}
       {{- $enValue := index $en $key -}}
-      {{- $label := $key | replaceRE "([a-z])([A-Z])" "$1 $2" | humanize -}}
+      {{- $fallbackLabel := $key | replaceRE "([a-z])([A-Z])" "$1 $2" | humanize -}}
+      {{- $label := index $labels $key | default $fallbackLabel -}}
       {{- $childPath := $label -}}
       {{- with $path }}{{ $childPath = printf "%s · %s" . $label }}{{ end -}}
       {{- $childSourcePath := $key -}}
@@ -32,9 +87,9 @@
   <article class="copy-row{{ if $shared }} is-shared{{ end }}{{ if or (not $da) (not $en) }} is-missing{{ end }}">
     <h3>{{ $path }}</h3>
     {{- if $shared }}
-      <div class="copy-cell shared-cell" data-language="Shared on both languages">
-        <textarea class="copy-input" data-file="{{ $file }}" data-path="{{ $sourcePath }}" data-shared="true" aria-label="{{ $path }}, shared on both languages" readonly>{{ $da }}</textarea>
-        <small>Shared on both languages</small>
+      <div class="copy-cell shared-cell" data-language="Shared value">
+        <textarea class="copy-input" data-file="{{ $file }}" data-path="{{ $sourcePath }}" data-shared="true" aria-label="{{ $path }}, shared by Danish and English" readonly>{{ $da }}</textarea>
+        <small>One shared value for both languages</small>
       </div>
     {{- else }}
       <div class="copy-cell" data-language="Danish">

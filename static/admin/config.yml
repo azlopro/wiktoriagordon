@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
 # Client-facing editor. Keep technical booking values hidden.
 
-app_title: Wiktoria Gordon Beauty
+app_title: Wiktoria's website
 site_url: https://www.wiktoriagordon.dk
 display_url: https://www.wiktoriagordon.dk
 logo:
@@ -46,12 +46,13 @@ i18n:
 
 collections:
   - name: website
-    label: Website content
+    label: Choose what to edit
     icon: edit
     i18n: true
     description: >-
-      Choose the part of the website you want to change. Booking appointments
-      and blocking time are handled in the calendar, not here.
+      Start with the section that matches your task. Fields stay collapsed until
+      you open them, and a preview appears beside the form. Appointments, days off
+      and blocked times are managed in the booking calendar, not here.
     files:
       - name: services
         label: Treatments & prices
@@ -75,6 +76,8 @@ collections:
             i18n: duplicate
             label_singular: treatment
             summary: '{{fields.title}} — {{fields.price}}'
+            collapsed: auto
+            minimize_collapsed: true
             hint: >-
               Drag to reorder. Adding, removing or moving a treatment updates both
               languages together. Translate the wording in the DA and EN tabs.
@@ -120,21 +123,27 @@ collections:
             required: false
             label_singular: add-on
             summary: '{{fields.title}} — {{fields.price}}'
+            collapsed: auto
+            minimize_collapsed: true
             fields:
               - {name: title, label: Name, widget: string, i18n: true}
               - {name: price, label: Price, widget: string, i18n: duplicate, hint: 'For example +50 kr.'}
 
       - name: images
-        label: Photos used on the website
+        label: Website photos
         file: data/images.yaml
         icon: image
         i18n: false
+        description: >-
+          Replace the main photos without changing the page layout. Desktop/tablet
+          and phone top photos are separate so each screen size can use a good crop.
         fields:
-          - {name: logo, label: Logo, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, hint: 'Use a PNG with a transparent background. Shown next to your name in the top left corner.'}
-          - {name: logoLight, label: Logo for dark background, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, hint: 'The light version, used in the footer. Leave the dark one alone if you only have one file.'}
-          - {name: hero, label: Large photo at the top, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, hint: 'Shown in the frame at the top of the page. The frame is upright, 4:5, so use a photo in that shape.'}
+          - {name: hero, label: Large top photo for desktop and tablet, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, hint: 'Use a normal wide landscape photo. It fills the full-width hero on tablets and computers, so keep the important subject near the centre.'}
+          - {name: heroMobile, label: Top photo for phones, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, hint: 'Choose this independently from the desktop photo. Use a normal upright, square or nearly square image with the important subject clearly visible.'}
           - {name: portrait, label: Photo in the About section, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false}
           - {name: finalctaBg, label: Background photo at the bottom of the page, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, required: false, hint: 'Optional. Sits behind the closing sentence at the very bottom, darkened so the text stays readable. Leave it empty and that section goes back to a plain white background. Use a wide photo, not an upright one.'}
+          - {name: logo, label: Logo, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, hint: 'Use a PNG with a transparent background. Shown next to your name in the top left corner.'}
+          - {name: logoLight, label: Logo for dark background, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, hint: 'The light version, used in the footer. Leave the dark one alone if you only have one file.'}
 
       - name: beforeafter
         label: Before & after slider
@@ -152,57 +161,14 @@ collections:
             i18n: duplicate
             label_singular: pair
             summary: '{{fields.label}}'
+            thumbnail: after
+            collapsed: auto
+            minimize_collapsed: true
             hint: The photos are shared between the languages; translate only the label.
             fields:
               - {name: before, label: Before photo, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, i18n: duplicate, hint: Same angle, same distance and same light as the After photo.}
               - {name: after, label: After photo, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, i18n: duplicate}
               - {name: label, label: Button text, widget: string, i18n: true, hint: 'Use the exact treatment name from the price list, so visitors can match the result to a treatment and price.'}
-
-      - name: gallery
-        label: Unused result photos
-        file: data/gallery.yaml
-        icon: photo_library
-        i18n: true
-        description: >-
-          These photos are not on the website at the moment. The results
-          section sends people to your Instagram instead. Nothing here is
-          lost, and the row of photos can be put back. Tell Christian if you
-          want it back.
-        fields:
-          - name: items
-            label: Photos
-            widget: list
-            i18n: duplicate
-            label_singular: photo
-            summary: '{{fields.caption}}'
-            hint: The photo is shared; translate only its caption in the DA and EN tabs.
-            fields:
-              - {name: image, label: Photo, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, i18n: duplicate}
-              - {name: caption, label: Caption, widget: string, i18n: true}
-
-      - name: seo
-        label: Google & link previews
-        file: data/seo.yaml
-        icon: search
-        i18n: true
-        fields:
-          - name: title
-            label: Google title
-            widget: string
-            i18n: true
-            minlength: 30
-            maxlength: 60
-            hint: Describe the service and city; keep the business name at the end.
-          - name: description
-            label: Google description
-            widget: string
-            i18n: true
-            minlength: 120
-            maxlength: 160
-            hint: Write for a person, mention Horsens naturally and avoid unsupported claims.
-          - {name: socialTitle, label: Social sharing title, widget: string, i18n: true, required: false, maxlength: 65, hint: Optional; Google title is the fallback.}
-          - {name: socialDescription, label: Social sharing description, widget: string, i18n: true, required: false, maxlength: 200}
-          - {name: socialImage, label: Social sharing image, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, i18n: true, hint: 'Use a 1200 × 630 image. Avoid important text near the edges.'}
 
       - name: business
         label: Contact & opening hours
@@ -220,6 +186,8 @@ collections:
             required: false
             label_singular: opening time
             summary: '{{fields.days}} · {{fields.opens}}–{{fields.closes}}'
+            collapsed: auto
+            minimize_collapsed: true
             hint: 'Use one row for days that have the same hours. Special days and time off are blocked in your booking calendar instead.'
             fields:
               - name: days
@@ -264,6 +232,9 @@ collections:
         file: data/reviews.yaml
         icon: reviews
         i18n: true
+        description: >-
+          Add genuine client reviews and choose which language page should show
+          each one. Drag the cards to change their order.
         fields:
           - {name: eyebrow, label: Small label above, widget: string, i18n: true}
           - {name: heading, label: Heading, widget: string, i18n: true}
@@ -273,6 +244,8 @@ collections:
             i18n: duplicate
             label_singular: review
             summary: '{{fields.name}}'
+            collapsed: auto
+            minimize_collapsed: true
             hint: Copy genuine reviews word for word. Do not translate or improve a quote.
             fields:
               - {name: name, label: Customer name, widget: string, i18n: duplicate}
@@ -293,6 +266,9 @@ collections:
         file: data/faq.yaml
         icon: help
         i18n: true
+        description: >-
+          Answer the questions clients ask most often. Keep each answer focused,
+          and remember to update both language tabs.
         fields:
           - {name: eyebrow, label: Small label above, widget: string, i18n: true}
           - {name: heading, label: Heading, widget: string, i18n: true}
@@ -302,15 +278,20 @@ collections:
             i18n: duplicate
             label_singular: question
             summary: '{{fields.q}}'
+            collapsed: auto
+            minimize_collapsed: true
             fields:
               - {name: q, label: Question, widget: string, i18n: true}
               - {name: a, label: Answer, widget: text, i18n: true}
 
       - name: site
-        label: Main page text
+        label: Homepage wording
         file: data/site.yaml
         icon: edit_note
         i18n: true
+        description: >-
+          Edit the headings, introductions and buttons on the homepage. Open only
+          the page section you need; the rest stays folded away.
         fields:
           - name: hero
             label: Top of the page
@@ -425,14 +406,41 @@ collections:
               - {name: heading, label: Heading, widget: string, i18n: true}
               - {name: text, label: Text, widget: text, i18n: true}
 
+      - name: seo
+        label: Google & social sharing
+        file: data/seo.yaml
+        icon: search
+        i18n: true
+        description: >-
+          Control how the homepage is described in Google and when someone shares
+          its link. Keep the wording accurate and complete both language tabs.
+        fields:
+          - name: title
+            label: Google title
+            widget: string
+            i18n: true
+            minlength: 30
+            maxlength: 60
+            hint: Describe the service and city; keep the business name at the end.
+          - name: description
+            label: Google description
+            widget: string
+            i18n: true
+            minlength: 120
+            maxlength: 160
+            hint: Write for a person, mention Horsens naturally and avoid unsupported claims.
+          - {name: socialTitle, label: Social sharing title, widget: string, i18n: true, required: false, maxlength: 65, hint: Optional; Google title is the fallback.}
+          - {name: socialDescription, label: Social sharing description, widget: string, i18n: true, required: false, maxlength: 200}
+          - {name: socialImage, label: Social sharing image, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, i18n: true, hint: 'Use a 1200 × 630 image. Avoid important text near the edges.'}
+
       - name: ui
-        label: Small buttons & labels (rarely needed)
+        label: Buttons & system wording (advanced)
         file: data/ui.yaml
         icon: smart_button
         i18n: true
         description: >-
-          The fixed wording around the content: the menu, buttons, small badges,
-          the footer, the error page and the booking calendar.
+          Fixed wording used in menus, badges, the footer, error messages and the
+          booking flow. Most day-to-day changes belong in another section.
         fields:
           - name: nav
             label: Menu
@@ -630,7 +638,7 @@ collections:
           - {name: accept, label: Acceptance line, widget: string, i18n: true, hint: The sentence saying booking counts as accepting the policy.}
 
       - name: privacy
-        label: Privacy notice (rarely needed)
+        label: Privacy notice (advanced)
         file: data/privacy.yaml
         icon: privacy_tip
         i18n: true
@@ -654,3 +662,26 @@ collections:
                 field: {name: paragraph, label: Paragraph, widget: text, i18n: true}
           - {name: authorityLabel, label: Data-protection authority link text, widget: string, i18n: true}
           - {name: authorityUrl, label: Data-protection authority URL, widget: string, type: url, i18n: true}
+
+      - name: gallery
+        label: Archived result photos (not shown)
+        file: data/gallery.yaml
+        icon: photo_library
+        i18n: true
+        description: >-
+          These photos are not on the website at the moment. Nothing is lost,
+          and the old photo row can be restored later if you want it back.
+        fields:
+          - name: items
+            label: Photos
+            widget: list
+            i18n: duplicate
+            label_singular: photo
+            summary: '{{fields.caption}}'
+            thumbnail: image
+            collapsed: auto
+            minimize_collapsed: true
+            hint: The photo is shared; translate only its caption in the DA and EN tabs.
+            fields:
+              - {name: image, label: Photo, widget: image, accept: 'image/jpeg,image/png,image/webp', choose_url: false, i18n: duplicate}
+              - {name: caption, label: Caption, widget: string, i18n: true}
