@@ -3198,7 +3198,7 @@ body:has(.hero--photo) .header .nav { max-width: 74.375rem; }
   padding: 0;
   overflow: hidden;
   isolation: isolate;
-  background: #3b3030;
+  background: #1e1016;
 }
 
 .hero--photo::before { display: none; }
@@ -3325,66 +3325,44 @@ body:has(.hero--photo) .header .nav { max-width: 74.375rem; }
   background: rgba(255, 255, 255, .1);
 }
 
+/* Tablet beholder ét ubrudt full-bleed-foto. Teksten løftes en anelse i
+   den højere viewport; selve desktop-kompositionen ændres ikke. */
+@media (max-width: 1024px) {
+  .hero-photo-content { transform: translateY(2rem); }
+}
+
+.hero--mobile-editorial { display: none; }
+
 @media (max-width: 720px) {
-  .hero--photo {
-    --photo-hero-height: max(42rem, calc(100svh - var(--header-h) - 2.7rem));
-    min-height: var(--photo-hero-height);
-    height: var(--photo-hero-height);
-    margin-top: var(--header-h);
-    padding: 0;
-    align-content: center;
-  }
+  .hero--photo { display: none; }
 
-  .hero-photo-media::after {
-    background:
-      linear-gradient(180deg, rgba(27, 21, 24, .3), rgba(33, 22, 24, .58)),
-      rgba(49, 35, 37, .28);
-  }
-
-  .hero-photo-content {
-    align-self: center;
-    padding-top: .8rem;
-    transform: none;
-  }
-
-  .hero--photo .eyebrow {
-    max-width: 21rem;
-    margin-bottom: 1rem;
-    font-size: .57rem;
-    line-height: 1.55;
-    letter-spacing: .18em;
-  }
-
-  .hero--photo .eyebrow::before { width: 24px; }
-
-  .hero--photo h1 {
-    margin-bottom: .45em;
-    font-size: clamp(3.35rem, 15vw, 4.15rem);
-    line-height: .88;
-  }
-
-  .hero--photo .hero-sub {
-    max-width: 34rem;
-    margin-bottom: 1.55rem;
-    font-size: .92rem;
-    line-height: 1.55;
-  }
-
-  .hero--photo .hero-actions {
+  .hero--mobile-editorial {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: .65rem;
-    width: min(100%, 18rem);
+    margin-top: 0;
+    background: var(--cream);
   }
 
-  .hero--photo .hero-actions .btn {
-    width: 100%;
-    min-width: 0;
-    min-height: 3.15rem;
+  /* Genskab den gamle mobilkomposition fra den tidligere hero: fotoet
+     starter 1rem inde i indholdsfeltet og bløder helt ud gennem højre
+     skærmkant. Ved 390px bliver rammen 354x367px som på demosiden. */
+  .hero--mobile-editorial .hero-figure {
+    justify-self: stretch;
+    width: auto;
+    max-width: none;
+    margin: 0 calc(var(--gutter) * -1) 0 1rem;
+  }
+
+  .hero--mobile-editorial .hero-frame {
+    height: clamp(20.5rem, 94vw, 23rem);
+    aspect-ratio: auto;
+  }
+
+  .hero--mobile-editorial .hero-frame img {
+    object-fit: cover;
+    object-position: 50% 45%;
   }
 }
 
 @media (max-width: 365px) {
-  .hero--photo h1 { font-size: 3.15rem; }
-  .hero--photo .hero-actions { grid-template-columns: 1fr; }
+  .hero--mobile-editorial .hero-actions { grid-template-columns: 1fr 1fr; }
 }
