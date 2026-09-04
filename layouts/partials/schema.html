@@ -82,13 +82,19 @@
 {{- end -}}
 
 {{- /* ---------- Ægte Facebook-anmeldelser ---------- */ -}}
+{{- /* Kun de anmeldelser, siden faktisk viser. Sproget filtreres i
+       reviews.html, og en anmeldelse i strukturerede data, som ikke står
+       på siden, er præcis det Google kalder skjult indhold. */ -}}
 {{- $reviewEntities := slice -}}
 {{- range $r.items -}}
+ {{- $lang := .lang | default "" -}}
+ {{- if or (eq $lang "") (eq $lang $L) -}}
   {{- $reviewEntities = $reviewEntities | append (dict
       "@type" "Review"
       "author" (dict "@type" "Person" "name" .name)
       "reviewBody" .text
       "itemReviewed" (dict "@id" $bizID)) -}}
+ {{- end -}}
 {{- end -}}
 
 {{- /* ---------- Billeder ---------- */ -}}

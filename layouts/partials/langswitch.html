@@ -1,8 +1,22 @@
-{{- /* Sprogskifter. Kald med sidekonteksten: {{ partial "langswitch.html" . }} */ -}}
-{{ $page := . }}
-<div class="lang-switch" role="group" aria-label="{{ i18n "lang_label" }}">
+{{- /* Sprogskifter.
+
+     Kald med sidekonteksten:            {{ partial "langswitch.html" . }}
+     eller med en ekstra klasse:         {{ partial "langswitch.html" (dict "page" . "class" "lang-switch--compact") }}
+
+     Den danske knap hedder DK og ikke DA. Sprogkoden er stadig da i
+     hreflang og lang — det er den, Google og skærmlæsere læser — men
+     Wiktoria bad 4/9-2026 om, at der står EN og DK, fordi det er sådan
+     hendes kunder genkender de to flag. */ -}}
+{{- $page := . -}}
+{{- $class := "" -}}
+{{- if reflect.IsMap . -}}
+  {{- $page = .page -}}
+  {{- $class = .class | default "" -}}
+{{- end -}}
+{{- $labels := dict "da" "DK" -}}
+<div class="lang-switch{{ with $class }} {{ . }}{{ end }}" role="group" aria-label="{{ i18n "lang_label" }}">
   {{- range $page.AllTranslations }}
   <a href="{{ .RelPermalink }}" lang="{{ .Language.Lang }}" hreflang="{{ .Language.Lang }}"
-     {{ if eq .Language.Lang $page.Language.Lang }}class="active" aria-current="true"{{ end }}>{{ .Language.Lang | upper }}</a>
+     {{ if eq .Language.Lang $page.Language.Lang }}class="active" aria-current="true"{{ end }}>{{ index $labels .Language.Lang | default (.Language.Lang | upper) }}</a>
   {{- end }}
 </div>

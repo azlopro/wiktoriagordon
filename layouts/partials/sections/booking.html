@@ -26,6 +26,9 @@
           <a href="#ydelser" class="btn btn--text">
             {{ $b.treatmentButton }} {{ partial "icon.html" "arrow" }}
           </a>
+          {{ with $b.contactButton }}
+          <a href="#kontakt" class="btn btn--ghost">{{ . }}</a>
+          {{ end }}
           <a href="{{ $p.instagramDM }}" target="_blank" rel="noopener" class="btn btn--primary">
             {{ partial "icon.html" "instagram" }} {{ $b.bookButton }}
           </a>

@@ -317,6 +317,11 @@ strong { font-weight: 500; }
    fordi menuens egen knap står fremme på desktop. */
 .nav-book--compact { display: none; }
 
+/* Sprogskifteren i selve topbjælken. Samme princip: skjult her, fordi
+   menuens egen står fremme på desktop, og fremme under 1180 px, hvor
+   menuen er gemt bag burgeren. */
+.lang-switch--compact { display: none; }
+
 /* Burger */
 .nav-toggle {
   display: none;
@@ -384,6 +389,10 @@ strong { font-weight: 500; }
 }
 .hero-frame {
   position: relative;
+  /* 4:5 er BILLEDFILENS format, ikke et tilfældigt valg. object-fit: cover
+     beskærer alt, der ikke rammer formatet præcist, så filen og tallet her
+     skal følges ad. Filen er skåret til 4:5 i forvejen (700 px af toppen af
+     originalen), så der klippes ikke noget her. */
   aspect-ratio: 4 / 5;
   border-radius: 210px 210px 22px 22px;
   overflow: hidden;
@@ -484,6 +493,9 @@ strong { font-weight: 500; }
 .service-icon svg { width: 26px; height: 26px; }
 .service h3 { margin-bottom: .5rem; }
 .service .desc { color: var(--ink-soft); font-size: 1.125rem; margin-bottom: 1.5rem; }
+/* "Læs mere" findes kun på telefon; på desktop står punkterne fremme, og
+   en knap, der folder synlig tekst væk, ville kun være i vejen. */
+.service-toggle { display: none; }
 .service-expect-title {
   margin: 0 0 .65rem;
   font-size: .82rem;
@@ -787,6 +799,17 @@ strong { font-weight: 500; }
   outline-offset: 3px;
 }
 
+/* Linjen over før/efter-slideren. Centreret og dæmpet, så den læses som
+   en billedtekst og ikke som endnu en sektionsoverskrift. */
+.ba-lede {
+  max-width: 46ch;
+  margin: 0 auto clamp(1.8rem, 4vw, 2.6rem);
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 1.0625rem;
+  letter-spacing: .01em;
+}
+
 /* ---------- Booking ---------- */
 .booking { position: relative; }
 .booking-card {
@@ -817,6 +840,106 @@ strong { font-weight: 500; }
 .booking-embed { margin-top: 2rem; }
 .booking-embed iframe { width: 100%; min-height: 640px; border: 0; border-radius: var(--radius-sm); }
 
+/* ---------- Kontakt ----------
+   Egen sektion siden 4/9-2026. Teksten og de tre knapper står til venstre,
+   åbningstiderne i et kort til højre. Under 900 px lægger de sig under
+   hinanden, og knapperne bliver fuldbredde, så de kan rammes med tommelen. */
+.contact-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
+  gap: clamp(2.5rem, 6vw, 5rem);
+  align-items: start;
+}
+.contact-lede { color: var(--ink-soft); max-width: 46ch; margin-top: 1.2rem; text-wrap: pretty; }
+.contact-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: .9rem;
+  margin-top: 2.2rem;
+}
+.contact-btn {
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+  padding: 1rem 1.2rem;
+  background: var(--white);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  transition: border-color .3s ease, transform .3s ease, box-shadow .3s ease;
+}
+.contact-btn:hover,
+.contact-btn:focus-visible {
+  border-color: var(--rose-deep);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+.contact-btn svg { flex: none; width: 20px; height: 20px; color: var(--rose-deep); }
+.contact-btn-text { display: grid; min-width: 0; }
+.contact-btn-text b {
+  font-weight: 500;
+  font-size: 1.0625rem;
+  letter-spacing: .01em;
+}
+.contact-btn-text small {
+  font-size: .9375rem;
+  color: var(--ink-soft);
+  overflow-wrap: anywhere;
+}
+/* Tre knapper i et to-spors gitter efterlader den sidste alene i sin
+   række med et hul ved siden af. Den får hele bredden i stedet. */
+.contact-actions > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+.contact-book { margin-top: 1.6rem; }
+
+.contact-hours {
+  background: var(--cream-2);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  padding: clamp(1.6rem, 3vw, 2.4rem);
+}
+.contact-hours h3 {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: .8125rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 1.1rem;
+}
+.contact-hours h3 svg { width: 15px; height: 15px; color: var(--rose-deep); }
+.contact-hours .contact-where-title { margin-top: 2rem; }
+.contact-where { color: var(--ink-soft); margin: 0; }
+.contact-parking { color: var(--ink-soft); margin: .35rem 0 0; font-size: .9375rem; }
+.contact-hours .hours-list li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: .8rem;
+  align-items: baseline;
+  padding-block: .5rem;
+  border-bottom: 1px solid var(--line-soft);
+}
+.contact-hours .hours-list li:last-child { border-bottom: 0; }
+.contact-hours .hours-day::first-letter { text-transform: uppercase; }
+.contact-hours .hours-time { color: var(--ink-soft); white-space: nowrap; }
+.contact-hours .hours-list li.is-closed { color: var(--ink-soft); opacity: .72; }
+.contact-hours-note {
+  margin-top: 1.2rem;
+  font-size: .9375rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+/* Fælles for begge steder listen bruges. */
+.hours-list { list-style: none; margin: 0; padding: 0; display: grid; gap: .1rem; }
+
+@media (max-width: 900px) {
+  .contact-grid { grid-template-columns: 1fr; }
+  .contact-actions { grid-template-columns: 1fr; }
+  .contact-book { width: 100%; justify-content: center; }
+}
+
 /* ---------- Footer ---------- */
 .footer {
   background: var(--ink);
@@ -845,7 +968,20 @@ strong { font-weight: 500; }
    over sig. ::first-letter gør det store begyndelsesbogstav til CSS'ens ansvar,
    så ugedagene kan staves korrekt med småt på dansk og med stort på engelsk. */
 .footer-hours-title { margin-top: 2rem; }
-.footer-hours li::first-letter { text-transform: uppercase; }
+.footer-hours .hours-day::first-letter { text-transform: uppercase; }
+/* Ugedagen til venstre, tiden til højre, med en tynd linje imellem. Uden
+   punktopstillingens faste kolonner ville "10:00–19:00" flyde rundt efter
+   længden på dagens navn, og syv linjer under hinanden ville se rodede ud. */
+.footer-hours .hours-list li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: .8rem;
+  align-items: baseline;
+  font-size: 1.0625rem;
+}
+.footer-hours .hours-list .hours-time { color: rgba(233,222,217,.8); white-space: nowrap; }
+.footer-hours .hours-list li.is-closed { color: rgba(233,222,217,.5); }
+.footer-hours .hours-list li.is-closed .hours-time { color: inherit; }
 .footer-hours-note {
   max-width: 34ch;
   margin-top: 1.1rem;
@@ -913,6 +1049,9 @@ strong { font-weight: 500; }
      headeren hele tiden. To ens knapper på skærmen samtidig er ikke et
      valg, det er støj. */
   .nav-menu .nav-book { display: none; }
+  /* Samme sag for sprogskifteren: den står nu fremme i topbjælken, og
+     når burgeren åbnes, ville menuens egen ligge lige under den. */
+  .nav-menu .lang-switch { display: none; }
   /* Knappen skal kunne stå ved siden af navnet og burgeren på en telefon,
      så den er mindre end menuens egen og må aldrig brække til to linjer.
      margin-left: auto skubber den helt hen til burgeren, så mellemrummet
@@ -921,13 +1060,26 @@ strong { font-weight: 500; }
     display: inline-flex;
     align-items: center;
     width: auto;
-    margin-left: auto;
-    min-height: 2.5rem;
+    min-height: 2.4rem;
     padding: .6rem 1.05rem;
     font-size: .68rem;
     letter-spacing: .13em;
     white-space: nowrap;
   }
+  /* DK og EN skal kunne ses uden at åbne burgeren. Den overtager
+     margin-left: auto fra bookingknappen, så de tre elementer i højre side
+     står samlet i stedet for at blive delt af det tomme felt. */
+  .lang-switch--compact {
+    display: flex;
+    margin-left: auto;
+    gap: .38rem;
+    font-size: .72rem;
+    letter-spacing: .1em;
+  }
+  /* Højt nok til at rammes med en tommel. Højden koster ikke bredde, og
+     bjælken er 78 px høj, så der er plads til den. */
+  .lang-switch--compact a { padding: .85rem .3rem; }
+  .lang-switch--compact a:not(:last-child)::after { margin-left: .38rem; }
 }
 
 /* Lige over burger-grænsen er der plads, men ikke rigelig. */
@@ -1638,10 +1790,15 @@ h3 { letter-spacing: -.025em; }
   line-height: 1.65;
 }
 .hero-actions { margin-left: 0; }
+/* 520 px. Højden følger formatet: 4:5 giver 650 px, og hele billedet plus
+   begge knapper kan ses uden at rulle ned til ca. 850 px skærmhøjde.
+   Til sammenligning gav 540 px i 2:3 en ramme på 810 px, som løb ud under
+   folden, og 420 px i 2:3 blev for spinkelt ved siden af tekstspalten.
+   Ændres billedets format, ændrer højden sig med det. */
 .hero-figure {
   justify-self: end;
   width: 100%;
-  max-width: 540px;
+  max-width: 520px;
 }
 .hero-frame {
   aspect-ratio: 4 / 5;
@@ -1882,6 +2039,20 @@ h3 { letter-spacing: -.025em; }
 .booking-card .btn--primary { background: #fff; color: var(--rose-deep); }
 .booking-card .btn--primary:hover { background: var(--ink); color: #fff; }
 .booking-card .btn--text { color: #fff; border-color: rgba(255,255,255,.45); }
+/* Konturknappen er tegnet til cremebund og er sort på sort inde i det
+   bordeauxfarvede kort. Kontaktknappen kom til 4/9-2026 og var usynlig,
+   indtil den fik sin egen streg og hvide tekst her. */
+.booking-card .btn--ghost {
+  color: #fff;
+  border-color: rgba(255,255,255,.5);
+  background: transparent;
+}
+.booking-card .btn--ghost:hover,
+.booking-card .btn--ghost:focus-visible {
+  background: #fff;
+  color: var(--rose-deep);
+  border-color: #fff;
+}
 .booking-note svg { color: #fff; }
 
 .finalcta {
@@ -1892,6 +2063,52 @@ h3 { letter-spacing: -.025em; }
 .finalcta::before { display: none; }
 .finalcta-inner { max-width: 900px; }
 .finalcta-inner h2 { color: var(--rose-deep); }
+
+/* Med et baggrundsfoto vender sektionen om: fotoet i fuld bredde, et
+   mørkt slør ovenpå og teksten i creme. Sløret er ikke pynt — uden det
+   kan overskriften ikke læses hen over et foto med både hvidt ærme og
+   mørk baggrund, og kontrastkravet gælder også for en afsluttende
+   sætning. Er images.finalctaBg tom, findes klassen slet ikke, og alt
+   herunder er uden virkning. */
+.finalcta--photo {
+  /* Mere luft end den hvide udgave. Et fuldbredde-foto på 370 px ser
+     klemt ud; her får det plads til at være et billede og ikke en stribe. */
+  padding-block: clamp(6.5rem, 13vw, 11rem);
+  background: var(--ink);
+  border-top: 0;
+  isolation: isolate;
+}
+.finalcta-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Ansigtet ligger lidt til højre og i den nederste halvdel af udsnittet.
+     Begge tal skal med: på en bred skærm er båndet bredere end fotoets 16:9,
+     så det er LODRET der beskæres, og på en telefon er båndet smallere, så
+     det er VANDRET. Med kun ét af tallene bliver ansigtet klippet væk i den
+     ene af de to situationer, og tilbage står en handske. */
+  object-position: 56% 58%;
+  z-index: -1;
+}
+/* ÉT fladt lag, ikke en gradient — samme regel som i heroen. Her lå før et
+   forløb fra .58 til .74 plus en radial ovenpå; det var svagt nok til ikke
+   at tegne en synlig kant, men et halvt slør er en fælde, og det skal ikke
+   stå to forskellige steder i filen.
+
+   0,62 er regnet ud, ikke valgt: målt på den lyseste pixel i båndet kræver
+   brødteksten 0,610 og overskriften 0,504. Skiftes fotoet, skal tallet
+   regnes efter igen. */
+.finalcta--photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgba(36,30,32,.62);
+}
+.finalcta--photo .finalcta-inner h2 { color: var(--cream); }
+.finalcta--photo .finalcta-inner p { color: rgba(255,255,255,.82); }
 .finalcta-inner p { color: var(--ink-soft); }
 
 .footer { background: #1d1719; }
@@ -2040,12 +2257,37 @@ h3 { letter-spacing: -.025em; }
   h2 { font-size: clamp(2.3rem, 12vw, 4rem); }
   .section { padding-block: clamp(4.5rem, 17vw, 7rem); }
   /* Mærket er det eneste sted hendes navn står i toppen, så det skal kunne
-     læses. Knappen siger bare "Book", og pladsen der bliver til overs går
-     hertil. Målt: ved 375 px fylder navn, knap og burger 301 af 337
-     tilgængelige px. */
-  .brand-mark { height: 2.35rem; }
-  .brand-text { font-size: 1.15rem; }
-  .brand small { margin-right: -.28em; font-size: .64rem; letter-spacing: .28em; }
+     læses. Fra 4/9-2026 skal DK og EN også stå fremme heroppe, og de tog de
+     sidste frie pixels i topbjælken.
+
+     Her stod før fire trin (720, 400, 365 og 330 px), hvor navnet blev en
+     tak mindre for hvert. Problemet med trin er, at det strammeste punkt
+     altid ligger lige inden det næste: ved 331 og 366 px lå navnet oven i
+     sprogskifteren, mens der var rigelig plads ved 360 og 395. Derfor
+     skalerer de fire ting nu jævnt med skærmbredden i stedet.
+
+     Tallene i navnets clamp: "Wiktoria Gordon" fylder ca. 6,5 px i bredden
+     pr. px skriftstørrelse, og resten af bjælken plus margener lægger
+     beslag på ca. 250 px. Divisoren er sat højere end de 6,5, så der
+     bliver et par pixels tilovers hele vejen ned. Måles med scripts/maal-topbjaelke.sh. */
+  .nav { gap: .35rem; }
+  .brand { gap: .4rem; }
+  .brand-mark { height: clamp(1.7rem, 5.4vw, 2.15rem); }
+  .brand-text { font-size: clamp(.62rem, calc((100vw - 250px) / 7.6), 1.05rem); }
+  .brand small { margin-right: -.28em; font-size: .58em; letter-spacing: .24em; }
+  /* Prikken mellem DK og EN koster den bredde, bogstaverne skal bruge. Den
+     aktive er bordeaux og den anden grå, så de kan skelnes uden den. */
+  .lang-switch--compact { font-size: clamp(.56rem, 1.9vw, .68rem); gap: .4rem; letter-spacing: .04em; }
+  .lang-switch--compact a { padding-inline: clamp(.05rem, .8vw, .3rem); }
+  .lang-switch--compact a:not(:last-child)::after { display: none; }
+  .nav-book--compact {
+    padding: .58rem clamp(.55rem, 2.4vw, 1.05rem);
+    font-size: clamp(.56rem, 1.85vw, .68rem);
+    letter-spacing: clamp(.03em, .5vw, .13em);
+  }
+  /* Burgerens streger ligger på left: 10px og er 24 px brede, så knappen
+     kan ikke blive smallere end 34 uden at klippe dem over. */
+  .nav-toggle { width: clamp(34px, 11vw, 44px); }
   .hero { padding-top: calc(var(--header-h) + 2.6rem); padding-bottom: 4.5rem; }
   /* Heroens opsætning på telefon står samlet i 960-blokken, som også
      dækker det her breakpoint. Her stod tidligere et sæt regler for et
@@ -2081,30 +2323,9 @@ h3 { letter-spacing: -.025em; }
   .results-strip { grid-auto-columns: 76%; }
 }
 
-@media (max-width: 400px) {
-  /* Under 400 px skal navnet, bookingknappen og burgeren dele en bredde,
-     der ikke rækker til dem alle tre i fuld størrelse. Navnet må ikke
-     brække, så det er knappen og mellemrummene der giver efter. Målt på
-     320 px, hvor det lige akkurat går op. */
-  .brand { gap: .45rem; }
-  .nav { gap: .5rem; }
-  .nav-book--compact {
-    min-height: 2.3rem;
-    padding: .55rem .8rem;
-    font-size: .62rem;
-    letter-spacing: .08em;
-  }
-}
-
-/* De smalle telefoner, fra en Galaxy S i standardbredde og nedefter. Først
-   her er der ikke mere plads at give af, så mærket og knappen skrumper en
-   tak frem for at røre hinanden. Grænsen ligger ved 365 og ikke 400, så en
-   iPhone i normalbredde beholder det store mærke. */
+/* De smalleste telefoner. Topbjælken skalerer nu jævnt i 720-blokken og
+   har ikke længere et trin her; kun heroens knapper. */
 @media (max-width: 365px) {
-  .brand-mark { height: 2rem; }
-  .brand-text { font-size: .95rem; }
-  .brand small { font-size: .57rem; letter-spacing: .24em; }
-  .nav-book--compact { padding: .5rem .7rem; letter-spacing: .06em; }
   /* "Se behandlinger" kræver 161 px, og her er der kun 157. Så stables de. */
   .hero-actions { grid-template-columns: 1fr; gap: .6rem; }
 }
@@ -2167,16 +2388,6 @@ h3 { letter-spacing: -.025em; }
     padding-top: calc(var(--header-h) + 3.5rem);
   }
   .legal-section { grid-template-columns: 1fr; gap: .9rem; }
-}
-
-/* iPhone SE af første slags og lignende, 320 px. Her rører navnet og
-   knappen hinanden, hvis der ikke gives efter en sidste gang. Under det
-   her er der ikke flere telefoner at tage hensyn til. */
-@media (max-width: 330px) {
-  .brand-mark { height: 1.85rem; }
-  .brand-text { font-size: .86rem; }
-  .brand small { font-size: .53rem; letter-spacing: .2em; }
-  .nav-book--compact { padding: .48rem .62rem; font-size: .58rem; letter-spacing: .04em; }
 }
 
 /* ---------- Tidsvælger (online-booking) ---------- */
@@ -2462,8 +2673,36 @@ h3 {
   .hero-actions .btn,
   .service-book { min-height: 3rem; }
 
-  .service-expect-title,
-  .service-expect { display: none; }
+  /* Var display:none. Så kunne resten af behandlingen ikke læses på en
+     telefon overhovedet, hvilket er præcis det Wiktoria opdagede 4/9-2026.
+     Nu er den foldet sammen bag knappen — og kun når JavaScript kan folde
+     den ud igen. */
+  .js .service-more { display: none; }
+  .js .service.is-open .service-more { display: block; }
+  .js .service-toggle {
+    display: inline-flex;
+    /* Kortet er en flex-kolonne, så et barn strækker sig i fuld bredde,
+       med mindre man siger fra. En streg under to ord skal være to ord
+       bred, ikke hele kortet. */
+    align-self: flex-start;
+    align-items: center;
+    gap: .4rem;
+    margin-bottom: 1.4rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    font-family: var(--sans);
+    font-size: .7rem;
+    font-weight: 500;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--rose-deep);
+    border-bottom: 1px solid currentColor;
+    min-height: 2.5rem;
+  }
+  .js .service--featured .service-toggle,
+  .js .service--sets .service-toggle { color: #fff; }
+  .js .service.is-open .service-more { margin-bottom: .4rem; }
 
   .service .desc { margin-bottom: 1rem; }
 
@@ -2604,9 +2843,12 @@ h3 {
     box-shadow: 0 30px 65px -38px rgba(55, 18, 27, .48);
   }
 
+  /* Var 50% 6%. Det passede til portrættet, hvor hovedet lå helt oppe i
+     billedet. Brynnærbilledet har øjnene omkring midten, så toppen viser
+     kun handsker. */
   .hero-frame img {
     object-fit: cover;
-    object-position: 50% 6%;
+    object-position: 50% 45%;
   }
 
   .hero-figure::after {
@@ -2641,18 +2883,27 @@ h3 {
     text-align: left;
   }
 
+  /* Fotoet gik før ud til begge kanter og fik en fast højde, der beskar
+     det. Nu har filen selv rammens format, så der klippes ikke, og bredden
+     er i stedet valgt, så overskrift og begge knapper bliver over folden.
+     Målt ved 390 px: rammen bliver 273x341, og knapperne ligger ved 812
+     af 844. Bredden regnes af gitterets spalte (skærm minus margener), ikke
+     af skærmen, så 78 % er mindre end det lyder. */
   .hero-figure {
     grid-column: 1;
     grid-row: 1;
-    justify-self: stretch;
-    width: auto;
+    justify-self: end;
+    width: min(78%, 19rem);
     max-width: none;
-    margin: 0 calc(var(--gutter) * -1) 0 1rem;
+    margin: 0 calc(var(--gutter) * -1) 1.25rem auto;
   }
 
   .hero-frame {
-    height: clamp(20.5rem, 94vw, 23rem);
-    aspect-ratio: auto;
+    /* Her stod height: clamp(20.5rem, 94vw, 23rem) med aspect-ratio: auto.
+       Den faste højde beskar billedet, uanset hvad filen havde for et
+       format. Ude, så det også er ubeskåret her. */
+    height: auto;
+    aspect-ratio: 4 / 5;
     box-shadow: 0 28px 58px -36px rgba(55, 18, 27, .5);
   }
 
@@ -2660,7 +2911,7 @@ h3 {
 
   .hero-frame img {
     object-fit: cover;
-    object-position: 50% 7%;
+    object-position: 50% 45%;
   }
 
   .hero-figure::after {
@@ -2891,6 +3142,14 @@ h3 {
   color: var(--ink);
 }
 .thanks-address[hidden] { display: none; }
+/* Parkeringen står tættere på adressen end noten om at gemme siden, fordi
+   den hører til stedet og ikke til handlingen. */
+.thanks-parking {
+  margin-top: .45rem;
+  font-size: .9375rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
 .thanks-where-note {
   margin-top: .9rem;
   font-size: .8rem;
@@ -2911,3 +3170,221 @@ h3 {
   justify-content: center;
 }
 .thanks-links svg { width: 1.05rem; height: 1.05rem; flex: none; }
+
+/* =====================================================================
+   Full-width photo hero — comparison version, 04/09/2026
+
+   This block is intentionally scoped to .hero--photo and comes last. The
+   earlier split-hero rules can therefore stay intact while the two visual
+   directions are compared.
+   ===================================================================== */
+/* Referenceversionens topbjælke er 64 px høj og bruger en smallere
+   1190 px ramme. :has() holder de mål knyttet til foto-heroen, så den
+   alternative split-hero kan få sine egne mål igen senere. */
+body:has(.hero--photo) { --header-h: 4rem; }
+body:has(.hero--photo) .header .nav { max-width: 74.375rem; }
+@media (min-width: 1181px) {
+  body:has(.hero--photo) .nav-menu .nav-book { padding: .65rem .925rem; }
+}
+
+.hero--photo {
+  /* Begge referencebilleder viser samme 648 px højde, selv om deres
+     viewport-højder er forskellige. Heroen er derfor fast på desktop. */
+  --photo-hero-height: 40.5rem;
+  display: grid;
+  min-height: var(--photo-hero-height);
+  height: var(--photo-hero-height);
+  margin-top: var(--header-h);
+  padding: 0;
+  overflow: hidden;
+  isolation: isolate;
+  background: #3b3030;
+}
+
+.hero--photo::before { display: none; }
+
+.hero-photo-media {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+}
+
+/* Kildefotoet er stående med motivet på siden. Kassen bytter derfor
+   heroens bredde og højde og roteres som én enhed. Det svarer til et
+   almindeligt cover-billede efter rotationen, også når viewporten ændres. */
+.hero-photo-rotator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--photo-hero-height);
+  height: 100vw;
+  transform: translate(-50%, -50%) rotate(90deg);
+  transform-origin: center;
+}
+
+.hero-photo-rotator img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: 53% 49%;
+}
+
+.hero-photo-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(22, 18, 20, .54), rgba(43, 31, 32, .37) 48%, rgba(18, 17, 20, .67)),
+    rgba(63, 43, 44, .28);
+}
+
+.hero-photo-content {
+  position: relative;
+  z-index: 1;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 48rem;
+  padding-top: 1.2rem;
+  text-align: center;
+  color: #fff;
+  transform: translateY(4.5rem);
+}
+
+.hero--photo .eyebrow {
+  justify-content: center;
+  margin-bottom: 1.15rem;
+  color: rgba(255, 255, 255, .9);
+  font-size: .66rem;
+  letter-spacing: .25em;
+}
+
+.hero--photo .eyebrow::before {
+  display: block;
+  width: 36px;
+  background: rgba(255, 255, 255, .72);
+}
+
+.hero--photo h1 {
+  margin: 0 0 .36em;
+  color: #fff;
+  font-size: clamp(4.6rem, 5.6vw, 5.85rem);
+  line-height: .86;
+  letter-spacing: -.025em;
+}
+
+.hero--photo h1 .accent {
+  display: block;
+  margin-top: .12em;
+  color: rgba(255, 247, 245, .9);
+  font-size: .9em;
+  font-weight: 500;
+}
+
+.hero--photo .hero-sub {
+  max-width: 43rem;
+  margin: 0 auto 1.8rem;
+  color: rgba(255, 255, 255, .92);
+  font-size: 1rem;
+  line-height: 1.58;
+  text-wrap: balance;
+}
+
+.hero--photo .hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: .85rem;
+  width: auto;
+  margin: 0;
+}
+
+.hero--photo .hero-actions .btn {
+  min-width: 12.8rem;
+  min-height: 3.1rem;
+  border-radius: 0;
+  padding: .85rem 1.75rem;
+  font-size: .7rem;
+  letter-spacing: .16em;
+  box-shadow: none;
+}
+
+.hero--photo .btn--primary { background: var(--rose-deep); }
+.hero--photo .btn--primary:hover { background: #3f0b16; }
+.hero--photo .btn--ghost {
+  min-width: 14.5rem;
+  color: #fff;
+  border-color: rgba(255, 255, 255, .62);
+  background: rgba(255, 255, 255, .035);
+}
+.hero--photo .btn--ghost:hover {
+  color: #fff;
+  border-color: #fff;
+  background: rgba(255, 255, 255, .1);
+}
+
+@media (max-width: 720px) {
+  .hero--photo {
+    --photo-hero-height: max(42rem, calc(100svh - var(--header-h) - 2.7rem));
+    min-height: var(--photo-hero-height);
+    height: var(--photo-hero-height);
+    margin-top: var(--header-h);
+    padding: 0;
+    align-content: center;
+  }
+
+  .hero-photo-media::after {
+    background:
+      linear-gradient(180deg, rgba(27, 21, 24, .3), rgba(33, 22, 24, .58)),
+      rgba(49, 35, 37, .28);
+  }
+
+  .hero-photo-content {
+    align-self: center;
+    padding-top: .8rem;
+    transform: none;
+  }
+
+  .hero--photo .eyebrow {
+    max-width: 21rem;
+    margin-bottom: 1rem;
+    font-size: .57rem;
+    line-height: 1.55;
+    letter-spacing: .18em;
+  }
+
+  .hero--photo .eyebrow::before { width: 24px; }
+
+  .hero--photo h1 {
+    margin-bottom: .45em;
+    font-size: clamp(3.35rem, 15vw, 4.15rem);
+    line-height: .88;
+  }
+
+  .hero--photo .hero-sub {
+    max-width: 34rem;
+    margin-bottom: 1.55rem;
+    font-size: .92rem;
+    line-height: 1.55;
+  }
+
+  .hero--photo .hero-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: .65rem;
+    width: min(100%, 18rem);
+  }
+
+  .hero--photo .hero-actions .btn {
+    width: 100%;
+    min-width: 0;
+    min-height: 3.15rem;
+  }
+}
+
+@media (max-width: 365px) {
+  .hero--photo h1 { font-size: 3.15rem; }
+  .hero--photo .hero-actions { grid-template-columns: 1fr; }
+}

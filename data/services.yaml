@@ -21,6 +21,7 @@ da:
       gerne vil have.
   main:
     - title: "Koreansk lash lift"
+      priceTitle: "Koreansk lash lift + farve"
       group: "lashes"
       calSlug: "lash-lift"
       icon: "lash-tint"
@@ -34,7 +35,7 @@ da:
       expect:
         - "Vipper løftet fra rod til spids"
         - "Naturlige vipper, der ser længere og tykkere ud"
-        - "Vipper farvet i den nuance, du vælger"
+        - "Vipper farvet med den valgte farve"
         - "Et resultat der holder 6-8 uger"
         - "At vågne op med vipperne klar hver dag"
       tagline: "Dine egne vipper, bare bedre."
@@ -52,8 +53,9 @@ da:
         genstridige, kraftige bryn.
       expect:
         - "Fyldigere og blødere bryn"
-        - "En tydeligere brynform"
+        - "Personlig brynopmåling og formning"
         - "Et løftet udtryk omkring øjnene"
+        - "Et resultat der holder 6-8 uger"
         - "Mindre tid brugt på at style brynene"
       tagline: "Struktureret nok til at definere. Blødt nok til at føles som dig."
     - title: "Brynlaminering + farve"
@@ -64,12 +66,18 @@ da:
       price: "500 kr."
       featured: false
       desc: >-
-        Den komplette brynbehandling for mere form, dybde og definition.
-        Lamineringen skaber retningen og strukturen, mens farven giver brynhårene
-        dybde og en fyldigere finish.
-      expect: []
-      tagline: "Form, retning og definition i én behandling."
-    - title: "Brynfarve & formning"
+        En komplet brynbehandling, der samler laminering, personlig formning og
+        farve og giver fyldigere, mere definerede bryn. Farven og intensiteten
+        vælges med omhu, så de klæder dine træk og passer til det, du gerne vil
+        have.
+      expect:
+        - "Fyldigere bryn med mere definition"
+        - "Personlig brynopmåling og formning"
+        - "En farve tilpasset dine træk og dine ønsker"
+        - "Et resultat der holder 6-8 uger"
+        - "Mindre tid brugt på at style eller tegne brynene op"
+      tagline: "Form, retning og farve, alt sammen tilpasset dig."
+    - title: "Brynfarve"
       group: "brows"
       calSlug: "brow-tint-shaping"
       icon: "sparkle"
@@ -81,7 +89,7 @@ da:
         op efter dine egne træk, formes omhyggeligt og farves, så definitionen
         passer til dig.
       expect:
-        - "Præcis brynopmåling og geometri"
+        - "Præcis brynopmåling og formning"
         - "En farve tilpasset dine træk og dine ønsker"
         - "Mere balance i ansigtets træk"
         - "Renere definition i brynene"
@@ -98,7 +106,7 @@ da:
         Det er aldrig en løsning, der passer til alle. Dine bryn måles op efter
         dine egne træk og ønsker og formes omhyggeligt med voks eller pincet.
       expect:
-        - "Præcis brynopmåling og geometri"
+        - "Præcis brynopmåling og formning"
         - "Mere balance i ansigtets træk"
         - "Renere definition i brynene"
       tagline: "Find din ideelle brynform."
@@ -154,6 +162,7 @@ en:
       result you want to achieve.
   main:
     - title: "Korean lash lift"
+      priceTitle: "Korean lash lift + tint"
       group: "lashes"
       calSlug: "lash-lift"
       icon: "lash-tint"
@@ -185,8 +194,9 @@ en:
         brows.
       expect:
         - "Fuller, softer looking brows"
-        - "More visible brow shape"
+        - "Personalised brow geometry and shaping"
         - "A lifted appearance around the eyes"
+        - "Result lasting up to 6-8 weeks"
         - "Less time spent styling your brows"
       tagline: "Structured enough to define. Soft enough to feel like you."
     - title: "Brow lamination + tint"
@@ -197,12 +207,18 @@ en:
       price: "500 kr."
       featured: false
       desc: >-
-        The complete brow treatment for more shape, depth and definition.
-        Lamination creates the direction and structure, while tint adds depth to the
-        brow hairs for a fuller-looking finish.
-      expect: []
-      tagline: "Shape, direction and definition in one treatment."
-    - title: "Brow tint & shaping"
+        A complete brow styling treatment that combines lamination, personalised
+        shaping and tinting for fuller, more defined brows. The colour and
+        intensity are carefully chosen to complement your features and match your
+        preferences.
+      expect:
+        - "Fuller, more defined-looking brows"
+        - "Personalised brow geometry and shaping"
+        - "A colour tailored to your features and preferences"
+        - "Result lasting up to 6-8 weeks"
+        - "Less time spent styling or filling in your brows"
+      tagline: "Shape, direction and colour, all tailored to you."
+    - title: "Brow tint"
       group: "brows"
       calSlug: "brow-tint-shaping"
       icon: "sparkle"
@@ -214,7 +230,7 @@ en:
         Your brows are mapped according to your individual features, carefully
         shaped and tinted to create definition that suits you.
       expect:
-        - "Precise brow geometry and mapping"
+        - "Precise brow geometry and shaping"
         - "A tint tailored to your features and expectations"
         - "More balanced face features"
         - "Cleaner brow definition"
@@ -231,7 +247,7 @@ en:
         It is never one-size-fits-all. Your brows are mapped according to your
         individual features and expectations, carefully shaped with wax or tweezers.
       expect:
-        - "Precise brow geometry and mapping"
+        - "Precise brow geometry and shaping"
         - "More balanced face features"
         - "Cleaner brow definition"
       tagline: "Find your ideal brow shape."

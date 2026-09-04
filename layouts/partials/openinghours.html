@@ -1,0 +1,33 @@
+{{- /* =====================================================================
+     Åbningstider, én linje pr. ugedag.
+
+     Wiktoria bad 4/9-2026 om at få hver dag skrevet for sig i stedet for
+     "mandag, tirsdag, onsdag: 10:00–19:00". Data står stadig grupperet i
+     data/business.yaml, fordi det er schema.org's format, og fordi hun så
+     kun skal rette ét sted, når tre dage ændrer sig samtidig. Opdelingen
+     sker her.
+
+     Dage, der ikke står i openingHours, er lukkede og får det skrevet.
+     Ellers skulle den besøgende selv regne ud, at weekenden mangler.
+
+     Kald med sidekonteksten:  {{ partial "openinghours.html" . }}
+     ===================================================================== */ -}}
+{{- $p := hugo.Data.business -}}
+{{- $u := index hugo.Data.ui .Site.Language.Lang -}}
+{{- with $p.openingHours -}}
+<ul class="hours-list">
+  {{- range $day := (slice "Monday" "Tuesday" "Wednesday" "Thursday" "Friday" "Saturday" "Sunday") -}}
+    {{- $name := index $u.weekdays $day | default $day -}}
+    {{- $open := "" -}}
+    {{- range $row := $p.openingHours -}}
+      {{- if and (not $open) (in $row.days $day) -}}
+        {{- $open = printf "%s–%s" $row.opens $row.closes -}}
+      {{- end -}}
+    {{- end -}}
+    <li{{ if not $open }} class="is-closed"{{ end }}>
+      <span class="hours-day">{{ $name }}</span>
+      <span class="hours-time">{{ if $open }}{{ $open }}{{ else }}{{ $u.footer.closed }}{{ end }}</span>
+    </li>
+  {{- end -}}
+</ul>
+{{- end -}}

@@ -101,21 +101,53 @@ da:
     # er øjeblikket, hvor bookingen går live.
     preview: true
     treatmentButton: "Find din behandling"
+    # Wiktorias §18 nævner TRE knapper: find behandling, kontakt mig, book
+    # tid. Kontaktknappen manglede, indtil kontaktsektionen kom til
+    # 4/9-2026; før den var der ikke noget at pege på.
+    contactButton: "Kontakt mig"
     bookButton: "Book en tid"
     note: "Svar inden for 24 timer · Aflysning senest 24 timer før"
 
+  # =====================================================================
+  #  Kontaktsektionen. Wiktoria bad 4/9-2026 om et selvstændigt punkt i
+  #  menuen ved siden af Priser og FAQ, med åbningstider og direkte
+  #  knapper til Instagram, Facebook, telefon og booking. Selve linkene
+  #  står i data/business.yaml, så de kun skal rettes ét sted.
+  # =====================================================================
   contact:
+    eyebrow: "Kontakt"
+    heading: "Sådan får du fat i mig"
+    text: >-
+      Er du i tvivl om, hvad du skal vælge, så skriv eller ring. Jeg svarer
+      inden for 24 timer. Vil du booke med det samme, kan du gøre det her på
+      siden.
+    callLabel: "Ring til mig"
+    instagramLabel: "Skriv på Instagram"
+    facebookLabel: "Skriv på Facebook"
+    hoursTitle: "Åbningstider"
+    whereTitle: "Hvor"
+    # Wiktorias tilføjelse 4/9-2026. Står to steder: her i kontaktsektionen,
+    # hvor den er med til at afgøre om man booker, og på kvitteringen, hvor
+    # man skal bruge den på vej hen. Samme felt begge steder, så de ikke kan
+    # komme til at sige noget forskelligt. Tømmes feltet, forsvinder linjen
+    # begge steder.
+    parking: "Der er gratis parkering."
     area: "Horsens, Danmark"
     hoursNote: >-
-      Weekend lukket. Tider uden for normal åbningstid og i weekenden kan nogle
-      gange aftales mod et tillæg. Kontakt mig, hvis du ikke kan finde den tid,
-      du har brug for.
+      Tider uden for normal åbningstid og i weekenden kan nogle gange aftales
+      mod et tillæg. Kontakt mig, hvis du ikke kan finde den tid, du har brug
+      for.
 
   beforeafter:
     # Overskriften vises ikke på siden. Sektionen står lige under
     # introteksten, og billederne taler for sig selv. Den bruges til
     # sidens overskriftsstruktur og til skærmlæsere.
     heading: "Se forskellen."
+    # Wiktorias §16. Linjen manglede helt. Den vises, selv om overskriften
+    # ovenfor er skjult: den siger noget andet end overskriften, nemlig at
+    # billederne er rigtige kunder og ikke reklamefotos, og det er en
+    # oplysning, ingen kan læse ud af selve billedet.
+    text: "Rigtige kunder. Rigtige træk. Gennemtænkte resultater."
     beforeLabel: "Før"
     afterLabel: "Efter"
 
@@ -216,21 +248,35 @@ en:
     # er øjeblikket, hvor bookingen går live.
     preview: true
     treatmentButton: "Find your treatment"
+    contactButton: "Contact me"
     bookButton: "Book an appointment"
     note: "Reply within 24 hours · Cancellation at least 24 hours ahead"
 
   contact:
+    eyebrow: "Contact"
+    heading: "How to reach me"
+    text: >-
+      If you are unsure what to choose, send me a message or give me a call. I
+      reply within 24 hours. If you already know what you want, you can book
+      right here on the site.
+    callLabel: "Call me"
+    instagramLabel: "Message on Instagram"
+    facebookLabel: "Message on Facebook"
+    hoursTitle: "Opening hours"
+    whereTitle: "Where"
+    parking: "Free parking is available."
     area: "Horsens, Denmark"
     hoursNote: >-
-      Closed on weekends. Appointments outside normal opening hours and on
-      weekends may sometimes be arranged for an additional fee. Contact me if
-      you cannot find the time you need.
+      Appointments outside normal opening hours and at weekends may sometimes
+      be arranged for an additional fee. Contact me if you cannot find the time
+      you need.
 
   beforeafter:
     # Overskriften vises ikke på siden. Sektionen står lige under
     # introteksten, og billederne taler for sig selv. Den bruges til
     # sidens overskriftsstruktur og til skærmlæsere.
     heading: "See the difference."
+    text: "Real clients. Real features. Carefully considered results."
     beforeLabel: "Before"
     afterLabel: "After"
 

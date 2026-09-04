@@ -2,6 +2,15 @@
 {{ $r := index hugo.Data.reviews $L }}
 {{- $p := hugo.Data.business -}}
 {{- $u := index hugo.Data.ui $L -}}
+{{/* Kun anmeldelser skrevet på DENNE sides sprog. Wiktorias ønske
+     4/9-2026: en dansk besøgende skal ikke stå med engelske citater, og
+     omvendt. Citater uden "lang" vises begge steder, så en ny anmeldelse
+     aldrig forsvinder ud af sitet, fordi feltet blev glemt. */}}
+{{- $items := slice -}}
+{{- range $r.items -}}
+  {{- $lang := .lang | default "" -}}
+  {{- if or (eq $lang "") (eq $lang $L) }}{{ $items = $items | append . }}{{ end -}}
+{{- end -}}
 <section class="section" id="anmeldelser">
   <div class="container">
     {{/* Antallet af anmeldelser er fjernet efter Wiktorias udtrykkelige
@@ -14,8 +23,11 @@
     </div>
 
     <div class="reviews-grid" id="reviewsGrid">
-      {{ range $i, $rev := $r.items }}
-      <article class="review{{ if ge $i 3 }} review--extra{{ end }} reveal{{ if lt $i 2 }} d{{ add $i 1 }}{{ end }}">
+      {{ range $i, $rev := $items }}
+      {{/* På telefon står de første fire fremme, resten bag knappen. Grænsen
+           var tre; med sprogfiltreringen har hvert sprog netop fire citater,
+           og en knap, der folder ét enkelt citat ud, er kun i vejen. */}}
+      <article class="review{{ if ge $i 4 }} review--extra{{ end }} reveal{{ if lt $i 2 }} d{{ add $i 1 }}{{ end }}">
         <div class="rec">{{ partial "icon.html" "check" }} {{ $u.reviews.badge }}</div>
         <p class="quote">“{{ $rev.text }}”</p>
         <div class="who">
@@ -29,7 +41,7 @@
       {{ end }}
     </div>
 
-    {{ if gt (len $r.items) 3 }}
+    {{ if gt (len $items) 4 }}
     <div class="reviews-toggle-wrap reveal" id="reviewsToggleWrap">
       <button type="button" class="btn btn--ghost reviews-toggle" id="reviewsToggle"
               data-more="{{ $u.reviews.showMore }}" data-less="{{ $u.reviews.showLess }}"

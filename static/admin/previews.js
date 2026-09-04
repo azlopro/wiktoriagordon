@@ -337,7 +337,7 @@
             { key: group || 'other' },
             h('p', { className: 'price-group-title' }, labels.groups[group] || group),
             h('ul', { className: 'price-list' }, services.filter(function (service) { return service.group === group; }).map(function (service, index) {
-              return h('li', { className: 'price-row', key: index }, h('span', { className: 'name' }, service.title, service.duration ? h('span', { className: 'dur' }, service.duration) : null), h('span', { className: 'lead' }), h('span', { className: 'amt' }, service.price));
+              return h('li', { className: 'price-row', key: index }, h('span', { className: 'name' }, service.priceTitle || service.title, service.duration ? h('span', { className: 'dur' }, service.duration) : null), h('span', { className: 'lead' }), h('span', { className: 'amt' }, service.price));
             }))
           );
         })
@@ -350,7 +350,7 @@
        monogrammet afløste tekstlogoet. Nøglerne skal matche images.yaml,
        ellers står der tomme felter for billeder der ikke findes, og de
        billeder der faktisk er, vises slet ikke. */
-    var labels = { logo: 'Logo', logoLight: 'Logo for dark background', hero: 'Large top photo', portrait: 'About photo' };
+    var labels = { logo: 'Logo', logoLight: 'Logo for dark background', hero: 'Large top photo', portrait: 'About photo', finalctaBg: 'Background photo at the bottom (optional)' };
     return h('div', { className: 'wg-image-grid' }, Object.keys(labels).map(function (key) {
       var url = assetUrl(data[key], props.getAsset);
       return h('figure', { className: 'wg-image-card wg-image-card--' + key, key: key }, url ? h('img', { src: url, alt: labels[key] }) : h('div', { className: 'wg-empty-image' }, 'Choose an image'), h('figcaption', {}, labels[key]));
@@ -442,9 +442,15 @@
         h('div', { className: 'wg-hours-preview' },
           h('h3', {}, 'Regular opening hours'),
           hours.length
-            ? h('ul', {}, hours.map(function (row, index) {
-                var days = Array.isArray(row.days) ? row.days.join(', ') : row.days;
-                return h('li', { key: index }, h('span', {}, shown(days, 'Days')), h('b', {}, shown(row.opens, '00:00') + '–' + shown(row.closes, '00:00')));
+            /* Rækkerne herover grupperer dage; siden skriver hver dag for
+               sig og sætter "Closed" ud for dem, der ikke står nogen
+               steder. Previewet gør det samme, ellers ligner en glemt dag
+               ikke en lukkedag. */
+            ? h('ul', {}, ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map(function (day) {
+                var row = hours.filter(function (entry) {
+                  return Array.isArray(entry.days) ? entry.days.indexOf(day) !== -1 : entry.days === day;
+                })[0];
+                return h('li', { key: day }, h('span', {}, day), h('b', {}, row ? shown(row.opens, '00:00') + '–' + shown(row.closes, '00:00') : 'Closed'));
               }))
             : h('p', { className: 'wg-note' }, 'No regular hours are published.')
         ),
@@ -462,11 +468,18 @@
   }
 
   function renderReviews(data, locale) {
+    /* Siden viser kun anmeldelser skrevet på det sprog, man står på.
+       Uden den samme filtrering her ville previewet vise otte citater,
+       hvor besøgende ser fire, og så ligner et manglende "lang" ikke en
+       fejl. Et tomt felt vises begge steder, ligesom på siden. */
+    var shownReviews = list(data.items).filter(function (review) {
+      return !review.lang || review.lang === locale;
+    });
     return h(
       'section',
       { className: 'wg-copy-section' },
       sectionHead(data, true),
-      h('div', { className: 'reviews-grid wg-reviews-preview' }, list(data.items).map(function (review, index) {
+      h('div', { className: 'reviews-grid wg-reviews-preview' }, shownReviews.map(function (review, index) {
         return h('article', { className: 'review', key: index }, h('div', { className: 'rec' }, '✓ ', locale === 'en' ? 'Recommends on Facebook' : 'Anbefaler på Facebook'), h('p', { className: 'quote' }, '“', shown(review.text, 'Exact customer review'), '”'), h('div', { className: 'who' }, h('span', { className: 'avatar' }, (review.name || '?').charAt(0)), h('span', { className: 'who-meta' }, h('b', {}, shown(review.name, 'Customer name')), review.service ? h('span', {}, review.service) : null)));
       }))
     );

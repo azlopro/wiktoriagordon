@@ -30,6 +30,7 @@
           <li class="nav-prices--mobile"><a href="{{ "/#ydelser" | relLangURL }}">{{ $u.nav.prices }}</a></li>
           <li><a href="{{ "/#om" | relLangURL }}">{{ $u.nav.about }}</a></li>
           <li><a href="{{ "/#faq" | relLangURL }}">{{ $u.nav.faq }}</a></li>
+          <li><a href="{{ "/#kontakt" | relLangURL }}">{{ $u.nav.contact }}</a></li>
           <li><a href="{{ $policyURL }}">{{ $u.nav.policy }}</a></li>
           <li><a href="{{ $privacyURL }}">{{ $u.nav.privacy }}</a></li>
           <li><a href="{{ "/#booking" | relLangURL }}">{{ $u.nav.book }}</a></li>
@@ -55,15 +56,10 @@
              at sige to forskellige ting. */}}
         {{ with $p.openingHours }}
         <h4 class="footer-hours-title">{{ $u.footer.hours }}</h4>
-        <ul class="footer-hours">
-          {{ range . }}
-          <li>
-            {{- $names := slice -}}
-            {{- range .days }}{{ $names = $names | append (index $u.weekdays . | default .) }}{{ end -}}
-            {{ delimit $names ", " }}: {{ .opens }}&ndash;{{ .closes }}
-          </li>
-          {{ end }}
-        </ul>
+        {{/* Én linje pr. ugedag, weekenden med. Wiktorias ønske 4/9-2026.
+             Opdelingen ligger i partialen, så footeren og kontaktsektionen
+             ikke kan komme til at vise åbningstiderne forskelligt. */}}
+        <div class="footer-hours">{{ partial "openinghours.html" $ }}</div>
         {{ with $c.hoursNote }}<p class="footer-hours-note">{{ . }}</p>{{ end }}
         {{ end }}
       </div>

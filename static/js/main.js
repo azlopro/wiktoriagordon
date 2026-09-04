@@ -107,6 +107,20 @@
     });
   }
 
+  /* Behandlingskortene er foldet sammen på telefon: beskrivelsen står
+     fremme, punkterne under "Læs mere". Knappen er skjult af CSS'en på
+     brede skærme, hvor alt allerede står der. Teksten forlader aldrig
+     HTML'en, så den kan læses uden JavaScript og af søgemaskiner. */
+  document.querySelectorAll(".service-toggle").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var card = btn.closest(".service");
+      if (!card) return;
+      var open = card.classList.toggle("is-open");
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+      btn.textContent = open ? btn.dataset.less : btn.dataset.more;
+    });
+  });
+
   /* Før/efter-slider */
   var baSlider = document.getElementById("baSlider");
   var baRange = document.getElementById("baRange");

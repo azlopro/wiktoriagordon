@@ -1,0 +1,71 @@
+{{- /* =====================================================================
+     Kontakt.
+
+     Wiktorias ønske 4/9-2026: kontaktoplysningerne skulle have deres eget
+     punkt i menuen ligesom Priser og FAQ, i stedet for kun at stå nederst i
+     footeren, hvor folk ikke finder dem. Åbningstiderne og noten om
+     weekenden står her, og knapperne fører direkte til Instagram, Facebook,
+     hendes telefon og bookingen.
+
+     Alle links kommer fra data/business.yaml. Står et felt tomt, forsvinder
+     knappen — der linkes aldrig til en tom Facebook-side.
+     ===================================================================== */ -}}
+{{- $L := .Site.Language.Lang -}}
+{{- $c := (index hugo.Data.site $L).contact -}}
+{{- $u := index hugo.Data.ui $L -}}
+{{- $p := hugo.Data.business -}}
+<section class="section" id="kontakt">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-copy reveal">
+        <p class="eyebrow">{{ $c.eyebrow }}</p>
+        <h2>{{ $c.heading }}</h2>
+        <p class="contact-lede">{{ $c.text }}</p>
+
+        <div class="contact-actions">
+          {{ with $p.phone }}
+          <a class="contact-btn" href="tel:{{ . | replaceRE `[^0-9+]` `` }}">
+            {{ partial "icon.html" "phone" }}
+            <span class="contact-btn-text">
+              <b>{{ $c.callLabel }}</b>
+              <small>{{ . }}</small>
+            </span>
+          </a>
+          {{ end }}
+
+          <a class="contact-btn" href="{{ $p.instagramDM | default $p.instagram }}" target="_blank" rel="noopener">
+            {{ partial "icon.html" "instagram" }}
+            <span class="contact-btn-text">
+              <b>{{ $c.instagramLabel }}</b>
+              <small>@{{ $p.instagramHandle }}</small>
+            </span>
+          </a>
+
+          {{ with $p.messenger | default $p.facebook }}
+          <a class="contact-btn" href="{{ . }}" target="_blank" rel="noopener">
+            {{ partial "icon.html" "facebook" }}
+            <span class="contact-btn-text">
+              <b>{{ $c.facebookLabel }}</b>
+              <small>{{ $p.facebookPageName }}</small>
+            </span>
+          </a>
+          {{ end }}
+        </div>
+
+        <a href="#booking" class="btn btn--primary contact-book">
+          {{ $u.nav.book }} {{ partial "icon.html" "arrow" }}
+        </a>
+      </div>
+
+      <aside class="contact-hours reveal d1">
+        <h3>{{ partial "icon.html" "clock" }}{{ $c.hoursTitle | default $u.footer.hours }}</h3>
+        {{ partial "openinghours.html" . }}
+        {{ with $c.hoursNote }}<p class="contact-hours-note">{{ . }}</p>{{ end }}
+
+        <h3 class="contact-where-title">{{ partial "icon.html" "pin" }}{{ $c.whereTitle }}</h3>
+        <p class="contact-where">{{ with $p.streetAddress }}{{ . }}, {{ end }}{{ $p.postalCode }} {{ $p.city }}</p>
+        {{ with $c.parking }}<p class="contact-parking">{{ . }}</p>{{ end }}
+      </aside>
+    </div>
+  </div>
+</section>

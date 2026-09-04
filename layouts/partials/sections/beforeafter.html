@@ -13,6 +13,9 @@
          hele resultatsektionen mangle i sidens overskriftsstruktur, og en
          skærmlæser ville lande i et navnløst område fulgt af billeder. */}}
     <h2 class="visually-hidden">{{ $ba.heading }}</h2>
+    {{/* Linjen står derimod fremme. Den fortæller, at billederne er
+         rigtige kunder, og det er ikke noget man kan se på et før/efter. */}}
+    {{ with $ba.text }}<p class="ba-lede reveal">{{ . }}</p>{{ end }}
 
     {{ with index $pairs 0 }}
     <div class="ba-wrap reveal d1">

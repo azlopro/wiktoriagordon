@@ -3,7 +3,20 @@
 {{/* Bevidst UDEN knap: den pegede på booking-sektionen umiddelbart
      ovenfor. Wiktorias §19 er en afsluttende sætning, ikke en
      opfordring — "cta"-feltet bruges ikke længere. */}}
-<section class="section finalcta">
+{{/* Baggrundsfotoet er valgfrit. Er images.finalctaBg tomt, ser sektionen
+     ud præcis som før: hvid bund, bordeaux overskrift. Wiktoria bad
+     4/9-2026 om at få et af sine studiefotos brugt "in the background if
+     they fit", og det er sådan, det kan slås fra igen uden kodeændring.
+
+     Et <img> og ikke background-image: så kan browseren udsætte hentningen
+     (billedet står nederst på siden) og kende størrelsen på forhånd, så
+     layoutet ikke hopper. */}}
+{{ $bg := hugo.Data.images.finalctaBg }}
+<section class="section finalcta{{ if $bg }} finalcta--photo{{ end }}">
+  {{ with $bg }}
+  <img class="finalcta-bg" src="{{ . | relURL }}" alt="" aria-hidden="true"
+       width="1800" height="1013" loading="lazy" decoding="async">
+  {{ end }}
   <div class="container">
     <div class="finalcta-inner reveal">
       <h2>{{ $c.heading }}</h2>

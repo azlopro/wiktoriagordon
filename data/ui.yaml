@@ -19,6 +19,7 @@ da:
     prices: "Priser"
     about: "Om"
     faq: "FAQ"
+    contact: "Kontakt"
     policy: "Politik"
     privacy: "Privatliv"
     book: "Book tid"
@@ -28,8 +29,10 @@ da:
     popular: "Populær"
     bookThis: "Book"
     expectHeading: "Det kan du forvente"
+    readMore: "Læs mere"
+    readLess: "Vis mindre"
     heroBadge: ""
-    heroResultAlt: "Wiktoria Gordon, indehaver af Wiktoria Gordon Beauty"
+    heroResultAlt: "Nærbillede af en kundes øjne og bryn, mens brynene bliver børstet"
     moreOnInstagram: "Se flere resultater på Instagram"
 
   groups:
@@ -53,6 +56,7 @@ da:
     menu: "Menu"
     contact: "Kontakt"
     hours: "Åbningstider"
+    closed: "Lukket"
     rights: "Alle rettigheder forbeholdes."
     tagline: "Booking via Instagram · Horsens, Danmark"
 
@@ -117,10 +121,10 @@ da:
     # Adressen oplyses KUN her, foerst efter betalt depositum. Lukker kunden
     # siden uden at gemme den, kan hun ikke finde salonen, og der er ingen
     # mail at slaa den op i. Derfor skal der staa det hoejt.
-    addressNote: "Adressen står kun her. Gem siden, eller læg aftalen i din kalender nedenfor — så følger adressen med."
+    addressNote: "Adressen står kun her. Gem siden, eller læg aftalen i din kalender nedenfor, så følger adressen med."
     prepHeading: "Inden du kommer"
     prepText: "Mød op uden mascara og uden makeup omkring øjne og bryn."
-    policyText: "Husk at du kan aflyse eller flytte din tid indtil 24 timer før. Sker det senere, mistes depositummet."
+    policyText: "Husk at du kan aflyse eller flytte din tid indtil 24 timer før. Skriv eller ring til mig, så ordner vi det. Sker det senere, mistes depositummet."
     policyLink: "Politik & information"
     contactHeading: "Har du spørgsmål"
     cancelledHeading: "Betalingen blev ikke gennemført"
@@ -153,6 +157,7 @@ en:
     prices: "Prices"
     about: "About"
     faq: "FAQ"
+    contact: "Contact"
     policy: "Policy"
     privacy: "Privacy"
     book: "Book now"
@@ -162,8 +167,10 @@ en:
     popular: "Popular"
     bookThis: "Book"
     expectHeading: "What you can expect"
+    readMore: "Read more"
+    readLess: "Show less"
     heroBadge: ""
-    heroResultAlt: "Wiktoria Gordon, owner of Wiktoria Gordon Beauty"
+    heroResultAlt: "Close-up of a client's eyes and brows while the brows are being brushed"
     moreOnInstagram: "See more results on Instagram"
 
   groups:
@@ -187,6 +194,7 @@ en:
     menu: "Menu"
     contact: "Contact"
     hours: "Opening hours"
+    closed: "Closed"
     rights: "All rights reserved."
     tagline: "Booking via Instagram · Horsens, Denmark"
 
@@ -234,10 +242,10 @@ en:
     calendarOutlook: "Outlook"
     calendarHint: "Apple downloads a file that works with any calendar. Tap it once it has downloaded."
     addressHeading: "Where"
-    addressNote: "This is the only place the address is shown. Save this page, or add the appointment to your calendar below — the address comes with it."
+    addressNote: "This is the only place the address is shown. Save this page, or add the appointment to your calendar below, and the address comes with it."
     prepHeading: "Before you come"
     prepText: "Please arrive without mascara and without makeup around your eyes and brows."
-    policyText: "Remember you can cancel or reschedule up to 24 hours before. Later than that, the deposit is lost."
+    policyText: "Remember you can cancel or reschedule up to 24 hours before. Send me a message or give me a call and we will sort it out. Later than that, the deposit is lost."
     policyLink: "Policy & information"
     contactHeading: "Any questions"
     cancelledHeading: "The payment was not completed"

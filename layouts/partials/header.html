@@ -21,11 +21,18 @@
         <li class="nav-prices--mobile"><a href="{{ "/#ydelser" | relLangURL }}">{{ $u.nav.prices }}</a></li>
         <li><a href="{{ "/#om" | relLangURL }}">{{ $u.nav.about }}</a></li>
         <li><a href="{{ "/#faq" | relLangURL }}">{{ $u.nav.faq }}</a></li>
+        <li><a href="{{ "/#kontakt" | relLangURL }}">{{ $u.nav.contact }}</a></li>
         <li><a href="{{ $policyURL }}"{{ if eq .Layout "policy" }} class="active" aria-current="page"{{ end }}>{{ $u.nav.policy }}</a></li>
       </ul>
       {{ partial "langswitch.html" . }}
       <a href="{{ "/#booking" | relLangURL }}" class="btn btn--primary nav-book">{{ $u.nav.book }}</a>
     </nav>
+
+    {{/* Sprogskifteren ligger inde i .nav-menu og er dermed gemt bag
+         burgeren på telefon. Wiktoria bad 4/9-2026 om, at man kan se EN og
+         DK i toppen med det samme. Samme greb som bookingknappen lige
+         nedenunder: to i koden, aldrig to på skærmen. */}}
+    {{ partial "langswitch.html" (dict "page" . "class" "lang-switch--compact") }}
 
     {{/* Bookingknappen ligger inde i .nav-menu, og den er gemt bag
          burgermenuen på telefon. Der var derfor ingen synlig vej til

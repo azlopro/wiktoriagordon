@@ -4,7 +4,7 @@
 {{- $sourcePath := .sourcePath -}}
 {{- $file := .file -}}
 {{- $shared := .shared -}}
-{{- $skip := slice "after" "before" "calSlug" "featured" "group" "icon" "image" "online" "socialImage" -}}
+{{- $skip := slice "after" "before" "calSlug" "featured" "group" "icon" "image" "lang" "online" "socialImage" -}}
 
 {{- if reflect.IsMap $da -}}
   {{- range $key, $daValue := $da -}}

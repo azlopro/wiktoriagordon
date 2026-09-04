@@ -49,11 +49,14 @@ Korte knap-/menutekster (fx "Book tid", "Menu", "Populær") ligger i **`i18n/da.
 
 - **`data/site.yaml`** — hero, "Om Wiktoria", priser-tekst, booking og sektionsoverskrifter.
 - **`data/services.yaml`** — behandlinger, beskrivelser, **priser**, varighed + tilvalg.
-- **`data/reviews.yaml`** — ordrette, ægte kundeanmeldelser.
+- **`data/reviews.yaml`** — ordrette, ægte kundeanmeldelser. `lang:` pr. citat
+  afgør, hvilken sprogversion det vises på (`da`, `en`, eller tomt = begge).
 - **`data/faq.yaml`** — spørgsmål/svar (bruges også til Googles FAQ-visning).
 - **`data/gallery.yaml`** — galleriets billeder og billedtekster.
 - **`data/seo.yaml`** — Google-titel, meta-beskrivelse og social link-preview pr. sprog.
-- **`data/business.yaml`** — virksomhedsoplysninger, CVR og sociale/kontakt-links.
+- **`data/business.yaml`** — virksomhedsoplysninger, CVR, sociale/kontakt-links og
+  åbningstider. Tiderne står grupperet, men vises med én linje pr. ugedag; dage,
+  der ikke er nævnt, skrives som lukket.
 - **`i18n/da.toml` / `i18n/en.toml`** — korte UI-tekster (menu, knapper, footer, 404).
 
 Alle almindelige indholds- og SEO-ændringer kan laves i `/admin/`. Domæne,
@@ -64,8 +67,10 @@ login/auth, layout og bookingintegration er bevidst ikke klientfelter.
 Sitet bruger **rigtige fotos fra Wiktorias Instagram** (rå-materialet ligger i
 `ig-posts/`, som **ikke** publiceres). De behandlede versioner ligger i `static/img/`:
 
-- `hero-portrait.jpg` — hero-portræt (hvid blazer, beskåret fri af tekst)
-- `about-portrait.jpg` — om-sektionen (studio-portræt, kontrast-forbedret)
+- `hero-treatment.jpg` — billedet i rammen øverst (behandling i gang, 4:5)
+- `about-portrait.jpg` — om-sektionen (hvid blazer i fuld figur, ubeskåret)
+- `finalcta-bg.jpg` — baggrund bag den afsluttende sætning nederst (valgfri;
+  tømmes feltet i `data/images.yaml`, står sektionen hvid som før)
 - `ba-before.jpg` / `ba-after.jpg` — den interaktive **før/efter-slider**
 - `gal-*.jpg` — galleriets fotos (nærbilleder af vipper, resultater, diptych)
 - `og-card-v2.png` / `og-card-en-v2.png` (1200×630) — billederne der vises, når linket deles
@@ -74,6 +79,41 @@ Sitet bruger **rigtige fotos fra Wiktorias Instagram** (rå-materialet ligger i
 Skift almindeligvis billeder gennem `/admin/`; panelet synkroniserer delte
 billeder på dansk og engelsk og komprimerer dem automatisk. Ved manuel
 udskiftning ligger billedstierne i `data/images.yaml` og `data/gallery.yaml`.
+
+## Ting der er lette at brække igen
+
+**Topbjælken.** Mærke, sprogskifter (DK · EN), bookingknap og burger deler én
+linje på telefon, og navnet må ikke brække. De fire skalerer jævnt med
+skærmbredden — der er bevidst ingen trin, fordi et trin altid er strammest
+lige inden det næste. Bliver noget af det større, lægger navnet sig oven i
+sprogskifteren uden at nogen CSS-regel fejler. Mål det:
+
+```bash
+hugo && bash scripts/maal-topbjaelke.sh
+```
+
+Kolonnen "luft" skal være positiv fra 320 px og op.
+
+**Behandlingskortene på telefon.** Punkterne under "Det kan du forvente" er
+foldet sammen bag "Læs mere", ikke skjult. De står altid i HTML'en, så de kan
+læses uden JavaScript og af søgemaskiner. Sæt dem ikke tilbage til
+`display: none` — det var netop det, Wiktoria bad om at få lavet om.
+
+**Heroen er tekst til venstre og et billede i en ramme til højre.** Den blev
+valgt 26/8-2026 ud af seks udgaver, og begrundelsen står i CSS'en: alle de
+udgaver, hvor teksten lå oven på fotoet, krævede hvid tekst og et slør, og så
+var både bordeauxfarven og fotografens lys væk. Der lå 4/9-2026 kortvarigt en
+foto-hero i fuld bredde her; den byggede på en fejllæsning og er rullet
+tilbage. Ligger i git under `hero--photo`.
+
+Rammen er **4:5**. Et billede i et andet format bliver beskåret, og
+udsnitspunktet på telefon står i `static/css/style.css`.
+
+**Anmeldelser og sprog.** Den danske side viser kun de danske citater og den
+engelske kun de engelske. Filtreringen sker to steder, og de skal følges ad:
+`layouts/partials/sections/reviews.html` (det man ser) og
+`layouts/partials/schema.html` (det Google får). En anmeldelse i strukturerede
+data, der ikke står på siden, er skjult indhold.
 
 ## Kør lokalt
 
@@ -139,6 +179,7 @@ static/
   fonts/  css/  js/        # design & fonte
   _headers                # CSP, HSTS, noindex og øvrige browser-headere
 scripts/security-check.sh # sikkerhedsregressioner + Hugo-produktionsbuild
+scripts/maal-topbjaelke.sh # måler at navn og sprogskifter ikke overlapper
 wrangler.jsonc            # Cloudflare Pages-konfiguration
 ```
 

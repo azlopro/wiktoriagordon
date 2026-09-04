@@ -2,7 +2,7 @@
 #  Faste billeder på forsiden. Samme billede på begge sprog, så de
 #  ligger her og ikke under da/en.
 #
-#  Stier er relative til /static/, fx "img/hero-portrait.jpg".
+#  Stier er relative til /static/, fx "img/hero-treatment.jpg".
 #  Redigeres normalt i CMS'et under "Photos" — ikke i hånden.
 # =====================================================================
 
@@ -10,5 +10,32 @@
 logo: "img/logo-wg.png"
 logoLight: "img/logo-wg-light.png"
 
-hero: "img/hero-portrait.jpg"        # Wiktoria selv, øverst på siden
-portrait: "img/about-portrait.jpg"   # portrættet i "Om Wiktoria"
+# Billedet i rammen øverst. Wiktoria bad 4/9-2026 om, at det ikke længere
+# er hende selv heroppe, men behandlingen; hun står i stedet i fuld figur
+# nede i "Om mig".
+#
+# Webfilen er lavet direkte fra hele IMG_0123.jpeg i originalens 2:3-format.
+# Foto-heroen roterer den i CSS og bruger hele originalens højde som grundlag,
+# så full-width-beskæringen bliver væsentligt mildere end med den tidligere
+# forhåndsbeskårne 4:5-fil.
+hero: "img/hero-treatment.jpg"
+# Portrættet i "Om Wiktoria". Wiktorias ønske 4/9-2026: hele billedet med
+# benene, ikke et udsnit af overkroppen. Rammen her har aspect-ratio: auto,
+# så billedet vises ubeskåret — derfor er filen hele originalen.
+portrait: "img/about-portrait.jpg"
+
+# Baggrunden bag den afsluttende sætning nederst på siden. Wiktoria sendte
+# 4/9-2026 tre studiefotos med ordene "maybe in the background if they fit,
+# but we don't have to" — det her er det ene, der er brugt.
+#
+# Er feltet TOMT, står sektionen som før: hvid bund, bordeaux overskrift.
+# Der er altså ikke noget at rette i koden, hvis den skal væk igen.
+#
+# De tre studiefotos fra 4/9-2026 står ét sted hver, så de ikke gentager
+# hinanden: IMG_0123 i rammen øverst, IMG_0129 her, IMG_0133 ubrugt.
+#
+# Alle tre er graduerede ned i mætning og lagt i en cremetone, fordi de pink
+# handsker ellers støder mod paletten. Skiftes et af dem ud med et råt
+# telefonfoto, kommer det til at råbe. Råkopierne ligger i
+# ig-posts/2026-09-04-fra-wiktoria/ (ikke i repoet).
+finalctaBg: "img/finalcta-bg.jpg"

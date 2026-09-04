@@ -13,5 +13,8 @@
   {{ partial "sections/faq.html" . }}
   {{ partial "sections/policy.html" . }}
   {{ partial "sections/booking.html" . }}
+  {{/* Kontakten står lige efter bookingen: har man ikke villet booke selv,
+       er det næste spørgsmål altid, hvordan man så får fat i hende. */}}
+  {{ partial "sections/contact.html" . }}
   {{ partial "sections/finalcta.html" . }}
 {{ end }}

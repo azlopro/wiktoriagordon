@@ -2,9 +2,14 @@
 #  Anmeldelser — ORDRETTE citater fra Facebook, som Wiktoria selv har
 #  udvalgt og sendt 22/8-2026.
 #
-#  ⚠️  Citaterne står på det sprog, kunden skrev dem på, også på den
-#      anden sprogversion. Oversæt dem ikke: et oversat citat er ikke
-#      længere det, personen skrev.
+#  ⚠️  Citaterne står på det sprog, kunden skrev dem på. Oversæt dem ikke:
+#      et oversat citat er ikke længere det, personen skrev.
+#
+#  "lang" fortæller hvilket sprog citatet ER skrevet på. Wiktoria bad
+#  4/9-2026 om, at den danske side kun viser de danske anmeldelser og den
+#  engelske kun de engelske. Listen er den samme begge steder; det er
+#  udelukkende "lang", der afgør hvilke der vises. Skrives der en ny
+#  anmeldelse uden "lang", vises den på begge sprog.
 #
 #  "service" står tomt, hvor kunden ikke selv har nævnt behandlingen.
 #  Det gættes ikke. Wiktoria kan udfylde dem i CMS'et.
@@ -12,50 +17,58 @@
 
 da:
   eyebrow: "Anmeldelser"
-  heading: "Ord fra stolen"
+  heading: "Ord fra mine kunder"
   items: &anmeldelser
     - name: "Hana Softić"
+      lang: "en"
       service: ""
       text: >-
         Wiktoria's work is great! She's very detail oriented and she'll ensure to
         check that you're happy with how everything looks. The quality is great
         and the atmosphere very nice and professional. I'm definitely coming back! 😊
     - name: "Patrycja Pietrzak"
+      lang: "da"
       service: ""
       text: >-
         Jeg fik lavet vipper hos Wiktoria, og jeg er SÅ tilfreds med resultatet!
         Hun er dygtig, sød og får en til at føle sig tryg. De bedste vipper, jeg
         har haft ✨ Kan sagtens anbefales ❤️
     - name: "Natalia Pietrzak-Strębska"
+      lang: "en"
       service: ""
       text: >-
         I'm really happy with my brow lamination and Korean lash lift. The results
         look so beautiful. The atmosphere was lovely, and Wiktoria is such a kind
         person. I left feeling very satisfied and will definitely come back! 💕
     - name: "Nadia Grønning"
+      lang: "da"
       service: ""
       text: >-
         Jeg var meget overrasket over resultatet, Wiktoria er så professionel og
         super sød. Lokalet er flot indrettet og jeg følte mig i de bedste hænder 💗
         Vil klart anbefale at få behandlinger her ✨
     - name: "Justyna Ziemianin"
+      lang: "en"
       service: ""
       text: >-
         Wiktoria really brought out the best in my lashes. I didn't even realize my
         natural lashes could look this good. I'm very happy with the result and
         would definitely recommend her. ✨
     - name: "Natalia Jastrzębska"
+      lang: "da"
       service: ""
       text: >-
         Jeg kan varmt anbefale behandlingen! 🌸 Smukt resultat, hyggelig atmosfære
         og en rigtig fair pris – jeg er super tilfreds! 🤍
     - name: "Sthefani Buquich"
+      lang: "en"
       service: ""
       text: >-
         I'm very happy with the results! She is very professional and meticulous,
         and the results truly last between 6 and 8 weeks. It's so nice to have my
         brows and lashes looking beautiful and ready every day. Highly recommended! 💗
     - name: "Wendie Raben Larsen"
+      lang: "da"
       service: ""
       text: >-
         Virkelig dygtig og grundig. Hvis du overvejer at få lavet lash lift eller
@@ -64,5 +77,5 @@ da:
 
 en:
   eyebrow: "Reviews"
-  heading: "Words from the chair"
+  heading: "Words from my clients"
   items: *anmeldelser

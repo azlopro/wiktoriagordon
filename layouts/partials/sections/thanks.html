@@ -58,6 +58,10 @@
         <div class="thanks-where">
           <h2>{{ $t.addressHeading }}</h2>
           <p class="thanks-address" id="thAddress"></p>
+          {{/* Parkeringen bygges derimod ind af Hugo. Den er ikke en
+               hemmelighed som husnummeret, og den skal stå der, uanset om
+               scriptet når at svare. */}}
+          {{ with (index hugo.Data.site $L).contact.parking }}<p class="thanks-parking">{{ . }}</p>{{ end }}
           <p class="thanks-where-note">{{ $t.addressNote }}</p>
         </div>
 

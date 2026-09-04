@@ -1,53 +1,34 @@
 {{ $L := .Site.Language.Lang }}
 {{ $h := (index hugo.Data.site $L).hero }}
-{{- $u := index hugo.Data.ui $L -}}
-{{- $p := hugo.Data.business -}}
-<section class="hero">
-  {{/* Lodret signatur i højre margen. Skjult under 1280 px, hvor der
-       ikke er margen nok til at den kan stå som en detalje. */}}
-  <span class="hero-mark" aria-hidden="true">{{ $p.businessName }}</span>
-  <div class="container hero-grid">
-    <div class="hero-copy">
-      {{/* Etiket og overskrift er samlet i én kasse, fordi de på telefon
-           flyttes ind OVEN PÅ fotoet som ét blok. På desktop er kassen
-           display: contents, altså usynlig for layoutet, og de to står
-           præcis som før. */}}
-      <div class="hero-lede">
-      <p class="eyebrow reveal">{{ $h.eyebrow }}</p>
-      <h1 class="reveal d1">
-        {{- /* The CMS uses {braces} to mark one italic phrase. Render every
-              captured part separately so Hugo still HTML-escapes editor text. */ -}}
-        {{- with findRESubmatch `^(.*?)\{([^{}]+)\}(.*)$` $h.heading 1 -}}
-          {{- $parts := index . 0 -}}
-          {{- index $parts 1 -}}<span class="accent">{{ index $parts 2 }}</span>{{- index $parts 3 -}}
-        {{- else -}}
-          {{- $h.heading -}}
-        {{- end -}}
-      </h1>
-      </div>
-      <p class="hero-sub reveal d2">{{ $h.subheading }}</p>
-      <div class="hero-actions reveal d3">
-        <a href="#ydelser" class="btn btn--primary">{{ $h.primaryCta }}</a>
-        <a href="#booking" class="btn btn--ghost">{{ $h.secondaryCta }}</a>
-      </div>
-    </div>
-
-    <div class="hero-figure reveal d2">
-      <div class="hero-frame">
-        <img src="{{ hugo.Data.images.hero | relURL }}" alt="{{ $u.labels.heroResultAlt }}"
-             width="656" height="820" fetchpriority="high">
-      </div>
-      {{/* Badgen lovede svar inden for 24 timer. Det stammer fra dengang
-           booking foregik i Instagram-beskeder, og det løfte skal ikke stå
-           på et foto, når tider snart bestilles på siden selv. Feltet er
-           tomt i stedet for slettet, så Wiktoria kan skrive noget i det via
-           /admin/ og få badgen tilbage uden at nogen skal røre koden. */}}
-      {{ with $u.labels.heroBadge }}
-      <div class="hero-badge">
-        <span class="dot" aria-hidden="true"></span>
-        <span>{{ . }}</span>
-      </div>
-      {{ end }}
+{{/* Foto-heroen er den ene af de to hero-retninger, der sammenlignes.
+     Behandlingsfotoet ligger fysisk på siden i kildefilen, så den indre
+     kasse roteres i CSS. Det ændrer ikke originalfilen og gør varianten
+     nem at skifte tilbage fra. */}}
+<section class="hero hero--photo">
+  <div class="hero-photo-media" aria-hidden="true">
+    <div class="hero-photo-rotator">
+      <img src="{{ hugo.Data.images.hero | relURL }}" alt=""
+           width="1600" height="2400" fetchpriority="high">
     </div>
   </div>
+
+  <div class="container hero-photo-content">
+    <p class="eyebrow reveal">{{ $h.eyebrow }}</p>
+    <h1 class="reveal d1">
+      {{- /* The CMS uses {braces} to mark one italic phrase. Render every
+            captured part separately so Hugo still HTML-escapes editor text. */ -}}
+      {{- with findRESubmatch `^(.*?)\{([^{}]+)\}(.*)$` $h.heading 1 -}}
+        {{- $parts := index . 0 -}}
+        {{- index $parts 1 -}}<span class="accent">{{ index $parts 2 }}</span>{{- index $parts 3 -}}
+      {{- else -}}
+        {{- $h.heading -}}
+      {{- end -}}
+    </h1>
+    <p class="hero-sub reveal d2">{{ $h.subheading }}</p>
+    <div class="hero-actions reveal d3">
+      <a href="#ydelser" class="btn btn--primary">{{ $h.primaryCta }}</a>
+      <a href="#booking" class="btn btn--ghost">{{ $h.secondaryCta }}</a>
+    </div>
+  </div>
+
 </section>

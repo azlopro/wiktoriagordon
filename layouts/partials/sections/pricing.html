@@ -26,7 +26,12 @@
             {{ range $s.main }}
               {{ if eq (.group | default "") $g }}
               <li class="price-row">
-                <span class="name">{{ .title }}{{ with .duration }}<span class="dur">{{ . }}</span>{{ end }}</span>
+                {{/* Prislisten maa gerne kalde behandlingen noget andet end
+                     kortet ovenfor. Wiktoria bad 4/9-2026 om, at lash liften
+                     staar som "+ farve" HER, hvor der ingen beskrivelse er til
+                     at fortaelle, at farven er med i prisen. Er priceTitle tom,
+                     bruges det almindelige navn. */}}
+                <span class="name">{{ .priceTitle | default .title }}{{ with .duration }}<span class="dur">{{ . }}</span>{{ end }}</span>
                 <span class="lead" aria-hidden="true"></span>
                 <span class="amt">{{ .price }}</span>
                 {{/* Fører ned til bookingen med netop denne behandling valgt.

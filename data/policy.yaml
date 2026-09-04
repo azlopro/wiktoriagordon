@@ -6,6 +6,13 @@
 #      hverken beløb, frister eller "non-refundable" — uden hendes ja.
 #      Depositum står som MobilePay, fordi det er sådan hun gør det I DAG.
 #      Skifter bookingen til kortbetaling, SKAL den linje rettes.
+#
+#  ⚠️  Wiktorias rettelser 4/9-2026: bookingsystemet er nævnt som en af de
+#      tre måder at booke på, og det står nu SORT PÅ HVIDT, at afbud og
+#      ombooking sker via besked eller opkald og ikke i systemet.
+#      Linjen om bookingsystemet er først helt sand, når booking.preview
+#      i data/site.yaml står på false. Indtil da ser en almindelig
+#      besøgende kun DM-knapperne.
 # =====================================================================
 
 da:
@@ -15,14 +22,16 @@ da:
   items:
     - title: "Booking & depositum"
       text: >-
-        Tider bookes via besked eller direkte i salonen. Der betales et
-        depositum på 200 kr. via MobilePay ved booking. Depositummet
-        refunderes ikke. Resten betales efter din behandling.
+        Tider bookes i bookingsystemet her på siden, via besked eller direkte
+        i salonen. Der betales et depositum på 200 kr. via MobilePay ved
+        booking. Depositummet refunderes ikke. Resten betales efter din
+        behandling.
     - title: "Afbud & ombooking"
       text: >-
         Du kan aflyse eller flytte din tid indtil 24 timer før det aftalte
-        tidspunkt. Sker det senere, mistes depositummet. Ellers overføres
-        depositummet til din næste tid.
+        tidspunkt. Det sker ved at skrive eller ringe til mig; det kan ikke
+        gøres i bookingsystemet. Sker det senere, mistes depositummet.
+        Ellers overføres depositummet til din næste tid.
     - title: "Udeblivelse"
       text: >-
         Udebliver du, mistes depositummet. Næste tid kan først bookes, når
@@ -52,15 +61,17 @@ en:
   items:
     - title: "Booking & deposit"
       text: >-
-        Appointments may be booked via message or directly at the salon. A
-        non-refundable deposit of 200 kr. is required via MobilePay upon
-        booking, with the remaining balance payable after your appointment.
+        Appointments can be booked in the booking system on this site, by
+        message, or directly at the salon. A non-refundable deposit of 200 kr.
+        is required via MobilePay upon booking, with the remaining balance
+        payable after your appointment.
     - title: "Cancellation & rescheduling"
       text: >-
         You can cancel or reschedule your appointment up to 24 hours before your
-        scheduled time. Failure to respect this policy will result in loss of
-        deposit; otherwise, your deposit will be transferred to your next
-        appointment.
+        scheduled time. Please do so by message or by calling me; it cannot be
+        done in the booking system. Failure to respect this policy will result
+        in loss of deposit; otherwise, your deposit will be transferred to your
+        next appointment.
     - title: "Missed appointments"
       text: >-
         A no-show results in loss of deposit. The next appointment can be

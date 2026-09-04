@@ -21,11 +21,20 @@
         <span class="service-icon">{{ partial "icon.html" $svc.icon }}</span>
         <h3>{{ $svc.title }}</h3>
         {{ with $svc.desc }}<p class="desc">{{ . }}</p>{{ end }}
+        {{/* Punkterne var skjult helt på telefon. Wiktoria skrev 4/9-2026, at
+             hele behandlingen ikke kunne læses der, og bad om et "læs mere".
+             Teksten står i HTML'en begge steder — den foldes kun sammen på
+             smalle skærme, og kun når JavaScript er i live. Uden det står den
+             fremme som før, og Google ser den altid. */}}
         {{ with $svc.expect }}
-        <p class="service-expect-title">{{ $u.labels.expectHeading }}</p>
-        <ul class="service-expect">
-          {{ range . }}<li>{{ partial "icon.html" "check" }}<span>{{ . }}</span></li>{{ end }}
-        </ul>
+        <div class="service-more" id="svc-more-{{ $i }}">
+          <p class="service-expect-title">{{ $u.labels.expectHeading }}</p>
+          <ul class="service-expect">
+            {{ range . }}<li>{{ partial "icon.html" "check" }}<span>{{ . }}</span></li>{{ end }}
+          </ul>
+        </div>
+        <button type="button" class="service-toggle" aria-expanded="false" aria-controls="svc-more-{{ $i }}"
+                data-more="{{ $u.labels.readMore }}" data-less="{{ $u.labels.readLess }}">{{ $u.labels.readMore }}</button>
         {{ end }}
         {{ with $svc.tagline }}<p class="service-tagline">{{ . }}</p>{{ end }}
         {{/* Book-knappen står modsat prisen. Den vises kun på smalle skærme:
