@@ -2,13 +2,13 @@
 #  Faste billeder på forsiden. Samme billede på begge sprog, så de
 #  ligger her og ikke under da/en.
 #
-#  Stier er relative til /static/, fx "img/hero-treatment.jpg".
+#  Offentlige billedstier starter med /img/, fx "/img/hero-treatment.jpg".
 #  Redigeres normalt i CMS'et under "Photos" — ikke i hånden.
 # =====================================================================
 
 # Monogrammet. Lys variant bruges i footeren, som har mørk bund.
-logo: "img/logo-wg.png"
-logoLight: "img/logo-wg-light.png"
+logo: "/img/logo-wg.png"
+logoLight: "/img/logo-wg-light.png"
 
 # Billedet i rammen øverst. Wiktoria bad 4/9-2026 om, at det ikke længere
 # er hende selv heroppe, men behandlingen; hun står i stedet i fuld figur
@@ -16,14 +16,14 @@ logoLight: "img/logo-wg-light.png"
 #
 # Desktop/tablet bruger en bred, korrekt orienteret webvariant af hele
 # IMG_0123.jpeg. CMS-feltet forventer altid et almindeligt landskabsfoto.
-hero: "img/hero-treatment-desktop.jpg"
+hero: "/img/hero-treatment-desktop.jpg"
 # Mobil bruger et selvstændigt, næsten kvadratisk udsnit af samme foto.
 # CMS-feltet forventer et næsten kvadratisk eller let stående billede.
-heroMobile: "img/hero-treatment-mobile.jpg"
+heroMobile: "/img/hero-treatment-mobile.jpg"
 # Portrættet i "Om Wiktoria". Wiktorias ønske 4/9-2026: hele billedet med
 # benene, ikke et udsnit af overkroppen. Rammen her har aspect-ratio: auto,
 # så billedet vises ubeskåret — derfor er filen hele originalen.
-portrait: "img/about-portrait.jpg"
+portrait: "/img/about-portrait.jpg"
 
 # Baggrunden bag den afsluttende sætning nederst på siden. Wiktoria sendte
 # 4/9-2026 tre studiefotos med ordene "maybe in the background if they fit,
@@ -39,4 +39,4 @@ portrait: "img/about-portrait.jpg"
 # handsker ellers støder mod paletten. Skiftes et af dem ud med et råt
 # telefonfoto, kommer det til at råbe. Råkopierne ligger i
 # ig-posts/2026-09-04-fra-wiktoria/ (ikke i repoet).
-finalctaBg: "img/finalcta-bg.jpg"
+finalctaBg: "/img/finalcta-bg.jpg"

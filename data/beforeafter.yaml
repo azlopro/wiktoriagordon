@@ -18,18 +18,18 @@
 
 da:
   items:
-    - before: "img/ba-lashes-brows-before.jpg"
-      after: "img/ba-lashes-brows-after.jpg"
+    - before: "/img/ba-lashes-brows-before.jpg"
+      after: "/img/ba-lashes-brows-after.jpg"
       label: "Koreansk lash lift + brynlaminering"
-    - before: "img/ba-lashes-before.jpg"
-      after: "img/ba-lashes-after.jpg"
+    - before: "/img/ba-lashes-before.jpg"
+      after: "/img/ba-lashes-after.jpg"
       label: "Koreansk lash lift"
 
 en:
   items:
-    - before: "img/ba-lashes-brows-before.jpg"
-      after: "img/ba-lashes-brows-after.jpg"
+    - before: "/img/ba-lashes-brows-before.jpg"
+      after: "/img/ba-lashes-brows-after.jpg"
       label: "Korean lash lift + brow lamination"
-    - before: "img/ba-lashes-before.jpg"
-      after: "img/ba-lashes-after.jpg"
+    - before: "/img/ba-lashes-before.jpg"
+      after: "/img/ba-lashes-after.jpg"
       label: "Korean lash lift"
