@@ -37,7 +37,7 @@ body { margin: 0; }
   color: var(--admin-text);
   background: var(--admin-bg);
   border-bottom: 1px solid var(--admin-line);
-  font-family: "Jost", system-ui, sans-serif;
+  font-family: "DM Sans", system-ui, sans-serif;
 }
 
 .intro-inner {
@@ -61,7 +61,46 @@ body { margin: 0; }
 }
 #intro a:focus-visible { outline: 2px solid var(--admin-accent); outline-offset: 3px; }
 
-#nc-root { min-height: calc(100dvh - 58px); }
+#nc-root {
+  min-height: calc(100dvh - 58px);
+  --sui-font-family-default: "DM Sans", system-ui, sans-serif;
+  --sui-font-size-default: 16px;
+  --sui-font-size-small: 14px;
+  --sui-font-size-large: 18px;
+  --sui-font-size-x-large: 21px;
+  --sui-font-size-xx-large: 25px;
+}
+
+/* Sveltia marks every editable field with data-field-type. Using that stable,
+   semantic hook keeps the hierarchy readable without depending on generated
+   Svelte class names that may change during an update. */
+#nc-root [data-field-type] > header > h4 {
+  margin: 0;
+  color: var(--sui-primary-foreground-color, var(--admin-text));
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -.012em;
+  text-wrap: pretty;
+}
+
+#nc-root [data-field-type] .hint {
+  max-width: 72ch;
+  color: var(--sui-secondary-foreground-color, var(--admin-muted));
+  font-size: .875rem;
+  line-height: 1.55;
+}
+
+#nc-root :is(h1, h2, h3) {
+  color: var(--sui-primary-foreground-color, var(--admin-text));
+  font-weight: 600;
+  letter-spacing: -.018em;
+  text-wrap: balance;
+}
+
+#nc-root h1 { font-size: clamp(1.65rem, 2vw, 2rem); }
+#nc-root h2 { font-size: clamp(1.35rem, 1.6vw, 1.6rem); }
+#nc-root h3 { font-size: 1.15rem; }
 
 @media (max-width: 680px) {
   #intro { min-height: 76px; }
